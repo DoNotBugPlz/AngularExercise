@@ -1,0 +1,106 @@
+<div class="table_tip_zzy"><!--操作按钮-->
+    <!--<div class="table_tip_btn_zzy">-->
+        <!--<a href="javascript:;" ng-click="vm.opOffice()" style="width: 80px">编辑正文</a>-->
+        <!--<a href="javascript:;" ng-click="vm.delDemoPl()">删除</a>-->
+        <!--<a href="javascript:;" ng-click="vm.addMatter()">新增</a>-->
+    <!--</div>-->
+    <!--<div class="clear"></div>-->
+</div>
+<div class="select_b_zzy ">
+    <div class="leftSel_table_zzy " ng-class="{true:'up',false:'over_hide2'}[vm.advSearch]">
+        <table border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="10%" class="txt">事项名称：</td>
+                <td width="20%">
+                    <input type="text" class="sel_ipt_zzy"  ng-model="vm.searchParams.keyword"/>
+                </td>
+
+                <!--<td  class="txt">生效时间：</td>-->
+                <!--<td  class="txt_center">-->
+                    <!--<input type="text" class="sel_ipt_zzy sel_ipt_zzy_size pull_left Wdate" style="width: 40%"-->
+                           <!--ng-model="vm.searchParams.start_date" ng-date="yyyy-MM-dd"-->
+                           <!--id="start_date" name="start_date"-->
+                    <!--/>-->
+                <!--</td>-->
+
+                <!--<td  class="txt">截止日期：</td>-->
+                <!--<td  class="txt_center">-->
+                    <!--<input type="text" class="sel_ipt_zzy sel_ipt_zzy_size pull_left Wdate" style="width: 40%"-->
+                           <!--ng-model="vm.searchParams.start_date" ng-date="yyyy-MM-dd"-->
+                           <!--id="" name="start_date"-->
+                    <!--/>-->
+
+                <!--</td>-->
+
+                <td class="left">
+                    <a href="javascript:;" class="sel_btn_zzy " ng-click="vm.loadAuditorList()">查询</a>
+                    <a href="javascript:;" class="reSet_btn_zzy" ng-click="vm.clearSearchParams()">重置</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+<div class="table_box_zzy top1_zzy">
+    <div class="table_tip_zzy" style="width:100%;">
+        <div class="clear"></div>
+    </div>
+
+    <div class="table_head_zzy marginB2">
+        <table>
+            <tr>
+                <td width="5%">
+                    <input type="checkbox" ng-model="allSelected" class="ipt_check"
+                           ng-click="vm.selectAll(vm.matterList)"/>
+                </td>
+                <td width="5%">序号</td>
+                <td width="20%">任务名称</td>
+                <td width="10%">办理部门</td>
+                <td width="10%">办理人</td>
+
+                <td width="10%">办理状态</td>
+                <td width="10%">开始时间</td>
+                <td width="8%">结束时间</td>
+                <td width="8%">办理周期</td>
+                <td width="8%">办理意见</td>
+
+                <td width="8%">操作</td>
+            </tr>
+        </table>
+    </div>
+    <div id="query_nothing" class="nothing nothingTop"
+         ng-show="!!!vm.matterList||vm.matterList.length==0">
+        <span></span>暂无数据
+    </div>
+
+    <div class="table_main_zzy" m-custom-scrollbar>
+
+        <table ng-hide="!!!vm.matterList||vm.matterList.length==0">
+            <tr ng-repeat="n in vm.matterList track by $index" ng-class-even="'bgcolor'"
+                ng-class="{'false':'','true':'selected'}[n.selected]">
+                <td width="5%" ng-click="vm.selectItem(n)">
+                    <input type="checkbox" ng-model="n.selected" ng-click="$event.stopPropagation();"/>
+                </td>
+                <td width="5%">{{ $index + 1+ (vm.currentPageInf.pageNumber-1)*vm.currentPageInf.pageSize }}</td>
+                <td width="20%" style="text-align: left">{{n.name| limitTo:6}}<span
+                        ng-if="n.content.length>6">......</span></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="8%"></td>
+                <td width="8%"></td>
+                <td width="8%"></td>
+                <td width="8%">
+                    <a href="javascript:;" class="table_main1_a" ng-click="vm.viewMatter(n)">查看</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="table-tfoot">
+        <div class="table_page">
+            <div ng-turn-page="vm.auditorListPage" turn-page-fn="vm.loadAuditorList"></div>
+        </div>
+    </div>
+</div>

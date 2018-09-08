@@ -1,0 +1,72 @@
+<div class="popWhite"   >
+    <div class="css-content" m-custom-scrollbar  ng-form="index_form">
+        <table cellpadding="0" cellspacing="0">
+                <tr>
+                    <td  class="name name-height">指标名称</td>
+                    <td  class="value">
+                        <input  type="text"  name="name"  ng-class="{true:'warn',false:''}[index_form.name.$error.required]"
+                                  ng-model="vm.cf_index.name" ng-readonly="vm.operate_flag" required  maxlength="20"/>
+                    </td>
+                    <td  class="name name-height">指标性质</td>
+                    <td class="value">
+                        <div class="chosen_div"  ng-class="{true:'warn',false:''}[index_form.index_nature.$error.required]">
+                            <select class="sel_sel_zzy" name="index_nature" required
+                                     ng-model="vm.cf_index.index_nature"
+                                     ng-disabled="vm.operate_flag || vm.index_nature_flag"
+                                     ng-chosen
+                                     ng-chosen-data="vm.index_properties"
+                                     ng-options="n.id as n.chinaname for n in vm.index_properties">
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td  class="name name-height">指标类别</td>
+                    <td class="value">
+                        <div class="chosen_div"  ng-class="{true:'warn',false:''}[index_form.index_category.$error.required]">
+                            <select class="sel_sel_zzy"  name="index_category" required
+                                     ng-model="vm.cf_index.index_category"
+                                     ng-disabled="vm.operate_flag"
+                                     ng-chosen
+                                     ng-chosen-data="vm.benchmark_index"
+                                     ng-options="n.id as n.chinaname for n in vm.benchmark_index">
+                            </select>
+                        </div>
+                    </td>
+                    <td  class="name name-height">状态</td>
+                    <td  class="value">
+                        <div class="chosen_div"  ng-class="{true:'warn',false:''}[index_form.delstatus.$error.required]">
+                            <select class="sel_sel_zzy" name="delstatus" required
+                                     ng-model="vm.cf_index.delstatus"
+                                     ng-disabled="vm.operate_flag"
+                                     ng-chosen
+                                     ng-chosen-data="vm.delstatus"
+                                     ng-options="n.id as n.chinaname for n in vm.delstatus">
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+
+            <tbody ng-if = "vm.cf_index.index_nature ==3">
+                <tr ng-repeat="n in vm.sys_category_values track by $index">
+                    <td  class="name name-height">选项{{n.extchar1}}的内容</td>
+                    <td  class="value">
+                        <input  type="text"  name="chinaname"  ng-class="{true:'warn',false:''}[index_form.chinaname.$error.required]"
+                                  ng-model="n.chinaname" ng-value="n.chinaname" ng-disabled="!n.operable"  required  maxlength="20"/>
+                    </td>
+                    <td  class="name name-height">选项{{n.extchar1}}的数值</td>
+                    <td  class="value">
+                        <input  type="text"  name="refid"  ng-class="{true:'warn',false:''}[index_form.refid.$error.required]"
+                                 ng-model="n.refid" ng-value="n.refid" ng-disabled="!n.operable" required  maxlength="10"/>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="popBottom">
+        <a class="table_main1_a" style="width: auto" ng-show="vm.cf_index.index_nature ==3 && !vm.operate_flag" ng-click="vm.addOption()">新增选项</a>
+        <a class="table_main1_a" ng-show="!vm.operate_flag" ng-click="vm.saveOrUpdateIndex()" >保存</a>
+        <a class="table_main1_a" ng-click="vm.cancelDialog()">取消</a>
+    </div>
+</div>

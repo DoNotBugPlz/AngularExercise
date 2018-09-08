@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=8,9,10"/>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title></title>
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+    <!--<link type="text/css" rel="stylesheet" href="./lib/ng-dialog/ngDialog.css"/>-->
+
+    <!--<link type="text/css" rel="stylesheet" href="./home/style/reset.css"/>-->
+    <!--<link type="text/css" rel="stylesheet" href="./home/style/frame.css"/>-->
+
+    <link rel="stylesheet" href="../styles/css/reset.css">
+    <link rel="stylesheet" href="../styles/css/main.css">
+    <link rel="stylesheet" href="../styles/css/green/master_green.css">
+    <link rel="stylesheet" href="../styles/css/green/style_green.css">
+    <!--<link rel="stylesheet" href="../styles/css/debug.css">-->
+
+
+    <link type="text/css" rel="stylesheet" href="./lib/toastr/toastr.min.css"/>
+    <!--<link type="text/css" rel="stylesheet" href='./utils/app.modal/app.modal.css'/>-->
+    <link type="text/css" rel="stylesheet" href="./system/style/css/system.css">
+    <link type="text/css" rel="stylesheet" href="./lib/normalize/normalize.css"/>
+    <link rel="stylesheet" href="lib/ng-dialog/css/ngDialog.css">
+    <link rel="stylesheet" href="lib/ng-dialog/css/ngDialog-theme-default.css">
+    <!--<link rel="stylesheet" href="lib/ng-dialog/css/ngDialog-theme-plain.min.css">-->
+    <link rel="stylesheet" href="../styles/css/project_reset.css">
+
+    <!--图片点击放大css-->
+    <link rel="stylesheet" type="text/css" href="../styles/css/picshow/picshow.css"/>
+    <!--图片点击放大css-->
+</head>
+<body ng-app="app" class="auto_1280">
+<div ng-if="loadFlag" class="filter_loading_bg">
+    <div class="loading"></div>
+</div>
+<div>
+    <div ui-view="main"></div>
+</div>
+</body>
+
+<!--[if lt IE 9]>
+<script type="text/javascript" src="./lib/es5-shim/es5-shim.js"></script>
+<![endif]-->
+
+<script type="text/javascript" src="./lib/lodash/lodash.js"></script>
+<script type="text/javascript" src="./lib/jquery/1.11.1/jquery.js"></script>
+<script type="text/javascript" src="./lib/jquery/form/jquery.form.js"></script>
+<script type="text/javascript" src="./lib/angularjs/angular.js"></script>
+<script type="text/javascript" src="./lib/angular-ui-router/angular-ui-router.js"></script>
+<script type="text/javascript" src="./lib/oclazyload/ocLazyLoad.js"></script>
+<script type="text/javascript" src="./lib/angular-local-storage/angular-local-storage.js"></script>
+<script type="text/javascript" src="./lib/toastr/toastr.min.js"></script>
+<!--<script type="text/javascript" src="./lib/ng-dialog/ngDialog.js"></script>-->
+<script type="text/javascript" src="./lib/ng-dialog/js/ngDialog.js"></script>
+<script type="text/javascript" src="./lib/ng-layer/layer.min.js"></script>
+
+<script type="text/javascript" src="./lib/ng-infinite-scroll/ng-infinite-scroll.js"></script>
+<script type="text/javascript" src="./lib/angular-sanitize/angular-sanitize.js"></script>
+<script type="text/javascript" src="./lib/jquery/placeholder/placeholder.js"></script>
+<script type="text/javascript" src="./lib/EncodeData/hmac-sha256.js"></script>
+<script type="text/javascript" src="./lib/EncodeData/enc-base64-min.js"></script>
+<script type="text/javascript" src="./lib/EncodeData/cryptico-min.js"></script>
+<script type="text/javascript" src="./utils/app.tools.js"></script>
+<script type="text/javascript" src="./lib/eventbusjs/lib/eventbus.min.js"></script>
+<!--<script type="text/javascript" src="./lib/angular-popups/angular-popups.js"></script>-->
+<script type="text/javascript" src="./app.module.js"></script>
+<script type="text/javascript" src="./app.route.js"></script>
+
+<script type="text/javascript" src="./core/core.module.js"></script>
+<script type="text/javascript" src="./core/core.config.js"></script>
+<script type="text/javascript" src="./core/core.service.js"></script>
+<script type="text/javascript" src="utils/app.imgView.js"></script>
+<script type="text/javascript" src="./blocks/interceptor/app.interceptor.js"></script>
+
+<script type="text/javascript" src="./login/login.module.js"></script>
+<script type="text/javascript" src="./login/login.route.js"></script>
+
+<script type="text/javascript" src="./home/home.module.js"></script>
+<script type="text/javascript" src="./home/home.route.js"></script>
+<script type="text/javascript" src="./desktop/desktop.module.js"></script>
+<!--综合办公模块-->
+<script type="text/javascript" src="office/office.module.js"></script>
+<script type="text/javascript" src="office/office.route.js"></script>
+
+<script type="text/javascript" src="office/interaction/interactionmsg/interactionmsg.module.js"></script>
+<script type="text/javascript" src="office/interaction/interactionmsg/interactionmsg.route.js"></script>
+
+
+<script type="text/javascript" src="./system/changepassword/changepwd.module.js"></script>
+<script type="text/javascript" src="./system/changepassword/changepwd.route.js"></script>
+<script type="text/javascript" src="./system/dept/dept.module.js"></script>
+<script type="text/javascript" src="./system/dept/dept.route.js"></script>
+<script type="text/javascript" src="./system/menu/menu.module.js"></script>
+<script type="text/javascript" src="./system/menu/menu.route.js"></script>
+
+<!--监测材料管理-->
+<script type="text/javascript" src="./material/material.module.js"></script>
+<script type="text/javascript" src="./material/material.route.js"></script>
+
+<script type="text/javascript" src="./submission/submission.module.js"></script>
+<script type="text/javascript" src="./submission/submission.route.js"></script>
+
+<!--交流互动管理-->
+<script type="text/javascript" src="./exchange/exchange.module.js"></script>
+<script type="text/javascript" src="./exchange/exchange.route.js"></script>
+
+<!--待填报列表-监测点工作人员-->
+<script type="text/javascript" src="./monitoringPoint/monitoringPointWorker/monitoringPointWorker.module.js"></script>
+<script type="text/javascript" src="./monitoringPoint/monitoringPointWorker/monitoringPointWorker.route.js"></script>
+
+<!--监测分析报告管理-模版配置-->
+<script type="text/javascript" src="./masterplate/masterplate.module.js"></script>
+<script type="text/javascript" src="./masterplate/masterplate.route.js"></script>
+
+
+<!--  角色管理-->
+<script type="text/javascript" src="./system/roles/roles.module.js"></script>
+<script type="text/javascript" src="./system/roles/roles.route.js"></script>
+
+<!--  字典管理 -->
+<script type="text/javascript" src="./system/category/category.module.js"></script>
+<script type="text/javascript" src="./system/category/category.route.js"></script>
+
+
+<!--  短信平台-->
+<script type="text/javascript" src="./sms/sms.module.js"></script>
+<script type="text/javascript" src="./sms/sms.route.js"></script>
+<!--  敏感词-->
+<script type="text/javascript" src="./sms/sensitivewords/senstive.module.js"></script>
+<script type="text/javascript" src="./sms/sensitivewords/sensitve.route.js"></script>
+
+<script type="text/javascript" src="./sms/log/smslog.module.js"></script>
+<script type="text/javascript" src="./sms/log/smslog.route.js"></script>
+<!--短信监控平台-->
+<script type="text/javascript" src="./sms/servermonitor/smsmonitor.module.js"></script>
+<script type="text/javascript" src="./sms/servermonitor/smsmonitor.route.js"></script>
+
+<!--监测数据审验-->
+<script type="text/javascript" src="./verification/verification.module.js"></script>
+<script type="text/javascript" src="./verification/verification.route.js"></script>
+
+<script type="text/javascript" src="./verification/batch/batchverification.module.js"></script>
+<script type="text/javascript" src="./verification/batch/batchverification.route.js"></script>
+
+
+<script type="text/javascript" src="./verification/one/oneverification.module.js"></script>
+<script type="text/javascript" src="./verification/one/oneverification.route.js"></script>
+
+
+<script type="text/javascript" src="./verification/reviewed/reviewed.module.js"></script>
+<script type="text/javascript" src="./verification/reviewed/reviewed.route.js"></script>
+
+<script type="text/javascript" src="./verification/automatic/automatic.module.js"></script>
+<script type="text/javascript" src="./verification/automatic/automatic.route.js"></script>
+
+
+
+<!--价格异动监测维护-->
+<script type="text/javascript" src="./matter/matter.module.js"></script>
+<script type="text/javascript" src="./matter/matter.route.js"></script>
+
+
+<script type="text/javascript" src="./matter/find/matterfind.module.js"></script>
+<script type="text/javascript" src="./matter/find/matterfind.route.js"></script>
+
+<script type="text/javascript" src="./matter/auditor/auditor.module.js"></script>
+<script type="text/javascript" src="./matter/auditor/auditor.route.js"></script>
+
+
+<!--组织人员管理-->
+<script type="text/javascript" src="./organization/monitorInstitution/monitorInstitution.module.js"></script>
+<script type="text/javascript" src="./organization/monitorInstitution/monitorInstitution.route.js"></script>
+
+
+<!--组织人员管理-统计-->
+<script type="text/javascript" src="./organization/institutions/institutions.module.js"></script>
+<script type="text/javascript" src="./organization/institutions/institutions.route.js"></script>
+
+<!-- 商品基准库管理-->
+<script type="text/javascript" src="./goodsReferenceLib/standardGoodsReferenceLib/goodsReferenceLib.module.js"></script>
+<script type="text/javascript" src="./goodsReferenceLib/standardGoodsReferenceLib/goodsReferenceLib.route.js"></script>
+
+<!--商品条码管理-->
+<script type="text/javascript" src="./goodsReferenceLib/barCodeManage/barCodeManage.module.js"></script>
+<script type="text/javascript" src="./goodsReferenceLib/barCodeManage/barCodeManage.route.js"></script>
+
+<!--监测指标管理-->
+<script type="text/javascript" src="./goodsReferenceLib/monitoringIndexManage/monitoringIndexManage.module.js"></script>
+<script type="text/javascript" src="./goodsReferenceLib/monitoringIndexManage/monitoringIndexManage.route.js"></script>
+
+<script type="text/javascript" src="./weboffice/weboffice.module.js"></script>
+
+<script type="text/javascript" src="./lib/NTKOWebOffice/NTKOWebOfficeManager.js"></script>
+<script type="text/javascript" src="./utils/app.file.js"></script>
+
+<script type="text/javascript" src="./demo/demo_list_form/demo.module.js"></script>
+<script type="text/javascript" src="./demo/demo_list_form/demo.route.js"></script>
+
+<!--价格监测管理 通用商品 数据查询分析 监测数据查询-->
+<script type="text/javascript" src="./priceMonitorGoods/queryAnalysisData/querymonitordata.module.js"></script>
+<script type="text/javascript" src="./priceMonitorGoods/queryAnalysisData/querymonitordata.route.js"></script>
+<!--价格监测管理 通用商品 数据查询分析 监测数据查询下级-->
+<script type="text/javascript" src="./priceMonitorGoods/queryAnalysisDataLower/querymonitordatalower.module.js"></script>
+<script type="text/javascript" src="./priceMonitorGoods/queryAnalysisDataLower/querymonitordatalower.route.js"></script>
+<!--价格监测管理 通用商品 数据查询分析 监测数据查询共享-->
+<script type="text/javascript" src="./priceMonitorGoods/queryAnalysisDataShare/querymonitordatashare.module.js"></script>
+<script type="text/javascript" src="./priceMonitorGoods/queryAnalysisDataShare/querymonitordatashare.route.js"></script>
+
+
+<!--组织人员管理-->
+<script type="text/javascript" src="./system/organization/organization.module.js"></script>
+<script type="text/javascript" src="./system/organization/organization.route.js"></script>
+
+<script type="text/javascript" src="./system/statistics/priceCollectorSign/priceCollectorSign.module.js"></script>
+<script type="text/javascript" src="./system/statistics/priceCollectorSign/priceCollectorSign.route.js"></script>
+
+<!-- 对外材料 -->
+<script type="text/javascript" src="./foreignMaterial/foreignMaterial.module.js"></script>
+<script type="text/javascript" src="./foreignMaterial/foreignMaterial.route.js"></script>
+
+
+<!-- 文签头管理 -->
+<script type="text/javascript" src="./oa/oawqt/oa_wqt.module.js"></script>
+<script type="text/javascript" src="./oa/oawqt/oa_wqt.route.js"></script>
+
+<!-- 文号管理 -->
+<script type="text/javascript" src="./oa/oa_wh/oa_wh.module.js"></script>
+<script type="text/javascript" src="./oa/oa_wh/oa_wh.route.js"></script>
+
+<!-- 区域 -->
+<script type="text/javascript" src="./area/area.module.js"></script>
+
+
+<!-- 文号管理 -->
+<script type="text/javascript" src="./oa/oa_fw/oa_fw.module.js"></script>
+<script type="text/javascript" src="./oa/oa_fw/oa_fw.route.js"></script>
+
+
+<script type="text/javascript" src="./oa/oa_lw/oa_lw.module.js"></script>
+<script type="text/javascript" src="./oa/oa_lw/oa_lw.route.js"></script>
+
+<script type="text/javascript" src="./flow/flow_activity_user/flow_activity_user.module.js"></script>
+<script type="text/javascript" src="./flow/flow_activity_user/flow_activity_user.route.js"></script>
+
+
+<!--价格监测管理 start-->
+<script type="text/javascript"
+        src="./priceMonitorManage/currencyGoods/monitorDataCollection/monitorCenter/toFillPresentList/toFillPresentList.module.js"></script>
+<script type="text/javascript"
+        src="./priceMonitorManage/currencyGoods/monitorDataCollection/monitorCenter/toFillPresentList/toFillPresentList.route.js"></script>
+
+<script type="text/javascript"
+        src="./priceMonitorManage/currencyGoods/monitorDataCollection/monitorCenter/toFillLowerList/toFillLowerList.module.js"></script>
+<script type="text/javascript"
+        src="./priceMonitorManage/currencyGoods/monitorDataCollection/monitorCenter/toFillLowerList/toFillLowerList.route.js"></script>
+
+<script type="text/javascript"
+        src="./priceMonitorManage/currencyGoods/monitorDataCollection/monitorCenter/taskAdjustRecord/taskAdjustRecord.module.js"></script>
+<script type="text/javascript"
+        src="./priceMonitorManage/currencyGoods/monitorDataCollection/monitorCenter/taskAdjustRecord/taskAdjustRecord.route.js"></script>
+
+<script type="text/javascript"
+        src="./priceMonitorManage/currencyGoods/monitorDataCollection/monitorCenter/reportPage/reportPage.module.js"></script>
+<script type="text/javascript"
+        src="./priceMonitorManage/currencyGoods/monitorDataCollection/monitorCenter/reportPage/reportPage.route.js"></script>
+
+<script type="text/javascript"
+        src="./priceMonitorManage/currencyGoods/monitorDataCollection/monitorCenter/backEdit/backEdit.module.js"></script>
+<script type="text/javascript"
+        src="./priceMonitorManage/currencyGoods/monitorDataCollection/monitorCenter/backEdit/backEdit.route.js"></script>
+
+<script type="text/javascript"
+        src="./priceMonitorManage/currencyGoods/monitorDataCollection/monitorCenter/helpFill/helpFill.module.js"></script>
+<script type="text/javascript"
+        src="./priceMonitorManage/currencyGoods/monitorDataCollection/monitorCenter/helpFill/helpFill.route.js"></script>
+
+<script type="text/javascript" src="./priceMonitorManage/currencyGoods/monitorDataCollection/monitorCenter/reportRecord/reportRecord.module.js"></script>
+<script type="text/javascript" src="./priceMonitorManage/currencyGoods/monitorDataCollection/monitorCenter/reportRecord/reportRecord.route.js"></script>
+
+<script type="text/javascript" src="./priceMonitorManage/currencyGoods/monitorDataCollection/monitorCenter/dataImport/dataImport.module.js"></script>
+<script type="text/javascript" src="./priceMonitorManage/currencyGoods/monitorDataCollection/monitorCenter/dataImport/dataImport.route.js"></script>
+
+<script type="text/javascript" src="./priceMonitorManage/monitorTaskManage/monitorTaskManage.module.js"></script>
+<script type="text/javascript" src="./priceMonitorManage/monitorTaskManage/monitorTaskManage.route.js"></script>
+
+<!--价格监测管理/监测任务管理/监测表管理/监测表变更查询-->
+<script type="text/javascript" src="./priceMonitorManage/monitorTaskManage/monitorTableManage/monitorTableQuery.module.js"></script>
+<script type="text/javascript" src="./priceMonitorManage/monitorTaskManage/monitorTableManage/monitorTableQuery.route.js"></script>
+
+<!--价格监测管理/监测任务管理/监测表管理/监测表变更申请-->
+<script type="text/javascript" src="./priceMonitorManage/monitorTaskManage/monitorTaskChangeRequest/monitorTaskChangeRequest.module.js"></script>
+<script type="text/javascript" src="./priceMonitorManage/monitorTaskManage/monitorTaskChangeRequest/monitorTaskChangeRequest.route.js"></script>
+
+
+
+<!--价格监测管理 end -->
+
+<script type="text/javascript" src="./organization/monitorPoint/monitorPoint.module.js"></script>
+<script type="text/javascript" src="./organization/monitorPoint/monitorPoint.route.js"></script>
+
+<!--价格舆情监控start-->
+<script type="text/javascript" src="./priceOpinionMonitor/dataView/dataView.module.js"></script>
+<script type="text/javascript" src="./priceOpinionMonitor/dataView/dataView.route.js"></script>
+
+<script type="text/javascript" src="./priceOpinionMonitor/dataList/dataList.module.js"></script>
+<script type="text/javascript" src="./priceOpinionMonitor/dataList/dataList.route.js"></script>
+
+<script type="text/javascript" src="./priceOpinionMonitor/schemeManage/schemeManage.module.js"></script>
+<script type="text/javascript" src="./priceOpinionMonitor/schemeManage/schemeManage.route.js"></script>
+<!--价格舆情监控end-->
+
+<!--
+<script type="text/javascript" src="./desktop/desktop.module.js"></script>
+
+<script type="text/javascript" src="./system/menu/menu.module.js"></script>
+<script type="text/javascript" src="./system/menu/menu.route.js"></script>
+
+<script type="text/javascript" src="./system/blog/blog.module.js"></script>
+<script type="text/javascript" src="./system/blog/blog.route.js"></script>
+
+<script type="text/javascript" src="./system/role/role.module.js"></script>
+<script type="text/javascript" src="./system/role/role.route.js"></script>
+
+<script type="text/javascript" src="./system/approve/approve.module.js"></script>
+<script type="text/javascript" src="./system/approve/approve.route.js"></script>
+
+<script type="text/javascript" src="./system/committeeMember/committee.module.js"></script>
+<script type="text/javascript" src="./system/committeeMember/committee.route.js"></script>
+
+<script type="text/javascript" src="./system/submit/submit.module.js"></script>
+<script type="text/javascript" src="./system/submit/submit.route.js"></script>
+
+<script type="text/javascript" src="./system/myblog/myblog.module.js"></script>
+<script type="text/javascript" src="./system/myblog/myblog.route.js"></script>-->
+
+<!--<script type="text/javascript" src="./block/interceptor/app.interceptor.js"></script>-->
+<!--<script type="text/javascript" src="./utils/app.msg.js"></script>-->
+
+
+</html>

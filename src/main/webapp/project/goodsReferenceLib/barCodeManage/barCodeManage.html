@@ -1,0 +1,124 @@
+<div class="select_b_zzy ">
+    <div class="leftSel_table_zzy " ng-class="{true:'up',false:'over_hide2'}[vm.advSearch]">
+        <table border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="10%" class="txt">商品编码：</td>
+                <td width="20%">
+                    <input type="text" class="sel_ipt_zzy" ng-model="vm.searchParams.goods_code"/>
+                </td>
+                <td width="10%" class="txt">商品名称：</td>
+                <td width="20%">
+                    <input type="text" class="sel_ipt_zzy" ng-model="vm.searchParams.name"/>
+                </td>
+
+                <td width="10%" class="txt">状态：</td>
+                <td width="20%">
+                    <div class="chosen_div">
+                        <select ng-model="vm.searchParams.delstatus" class="sel_sel_zzy"
+                                ng-chosen
+                                ng-chosen-data="vm.category_delstatus"
+                                ng-options="n.id as n.text for n in vm.category_delstatus">
+                            <option ng-chosen-option></option>
+                        </select>
+                    </div>
+                </td>
+                <td class="left">
+                    <a href="javascript:;" class="sel_btn_zzy " ng-click="vm.loadBarCodeManageList()">查询</a>
+                    <a href="javascript:;" class="reSet_btn_zzy" ng-click="vm.reset()">重置</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="table_box_zzy top1_zzy" style="top: 70px;">
+    <div class="table_head_zzy marginB2">
+        <table>
+            <tr>
+                <td width="5%">序号</td>
+                <td width="15%">商品编码</td>
+                <td width="15%">商品名称</td>
+                <td width="10%">规格等级</td>
+                <td width="10%">计量单位</td>
+                <td width="15%">条形码</td>
+                <td width="10%">状态</td>
+                <td width="20%">操作</td>
+            </tr>
+        </table>
+    </div>
+    <div id="query_nothing" class="nothing nothingTop"
+         ng-show="!!!vm.barCodeManageList||vm.barCodeManageList.length==0">
+        <span></span>暂无数据
+    </div>
+    <div class="table_main_zzy" m-custom-scrollbar>
+        <table class="table_word_space" ng-hide="!!!vm.barCodeManageList||vm.barCodeManageList.length==0">
+            <tr ng-repeat="n in vm.barCodeManageList track by $index" ng-class-even="'bgcolor'"
+                ng-class="{'false':'','true':'selected'}[n.selected]">
+                <td width="5%">{{ $index + 1+ (vm.currentPageInf.pageNumber-1)*vm.currentPageInf.pageSize }}</td>
+                <td width="15%">{{n.goods_code}}</td>
+                <td width="15%" class="word_space">{{n.name}}</td>
+                <td width="10%">{{n.spec}}</td>
+                <td width="10%">{{n.measurement_unit}}</td>
+                <td width="15%">{{n.bar_code}}</td>
+                <td width="10%">
+                    <span ng-if="n.delstatus===0" class="color_green">已启用</span>
+                    <span ng-if="n.delstatus===1" style="color: red">已停用</span>
+                    <i ng-if="n.delstatus===0" class="start_zzy"></i>
+                    <i ng-if="n.delstatus===1" style="color: red">×</i>
+                </td>
+                <td width="20%">
+                    <a href="javascript:;" class="table_main1_a" ng-click="vm.viewBarCodeManage(n)">查看</a>
+                    <a href="javascript:;" class="table_main1_a" ng-click="vm.editBarCodeManage(n)">编辑</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="table-tfoot">
+        <div class="table_page">
+            <div ng-turn-page="vm.barCodeManageListPage" turn-page-fn="vm.loadBarCodeManageList"></div>
+        </div>
+    </div>
+</div>
+
+
+<div class="popupBg" style="display: none;height: 604px">
+    <div class="popupBody">
+        <div class="popup_title">
+            <span>查看商品条形码</span>
+            <a class="popup_close" href="javascript:;" ng-click="vm.closePop()"></a>
+        </div>
+        <div class="popup_artBox">
+            <div class="artBox_inner">
+                <table class="table_code" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td width="32%">{{vm.barCodeManage.goods_code}}</td>
+                        <td width="21.7%">{{vm.barCodeManage.name}}</td>
+                        <td width="18.3%">{{vm.barCodeManage.spec}}</td>
+                        <td width="28%">{{vm.barCodeManage.measurement_unit}}</td>
+                    </tr>
+                </table>
+                <div class="code_active" ng-show="vm.currBarCode.bar_code">
+                    <p class="code_active_title">当前条形码：</p>
+                    <p class="code_time">(添加时间：{{vm.currBarCode.uploaded_time}})</p>
+                    <p class="code_time">
+                        (条码状态：{{(vm.currBarCode.delstatus===0)?'已启用':(vm.currBarCode.delstatus===1)?'已停用':'暂无'}})
+                    </p>
+                    <div class="code_img"
+                         img-src-div img-src-params="vm.currBarCode.bar_code"
+                         img-src-begin="../Cf_goods_bar_code/loadImg.do?code="></div>
+                </div>
+
+                <div class="code_history" ng-show="vm.currBarCode.bar_code">
+                    <p class="code_history_title">历史条形码：</p>
+                    <div class="code_history_box" ng-repeat="n in vm.hisBarCodeList">
+                        <p class="code_time padding">(添加时间：{{n.uploaded_time}})</p>
+                        <p class="code_time padding">(条码状态：{{(n.delstatus===0)?'已启用':(n.delstatus===1)?'已停用':'暂无'}})</p>
+                        <div class="code_img"
+                             img-src-div img-src-params="n.bar_code"
+                             img-src-begin="../Cf_goods_bar_code/loadImg.do?code="></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

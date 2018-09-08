@@ -1,0 +1,146 @@
+﻿<div class="easyui-panel" fit="true" border="false">
+    <!--padding:5px;border:1px solid #ddd;  -->
+    <div class="datagrid-toolbar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveTableInfoForm()"
+            data-options="plain:true,iconCls:'icon-save'">保存</a>
+    </div>
+    <div>
+        <form id="tableBasicInfoform" method="post" action="../../../Sys_tablesremark/SaveForm.do">
+        <table style="padding-left: 20px;">
+            <colgroup>
+                <col style="width: 120px;" align="center" />
+                <col style="width: 220px;" />
+                <col style="width: 120px;" align="center" />
+                <col style="width: 220px;" />
+            </colgroup>
+            <tr height="30px">
+                <td align="left">
+                    物理表名称:
+                </td>
+                <td align="left">
+                    <input class="easyui-validatebox" type="text" id="tablename" readonly name="sys_tablesremark.tablename"
+                        style="width: 200px; border-bottom: 1; border-top: 0; border-left: 0; border-right: 0;" />
+                </td>
+                <td align="left">
+                    表别名:
+                </td>
+                <td align="left">
+                    <input class="easyui-validatebox" type="text" id="txtAlias" name="sys_tablesremark.alias"
+                        style="width: 200px;" data-options="required:true" />
+                </td>
+            </tr>
+            <tr height="30px">
+                <td align="left">
+                    物理表类型:
+                </td>
+                <td>
+                    <input class="easyui-combobox" name="sys_tablesremark.tabletype" style="width: 200px;"
+                        id="tabletype" data-options="required:true,
+                            url:rootPath + 'Sys_categoryvalue/GetCategoryValues.do?constname=TABLE_TYPE',
+                            valueField:'id',
+                            textField:'chinaname',
+                            onSelect:selectTableType,
+                            panelHeight:'auto'" />
+                </td>
+                <td align="left">
+                    所属目录：
+                </td>
+                <td>
+                    <input class="easyui-combobox" name="sys_tablesremark.foldertype" style="width: 200px;"
+                        data-options="required:true,
+                            url:rootPath + 'Sys_categoryvalue/GetCategoryValues.do?constname=TABLE_CATEGORYID',
+                            valueField:'id',
+                            textField:'chinaname',
+                            panelHeight:'auto'" />
+                </td>
+            </tr>
+            <tr height="30px">
+                <td align="left">
+                    从属主表名:
+                </td>
+                <td align="left">
+                    <input class="easyui-combobox" name="sys_tablesremark.summarytable" style="width: 200px;"
+                        id="maintablename" data-options=" 
+                     url:rootPath + 'Sys_tablesremark/GetCanSelectTables.do?tablename='+tablename,
+                    valueField:'tablename',
+                    textField:'tablename',
+                    panelHeight:'300'" />
+                </td>
+                <td align="left">
+                    关联主表主键的列:
+                </td>
+                <td align="left">
+                    <input class="easyui-combobox" name="sys_tablesremark.summarycol" style="width: 200px;"
+                        id="maintablecol" data-options=" 
+                       url:rootPath + 'Sys_colsremark/LoadColsByTableName.do?tablename='+tablename,
+                    valueField:'colname',
+                    textField:'colname',
+                    panelHeight:'auto'" />
+                </td>
+            </tr>
+            <tr>
+                <td align="left">
+                    默认排序列:
+                </td>
+                <td align="left">
+                    <input class="easyui-combobox" name="sys_tablesremark.sortcolname" style="width: 200px;"
+                        data-options="required:true,
+                            url:rootPath + 'Sys_colsremark/LoadColsByTableName.do?tablename='+tablename,
+                            valueField:'colname',
+                            textField:'alias',
+                            multiple:true,
+                            panelHeight:'auto'" />
+                </td>
+                <td align="left">
+                    业务数据可清除:
+                </td>
+                <td align="left">
+                    <input type="checkbox" id="chkCandeletedata" name="sys_tablesremark.candeletedata" />
+                </td>
+            </tr>
+            <tr height="30px">
+                <td align="left">
+                    正文文件名使用列:
+                </td>
+                <td align="left" colspan="3">
+                    <input type="text" name="sys_tablesremark.filenamecol" style="width: 560px;" />
+                </td>
+            </tr>
+            <tr height="30px">
+                <td align="left">
+                    实体类所在的程序集名称（.Net使用）:
+                </td>
+                <td align="left">
+                    <input class="easyui-validatebox" type="text" id="sys_tablesremark_assemblyname"
+                        name="sys_tablesremark.assemblyname" style="width: 200px;" value="SkySpace.Model" />
+                </td>
+                <td align="left">
+                    实体类的完全限定名（即包括命名空间）:
+                </td>
+                <td align="left">
+                    <input class="easyui-validatebox" type="text" id="sys_tablesremark_fullclassname"
+                        name="sys_tablesremark.fullclassname" style="width: 200px;"/>
+                </td>
+            </tr>
+            
+            <tr height="30px">
+                <td align="left">
+                    JAVA用实体类名称(完成路径，包括包名)
+                </td>
+                <td align="left" colspan="3">
+                    <input type="text" name="sys_tablesremark.javafullclassname" style="width: 560px;" />
+                </td>
+               
+            </tr>
+            <tr height="30px">
+                <td align="center">
+                    备注:
+                </td>
+                <td colspan="3">
+                    <textarea name="sys_tablesremark.remark" style="width: 560px"></textarea>
+                </td>
+            </tr>
+        </table>
+        </form>
+    </div>
+</div>

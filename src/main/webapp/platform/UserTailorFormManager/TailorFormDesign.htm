@@ -1,0 +1,27 @@
+﻿<div id="panel" class="easyui-panel" data-options=" fit:true,onResize:setFormDesignerSize" border="true">
+    <div class="datagrid-toolbar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveTailorFormContent();"
+            data-options="plain:true,iconCls:'icon-save'">保存</a><a href="javascript:void(0)" class="easyui-linkbutton" onclick="changeTailorFormPrintTab();"
+            data-options="plain:true,iconCls:'icon-search'">文书套打</a>
+    </div>
+    <script id="tailorFormDesigner" type="text/plain" style="height: 82%">
+    </script>
+</div>
+<script language="javascript">
+    $(function () {
+        if (!currentTailorFormDesigner)
+            currentTailorFormDesigner = UE.getEditor('tailorFormDesigner');
+
+        currentTailorFormDesigner.ready(function () {
+            $("#panel").panel("resize");
+            GlobalTools.ajax({
+                url: rootPath + "Sys_def_tailorformcontent/LoadForm.do",
+                data: { tailorformid: currentTailorFormid },
+                success: function (result) {
+                    currentTailorFormDesigner.setContent(result.formcontent);
+                }
+            });
+        });
+
+    });
+</script>

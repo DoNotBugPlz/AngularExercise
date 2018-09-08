@@ -1,0 +1,99 @@
+<div class="table_tip_zzy">
+    <div class="table_tip_btn_zzy">
+        <a href="javascript:;" ng-click="vm.delMaterialPl()">删除</a>
+        <a href="javascript:;" ng-click="vm.addMaterial()">新增</a>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="select_b_zzy ">
+    <div class="leftSel_table_zzy " ng-class="{true:'up',false:'over_hide2'}[vm.advSearch]">
+        <table border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="10%" class="txt">关键字：</td>
+                <td width="20%">
+                    <input type="text" class="sel_ipt_zzy" ng-model="vm.searchParams.keyword"/>
+                </td>
+
+                <td width="10%" class="txt">材料状态：</td>
+                <td width="20%">
+                    <div class="chosen_div">
+                        <select ng-model="vm.searchParams.clattachstatus" class="sel_sel_zzy"
+                                ng-chosen
+                                ng-chosen-data="vm.clattachstatusCatagory"
+                                ng-options="n.id as n.chinaname for n in vm.clattachstatusCatagory">
+                            <option ng-chosen-option></option>
+                        </select>
+                    </div>
+                </td>
+                <td width="10%" class="txt">撰稿时间：</td>
+                <td width="20%" class="txt_center">
+                    <input type="text" class="sel_ipt_zzy sel_ipt_zzy_size pull_left Wdate" style="width: 40%"
+                           max-date="#F{$dp.$D('end_time')}" id="start_time"
+                           ng-date="yyyy-MM-dd" ng-model="vm.searchParams.start_time" name="start_time"/>
+                    <span class="ipt_line" style="width:5%;"></span>
+                    <input type="text" class="sel_ipt_zzy sel_ipt_zzy_size pull_right Wdate" style="width: 40%"
+                           min-date="#F{$dp.$D('start_time')}" id="end_time"
+                           ng-date="yyyy-MM-dd" ng-model="vm.searchParams.end_time" name="end_time"/>
+                </td>
+                <td class="left">
+                    <a href="javascript:;" class="sel_btn_zzy " ng-click="vm.loadMaterialList()">查询</a>
+                    <a href="javascript:;" class="reSet_btn_zzy" ng-click="vm.reset()">重置</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="table_box_zzy top1_zzy" style="top: 70px;">
+    <div class="table_head_zzy marginB2">
+        <table>
+            <tr>
+                <td width="5%" ng-click="vm.selectAll()">
+                    <a href="javascript:;" class="ipt_check" ng-model="vm.allSelected"
+                       ng-class="{true:'checked',false:''}[vm.allSelected]"></a>
+                </td>
+                <td width="5%">序号</td>
+                <td width="20%">材料名称</td>
+                <td width="15%">撰稿人姓名</td>
+                <td width="10%">撰稿时间</td>
+                <td width="10%">材料类型</td>
+                <td width="10%">状态</td>
+                <td width="25%">操作</td>
+            </tr>
+        </table>
+    </div>
+    <div id="query_nothing" class="nothing nothingTop"
+         ng-show="!!!vm.materialList||vm.materialList.length==0">
+        <span></span>暂无数据
+    </div>
+    <div class="table_main_zzy" m-custom-scrollbar>
+        <table class="table_word_space" ng-hide="!!!vm.materialList||vm.materialList.length==0">
+            <tr ng-repeat="n in vm.materialList track by $index" ng-class-even="'bgcolor'"
+                ng-class="{'false':'','true':'selected'}[n.selected]">
+                <td width="5%" ng-click="vm.selectItem(n)">
+                    <a href="javascript:;" class="ipt_check" ng-model="n.selected"
+                       ng-class="{true:'checked',false:''}[n.selected]"></a>
+                </td>
+                <td width="5%">{{ $index + 1+ (vm.currentPageInf.pageNumber-1)*vm.currentPageInf.pageSize }}</td>
+                <td width="20%" class="word_space" style="text-align: left">&nbsp;&nbsp;{{n.material_name}}</td>
+                <td width="15%">{{n.write_user_name}}</td>
+                <td width="10%">{{n.write_time}}</td>
+                <td width="10%">{{n.clattachtype_text}}</td>
+                <td width="10%"
+                    ng-style="{color:(n.clattachstatus===0)?'red':((n.clattachstatus===1)?'green':'orange')}">
+                    {{n.clattachstatus_text}}
+                </td>
+                <td width="25%">
+                    <a href="javascript:;" class="table_main1_a" ng-click="vm.viewMaterial(n)">查看</a>
+                    <a href="javascript:;" class="table_main1_a" ng-click="vm.editMaterial(n)">修改</a>
+                    <a href="javascript:;" class="table_main1_a" ng-click="vm.deleteMaterial(n)">删除</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="table-tfoot">
+        <div class="table_page">
+            <div ng-turn-page="vm.materialListPage" turn-page-fn="vm.loadMaterialList"></div>
+        </div>
+    </div>
+</div>

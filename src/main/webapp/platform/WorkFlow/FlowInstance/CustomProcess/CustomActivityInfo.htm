@@ -1,0 +1,116 @@
+﻿<div class="easyui-layout" fit="true" border="false">
+    <!--padding:5px;border:1px solid #ddd;  -->
+    <div data-options="region:'north'" style="height:250px">
+    <div class="datagrid-toolbar">
+        <a href="javascript:void(0)" id="saveCustomActivityForm" class="easyui-linkbutton" onclick="saveCustomActivityform()"
+            data-options="plain:true,iconCls:'icon-save'">保存流程基本信息</a>
+    </div>
+    <div>
+        <form id="customActivityform" method="post" action="../../../../Sys_custom_activity/SaveForm.do">
+        <table style="padding-left: 20px;">
+            <colgroup>
+                <col width="70px" align="left" />
+                <col align="left" />
+                <col width="60px" align="left" />
+                <col align="left" />
+            </colgroup>
+            <tr>
+                <td>
+                    活动名称:
+                </td>
+                <td colspan="3">
+                    <input class="easyui-validatebox" type="text" name="sys_custom_activity.chinaname" id="customActivityChinaname"
+                        data-options="required:true" style="width: 300px" />
+                </td>
+            </tr>
+            <tr trtype="common">
+                <td style="width:20%">
+                    办理期限:
+                </td>
+                <td style="width:30%">
+                    <input class="easyui-validatebox" type="text" id="sys_custom_activityTimelimit" name="sys_custom_activity.timelimit"
+                        style="width: 80%" />
+                </td>
+                <td style="width:20%">
+                    期限单位:
+                </td>
+                <td>
+                    <input class="easyui-combobox" name="sys_custom_activity.limitunit" id="sys_custom_activityLimitunit" data-options="
+                    					data:[{'value':0,'text':'工作日'},{'value':1,'text':'天'}],
+                    					valueField:'value',
+                    					textField:'text',
+                    					value:'',
+                    					editable:false,
+                    					panelHeight:'auto'
+                    					" style="width: 70px" />
+                </td>
+            </tr>
+             <tr trtype="common">
+                <td>
+                    允许回退:
+                </td>
+                <td colspan="3">
+                    <input class="easyui-combobox" name="sys_custom_activity.isallowback" data-options="
+                    					data:[{'value':0,'text':'否'},{'value':1,'text':'是'}],
+                    					valueField:'value',
+                    					textField:'text',
+                    					value:'',
+                    					editable:false,
+                    					panelHeight:'auto'
+                    					" style="width: 306px" />
+                </td>
+            </tr>
+            
+            <tr trtype="common">
+                <td >
+               接手人员:
+                </td>
+                  <td colspan="3">
+                 <input type="hidden" name="sys_custom_activity.actors" id="actors" />
+                    <input class="easyui-combobox" type="text" id="actornames" name="sys_custom_activity.actornames" setvaluectlname="sys_custom_activity.actors"
+                       data-options="required:true,onShowPanel:actornamesClick" style="width: 300px" />
+                </td>
+                
+            </tr>
+			
+        </table>
+         <input type="hidden" name="sys_custom_activity.insprocessid" id="customactivityinsprocessid" />
+        <input type="hidden" name="sys_custom_activity.insactivityid" id="customactivityinsactivityid" />
+        <input type="hidden" name="sys_custom_activity.type" id="customactivitytype" />
+        <input type="hidden" name="sys_custom_activity.id" id="customactivityid" />
+         </form>
+       </div>
+        </div>
+     <div data-options="region:'center'" >
+     <div class="datagrid-toolbar">
+        <a href="javascript:void(0)" id="saveCustomActivityColsForm" class="easyui-linkbutton" onclick="saveCustomActivityColsform()"
+            data-options="plain:true,iconCls:'icon-save'">保存表单可以修改的字段信息</a>
+    </div>
+   <table id="divSelectFormCols" class="easyui-datagrid" data-options="
+                            singleSelect: false,
+                            fit: true,
+                            fitColumns: true,
+                            rownumbers: true,
+                            pagination: false,
+                            idField: 'id',
+                          	onLoadSuccess:loadAllowEditCols,
+                            onLoadError: gridLoadError">
+    <thead>
+        <tr>
+            <th data-options="field:'ck',checkbox:true">
+            </th>
+            <th data-options="field:'chinaname',halign:'center'" width="50">
+                字段名称
+            </th>
+            <th data-options="field:'ismindcol',align:'center',formatter: formatterColType" width="50">
+                类型
+            </th>
+        </tr>
+    </thead>
+</table> 
+
+
+   
+    </div>
+</div>
+

@@ -1,0 +1,814 @@
+.popWhite {
+    background: #fff;
+    height: 100%;
+    border-radius: 5px;
+}
+.popContent {
+    height: auto;
+    padding: 15px;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+.popBottom {
+    position: absolute;
+    height: 52px;
+    background: #f8f8f8;
+    border-top: 1px solid #cccccc;
+    box-sizing: border-box;
+    padding: 12px 15px 0px;
+    text-align: right;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.popTable {
+    border-top: 1px solid #cccccc;
+    border-left: 1px solid #cccccc;
+}
+.popTable td {
+    padding: 14px 0px;
+    border-bottom: 1px solid #cccccc;
+    border-right: 1px solid #cccccc;
+    text-align: left;
+    padding-left: 10px;
+}
+
+.popTable td.txtR {
+    text-align: right;
+    padding-right: 15px;
+    background: #f5f7fc;
+}
+
+.popTable td.left0 {
+    padding-left: 0px;
+    text-align: center;
+}
+.btn1 {
+    display: inline-block;
+    height: 26px;
+    line-height: 26px;
+    color: #666666;
+    background: url(../images/bg1.png) repeat-x;
+    padding: 0px 16px;
+    border: 1px solid #b7b7b7;
+    border-radius: 1px;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.btn1:hover {
+    background: url(../images/bg1_h.png) repeat-x;
+    color: #ffffff;
+    font-weight: bold;
+    border: 1px solid #1f75cc;
+}
+
+.btn2{
+    display: inline-block;
+    height: 26px;
+    line-height: 26px;
+    color: #ffffff;
+    background: url(../images/bg1_h.png) repeat-x;
+    padding: 0px 16px;
+    border: 1px solid #1f75cc;
+    border-radius: 1px;
+    cursor: pointer;
+    font-weight: bold;
+    overflow: hidden;
+}
+
+.btn2:hover{
+    background: url(../images/bg1_h_h.png) repeat-x;
+}
+
+
+.css-content {
+    position: absolute;
+    top: 40px;
+    left: 0px;
+    bottom: 40px;
+    right: 0px;
+    overflow: hidden;
+    padding: 15px;
+}
+
+.css-content table {
+    width: 100%;
+    font-size: 14px;
+    font-family: "微软雅黑";
+    color: #666;
+}
+
+.css-content table td {
+    border: 1px solid #dcdcdc;
+}
+
+.css-content table tbody .name {
+    width: 14%;
+    background: #f4f4f4;
+    text-align: right;
+    padding: 0px 12px;
+    vertical-align: middle;
+}
+
+.css-content table tbody .name span {
+    display: block;
+    margin-top: 12px;
+}
+
+.css-content table tbody .name-height {
+    height: 40px;
+    line-height: 40px;
+}
+
+.css-content table tbody .value {
+    position: relative;
+    width: 36%;
+    text-align: left;
+    padding: 0px 12px;
+    vertical-align: middle;
+}
+
+.css-content table tbody .pic {
+    width: 20px;
+    background: #f4f4f4;
+    vertical-align: middle;
+    line-height: 24px;
+    text-align: center;
+    padding: 0px 12px;
+}
+
+.css-content table tbody input {
+    padding: initial;
+    height: 30px;
+    line-height: 30px;
+    /*outline: none;*/
+    border: 1px solid #bababa;
+    text-indent: 6px;
+    color: #666;
+    font-family: "微软雅黑";
+    width: 99.9%;
+}
+
+.css-content table tbody select {
+    width: 99.9%;
+    height: 32px;
+    line-height: 32px;
+    color: #666;
+    font-family: "微软雅黑";
+    /*outline: none;*/
+    border: 1px solid #bababa;
+    text-indent: 4px;
+}
+.warn {
+    /*background-image: url(../images/validatebox_warning.png);*/
+    /*background-repeat: no-repeat;*/
+    /*background-position: right center;*/
+    border-color: #f78d8d !important;
+    outline: 0 !important;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgb(239, 154, 154) !important;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(239, 154, 154) !important;
+}
+.selectOp {
+    position: absolute;
+    top: 12px;
+    right: 8px;
+    width: 25px;
+    height: 25px;
+    background-image: url(../images/select.png);
+    background-repeat: no-repeat;
+}
+.searchOp {
+    position: absolute;
+    top: 12px;
+    right: 8px;
+    width: 25px;
+    height: 25px;
+    background-image: url(../images/search.png);
+    background-repeat: no-repeat;
+}
+.query-conditions .selectOp{
+    right: 20px;
+    top:10px
+}
+.data {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    overflow: hidden;
+    background: #ebeef4;
+}
+.dataContent {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    right: 10px;
+    bottom: 10px;
+    border: 1px solid #dfe2e8;
+    border-radius: 5px;
+    background: #ffffff;
+}
+.dataContentTop {
+    height: 41px;
+    border-bottom: 1px solid #b9b9b9;
+    background: #fafafa;
+    padding: 0px 15px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.listStyle {
+    color: #333333;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 41px;
+}
+.pull-left {
+    float: left;
+}
+
+.pull-right {
+    float: right;
+}
+.btnOper {
+    margin-top: 7px;
+}
+.margin15 {
+    margin: 15px 15px 0px;
+}
+/**list**/
+.query-conditions {
+    border: 0px;
+    width: 100%;
+}
+
+.query-conditions td {
+    height: 48px;
+    line-height: 32px;
+}
+
+.query-conditions .name {
+    width: 8%;
+    text-align: right;
+}
+
+.query-conditions .value {
+    width: 15%;
+    position: relative;
+}
+
+.query-conditions .button {
+    width: 25%;
+    position: relative;
+}
+
+.cmd-btn {
+    width: 78px;
+    height: 30px;
+    line-height: 30px;
+    background: #3f80c3;
+    color: #fff;
+    border: 1px solid #0b569d;
+    cursor: pointer;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.seach {
+    width: 78px;
+    height: 30px;
+    line-height: 30px;
+    position: absolute;
+    /*left: 100px;*/
+    background: #3f80c3;
+    color: #fff;
+    border: 1px solid #0b569d;
+    cursor: pointer;
+    top: 0px;
+}
+
+.seach .icon {
+    display: block;
+    float: left;
+    margin-left: 8px;
+    width: 24px;
+    height: 24px;
+    background: url(../images/icon-all.png) -91px 75px;
+}
+.value input {
+    height: 30px;
+    line-height: 30px;
+    /*outline: none;*/
+    border: 1px solid #bababa;
+    color: #666;
+    font-family: "微软雅黑";
+    width: 90%;
+    text-indent: 6px;
+    display: inline-block;
+    margin-right: .1em;
+    vertical-align: middle;
+    text-align: left;
+    overflow: visible;
+}
+
+select {
+    height: 30px;
+    line-height: 30px;
+    width: 90%;
+    color: #666;
+    font-family: "微软雅黑";
+    /*outline: none;*/
+    border: 1px solid #bababa;
+    text-indent: 4px;
+    margin-right: 4px;
+}
+.nothing {
+    width: 100px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    font-family: "微软雅黑";
+    color: #bababa;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -50px;
+}
+
+.nothingTop {
+    margin-top: -20px;
+}
+
+.nothing span {
+    float: left;
+    width: 43px;
+    height: 40px;
+    display: block;
+    background: url(../images/icon-all.png) -164px 40px;;
+}
+
+.query-list {
+    position: absolute;
+    bottom: 0px;
+    top: 94px;
+    left: 0px;
+    right: 0px;
+    background-color: #ffffff;
+}
+
+.table-thead, .table-tbody, .table-tfoot {
+    /*border: 1px solid #c6c6c6;*/
+}
+
+.table-tbody table, .table-thead table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+.table-thead table thead th, .table-tbody table td {
+    text-overflow: ellipsis;
+    -moz-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    -icab-text-overflow: ellipsis;
+    -webkit-text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.table-thead table thead th {
+    text-align: center;
+    background: url(../images/titleBackground.png) repeat-x;
+    height: 40px;
+    line-height: 40px;
+}
+
+.table-tbody {
+    position: absolute;
+    top: 41px;
+    bottom: 42px;
+    left: 0px;
+    right: 0px;
+}
+
+.table-tbody table td {
+    border-right: 1px solid #c6c6c6;
+    height: 37px;
+    line-height: 37px;
+    border-bottom: 1px solid #c6c6c6;
+    text-align: center;
+}
+
+.table-tbody table tr td:last-child {
+    border-right: 0px;
+}
+
+.table-tbody .bgcolor {
+    background: #f5f5f5;
+}
+
+.table-tbody table tr {
+    cursor: pointer;
+}
+.table-tbody table .tr_warning td{
+    color:blue;
+}
+
+.table-tbody table tr:hover {
+    background: #fcf9e8;
+}
+.table-tbody table tr.selected {
+    background: #fcf9e8;
+}
+.table-tfoot {
+    position: absolute;
+    bottom: 0px;
+    height: 42px;
+    left: 0px;
+    right: 0px;
+    border-top: 0px;
+}
+/** 分页**/
+
+
+.turnpages {
+    width: auto;
+    float: right;
+    overflow: hidden;
+    font-size: 14px;
+}
+
+.page_btn {
+    float: left;
+    height: 28px;
+    padding: 0 12px;
+    line-height: 28px;
+    margin-right: 7px;
+    background: white;
+    border: solid 1px #dddddd;
+    cursor: pointer;
+}
+
+.page_list {
+    float: left;
+}
+
+.page_list li.active {
+    background: #2f7ac2;
+    color: #fff;
+}
+
+.padding0 {
+    padding: 0;
+}
+
+.go.page_btn {
+    background: #2f7ac2;
+    color: white;
+    border: solid 1px #175ea2;
+}
+
+.page_list li {
+    width: 32px;
+    height: 28px;
+    float: left;
+    margin-right: 7px;
+    border: solid 1px #dddddd;
+    line-height: 28px;
+    text-align: center;
+    background: white;
+    cursor: pointer;
+}
+
+.page_btn input {
+    width: 57px;
+    height: 100%;
+    border: none;
+    background: none;
+    line-height: 28px;
+    text-indent: 8px;
+}
+.remarks {
+    text-indent: 4px;
+    resize: none;
+    width: 99.9%;
+    vertical-align: middle;
+    height: 100px;
+    margin: 5px 0px;
+}
+
+
+/**详情页面css**/
+.dom-left {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 78%;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    margin-right: 5px;
+}
+
+.content-left {
+    position: absolute;
+    top: 83px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-left: 5px;
+}
+
+.dom-right {
+    position: absolute;
+    top: 0px;
+    left: 22%;
+    bottom: 0px;
+    right: 0px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+}
+.dom {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+}
+.dom-top {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+}
+
+.content-right {
+    position: absolute;
+    top: 41px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 10px;
+}
+
+.div-tool {
+    background: url(../images/toolBackground.png) repeat-x;
+    height: 40px;
+    line-height: 40px;
+    width: 100%;
+    border-bottom: 1px solid #2f7ac2;
+    text-indent: 12px;
+}
+.div-tool-seach {
+    height: 40px;
+    line-height: 40px;
+    width: 100%;
+    border-bottom: 1px solid #2f7ac2;
+    text-indent: 12px;
+}
+.div-tool ul {
+    float: right;
+}
+
+.div-tool li {
+    cursor: pointer;
+    float: left;
+    height: 40px;
+    width: 80px;
+    text-align: center;
+    line-height: 40px;
+    color: #777;
+    text-indent: 0px;
+}
+
+.div-tool li span {
+    display: block;
+    border: 1px solid #0b569d;
+    color: #fff;
+    height: 30px;
+    line-height: 30px;
+    width: 70px;
+    margin-top: 4px;
+    background: #3f80c3;
+}
+
+.iconPic-1 {
+    background: url("../images/icon-all.png") -193px 108px;
+}
+
+.iconPic-2 {
+    background: url("../images/icon-all.png") -126px 115px;
+}
+
+.iconPic-3 {
+    background: url("../images/icon-all.png") -166px 115px;
+}
+
+.iconPic-slideDown {
+    background: url("../images/icon-all.png") -159px 0px;
+    width: 18px;
+    height: 24px;
+    display: inline-block;
+    margin-right: 17px;
+}
+
+.iconPic-slideUp {
+    background: url("../images/icon-all.png") -201px -202px;
+    width: 18px;
+    height: 24px;
+    display: inline-block;
+    margin-right: 17px;
+}
+
+.subtnbg {
+    display: inline-block;
+    width: 8px;
+    height: 10px;
+    background: url("../images/icon-all.png") 14px -14px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -5px;
+    margin-left: -5px;
+}
+
+.subtnbg2 {
+    display: inline-block;
+    width: 8px;
+    height: 10px;
+    background: url("../images/icon-all.png") 34px -14px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -5px;
+    margin-left: -5px;
+}
+
+.tabbtn .pre {
+    background: url("../images/icon-all.png") -49px -9px;
+}
+
+.tabbtn .next {
+    background: url("../images/icon-all.png") -129px -9px;
+}
+
+.tabbtn .pre:hover {
+    background: url("../images/icon-all.png") -9px -9px;
+}
+
+.tabbtn .preforBid {
+    background: url("../images/icon-all.png") -49px -9px !important;
+    cursor: not-allowed;
+}
+
+.tabbtn .next:hover {
+    background: url("../images/icon-all.png") -89px -9px;
+}
+
+.tabbtn .nextforBid {
+    background: url("../images/icon-all.png") -129px -9px !important;
+    cursor: not-allowed;
+}
+
+.pophrig span {
+    background: url("../images/icon-all.png") -226px 123px;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+}
+.consult-icon {
+    width: 40px;
+    height: 40px;
+    background: url(../images/icon-all.png) -200px 80px;
+    float: left;
+    margin-top: 3px;
+    margin-right: 10px;
+}
+
+.deleteSkin_ico_docu, .deleteSkin_ico_close, .deleteSkin_ico_open {
+    background: url(../images/icon-all.png) -12px -212px !important;
+}
+
+
+.bomb_main{
+    height:392px;
+    border-bottom: 1px solid #ccc;
+}
+.bomb_left{
+    float:left;
+    width:297px;
+    border-right:1px solid #ccc;
+    height:100%;
+    box-sizing: border-box;
+    padding:10px;
+}
+.bomb_left_main{
+    height:100%;
+    border:1px solid #ccc;
+    border-radius: 1px;
+}
+.bomb_left_nav{
+    height:36px;
+}
+.bomb_left_nav li{
+    float:left;
+    height:36px;
+    width:50%;
+    text-align: center;
+    font-size:14px;
+    overflow: hidden;
+}
+.bomb_left_nav li a{
+    display:block;
+    color:#333333;
+    line-height:36px;
+    height:36px;
+    border-bottom:1px solid #ccc;
+    border-left:1px solid #ccc;
+    box-sizing: border-box;
+    background:url(../../images/zzy/topTipBg.png);
+}
+.bomb_left_nav li a.borderL0{
+    border-left:0;
+}
+.bomb_left_nav li.active a,.bomb_left_nav li a:hover{
+    background:url(../../images/zzy/bomb_left_navBg.png) no-repeat bottom center;
+    height:38px;
+}
+.bomb_left_cli{
+    padding:10px 0px 0px 10px;
+    overflow: hidden;
+    height:326px;
+}
+.bomb_right{
+    float:left;
+    width:533px;
+    height:100%;
+    box-sizing: border-box;
+    padding:0px 10px 10px;
+}
+.bomb_right_newAdd{
+    line-height:46px;
+    font-size:14px;
+}
+.bomb_right_newAdd span{
+    color:#aaaaaa;
+}
+.bomb_right_addMain{
+    height:337px;
+    border:1px solid #ccc;
+    padding:10px 3px;
+    box-sizing: border-box;
+}
+.bomb_right_add{
+    margin:0px 4px 6px;
+    border:1px solid #d3dbe0;
+    border-radius: 2px;
+    line-height:26px;
+    float:left;
+    box-sizing: border-box;
+}
+.addClose{
+    height:26px;
+    background:url(../../images/zzy/addClose.png) no-repeat center center ;
+    width:18px;
+    cursor: pointer;
+}
+.bomb_right_add_txt{
+    margin-left:5px;
+    font-size:12px;
+    color:#737880;
+}
+
+.bomb_left.int_view{height:390px; padding-top:46px; position:relative;}
+.bomb_left_search{ padding-top:10px; height:28px; position:absolute; top:46px; left:10px; z-index:5}
+.bomb_left_search .vewinput{border:1px solid #d0ccc7; height:26px; width:206px; color:#b0b9b8; font-size:12px; line-height:26px; margin-right:6px;}
+.bomb_left_search .vewinput_select{position:absolute;max-height: 300px; width:206px; left:10px; top:75px; z-index:9999;background:#fff; border:1px solid #717171; border-top:0px; display:none;}
+.bomb_left_search .vewinput_select li{ height:30px;  padding:0px 5px; }
+.bomb_left_search .vewinput_select li:hover{ background:#f0f1f5}
+.bomb_left_search .vewinput_select li span{ float:left; line-height:30px;}
+.bomb_left_search .vewinput_select li input{ float:right; margin-top:8px;}
+.bomb_left.int_view .bomb_left_cli{height:275px;}
+.fileListDiv{
+    width: 100%;
+    height: 160px;
+    position: relative;
+}
+
+.web_office_content{
+    position: absolute;
+    left: 15px;
+    right: 15px;
+    bottom: 10px;
+    top: inherit;
+}

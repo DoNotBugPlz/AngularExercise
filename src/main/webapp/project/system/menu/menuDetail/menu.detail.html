@@ -1,0 +1,76 @@
+<!--<div class="popWhite" ng-controller="ChangePwdCtrl as changepwd">-->
+
+<div class="popWhite" >
+    <div class="div-tool">
+        <span id="content-title">菜单信息</span>
+        <ul id="op">
+            <li ng-click="menuDetail.saveMenuInf()"   >
+                <span >保存</span>
+            </li>
+        </ul>
+    </div>
+    <div class="css-content"  ng-form="menu_form">
+        <table cellpadding="0" cellspacing="0">
+            <tbody>
+            <tr>
+                <td  class="name name-height">菜单名称</td>
+                <td  class="value">
+                    <input required maxlength="50" type="text" ng-model="menuDetail.menu.name" name="name"
+                           ng-class="{true:'warn',false:''}[menu_form.name.$error.required]"/>
+                </td>
+                <td  class="name name-height">地址类型</td>
+                <td  class="value">
+                    <select  ng-model="menuDetail.menu_ext.menu_url_type" name="menu_url_type" required
+                             ng-class="{true:'warn',false:''}[menu_form.menu_url_type.$error.required]"
+                             ng-options="n.id as n.chinaname for n in menuDetail.menuUrlTypeCatagory">
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td  class="name name-height">菜单地址</td>
+                <td  class="value"  colspan="3">
+                    <input  type="text"  ng-model="menuDetail.menu.mainurl" />
+                </td>
+            </tr>
+            <tr>
+                <td  class="name name-height">路由</td>
+                <td  class="value"  colspan="3">
+                    <input  maxlength="50" type="text" ng-model="menuDetail.menu_ext.ui_router_key" id="ui_router_key"/>
+                </td>
+            </tr>
+            <tr>
+                <td  class="name name-height">传递参数</td>
+                <td  class="value"  colspan="3">
+                    <input   type="text"  ng-model="menuDetail.menu_ext.ui_params" />
+                </td>
+            </tr>
+
+             <tr>
+                <td  class="name name-height">导航图标</td>
+                <td  class="value">
+                    <input  maxlength="50" type="text"  ng-model="menuDetail.menu.menuicon" />
+                </td>
+                <td  class="name name-height">桌面图标</td>
+                <td  class="value">
+                    <input  maxlength="50" type="text"  ng-model="menuDetail.menu.deskicon" />
+                </td>
+            </tr>
+            <tr>
+                <td  class="name name-height">排序号</td>
+                <td  class="value">
+                    <input  maxlength="50" type="text" name="sortindex"
+                           ng-model="menuDetail.menu.sortindex" />
+                </td>
+                <td  class="name name-height">是否禁用</td>
+                <td class="value">
+                    <select  ng-model="menuDetail.menu.delstatus" name="delstatus" required
+                             ng-class="{true:'warn',false:''}[menu_form.delstatus.$error.required]"
+                            ng-options="n.id as n.chinaname for n in menuDetail.yesnoCatagory">
+                    </select>
+                </td>
+            </tr>
+            <input  type="hidden"  ng-model="menuDetail.menu.parentid" />
+            </tbody>
+        </table>
+    </div>
+</div>

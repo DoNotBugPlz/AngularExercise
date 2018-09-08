@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p" xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+
+    <!-- 该bean用于处理响应时的日期时间格式转换 -->
+    <bean id="jacksonObjectMapper"
+          class="com.skytech.basic.core.web.CustomObjectMapper"/>
+
+    <!-- 采用系统默认的预验证器，可以替换下面的类，以实现自己的预验证规则，比如登陆时加入验证码的验证
+    要求自己的预验证器必须继承DefaultAuthenticater类-->
+    <bean id="authenticater"
+          class="com.skytech.authenticater.authenticate.imp.CommonAuthenticater"/>
+
+    <!-- 密码加密处理器 -->
+    <bean id="passWordEncryptHandler"
+          class="com.skytech.basic.core.crypto.PassWordEncryptHandler">
+        <property name="initpassword" value="888888"/>
+    </bean>
+
+    <!-- *******************************数据提供层************************************ -->
+    <!--字典-->
+    <bean id="categoryDatasProvider"
+          class="com.skytech.datasprovider.service.imp.CategoryDatasProvider"/>
+    <!--组织机构-->
+    <bean id="organisationDatasProvider"
+          class="com.skytech.datasprovider.service.imp.OrganisationDatasProvider"/>
+    <!--物理表-->
+    <bean id="physTablesDatasProvider"
+          class="com.skytech.datasprovider.service.imp.PhysTablesDatasProvider"/>
+    <!--有效工作日-->
+    <bean id="effectdateDatasProvider"
+          class="com.skytech.datasprovider.service.imp.EffectdateDatasProvider"/>
+
+    <!-- Extends Session&Cookie
+         定义自己的实现类，通过实现ExtendsSession或者ExtendsCookie接口来扩展session或cookie中的信息
+    <bean id="extendsSession" class=""/>
+    <bean id="extendsCookie"  class=""/>-->
+    <bean id="extendsSession" class="com.skytech.config.session.ExtendsSessionImp"/>
+    <bean id="extendsCookie" class="com.skytech.config.session.ExtendsCookieImp"/>
+
+    <!--1、 路径默认为upload  文件名默认为时间毫秒数
+        2、如果需要自定义获取文件上传路径和文件存储名的方式，请自行实现ICustomFileInfo接口并将实现类的全限定包名替换掉下面的全限定包名即可； -->
+    <!--<bean id="customFileInfo_file" class="com.skytech.file.model.CustomFileInfo"/>-->
+    <bean id="customFileInfo_file" class="com.skytech.config.file.CustomFileInfoNew"/>
+
+    <!--文件上传的环境参数-->
+    <bean id="uploadEntity_file" class="com.skytech.file.ftp.model.FtpEntity" scope="prototype"/>
+
+    <!--文件上传下载特殊处理器，要求必须实现com.skytech.file.extra.StreamHandler接口,并修改下面的class的值-->
+    <bean id="streamHandler_file" class="com.skytech.file.extra.EmptyStreamHandlerImp"/>
+
+    <!-- 文件上传，CommonsMultipartResolver方式 -->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+          p:defaultEncoding="UTF-8"
+          p:maxUploadSize="2141192192"
+          p:uploadTempDir="upload"/>
+
+    <!-- 代码自动生成配置
+         1、设置默认的主键序列名
+	 	 2、自定义默认前缀路径-->
+    <bean id="codeCreateUtil" class="com.skytech.basic.core.util.CodeCreateUtil">
+        <property name="local_Path" value="c:\"/>  <!--要保存到指定硬盘目录的话，就开启并配置-->
+        <property name="default_sequencename" value="DEFAULTSEQUENCE"/>
+        <property name="prefix_Path" value="com.skytech.platform"/>
+    </bean>
+
+    <bean id="grantObject" class="com.skytech.dataprivilege.defaultimp.grantobject.RoleGrantObject"/>
+
+    <!-- webservice 载入配置信息-->
+    <bean id="webServiceConfig" class="com.skytech.component.model.WebServiceConfig" init-method="init"/>
+
+    <!-- 获取客户端ip-->
+    <bean id="clientIpUtil" class="com.skytech.basic.core.util.DefaultClientIpUtilImpl"/>
+
+    <bean id="TaskTimerDefault" class="com.skytech.project.timer.TaskTimerDefault"/>
+    <task:scheduled-tasks>
+        <!--每1分钟执行一次-->
+        <task:scheduled ref="TaskTimerDefault" method="TestTimer" cron="0 */1 * * * ?"/>
+    </task:scheduled-tasks>
+</beans>

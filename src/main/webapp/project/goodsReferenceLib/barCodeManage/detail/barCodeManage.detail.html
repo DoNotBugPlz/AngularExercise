@@ -1,0 +1,37 @@
+<div class="popWhite">
+    <div class="css-content" m-custom-scrollbar>
+        <table class="table_code" cellpadding="0" cellspacing="0" style="width: 99%;margin-top: 15px;">
+            <tr>
+                <td width="32%" style="border: 1px solid #fff;">{{vm.barCodeManage.goods_code}}</td>
+                <td width="21.7%" style="border: 1px solid #fff;">{{vm.barCodeManage.name}}</td>
+                <td width="18.3%" style="border: 1px solid #fff;">{{vm.barCodeManage.spec}}</td>
+                <td width="28%" style="border: 1px solid #fff;">{{vm.barCodeManage.measurement_unit}}</td>
+            </tr>
+        </table>
+        <div class="code_active" ng-show="vm.currBarCode.bar_code" style="width: 99%">
+            <p class="code_active_title">当前条形码：</p>
+            <p class="code_time">(添加时间：{{vm.currBarCode.uploaded_time}})</p>
+            <p class="code_time">
+                (条码状态：{{(vm.currBarCode.delstatus===0)?'已启用':(vm.currBarCode.delstatus===1)?'已停用':'暂无'}})
+            </p>
+            <div class="code_img"
+                 img-src-div img-src-params="vm.currBarCode.bar_code"
+                 img-src-begin="../Cf_goods_bar_code/loadImg.do?code="></div>
+        </div>
+
+        <div class="code_history" ng-show="vm.hisBarCodeList[0].bar_code" style="width: 99%">
+            <p class="code_history_title">历史条形码：</p>
+            <div class="code_history_box" ng-repeat="n in vm.hisBarCodeList">
+                <p class="code_time padding">(添加时间：{{n.uploaded_time}})</p>
+                <p class="code_time padding">
+                    (条码状态：{{(n.delstatus===0)?'已启用':(n.delstatus===1)?'已停用':'暂无'}})</p>
+                <div class="code_img"
+                     img-src-div img-src-params="n.bar_code"
+                     img-src-begin="../Cf_goods_bar_code/loadImg.do?code="></div>
+            </div>
+        </div>
+    </div>
+    <div class="popBottom">
+        <span class="btn1" ng-click="vm.cancelOp()">取消</span>
+    </div>
+</div>

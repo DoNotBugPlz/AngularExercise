@@ -1,0 +1,55 @@
+<div class="popWhite" >
+    <div class="css-content" ng-form="category_value_detail_form" style="padding: 5px;">
+        <table cellpadding="0" cellspacing="0">
+            <tbody>
+            <tr>
+                <td  class="name name-height">中文名</td>
+                <td class="value">
+                    <input ng-class="{true:'warn',false:''}[category_value_detail_form.chinaname.$error.required]" ng-focus required maxlength="120" type="text" ng-model="vm.categoryValueInfo.chinaname"  name="chinaname"/>
+                </td>
+                <td  class="name name-height">编码</td>
+                <td class="value">
+                    <input ng-class="{true:'warn',false:''}[category_value_detail_form.chinaname.$error.required]"  ng-focus required maxlength="25" type="text" ng-model="vm.categoryValueInfo.refid"  name="refid"/>
+                </td>
+            </tr>
+            <tr>
+                <td  class="name name-height">排序号</td>
+                <td class="value">
+                    <input ng-focus required maxlength="10" ng-class="{true:'warn',false:''}[category_value_detail_form.sortindex.$error.required]"  type="number" ng-model="vm.categoryValueInfo.sortindex"  name="sortindex"/>
+                </td>
+                <td colspan="2" class="value">
+
+                </td>
+            </tr>
+            <tr>
+                <td  class="name name-height">备注</td>
+                <td class="value" colspan="3">
+                    <textarea maxlength="500" class="remarks" ng-model="vm.categoryValueInfo.remark" name="remark" style="font-family: 微软雅黑"></textarea>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="popBottom">
+        <span class="btn2" ng-click="vm.saveOp()" >保存</span>
+        <!--<span class="btn1" ng-click="cancelOp()">取消</span>-->
+    </div>
+</div>
+
+<style>
+    .css-content table tbody .name{
+        padding: 0 5px;
+    }
+    span.needColumn{
+        color: #ff3d3d;
+        display: inline-block !important;
+        width: 8px;
+        height: 15px;
+        line-height: 15px;
+        margin: 0;
+        position: relative;
+        top: 3px;
+        text-align: center;
+    }
+</style>

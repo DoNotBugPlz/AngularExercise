@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+         http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         id="WebApp_ID" version="3.0">
+    <display-name>web_angularjs</display-name>
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+
+    <!-- 配置web容器上下文参数 -->
+    <context-param>
+        <!-- spring通过contextConfigLocation获取spring配置文件的位置 -->
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            classpath:applicationContext-db.xml,
+            classpath:applicationContext-normal.xml,
+            classpath:applicationContext-Beans.xml,
+            classpath:flowable.cfg.xml
+        </param-value>
+    </context-param>
+
+    <!-- 配置监听器 -->
+    <listener>
+        <!-- 该监听器实现了ServletContextListener,用于启动业务层的WebApplicationContext -->
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <!-- 配置web容器过滤器 -->
+    <filter>
+        <!-- 字符编码过滤器，匹配所有的请求 -->
+        <filter-name>Set Character Encoding</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value><!-- 强制进行转码 -->
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>Set Character Encoding</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!--处理静态资源的servlet，必须放在DispatcherServlet之前启动-->
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.htm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.html</url-pattern>
+    </servlet-mapping>
+    <!--注释原因：该servlet处理jsp页面会导致jsp页面显示源码
+  <servlet-mapping>
+      <servlet-name>default</servlet-name>
+      <url-pattern>*.jsp</url-pattern>
+  </servlet-mapping>-->
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.js</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.map</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.css</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.png</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.jpg</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.gif</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.ico</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.doc</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.swf</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.cab</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.json</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.woff</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.woff2</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.ttf</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.xml</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.xpi</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.zip</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.rar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.docx</url-pattern>
+    </servlet-mapping>
+    <!-- 配置Servlet -->
+    <servlet>
+        <servlet-name>springmvc</servlet-name>
+        <!-- 启动web层的spring容器，使用springMVC框架 -->
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <!--设置web层的spring容器(WebApplicationContext)的配置文件获取路径，如果不设置，默认获取/WEB-INF/{servlet-name}-servlet.xml -->
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>
+                classpath:applicationContext-mvc.xml,
+                classpath:applicationContext-exceptions.xml,
+                classpath:skyflow-springmvc.xml
+            </param-value>
+        </init-param>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>springmvc</servlet-name>
+        <!--<url-pattern>*.do</url-pattern>-->
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <!--为了匹配flowable的api-->
+    <servlet-mapping>
+        <servlet-name>springmvc</servlet-name>
+        <url-pattern>/skyflow/admin/app/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>springmvc</servlet-name>
+        <url-pattern>/app/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>springmvc</servlet-name>
+        <url-pattern>/api/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>springmvc</servlet-name>
+        <url-pattern>/process-api/*</url-pattern>
+    </servlet-mapping>
+
+    <!-- Session设置 -->
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+
+    <filter>
+        <!-- 使用spring提供的代理过滤器，能在Filter中注入Bean，spring容器启动后会扫描所有com.skytech下除了标注了@Controller的注解类
+               这里目前只定义了loginFilter过滤器,过滤器要求标注了spring的非@Controller的类注解，并且实现了Filter接口 -->
+        <filter-name>DelegatingFilterProxy</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+        <init-param>
+            <param-name>targetBeanName</param-name>
+            <!-- 登陆过滤器，只有【符合系统首页】or【加入了白名单】or【持有有效session/cookie】的请求才允许通过
+                 目前只截获：*.js  *.jsp  *.html *.htm的请求 -->
+            <param-value>loginFilter</param-value>
+        </init-param>
+        <init-param>
+            <!-- 设置true表示将过滤器的生命周期交给Servlet容器管理，false表示交给spring容器管理 -->
+            <param-name>targetFilterLifecycle</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>DelegatingFilterProxy</filter-name>
+        <url-pattern>*.js</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>DelegatingFilterProxy</filter-name>
+        <url-pattern>*.jsp</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>DelegatingFilterProxy</filter-name>
+        <url-pattern>*.html</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>DelegatingFilterProxy</filter-name>
+        <url-pattern>*.htm</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>CrossDomainFilter</filter-name>
+        <filter-class>com.skytech.basic.core.filters.CrossDomainFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>CrossDomainFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!--********************************Druid连接池框架提供的Web监控统计功能
+    访问监控页面：http://ip:port/projectName/druid/index.html******************************************************************-->
+    <filter>
+        <filter-name>DruidWebStatFilter</filter-name>
+        <filter-class>com.alibaba.druid.support.http.WebStatFilter</filter-class>
+        <init-param>
+            <param-name>exclusions</param-name>
+            <param-value>*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>DruidWebStatFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <servlet>
+        <servlet-name>DruidStatView</servlet-name>
+        <servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DruidStatView</servlet-name>
+        <url-pattern>/druid/*</url-pattern>
+    </servlet-mapping>
+
+    <!--未能捕获的异常处理-->
+    <error-page>
+        <exception-type>java.lang.Throwable</exception-type>
+        <location>/platform/exceptions/500/500.html</location>
+    </error-page>
+    <error-page>
+        <error-code>403</error-code>
+        <location>/platform/exceptions/403/403.html</location>
+    </error-page>
+    <!--<error-page>
+        <error-code>404</error-code>
+        <location>/platform/exceptions/404/redirect404.html</location>
+    </error-page>-->
+    <error-page>
+        <error-code>500</error-code>
+        <location>/platform/exceptions/500/500.html</location>
+    </error-page>
+
+    <!--禁用不安全的http方法-->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name></web-resource-name>
+            <url-pattern>/*</url-pattern>
+            <!--<http-method>PUT</http-method>-->
+            <!--<http-method>DELETE</http-method>-->
+            <http-method>HEAD</http-method>
+            <!--如果要允许某些站点跨域访问本应用，options不能被禁用-->
+            <!--<http-method>OPTIONS</http-method>-->
+            <http-method>TRACE</http-method>
+        </web-resource-collection>
+        <auth-constraint></auth-constraint>
+    </security-constraint>
+    <!--    <login-config>
+            <auth-method>BASIC</auth-method>
+        </login-config>-->
+
+</web-app>

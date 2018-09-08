@@ -1,0 +1,181 @@
+﻿<div class="easyui-panel" fit="true" border="false">
+    <!--padding:5px;border:1px solid #ddd;  -->
+    <div class="datagrid-toolbar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="savemdlActivityform()"
+            data-options="plain:true,iconCls:'icon-save'">保存</a>
+    </div>
+    <div>
+        <form id="mdlActivityform" method="post" action="../../../Sys_mdl_activity/SaveForm.do">
+        <table style="padding-left: 20px;">
+            <colgroup>
+                <col width="70px" align="left" />
+                <col align="left" />
+                <col width="60px" align="left" />
+                <col align="left" />
+            </colgroup>
+            <tr>
+                <td>
+                    活动名称:
+                </td>
+                <td  colspan="3">
+                    <input class="easyui-validatebox" type="text" name="sys_mdl_activity.chinaname" id="mdlActivityChinaname"
+                        data-options="required:true" style="width: 90%" />
+                </td>
+            </tr>
+
+            <tr trtype="commondate">
+                <td style="width:20%">
+                    办理期限:
+                </td>
+                <td style="width:30%">
+                    <input class="easyui-validatebox" type="text" id="sys_mdl_activity.timelimit" name="sys_mdl_activity.timelimit"
+                        style="width: 90%" />
+                </td>
+                <td style="width:20%">
+                    期限单位:
+                </td>
+                <td>
+                    <input class="easyui-combobox" name="sys_mdl_activity.limitunit" data-options="
+                    					data:[{'value':0,'text':'工作日'},{'value':1,'text':'天'}],
+                    					valueField:'value',
+                    					textField:'text',
+                    					value:'',
+                    					editable:false,
+                    					panelHeight:'auto'
+                    					" style="width: 87px" />
+                </td>
+            </tr>
+            <tr trtype="common">
+                <td>
+               开启自由流:
+                </td>
+                <td>
+                    <input class="easyui-combobox"  id="sys_mdl_activity.iscanstartcustomprocess" name="sys_mdl_activity.iscanstartcustomprocess"
+                       data-options="data:[{'value':0,'text':'否'},{'value':1,'text':'是'}],
+                    					valueField:'value',
+                    					textField:'text',
+                    					value:'',
+                    					editable:false,
+                    					panelHeight:'auto'
+                    					" style="width: 87px"/>
+                </td>
+                <td>
+               等待自由流:
+                </td>
+                <td>
+                    <input class="easyui-combobox" name="sys_mdl_activity.iswaitcustom" data-options="
+                    					data:[{'value':0,'text':'否'},{'value':1,'text':'是'}],
+                    					valueField:'value',
+                    					textField:'text',
+                    					value:'',
+                    					editable:false,
+                    					panelHeight:'auto'
+                    					" style="width: 87px" />
+                </td>
+            </tr>
+            
+            <tr trtype="common">
+                <td tdtype="tdBack">
+                    允许回退:
+                </td>
+                <td tdtype="tdBack">
+                    <input class="easyui-combobox" name="sys_mdl_activity.isallowback" data-options="
+                    					data:[{'value':0,'text':'否'},{'value':1,'text':'是'}],
+                    					valueField:'value',
+                    					textField:'text',
+                    					value:'',
+                    					editable:false,
+                    					panelHeight:'auto'
+                    					" style="width: 87px" />
+                </td>
+                 <td>
+                    允许撤消:
+                </td>
+                <td>
+                    <input class="easyui-combobox" name="sys_mdl_activity.isallowrecall" data-options="
+                    					data:[{'value':0,'text':'否'},{'value':1,'text':'是'}],
+                    					valueField:'value',
+                    					textField:'text',
+                    					value:'',
+                    					editable:false,
+                    					panelHeight:'auto'
+                    					" style="width: 87px" />
+                </td>
+            </tr>
+            <tr  >
+                <td>
+                    是否并行:
+                </td>
+                <td colspan="3">
+                    <input class="easyui-combobox" name="sys_mdl_activity.isparallel" data-options="
+                    					data:[{'value':0,'text':'否'},{'value':1,'text':'是'}],
+                    					valueField:'value',
+                    					textField:'text',
+                    					value:'',
+                    					editable:false,
+                    					panelHeight:'auto'
+                    					" style="width: 87px" />
+
+                </td>
+            </tr>
+            <tr  >
+                <td>
+                    触发新流程:
+                </td>
+                <td  colspan="3">
+                    <input type="hidden" id="anotherprocessdefineid" name="sys_mdl_activity.anotherprocessdefineid"/>
+                    <input class="easyui-validatebox" name="sys_mdl_activity.anotherprocessname" id="anotherprocessname" onfocus="openSelectAnotherProcessDialog()" style="width: 280px" />
+                    <a href="#" onclick="clearAnotherprocess()">[清除]</a>
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    等待新流程:
+                </td>
+                <td>
+                    <input class="easyui-combobox" name="sys_mdl_activity.iswaitanotherprocess" id="iswaitanotherprocess" data-options="
+                    					data:[{'value':0,'text':'否'},{'value':1,'text':'是'}],
+                    					valueField:'value',
+                    					textField:'text',
+                    					value:'',
+                    					editable:false,
+                    					panelHeight:'auto'
+                    					" style="width: 87px" />
+                </td>
+                <td>
+                    触发按钮:
+                </td>
+                <td>
+                    <input class="easyui-validatebox" type="text" id="triggerbuttonname" name="sys_mdl_activity.triggerbuttonname"
+                           style="width: 90%" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    允许挂起
+                </td>
+                <td>
+                    <input class="easyui-combobox" name="sys_mdl_activity.is_allowed_suspend" data-options="
+                    					data:[{'value':0,'text':'否'},{'value':1,'text':'是'}],
+                    					valueField:'value',
+                    					textField:'text',
+                    					value:'',
+                    					editable:false,
+                    					panelHeight:'auto'
+                    					" style="width: 87px" />
+                </td>
+            </tr>
+        </table>
+        <input type="hidden" name="sys_mdl_activity.id" id="mdlactivityid" />
+        <input type="hidden" name="sys_mdl_activity.processmodelid" id="processmodelid" />
+        </form>
+    </div>
+</div>
+<div id="divSelectAnotherprocess" class="easyui-dialog" data-options="closed:true" style="padding: 10px;">
+</div>
+<div id="divSelectAnotherprocessButtons">
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveCheckedAnotherProcess();">
+        确定</a> <a href="javascript:void(0)" class="easyui-linkbutton" onclick="closeSelectAnotherProcessDialog();">
+    取消</a>
+</div>

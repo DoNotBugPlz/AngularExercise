@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>流程测试页面</title>
+    <link href="../../ScriptSource/EasyUI/Skins/default/easyui.css" rel="stylesheet"
+        type="text/css" />
+    <link href="../../ScriptSource/EasyUI/Skins/icon.css" rel="stylesheet" type="text/css" />
+    <script src="../../ScriptSource/JQuery/jquery.min.js" type="text/javascript"></script>
+    <script src="../../ScriptSource/EasyUI/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../../ScriptSource/JavaScript/GlobalTools.js" type="text/javascript"></script>
+    <script language="javascript" type="text/javascript">
+        var rootPath = "../../../";
+        var currentWorkFlowConstName = Request("constname");
+        $(function () {
+            loadTailorForm();
+        });
+
+        function loadTailorForm() {
+            GlobalTools.ajax({
+                type: "POST",
+                url: rootPath + "Sys_def_process/LoadMainTailorFormID.do",
+                data: { constname: currentWorkFlowConstName },
+                success: function (data) {
+                    if (data) {
+                        if (data.tailorformid)
+                            loadTailorFormPath(data.tailorformid);
+                    }
+                    else
+                        GlobalTools.showError("流程未未设置主表单。");
+                }
+            });
+        }
+        function loadTailorFormPath(tailorformid) {
+            GlobalTools.ajax({
+                type: "POST",
+                url: rootPath + "Sys_def_tailorform/LoadTailorForm.do",
+                data: { tailorformid: tailorformid },
+                success: function (data) {
+                    if (data && $.trim(data.path)) {
+                        var localtionHref = window.location.href;
+                        var pagePath = $.trim(data.path) + localtionHref.substring(localtionHref.lastIndexOf("?"));
+                        top.closeThenAddTab(data.chinaname, pagePath);
+                    }
+                    else
+                        GlobalTools.showError("流程设置的主表单无效。");
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+</body>
+</html>

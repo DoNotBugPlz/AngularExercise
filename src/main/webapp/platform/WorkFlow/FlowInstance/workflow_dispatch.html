@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>流程调度页面</title>
+    <link href="../../ScriptSource/EasyUI/Skins/default/easyui.css" rel="stylesheet"
+          type="text/css" />
+    <link href="../../ScriptSource/EasyUI/Skins/icon.css" rel="stylesheet" type="text/css" />
+    <script src="../../ScriptSource/JQuery/jquery.min.js" type="text/javascript"></script>
+    <script src="../../ScriptSource/EasyUI/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../../ScriptSource/JavaScript/GlobalTools.js" type="text/javascript"></script>
+    <script src="../../ScriptSource/JavaScript/OrganizationTools.js" type="text/javascript"></script>
+    <script language="javascript" type="text/javascript">
+        var rootPath = "../../../"; //根目录路径
+        $(function () {
+            //初始化人员选择对话框
+            OrganizationTools.user_Init({ rootPath: rootPath, deptid: "", title: "选择人员", onOKClick: selectUserOK });
+        });
+        //选择人员后回调函数
+        function selectUserOK(treeNodes, sourceElement) {
+            var text = "", ids = "";
+            $.each(treeNodes, function (index, item) {
+                if (ids != '') {
+                    text += ',';
+                    ids += ',';
+                }
+                text += item.text;
+                ids += item.id.toString().ReplaceAll("user_", "");
+            });
+            $(sourceElement).combobox("setText", text);
+            $("#starterid").val(ids);
+        }
+
+        //是否公开 单元格处理
+        function formatterCell(value, row, index) {
+            return (value && value > 0 ? "是" : "否");
+        }
+        //格式化状态
+        function formatterStatusCell(value, row, index) {
+            switch (value) {
+                case "running":
+                    return "正在执行";
+                    break;
+                case "complete":
+                    return "已办结";
+                    break;
+                case "pause":
+                    return "暂停、挂起";
+                    break;
+                case "stop":
+                    return "终止";
+                    break;
+                case "waitundertake":
+                    return "待接手";
+                    break;
+                case "waitsubprocess":
+                    return "等待子流程办结";
+                    break;
+                case "hassentsubprocess":
+                    return "已发送子流程";
+                    break;
+                case "waitcountersign":
+                    return "主持人等其他会签人办结";
+                case "waitcustomprocess":
+                    return "等待自定义流程办结";
+                    break;
+                case "hassentcustomprocess":
+                    return "已发送自定义流程";
+                    break;
+            }
+        }
+
+        //展示详细信息页面
+        function taskDblClickRow(rowIndex, rowData) {
+            top.addTab(rowData.tasktitle, "../WorkFlow/FlowInstance/InsActivity_dispatch.html?insprocessid=" + rowData.id);
+        }
+
+        //查询
+        function searchList() {
+            $('#dgList').datagrid('load', {
+                processname: $('#processname').val(),
+                tasktitle: $('#tasktitle').val(),
+                starterid:$('#starterid').val(),
+                starttime:$("#date_ksdate").datetimebox('getValue'),
+                endtime:$("#date_jsdate").datetimebox('getValue')
+            });
+        }
+
+        //重新加载列表
+        function reloadGrid() {
+            $("#dgList").datagrid("reload");
+        }
+        function starterNamesClick() {
+            var sourceElement = this;
+            $(sourceElement).combobox("hidePanel");
+            OrganizationTools.user_ShowSelectDialog({
+                sourceElement: sourceElement,
+                basisCurrentUser:false,
+                sigleSelect: !$(sourceElement).combobox("options").multiple });
+        }
+        function formatNormalTime(date) {
+            return formatDate(date, 'yyyy-MM-dd HH:mm:ss');
+        }
+    </script>
+</head>
+<body class="easyui-layout" data-options="fit:true">
+<div data-options="region:'north',split:false,border:false" style="height: 80px">
+    <table style="height: 100%;" border="0">
+        <tr>
+            <td width="10%" align="right">
+                流程名称:
+            </td>
+            <td width="40%">
+                <input class="easyui-validatebox" type="text" id="processname" name="processname" style="width: 300px" />
+            </td>
+            <td width="10%" align="right">
+                文件标题:
+            </td>
+            <td colspan="2">
+                <input class="easyui-validatebox" type="text" id="tasktitle" name="title" style="width: 300px" />
+            </td>
+        </tr>
+        <tr>
+            <td width="10%" align="right">
+                发起时间:
+            </td>
+            <td>
+                <input class="easyui-datetimebox" id="date_ksdate"
+                       data-options="required:false,missingMessage:'请选择',editable:false,formatter:formatNormalTime"
+                       style="width:160px;height:30px;" />&nbsp;至&nbsp;<input class="easyui-datetimebox"
+                                                                              id="date_jsdate"
+                                                                              data-options="required:false,missingMessage:'请选择',editable:false,formatter:formatNormalTime"
+                                                                              style="width:160px;height:30px;" />
+            </td>
+            <td width="10%" align="right">
+                发起人:
+            </td>
+            <td width="25%">
+                <input type="hidden" id="starterid" name="starterid" />
+                <input class="easyui-combobox" type="text" id="selStarterId"
+                       setvaluectlname="starterid" data-options="required:false,multiple:false,onShowPanel:starterNamesClick"
+                       style="width: 150px" />
+            </td>
+            <td>
+                <a href="javascript:void(0)" class="easyui-linkbutton" onclick="searchList()" data-options="iconCls:'icon-search'">
+                    搜索</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div data-options="region:'center',border:true,title:'流程列表'" style="padding-bottom: 0px; height:300px;">
+    <table id="dgList" class="easyui-datagrid" style=" height:300px;" data-options="
+            	url: rootPath+'Sys_ins_process/LoadPageList.do',
+                singleSelect: true,
+                fit: true,
+                loadMsg: '数据加载中……',
+                fitColumns: true,
+                rownumbers: true,
+                pageSize: 10,
+                pagination: true,
+                idField: 'id',
+                onDblClickRow:taskDblClickRow,
+                onLoadError: gridLoadError">
+        <thead>
+        <tr>
+            <th data-options="field:'processname'" width="120" align="center">
+                流程名称
+            </th>
+            <th data-options="field:'tasktitle'" width="120" align="center">
+                文件标题
+            </th>
+            <th data-options="field:'starttime'" width="80" align="center">
+                发起时间
+            </th>
+            <th data-options="field:'startername'" width="50" align="center">
+                发起人
+            </th>
+            <th data-options="field:'status',formatter: formatterStatusCell" width="50" align="center">
+                状态
+            </th>
+        </tr>
+        </thead>
+    </table>
+</div>
+
+</body>
+</html>

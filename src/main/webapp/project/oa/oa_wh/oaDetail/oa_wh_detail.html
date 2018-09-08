@@ -1,0 +1,19 @@
+<div class="popWhite"   >
+    <div class="css-content" m-custom-scrollbar  ng-form="wh_detail_form">
+        <table cellpadding="0" cellspacing="0">
+            <tbody>
+            <tr>
+                <td  class="name name-height">公文字：</td>
+                <td  colspan="3" class="value">
+                    <input ng-class="{true:'warn',false:''}[wh_detail_form.zh.$error.required]"
+                           required maxlength="50" type="text" ng-model="vm.wh.zh"  name="zh"  />
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="popBottom">
+        <a class="table_main1_a" ng-click="vm.saveInfo()" >保存</a>
+        <a class="table_main1_a" ng-click="vm.cancelOp()">取消</a>
+    </div>
+</div>

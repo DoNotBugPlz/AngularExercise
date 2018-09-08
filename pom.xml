@@ -1,0 +1,380 @@
+﻿﻿<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- Basics Settings -->
+    <groupId>com.skytech</groupId>
+    <artifactId>wjjc_ythpt</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.skytech.component</groupId>
+                <artifactId>skyplatform</artifactId>
+                <version>1.4.5-SNAPSHOT</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <properties>
+        <encoding>UTF-8</encoding>
+    </properties>
+    <dependencies>
+
+
+        <!--平台-非功能性组件-->
+        <dependency>
+            <groupId>com.skytech.component</groupId>
+            <artifactId>skytech-basic</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.guava</groupId>
+                    <artifactId>guava</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>21.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.skytech.component</groupId>
+            <artifactId>skytech-persistence</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>dom4j</groupId>
+                    <artifactId>dom4j</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.dom4j/dom4j -->
+        <dependency>
+            <groupId>org.dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.skytech.component</groupId>
+            <artifactId>skytech-logger</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.skytech.component</groupId>
+            <artifactId>skytech-cache</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.skytech.component</groupId>
+            <artifactId>skytech-file</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.skytech.component</groupId>
+            <artifactId>skytech-webservice</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.barcode4j</groupId>
+            <artifactId>barcode4j</artifactId>
+            <version>2.1</version>
+        </dependency>
+
+        <!--平台-基础业务组件-->
+        <dependency>
+            <groupId>com.skytech.component</groupId>
+            <artifactId>skytech-datasProvider</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.skytech.component</groupId>
+            <artifactId>skytech-login</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.skytech.component</groupId>
+            <artifactId>skytech-organisation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.skytech.component</groupId>
+            <artifactId>skytech-menus</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.skytech.component</groupId>
+            <artifactId>skytech-category</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.skytech.component</groupId>
+            <artifactId>skytech-configphystables</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.skytech.component</groupId>
+            <artifactId>skytech-dataprivilege</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.skytech.component</groupId>
+            <artifactId>skytech-booktemplate</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.skytech.component</groupId>
+            <artifactId>skytech-attachfile</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.skytech.component</groupId>
+            <artifactId>skytech-officediction</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.skytech.component</groupId>
+            <artifactId>skytech-effectdate</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.skytech.component</groupId>
+            <artifactId>skytech-tailorform</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.2.4</version>
+        </dependency>
+
+
+        <!-- 响应结果配置 -->
+        <dependency>
+            <groupId>com.networknt</groupId>
+            <artifactId>config</artifactId>
+            <version>1.2.7</version>
+        </dependency>
+        <!--流程依赖-->
+        <dependency>
+            <groupId>com.skytech</groupId>
+            <artifactId>skyflow-embedded</artifactId>
+            <version>0.3.3</version>
+        </dependency>
+
+        <!--Servlet-->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!--test-->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>xml-apis</groupId>
+            <artifactId>xml-apis</artifactId>
+            <version>1.4.01</version>
+        </dependency>
+
+
+    </dependencies>
+
+    <!-- Project  Information Settings -->
+    <name>wjjc_ythpt</name>
+    <description>It's a maven web project created from skyplatform-maven-archetype</description>
+    <url>PROJECT_OFFICIAL_SITE</url>
+    <inceptionYear>PROJECT_START_DATE</inceptionYear>
+    <organization>
+        <name>xxx</name>
+        <url>ORGANIZATION_OFFICIAL_SITE</url>
+    </organization>
+    <developers>
+        <developer>
+            <id>xxx</id>
+            <name>xxx</name>
+            <email>xxx@xxx.xxx</email>
+        </developer>
+    </developers>
+
+    <!-- Environment Settings -->
+    <scm>
+        <connection>scm:SCM_TYPE:SCM_URL</connection>
+        <developerConnection>scm:SCM_TYPE:SCM_URL</developerConnection>
+        <url>PROJECT_PUBLICLY_BROWSABLE_REPOSITORY</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.6.1</version>
+                <configuration>
+                    <!--如果不加此配置，ide给模块的默认jdk版本不固定，并且有可能是1.5-->
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <!--Init DB-->
+                <!-- Oracle -->
+        <!--<profile>
+            <id>01_init-db-in-oracle</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>sql-maven-plugin</artifactId>
+                        <version>1.5</version>
+
+                        <dependencies>
+                            <dependency>
+                                <groupId>com.oracle</groupId>
+                                <artifactId>ojdbc6</artifactId>
+                                <version>11.2.0</version>
+                            </dependency>
+                        </dependencies>
+
+                        <configuration>
+                            <driver>oracle.jdbc.OracleDriver</driver>
+                            <url>jdbc:oracle:thin:@localhost/orcl</url>
+                            <username>web_angularjs</username>
+                            <password>web_angularjs</password>
+                            <orderFile>ascending</orderFile>
+                            <fileset>
+                                <basedir>${basedir}</basedir>
+                                <includes>
+                                    <include>src/main/sql/oracle/*/web_angularjs_*.sql</include>
+                                </includes>
+                            </fileset>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>-->
+        
+        <!--Select Server-->
+                <!-- Develop In Tomcat -->
+        <profile>
+            <id>02_develop-in-tomcat</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources/development</directory>
+                    </resource>
+                </resources>
+
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.tomcat.maven</groupId>
+                        <artifactId>tomcat7-maven-plugin</artifactId>
+                        <version>2.2</version>
+                        <configuration>
+                            <port>8062</port>
+                            <uriEncoding>UTF-8</uriEncoding>
+                            <!-- Deploy Config
+                             | You can config tomcat manager url and user/password here
+                             | or config server id here then config user/password in maven's settings.xml
+                            <url>http://localhost:8080/manager/text</url>
+                            <username>admin</admin>
+                            <password>admin</password>
+                            <server>tomcat-on-local</server>
+                            -->
+
+                            <!-- Enable CORS
+                             ! Config tomcat 7+ enable CORS
+                            <tomcatWebXml>src/test/resources/tomcat.web.xml</tomcatWebXml>
+                            -->
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        
+        <!-- Check Code Quality-->
+        <profile>
+            <id>check-code-quality</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <version>0.7.9</version>
+                        <executions>
+                            <execution>
+                                <id>prepare-agent</id>
+                                <goals>
+                                    <goal>prepare-agent</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonarsource.scanner.maven</groupId>
+                        <artifactId>sonar-maven-plugin</artifactId>
+                        <version>3.2</version>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- Release As War-->
+        <profile>
+            <id>release-as-war</id>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources/release</directory>
+                    </resource>
+                </resources>
+
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-clean-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>auto-clean</id>
+                                <phase>initialize</phase>
+                                <goals>
+                                    <goal>clean</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>net.alchim31.maven</groupId>
+                        <artifactId>yuicompressor-maven-plugin</artifactId>
+                        <version>1.5.1</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>compress</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <nosuffix>true</nosuffix>
+                            <webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
+                            <excludes>
+                                <exclude>**/*.min.js</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+
+                    <plugin>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <configuration>
+                            <webResources>
+                                <resource>
+                                    <directory>
+                                        ${project.build.directory}/${project.build.finalName}
+                                    </directory>
+                                </resource>
+                            </webResources>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>

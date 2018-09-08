@@ -1,0 +1,335 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>物理表列表</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="../ScriptSource/EasyUI/Skins/default/easyui.css" rel="stylesheet" type="text/css" />
+<link href="../ScriptSource/EasyUI/Skins/icon.css" rel="stylesheet" type="text/css" />
+<script src="../ScriptSource/JQuery/jquery.min.js" type="text/javascript"></script>
+<script src="../ScriptSource/JQuery/jquery.form.js" type="text/javascript"></script>
+<script src="../ScriptSource/EasyUI/jquery.easyui.min.js" type="text/javascript"></script>
+<script src="../ScriptSource/JavaScript/GlobalTools.js" type="text/javascript"></script>
+<script src="../ScriptSource/JavaScript/OrganizationTools.js" type="text/javascript"></script>
+<script src="../ScriptSource/NTKOWebOffice/NTKOWebOfficeManager.js" type="text/javascript"></script>
+<script language="javascript">
+var rootPath = "../../"; //页面根路径
+var currentTableName = ""; //当前物理表名称
+var currentTemplateid = 0; //当前模板主键标识
+var postData = "";
+$(function () {
+    //初始化组织机构选择对话框
+    OrganizationTools.dept_Init({ rootPath: rootPath, deptid: "", title: "选择单位", onOKClick: selectDeptOK });
+    currentTableName = Request("tablename");
+    currentTemplateid = Request("templateid");
+    loadForm();
+});
+//初始化表单数据
+function loadForm() {
+    GlobalTools.loadForm($("#templateForm"), {
+        url: rootPath + 'Sys_booktemplate/LoadForm.do?templateid=' + currentTemplateid, isNormalModel: false
+    }, loadComplete);
+}
+//表单数据加载完成后
+function loadComplete(data) {
+    if ($("#tablename").val() == "") $("#tablename").val(currentTableName);
+    if (data && data.sys_booktemplate && data.sys_booktemplate.uploadfile) {
+        $("#uploadfile").val(data.sys_booktemplate.uploadfile);
+        NTKOWebOffice.init();
+        loadTemplate(data.sys_booktemplate.uploadfile);
+    }else if(!data||!data.sys_booktemplate||!data.sys_booktemplate.uploadfile){
+        NTKOWebOffice.init({loadEmptyDocument:true,rootPath:rootPath});
+    }
+}
+//打开一个对话框，显示单位和部门treegrid
+function showDeptTreeGrid() {
+    var sourceElement = this;
+    $(sourceElement).combobox("hidePanel");
+    OrganizationTools.dept_ShowSelectDialog({ sourceElement: sourceElement });
+}
+//选择组织机构后回调函数
+function selectDeptOK(treeNodes, sourceElement) {
+    var text = "", ids = "";
+    $.each(treeNodes, function (index, item) {
+        if (ids != '') {
+            text += ',';
+            ids += ',';
+        }
+        text += item.text;
+        ids += item.id.toString().ReplaceAll("dept_", "");
+    });
+
+    $(sourceElement).combobox("setValue", text);
+    $("#unitid").val(ids);
+}
+//加载本地模板
+function loadLocalDocument() {
+    NTKOWebOffice.loadLocalDocument({ loadDocumentActionPath: "E:\\初步讨论代码规范.docx" });
+}
+//加载服务器模板
+function loadTemplate(fileid) {
+    NTKOWebOffice.loadServerDocument({ loadDocumentActionPath: rootPath + "Sys_attachfile/DownLoadFile.do?fileid=" + fileid },function(){
+        //NTKOWebOffice.setDocReadOnly(true);
+    });
+}
+
+//IE下保存模板不会自动提交表单中的信息，所以特殊处理
+function setPostData(){
+    if($.browser.msie){
+        //postData = {"sys_booktemplate.id:" + $("#templateid").val() + ",sys_booktemplate.uploadfile:" + $("#uploadfile").val() + ",sys_booktemplate.tablename:" + $("#tablename").val() + ",sys_booktemplate.chinaname=" + $("#chinaname").val() + "&sys_booktemplate.unitid=" + $("#unitid").val() + "&sys_booktemplate.unitname=" + $("#unitName").val() + "&sys_booktemplate.description=" + $("#description").val(),
+        postData = $("#templateForm").serialize();
+    }
+}
+
+//保存模板
+function saveTemplate(iscloseDesignTab) {
+    if(!$("#templateForm").form("validate")){
+        return;
+    }
+    setPostData();
+    console.log(postData);
+    NTKOWebOffice.saveDocumentToServer({
+        saveDocumentActionPath: rootPath + "Sys_booktemplate/SaveForm.do?usewebsitepath=false&" + getAccessTokenName() + "=" + getAccessTokenCookie(),
+        fileName: $("#chinaname").val() + ".doc",
+        postData: postData,
+        postFormId:templateForm,
+        //postData: "sys_booktemplate.id=" + $("#templateid").val() + "&sys_booktemplate.uploadfile=" + $("#uploadfile").val() + "&sys_booktemplate.tablename=" + $("#tablename").val() + "&sys_booktemplate.chinaname=" + $("#chinaname").val() + "&sys_booktemplate.unitid=" + $("#unitid").val() + "&sys_booktemplate.unitname=" + $("#unitName").val() + "&sys_booktemplate.description=" + $("#description").val(),
+        onSaveSuccess:function(data){
+            if (data) {
+                currentTemplateid = data.data.template.id;
+                $("#templateid").val(currentTemplateid);
+                $("#uploadfile").val(data.data.template.uploadfile);
+            }
+            if(iscloseDesignTab){
+                window.parent.closeTemplateDesignTab();
+            }
+        }});
+}
+
+//插入书签后的保存
+function saveTemplateAfterBookMark(){
+    if(!$("#templateForm").form("validate")){
+        return;
+    }
+    setPostData();
+    NTKOWebOffice.saveDocumentToServer({
+//        saveDocumentActionPath: rootPath + "Sys_booktemplate/SaveForm.do?usewebsitepath=false&" + getAccessTokenName() + "=" + getAccessTokenCookie(),
+        saveDocumentActionPath: rootPath + "Sys_booktemplate/SaveForm.do",
+        fileName: $("#chinaname").val() + ".doc",
+        //postData: "sys_booktemplate.id=" + $("#templateid").val() + "&sys_booktemplate.uploadfile=" + $("#uploadfile").val() + "&sys_booktemplate.tablename=" + $("#tablename").val() + "&sys_booktemplate.chinaname=" + $("#chinaname").val() + "&sys_booktemplate.unitid=" + $("#unitid").val() + "&sys_booktemplate.unitname=" + $("#unitName").val() + "&sys_booktemplate.description=" + $("#description").val(),
+        postData: postData,
+        onSaveSuccess:onSaveSuccessAfterBookMark});
+}
+
+function onSaveSuccessAfterBookMark(data){
+    if (data) {
+        currentTemplateid = data.data.template.id;
+        $("#templateid").val(currentTemplateid);
+        $("#uploadfile").val(data.data.template.uploadfile);
+        var rowData = $('#dgInsertBookMark').length!=0?$('#dgInsertBookMark').datagrid('getSelected'):null;
+        if (rowData) {//有选择要插入的书签
+            saveTemplateBookMark(currentTemplateid,rowData);
+        }
+    }
+}
+
+//插入书签
+function insertBookMark(){
+    var rowData = $('#dgInsertBookMark').datagrid('getSelected');
+    if (!rowData) {
+        GlobalTools.tip("请选择一个书签");
+        return;
+    }
+    var templateBookMark = {};
+    var bookmark = rowData;
+    templateBookMark.templateid = currentTemplateid;
+    templateBookMark.bookmarkid = bookmark.id;
+    templateBookMark.constname = bookmark.constname;
+    templateBookMark.chinaname = bookmark.chinaname;
+    templateBookMark.tablename = bookmark.tablename;
+    templateBookMark.colname = bookmark.colname;
+    //插入书签
+    NTKOWebOffice.insertBookMark(bookmark.chinaname, bookmark.constname);
+    if(currentTemplateid == 0){//保存书签模板关系前，必须先保存模板
+        //先保存模板
+        saveTemplateAfterBookMark();
+    }else{
+        var rowData = $('#dgInsertBookMark').length!=0?$('#dgInsertBookMark').datagrid('getSelected'):null;
+        if (rowData) {//有选择要插入的书签
+            saveTemplateBookMark(currentTemplateid,rowData);
+        }
+    }
+}
+
+//保存书签模板关联
+function saveTemplateBookMark(templateid,bookmark){
+    var templateBookMark = {};
+    templateBookMark.templateid = currentTemplateid;
+    templateBookMark.bookmarkid = bookmark.id;
+    templateBookMark.constname = bookmark.constname;
+    templateBookMark.chinaname = bookmark.chinaname;
+    templateBookMark.tablename = bookmark.tablename;
+    templateBookMark.colname = bookmark.colname;
+    GlobalTools.ajax({
+        async: false,
+        url: rootPath + 'Sys_templatebookmarks/SaveForm.do',
+        data: templateBookMark,
+        success: function () {
+            $('#InsertBookMarkDialog').window('close');
+        },
+        error: function (message) {
+            GlobalTools.tip("保存书签失败！");
+        }
+    });
+}
+
+//打开插入书签对话框
+function showInsertBookMark() {
+    $('#InsertBookMarkDialog').window({ href: 'BookMarkeInsert.htm' });
+    $('#InsertBookMarkDialog').window('open');
+}
+
+//打开删除书签对话框
+function showDeleteBookMark() {
+    $('#DeleteBookMarkDialog').window({ href: 'BookMarkeDelete.htm' });
+    $('#DeleteBookMarkDialog').window('open');
+}
+//删除书签
+function deleteBookMark() {
+    var deleteDatas = $('#dgDeleteBookMark').datagrid('getSelections');
+    if (!deleteDatas || deleteDatas.length == 0) return;
+    GlobalTools.deleteGridList($('#dgDeleteBookMark'), {
+        async: false,
+        url: rootPath + "Sys_templatebookmarks/DestroyList.do",
+        success: function () {
+            //删除书签
+            var idArr = new Array();
+            for (index in deleteDatas) {
+                NTKOWebOffice.deleteBookMark(deleteDatas[index].constname);
+            }
+            GlobalTools.tip("删除成功！");
+        },
+        error: function (message) {
+            GlobalTools.tip("删除书签失败！");
+        }
+    });
+}
+
+//文档编辑页面关闭事件
+function checkDocumentStatus() {
+    if (!NTKOWebOffice.getDocumentSaveStatus()) {
+        $.messager.confirm('确认信息', '文档已经修改过，是否需要保存？', function (returnValue) {
+            if (returnValue) {
+                saveTemplate(true);
+            }
+            else {
+                window.parent.closeTemplateDesignTab();
+            }
+        });
+    }
+    else {
+        window.parent.closeTemplateDesignTab();
+    }
+}
+
+//替换书签为实际值
+function replaceBookMark() {
+    GlobalTools.ajax({
+        type: "POST",
+        dataType: "JSON",
+        url: rootPath + 'Sys_templatebookmarks/LoadTemplateBookMarks.do',
+        data: { templateid: currentTemplateid, tablename: 'notice', recordid: 'a08182c15137f9c1015137fa475800b7133207' },
+        success: function (result) {
+            NTKOWebOffice.replaceBookMark(result, { coverRedHeadPath: rootPath + "Sys_attachfile/DownLoadFile.do?fileid=8" });
+        }
+    });
+}
+
+
+//设置文档是否允许打印
+function setDocumentAllowPrint(blnAllow) {
+    NTKOWebOffice.setDocumentAllowPrint(blnAllow);
+}
+//设置文档是否允许另存为
+function setDocumentAllowSaveAs(blnAllow) {
+    NTKOWebOffice.setDocumentAllowSaveAs(blnAllow);
+}
+//设置是否保留痕迹
+function setDocumentReviewMode(blnReview) {
+    NTKOWebOffice.setDocumentReviewMode(blnReview);
+}
+//设置是否显示痕迹
+function setDocumentShowRevisions(blnShow) {
+    NTKOWebOffice.setDocumentShowRevisions(blnShow);
+}
+//接受或者取消所有修订
+function acceptAllRevisions(blnAccept) {
+    NTKOWebOffice.acceptAllRevisions(blnAccept);
+}
+</script>
+</head>
+<body class="easyui-layout" data-options="fit:true">
+<div data-options="region:'center',split:false,border:false">
+    <div id="templateDesignToolBar" class="datagrid-toolbar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveTemplate()" data-options="plain:true,iconCls:'icon-save'">
+            保存</a> <a href="javascript:void(0)" class="easyui-linkbutton" onclick="loadLocalDocument()"
+                      data-options="plain:true,iconCls:'icon-archives'">打开文档</a> <a href="javascript:void(0)"
+                                                                                    class="easyui-linkbutton" onclick="showInsertBookMark()" data-options="plain:true,iconCls:'icon-edit'">
+        插入书签</a> <a href="javascript:void(0)" class="easyui-linkbutton" onclick="showDeleteBookMark()"
+                    data-options="plain:true,iconCls:'icon-pause'">删除书签</a> <a href="javascript:void(0)"
+                                                                               class="easyui-linkbutton" onclick="replaceBookMark()" data-options="plain:true,iconCls:'icon-pause'">
+        替换书签</a> <a href="javascript:void(0)" class="easyui-linkbutton" onclick="setDocumentReviewMode(true)"
+                    data-options="plain:true,iconCls:'icon-pause'">进入修订</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="setDocumentReviewMode(false)"
+           data-options="plain:true,iconCls:'icon-pause'">取消修订</a> <a href="javascript:void(0)"
+                                                                      class="easyui-linkbutton" onclick="setDocumentShowRevisions(true)" data-options="plain:true,iconCls:'icon-pause'">
+        显示痕迹</a> <a href="javascript:void(0)" class="easyui-linkbutton" onclick="setDocumentShowRevisions(false)"
+                    data-options="plain:true,iconCls:'icon-pause'">隐藏痕迹</a> <a href="javascript:void(0)"
+                                                                               class="easyui-linkbutton" onclick="acceptAllRevisions(true)" data-options="plain:true,iconCls:'icon-pause'">
+        接受修订</a> <a href="javascript:void(0)" class="easyui-linkbutton" onclick="acceptAllRevisions(false)"
+                    data-options="plain:true,iconCls:'icon-pause'">拒绝修订</a>
+    </div>
+    <form id="templateForm" name="templateForm" method="post">
+        <table style="border-collapse: collapse; width: 100%;" border="0" cellspacing="0"
+               cellpadding="0">
+            <tr height="30">
+                <td width="10%" align="right">
+                    模板名称:
+                </td>
+                <td width="40%">
+                    <input type="hidden" name="sys_booktemplate.id" id="templateid" />
+                    <input type="hidden" name="sys_booktemplate.uploadfile" id="uploadfile" />
+                    <input type="hidden" name="sys_booktemplate.tablename" id="tablename" />
+                    <input class="easyui-validatebox" type="text" id="chinaname" name="sys_booktemplate.chinaname"
+                           style="width: 98%" data-options="required:true"/>
+                </td>
+                <td width="10%" align="right">
+                    所属单位:
+                </td>
+                <td width="30%">
+                    <input type="hidden" name="sys_booktemplate.unitid" id="unitid" />
+                    <input class="easyui-combobox" type="text" id="unitName" name="sys_booktemplate.unitname"
+                           data-options="onShowPanel:showDeptTreeGrid" style="width: 250px" />
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    模板描述:
+                </td>
+                <td colspan="3">
+                    <input class="easyui-validatebox" type="text" id="description" name="sys_booktemplate.description"
+                           style="width: 99%;" />
+                </td>
+            </tr>
+        </table>
+    </form>
+    <script src="../ScriptSource/NTKOWebOffice/ntkoofficecontrol.js" type="text/javascript"></script>
+</div>
+<div id="InsertBookMarkDialog" class="easyui-window" title="插入书签" data-options="modal:true,closed:true,iconCls:'icon-save'"
+     style="width: 500px; height: 350px;">
+</div>
+<div id="DeleteBookMarkDialog" class="easyui-window" title="删除书签" data-options="modal:true,closed:true,iconCls:'icon-save'"
+     style="width: 500px; height: 350px;">
+    .
+</div>
+</body>
+</html>

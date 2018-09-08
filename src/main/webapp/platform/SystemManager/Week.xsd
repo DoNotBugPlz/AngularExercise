@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Week"
+    targetNamespace="http://tempuri.org/Week.xsd"
+    elementFormDefault="qualified"
+    xmlns="http://tempuri.org/Week.xsd"
+    xmlns:mstns="http://tempuri.org/Week.xsd"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+  <xs:element name="Week">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Sunday" type="xs:string" nillable="true" />
+        <xs:element name="Monday" type="xs:string" nillable="true" />
+        <xs:element name="Tuesday" type="xs:string" nillable="true" />
+        <xs:element name="Wednesday" type="xs:string" nillable="true" />
+        <xs:element name="Thursday" type="xs:string" nillable="true" />
+        <xs:element name="Friday" type="xs:string" nillable="true" />
+        <xs:element name="Saturday" type="xs:string" nillable="true" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

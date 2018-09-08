@@ -1,0 +1,396 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>物理表列表</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="../ScriptSource/EasyUI/Skins/default/easyui.css" rel="stylesheet" type="text/css" />
+    <link href="../ScriptSource/EasyUI/Skins/icon.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../ScriptSource/JavaScript/EncodeData/Rsa/RSA.js"></script>
+    <script type="text/javascript" src="../ScriptSource/JavaScript/EncodeData/Rsa/BigInt.js"></script>
+    <script type="text/javascript" src="../ScriptSource/JavaScript/EncodeData/Rsa/Barrett.js"></script>
+    <script type="text/javascript" src="../ScriptSource/JavaScript/EncodeData/aes.js"></script>
+    <script src="../ScriptSource/JQuery/jquery.min.js" type="text/javascript"></script>
+    <script src="../ScriptSource/JQuery/jquery.form.js" type="text/javascript"></script>
+    <script src="../ScriptSource/EasyUI/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../ScriptSource/JavaScript/GlobalTools.js" type="text/javascript"></script>
+    <script src="../ScriptSource/JavaScript/EncodeData/SkyEnCode.js" type="text/javascript"></script>
+    <script language="javascript" type="text/javascript">
+    	var rootPath="../../";
+        $(function () {
+            $("#JSEnCodeKey").val(SkyEnCode.DeEscCode(SkyEnCode.Key));
+            $("#SVEnCodeKey").val(SkyEnCode.DeEscCode(SkyEnCode.Key));
+        });
+        //客户端非密钥加密
+        function JSNoKeyEnCode() {
+            if ($("#JSNoKeyEncodeSource").val() == "") { GlobalTools.showError("请输入明文。"); return; }
+            $("#JSNoKeyEncodeResult").val(SkyEnCode.EscCode($("#JSNoKeyEncodeSource").val()));
+        }
+        //客户端非密钥解密
+        function JSNoKeyDeEnCode() {
+            if ($("#JSNoKeyEncodeResult").val() == "") { GlobalTools.showError("请输入密文。"); return; }
+            $("#JSNoKeyEncodeSource").val(SkyEnCode.DeEscCode($("#JSNoKeyEncodeResult").val()));
+        }
+        //客户端密钥加密
+        function JSKeyEnCode() {
+            if ($("#JSKeyEncodeSource").val() == "") { GlobalTools.showError("请输入明文。"); return; }
+            //注意：因系统已经全局设置密钥，平台中请使用SkyEnCode.EscKeyCode(明文);进行加密。
+            $("#JSKeyEncodeResult").val(SkyEnCode.stringToHex(SkyEnCode.des($("#JSEnCodeKey").val(), $("#JSKeyEncodeSource").val(), 1, 0)));
+        }
+        //客户端密钥解密
+        function JSKeyDeEnCode() {
+            if ($("#JSKeyEncodeResult").val() == "") { GlobalTools.showError("请输入密文。"); return; }
+            //注意：因系统已经全局设置密钥，平台中请使用SkyEnCode.DeEscKeyCode(明文);进行解密。
+            $("#JSKeyEncodeSource").val(SkyEnCode.des($("#JSEnCodeKey").val(), SkyEnCode.HexTostring($("#JSKeyEncodeResult").val()), 0, 0));
+        }
+        //服务端非密钥加密
+        function SVNoKeyEnCode() {
+            if ($("#SVNoKeyEncodeSource").val() == "") { GlobalTools.showError("请输入明文。"); return; }
+            GlobalTools.ajax({ 
+            	url: rootPath+"Login/EscCode.do",
+                type: "POST",
+                dataType: "JSON",
+                data: { sourceWord: $("#SVNoKeyEncodeSource").val() },
+                success: function (result) {
+                    $("#SVNoKeyEncodeResult").val(result);
+                }
+            });
+        }
+        //服务端非密钥解密
+        function SVNoKeyDeEnCode() {
+            if ($("#SVNoKeyEncodeResult").val() == "") { GlobalTools.showError("请输入密文。"); return; }
+            GlobalTools.ajax({ url: rootPath+"Login/DeEscCode.do",
+                type: "POST",
+                dataType: "JSON",
+                data: { sourceWord: $("#SVNoKeyEncodeResult").val() },
+                success: function (result) {
+                    $("#SVNoKeyEncodeSource").val(result);
+                }
+            });
+        }
+        //服务端密钥加密
+        function SVKeyEnCode() {
+            if ($("#SVKeyEncodeSource").val() == "") { GlobalTools.showError("请输入明文。"); return; }
+            $.ajax({ url: rootPath+"SkySecurity/Encrypt.do",
+                type: "POST",
+                dataType: "text",
+                data: { text: $("#SVKeyEncodeSource").val(), key: $("#SVEnCodeKey").val() },
+                success: function (result) {
+                    $("#SVKeyEncodeResult").val(result);
+                }
+            });
+        }
+        //服务端密钥解密
+        function SVKeyDeEnCode() {
+            if ($("#SVKeyEncodeResult").val() == "") { GlobalTools.showError("请输入密文。"); return; }
+            $.ajax({ url: rootPath+"SkySecurity/Decrypt.do",
+                type: "POST",
+                dataType: "text",
+                data: { text: $("#SVKeyEncodeResult").val(), key: $("#SVEnCodeKey").val() },
+                success: function (result) {
+                    $("#SVKeyEncodeSource").val(result);
+                }
+            });
+        }
+        function resizePanel(width, height) {
+            $(".easyui-panel").panel("resize", { width: width });
+        }
+
+        function JSAESKeyEnCode(){
+            if ($("#JSAESKeyEncodeSource").val() == "") { GlobalTools.showError("请输入明文。"); return; }
+            var aesKey= $.trim($("#JSAESKey").val());
+
+            if(aesKey){
+                if(aesKey.length!=16){
+                    GlobalTools.showError("密钥长度只能为16");
+                    return;
+                }
+            }
+            $("#JSAESKeyEncodeResult").val(SKY_AES.encrypt($("#JSAESKeyEncodeSource").val(),$("#JSAESKey").val()));
+        }
+        function JSAESKeyDeEnCode(){
+            if ($("#JSAESKeyEncodeResult").val() == "") { GlobalTools.showError("请输入密文。"); return; }
+            var aesKey= $.trim($("#JSAESKey").val());
+
+            if(aesKey){
+                if(aesKey.length!=16){
+                    GlobalTools.showError("密钥长度只能为16");
+                    return;
+                }
+            }
+            $("#JSAESKeyEncodeSource").val(SKY_AES.decrypt($("#JSAESKeyEncodeResult").val(),$("#JSAESKey").val()));
+        }
+        //AES服务端密钥加密
+        function SVAESKeyEnCode() {
+            if ($("#SVAESKeyEncodeSource").val() == "") { GlobalTools.showError("请输入明文。"); return; }
+            var aesKey= $.trim($("#SVAESEnCodeKey").val());
+
+            if(aesKey){
+                if(aesKey.length!=16){
+                    GlobalTools.showError("密钥长度只能为16");
+                    return;
+                }
+            }
+            $.ajax({ url: rootPath+"SkySecurity/AesEncrypt.do",
+                type: "POST",
+                dataType: "text",
+                data: { text: $("#SVAESKeyEncodeSource").val(), key: $("#SVAESEnCodeKey").val() },
+                success: function (result) {
+                    $("#SVAESKeyEncodeResult").val(result);
+                }
+            });
+        }
+        //AES服务端密钥解密
+        function SVAESKeyDeEnCode() {
+            if ($("#SVAESKeyEncodeResult").val() == "") { GlobalTools.showError("请输入密文。"); return; }
+            var aesKey= $.trim($("#SVAESEnCodeKey").val());
+            if(aesKey){
+                if(aesKey.length!=16){
+                    GlobalTools.showError("密钥长度只能为16");
+                    return;
+                }
+            }
+            $.ajax({ url: rootPath+"SkySecurity/AesDecrypt.do",
+                type: "POST",
+                dataType: "text",
+                data: { text: $("#SVAESKeyEncodeResult").val(), key: $("#SVAESEnCodeKey").val() },
+                success: function (result) {
+                    $("#SVAESKeyEncodeSource").val(result);
+                }
+            });
+        }
+    </script>
+    <script type="text/javascript">
+        var rootPath="../../";
+        var publicKey="";
+        var isSetKey=false;
+        function rsalogin(){
+            var thisPwd = document.getElementById("password").value;
+            var key;
+            if(!key) {
+                //构建RSA
+                setMaxDigits(130);
+                key = new RSAKeyPair("10001","",publicKey);
+                //isSetKey=true;
+            }
+            var result = encryptedString(key, encodeURIComponent(thisPwd));
+            document.getElementById("miwen").value=result;
+            $.ajax({
+                type:"POST",
+                url:rootPath+"Test/desRsaDencrypt.do",
+                data:{encrypt:result},
+                success:function(data){
+                    publicKey=data;
+                    $("#mingwen").val(publicKey);
+                },
+                error:function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert(textStatus);
+                }
+            });
+        }
+
+        function getPublicKey(){
+            $.ajax({
+                type:"GET",
+                url:rootPath+"Test/getPublicKey.do",
+                dataType:"text",
+                success:function(data){
+                    publicKey=data;
+                    isGetKey=true;
+                    $("#txtPkey").val(publicKey);
+                },
+                error:function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert(textStatus);
+                }
+            });
+        }
+    </script>
+</head>
+<body class="easyui-layout" data-options="fit:true">
+    <div data-options="region:'center',split:false,border:false">
+        <div id="divTab" class="easyui-tabs" data-options="border:false,fit:true,height:668">
+        <div title="AES密钥加解密">
+            <div class="easyui-panel" title="AES客户端加解密">
+                <table style="border-collapse: collapse;" border="1" cellspacing="0" bordercolor="black"
+                       cellpadding="0" width="90%" align="center">
+                    <tr height="25">
+                        <td align="center" width="35%">
+                            <strong>明文</strong>
+                        </td>
+                        <td align="center">
+                            <strong>密钥(长度必须16)</strong>
+                            <input class="easyui-validatebox" validType="length[16,16]" type="text" id="JSAESKey" style="width: 80%" />
+                        </td>
+                        <td align="center" width="35%">
+                            <strong>密文</strong>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <textarea id="JSAESKeyEncodeSource" style="width: 98%;" rows="4"></textarea>
+                        </td>
+                        <td align="center">
+                            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="JSAESKeyEnCode()" data-options="iconCls:'icon-next',iconAlign:'right'">
+                                加密</a><br />
+                            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="JSAESKeyDeEnCode();"
+                               data-options="iconCls:'icon-prev'">解密</a>
+                        </td>
+                        <td>
+                            <textarea id="JSAESKeyEncodeResult" style="width: 98%;" rows="4"></textarea>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="easyui-panel" title="AES服务端加解密">
+                <table style="border-collapse: collapse;" border="1" cellspacing="0" bordercolor="black"
+                       cellpadding="0" width="90%" align="center">
+                    <tr height="25">
+                        <td align="center" width="35%">
+                            <strong>明文</strong>
+                        </td>
+                        <td align="center">
+                            <strong>密钥(长度必须16)</strong>
+                            <input class="easyui-validatebox" type="text" id="SVAESEnCodeKey"  style="width: 80%" />
+                        </td>
+                        <td align="center" width="35%">
+                            <strong>密文</strong>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <textarea id="SVAESKeyEncodeSource" style="width: 98%;" rows="4"></textarea>
+                        </td>
+                        <td align="center">
+                            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="SVAESKeyEnCode()" data-options="iconCls:'icon-next',iconAlign:'right'">
+                                加密</a><br />
+                            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="SVAESKeyDeEnCode();"
+                               data-options="iconCls:'icon-prev'">解密</a>
+                        </td>
+                        <td>
+                            <textarea id="SVAESKeyEncodeResult" style="width: 98%;" rows="4"></textarea>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+         <div title="DES密钥加解密">
+                <div class="easyui-panel" title="客户端加解密">
+                    <table style="border-collapse: collapse;" border="1" cellspacing="0" bordercolor="black"
+                           cellpadding="0" width="90%" align="center">
+                        <tr height="25">
+                            <td align="center" width="35%">
+                                <strong>明文</strong>
+                            </td>
+                            <td align="center">
+                                <strong>密钥</strong>
+                                <input class="easyui-validatebox" type="text" id="JSEnCodeKey" name="EnCodeKey" style="width: 80%" />
+                            </td>
+                            <td align="center" width="35%">
+                                <strong>密文</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <textarea id="JSKeyEncodeSource" style="width: 98%;" rows="4"></textarea>
+                            </td>
+                            <td align="center">
+                                <a href="javascript:void(0)" class="easyui-linkbutton" onclick="JSKeyEnCode()" data-options="iconCls:'icon-next',iconAlign:'right'">
+                                    加密</a><br />
+                                <a href="javascript:void(0)" class="easyui-linkbutton" onclick="JSKeyDeEnCode();"
+                                   data-options="iconCls:'icon-prev'">解密</a>
+                            </td>
+                            <td>
+                                <textarea id="JSKeyEncodeResult" style="width: 98%;" rows="4"></textarea>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+       <div  title="3DES密钥加解密"><div class="easyui-panel" title="服务端加解密">
+           <table style="border-collapse: collapse;" border="1" cellspacing="0" bordercolor="black"
+                  cellpadding="0" width="90%" align="center">
+               <tr height="25">
+                   <td align="center" width="35%">
+                       <strong>明文</strong>
+                   </td>
+                   <td align="center">
+                       <strong>密钥</strong>
+                       <input class="easyui-validatebox" type="text" id="SVEnCodeKey" name="EnCodeKey" style="width: 80%" />
+                   </td>
+                   <td align="center" width="35%">
+                       <strong>密文</strong>
+                   </td>
+               </tr>
+               <tr>
+                   <td>
+                       <textarea id="SVKeyEncodeSource" style="width: 98%;" rows="4"></textarea>
+                   </td>
+                   <td align="center">
+                       <a href="javascript:void(0)" class="easyui-linkbutton" onclick="SVKeyEnCode()" data-options="iconCls:'icon-next',iconAlign:'right'">
+                           加密</a><br />
+                       <a href="javascript:void(0)" class="easyui-linkbutton" onclick="SVKeyDeEnCode();"
+                          data-options="iconCls:'icon-prev'">解密</a>
+                   </td>
+                   <td>
+                       <textarea id="SVKeyEncodeResult" style="width: 98%;" rows="4"></textarea>
+                   </td>
+               </tr>
+           </table>
+       </div></div>
+            <div title="RSA测试">
+                <div class="easyui-panel" title="RSA加解密Demo">
+
+                    <table border="1">
+                        <tr>
+                            <td colspan="2">
+                               <span style="font-size: 16px; color: #0000ff;"> 服务端生成密钥对，传送公钥至客户端，客户端公钥加密明文后，密文传至服务器，服务器利用私钥解密，得出明文。<br>
+                               RSA由于加解密效率问题（比对称密码慢百倍），所以，RSA用于对称密码算法的密钥传输，签名。
+                               </span>
+                            </td>
+                        <tr>
+                            <td colspan="2" style="height: 30px;">
+                                <input type="button" value="获取公钥" onclick="getPublicKey();"/>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td style="text-align: right;">公钥：</td>
+                            <td >
+                                <textarea id="txtPkey" style="width: 600px;height:100px"></textarea>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td style="text-align: right;">
+                                客户端明文:
+                            </td>
+                            <td>
+                                <textarea id="password" style="width: 600px;height:100px"></textarea>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="height: 30px;" >
+                                <input type="button" value="生成密文，提交服务端" onclick="rsalogin();" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right;">客户端公钥加密生成的密文：</td>
+                            <td>
+                                <textarea id="miwen" style="width:600px;height:100px;"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right;">后端私钥解密得到明文：</td>
+                            <td >
+                                <textarea id="mingwen" style="width:600px;height:100px;"></textarea>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

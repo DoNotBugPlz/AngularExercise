@@ -1,0 +1,78 @@
+<div class="select_b_zzy ">
+    <div class="leftSel_table_zzy over_hide2" >
+        <table border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="10.6%" class="txt">采价员姓名：</td>
+                <td width="17.9%">
+                    <input type="text" class="sel_ipt_zzy" ng-model="vm.condition.chinaname">
+                </td>
+                <td width="10.6%" class="txt">开始时间：</td>
+                <td width="17.9%">
+                    <input type="text" placeholder="请输入开始时间" name="start_date" id="start_date"
+                           ng-date="yyyy-MM-dd" class="Wdate"    max-date="#F{$dp.$D('end_date')}"
+                           ng-model="vm.condition.start_date"/>
+                </td>
+                <td width="10.6%" class="txt">至：</td>
+                <td width="17.9%">
+                    <input type="text" placeholder="请输入结束时间"  name="end_date" id="end_date"
+                           ng-date="yyyy-MM-dd" class="Wdate"  min-date="#F{$dp.$D('start_date')}"
+                           ng-model="vm.condition.end_date"/>
+                </td>
+                <td class="left">
+                    <a href="javascript:;" class="sel_btn_zzy" ng-click="vm.getList()">查询</a>
+                    <a href="javascript:;" class="reSet_btn_zzy" ng-click="vm.clearAll()">重置</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="table_box_zzy top1_zzy">
+    <div class="table_tip_zzy" style="left: 0px;">
+        <div class="table_tip_btn_zzy">
+            <a href="javascript:;">打印</a>
+            <a href="javascript:;">导出</a>
+            <!--<a href="javascript:;">禁用</a>-->
+            <!--<a href="javascript:;">启用</a>-->
+        </div>
+        <!--<div class="table_tip_main_zzy">-->
+            <!--<span class="tip1_zzy">筛选条件：</span>-->
+            <!--区划：江苏省 / 性质：省级 /  是否独立办公：是-->
+        <!--</div>-->
+        <div class="clear"></div>
+    </div>
+    <div class="table_head_zzy marginB2">
+        <table>
+            <tr>
+                <td width="5%">序号</td>
+                <td width="15%">姓名</td>
+                <td width="20%">监测点</td>
+                <td width="10%">应签到次数</td>
+                <td width="10%">实际签到次数</td>
+                <td width="10%">签到率</td>
+                <td width="15%">签到记录</td>
+            </tr>
+        </table>
+    </div>
+    <div class="table_main_zzy" m-custom-scrollbar >
+        <table>
+            <tr ng-repeat="n in vm.signList track by $index" ng-class-even="'bgcolor'"
+                ng-class="{'false':'','true':'selected'}[n.selected]">
+                <td  width="5%">{{ $index + 1+ (vm.currentPageInf.pageNumber-1)*vm.currentPageInf.pageSize }}</td>
+                <td width="15%" style="text-align: left">&nbsp;&nbsp;{{n.chinaname}}</td>
+                <td width="20%" style="text-align: left">{{n.site_name}}</td>
+                <td width="10%" >{{n.col_datetime}}</td>
+                <td width="10%" >{{n.actual_sign_nums}}</td>
+                <td width="10%" ng-style="{color:(n.is_pub===1)?'red':''}">{{n.is_pub_text}}</td>
+                <td width="15%">
+                    <a href="javascript:;" class="table_main1_a" ng-click="vm.editDemo(n)">签到记录</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="table-tfoot">
+        <div class="table_page">
+            <div ng-turn-page="vm.signListPage" turn-page-fn="vm.getList"></div>
+        </div>
+    </div>
+</div>

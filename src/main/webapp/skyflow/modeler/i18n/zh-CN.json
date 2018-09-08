@@ -1,0 +1,842 @@
+{
+  "GENERAL" : {
+    "MAIN-TITLE": "流程编辑器",
+    "NAVIGATION" : {
+      "PROCESSES": "流程",
+      "FORMS": "表单",
+      "DECISION-TABLES": "决策表",
+      "APPS": "应用"
+    },
+    "TITLE": {
+      "SELECT-GROUP" :"Select group",
+      "MATCHING-GROUPS": "Matching groups",
+      "FILTER": "过滤器",
+      "HISTORY": "历史"
+    },
+    "ACTION": {
+      "LOGOUT": "注销",
+      "RETURN-TO-LIST": "显示所有流程模型",
+      "CANCEL": "取消",
+      "CLOSE": "关闭",
+      "EDIT": "编辑",
+      "SAVE": "保存",
+      "OPEN": "打开",
+      "OK": "确认",
+      "CONFIRM": "确认",
+      "CONFIRM-AND-CLOSE": "确认并关闭",
+      "NEW-FORM": "新建表单",
+      "CREATE-FORM": "新建表单",
+      "NEW-DECISION-TABLE": "新建决策表",
+      "CREATE-DECISION-TABLE": "新建决策表"
+    },
+    "MESSAGE": {
+      "SELECT-GROUP-HELP": "使用&uparrow;和&downarrow;选择，回车键确认",
+      "PEOPLE-NO-MATCHING-RESULTS": "没有匹配的用户",
+      "GROUP-NO-MATCHING-RESULTS": "没有匹配的组",
+      "GROUP-SOURCE-TYPE": "Group source",
+      "GROUP-SOURCE-SEARCH-OPTION": "Group search",
+      "GROUP-SOURCE-FIELD-OPTION": "表单字段"
+    }
+  },
+
+  "EDITOR": {
+    "POPUP": {
+      "UNSAVED-CHANGES": {
+        "TITLE": "您有修改的内容未保存",
+        "DESCRIPTION": "如何处理未保存的修改？",
+        "ACTION": {
+          "SAVE": "保存",
+          "DISCARD": "放弃",
+          "CONTINUE": "继续"
+        }
+      }
+    }
+  },
+
+  "PROCESS-LIST" : {
+    "TITLE" : "业务流程模型",
+    "SEARCH-PLACEHOLDER": "搜索",
+    "ACTION" : {
+      "CREATE": "创建流程",
+      "IMPORT": "导入流程"
+    },
+
+    "FILTER" : {
+      "PROCESSES": "流程模型",
+      "PROCESSES-COUNT": "共有{{total}}个流程模型",
+      "PROCESSES-ONE": "有1个流程模型",
+      "PROCESSES-EMPTY": "您还没有创建流程模型. 您可以设计流程模型、用户表单，然后将它们绑定到一个流程应用上。 首先您需要创建一个流程模型:",
+      "PROCESSES-BPMN-HINT": "使用BPMN Visual Editor创建一个BPMN流程模型",
+      "PROCESSES-BPMN-IMPORT-HINT": "您也可以导入一个已存在的BPMN流程模型",
+      "FILTER-TEXT": ",匹配 \"{{filterText}}\"",
+      "FILTER-TEXT-EMPTY": "没有匹配到与\"{{filterText}}\"对应的流程模型",
+      "RECENT": "最近的",
+      "RECENT-COUNT": "最近使用的{{total}}个流程模型",
+      "RECENT-ONE": "最近使用的1个流程模型",
+      "RECENT-EMPTY": "最近没有使用流程模型"
+    },
+
+    "SORT": {
+      "MODIFIED-ASC": "修改时间升序",
+      "MODIFIED-DESC": "修改时间降序",
+      "NAME-ASC": "流程模型名称升序",
+      "NAME-DESC": "流程模型名称降序"
+    }
+  },
+
+  "FORMS-LIST" : {
+    "TITLE" : "表单列表",
+    "SEARCH-PLACEHOLDER": "搜索",
+    "ACTION" : {
+      "CREATE": "新建表单",
+      "CREATE-INLINE": "新建一个表单",
+      "SHOW-MORE": "显示更多……"
+    },
+
+    "FILTER" : {
+      "FORMS": "表单",
+      "FORMS-COUNT": "共有{{total}}个表单",
+      "FORMS-ONE": "有1个表单",
+      "FORMS-EMPTY": "还没有表单,点击新建表单按钮添加一个新的表单",
+      "FILTER-TEXT": ",匹配\"{{filterText}}\"",
+      "FILTER-TEXT-EMPTY": "没有匹配到与\"{{filterText}}\"对应的表单"
+    },
+
+    "SORT": {
+      "MODIFIED-ASC": "修改时间升序",
+      "MODIFIED-DESC": "修改时间降序",
+      "NAME-ASC": "表单名称升序",
+      "NAME-DESC": "表单名称降序"
+    }
+  },
+
+  "DECISION-TABLES-LIST": {
+    "TITLE": "决策表列表",
+    "SEARCH-PLACEHOLDER": "搜索",
+    "ACTION": {
+      "CREATE": "新建决策表",
+      "IMPORT": "导入决策表",
+      "CREATE-INLINE": "新建一个决策表",
+      "SHOW-MORE": "显示更多……"
+    },
+
+    "FILTER": {
+      "DECISION-TABLES": "决策表",
+      "DECISION-TABLES-COUNT": "共有{{total}}个决策表",
+      "DECISION-TABLES-ONE": "有1个决策表",
+      "DECISION-TABLES-EMPTY": "还没有决策表,点击新建决策表按钮添加一个新的决策表",
+      "FILTER-TEXT": ",匹配\"{{filterText}}\"",
+      "FILTER-TEXT-EMPTY": "没有匹配到与\"{{filterText}}\"对应的决策表"
+    },
+
+    "SORT": {
+      "MODIFIED-ASC": "修改时间升序",
+      "MODIFIED-DESC": "修改时间降序",
+      "NAME-ASC": "决策表名称升序",
+      "NAME-DESC": "决策表名称降序"
+    }
+  },
+
+  "APPS-LIST" : {
+    "TITLE" : "应用列表",
+    "SEARCH-PLACEHOLDER": "搜索",
+    "ACTION" : {
+      "CREATE": "新建应用",
+      "IMPORT": "导入应用",
+      "SHOW-MORE": "显示更多……"
+    },
+
+    "FILTER" : {
+      "APPS": "应用",
+      "APPS-COUNT": "共有{{total}}个应用",
+      "APPS-ONE": "有1个应用",
+      "APPS-EMPTY": "还没有应用,点击新建应用按钮添加一个新的应用",
+      "FILTER-TEXT": ",匹配\"{{filterText}}\"",
+      "FILTER-TEXT-EMPTY": "没有匹配到与\"{{filterText}}\"对应的应用",
+
+      "NO-APPS": "您可以通过发布一组流程模型来创建应用",
+      "NO-APPS-CALL-TO-ACTION": "您现在可以创建应用",
+      "NO-APPS-NOTE": "当您准备使用应用时请记得先发布"
+    },
+
+    "SORT": {
+      "MODIFIED-ASC": "修改时间升序",
+      "MODIFIED-DESC": "修改时间降序",
+      "NAME-ASC": "应用名称升序",
+      "NAME-DESC": "应用名称降序"
+    }
+  },
+  "PROCESS": {
+    "NAME": "模型名称",
+    "KEY": "模型key",
+    "DESCRIPTION": "描述",
+    "VERSION-COMMENT": "版本标注",
+    "ACTION": {
+      "DETAILS": "显示详细信息",
+      "EDIT": "修改模型属性",
+      "DUPLICATE": "复制模型",
+      "EXPORT_BPMN20": "导出为BPMN 2.0",
+      "DELETE": "删除模型",
+      "CREATE-CONFIRM": "新建模型",
+      "DUPLICATE-CONFIRM": "复制模型",
+      "OPEN-IN-EDITOR": "可视化编辑器",
+      "EDIT-CONFIRM": "保存",
+      "DELETE-CONFIRM": "删除流程模型",
+      "USE-AS-NEW-VERSION": "作为新版本使用",
+      "FAVORITE": "Favorite this model"
+
+    },
+    "DETAILS": {
+      "HISTORY-TITLE": "历史",
+      "LAST-UPDATED-BY": "最后更新 {{lastUpdatedBy}} - {{lastUpdated | dateformat}}",
+      "CREATED-BY": "创建人 {{createdBy}}",
+      "NO-DESCRIPTION": "这个模型还没有描述，您可以通过修改模型属性来添加描述"
+    },
+
+    "POPUP": {
+      "CREATE-TITLE": "新建业务流程模型",
+      "DUPLICATE-TITLE": "复制业务流程模型",
+      "CREATE-DESCRIPTION": "您需要为模型指定名称，同时可以添加相应描述",
+      "DUPLICATE-DESCRIPTION": "您可以修改模型名称，也可以修改相应描述",
+      "EDIT-DESCRIPTION": "修改下列模型属性后，通过点击保存来更新模型",
+      "DELETE-DESCRIPTION": "确定要删除流程模型 \"{{name}}\"吗?",
+      "EDIT-TITLE":"编辑模型",
+      "DELETE-TITLE": "删除模型",
+      "DELETE-LOADING-RELATIONS": "检查模型使用情况……",
+      "DELETE-RELATIONS-DESCRIPTION-SINGLE": "该模型无法删除，因为另一个模型正在使用它:",
+      "DELETE-RELATIONS-DESCRIPTION": "这个模型不能被删除，因为其他模型已经使用它:",
+      "DELETE-PROCESS-RELATION": "流程模型",
+      "DELETE-FORM-RELATION": "表单模型",
+      "DELETE-APP-RELATION": "应用模型",
+      "IMPORT-DESCRIPTION": "请浏览或拖入后缀名为.bpmn或.bpmn20.xml的BPMN文件",
+      "IMPORT-TITLE": "导入流程模型",
+      "USE-AS-NEW-TITLE": "作为新版本使用",
+      "USE-AS-NEW-DESCRIPTION": "您确定要使用{{version}}版本创建一个新版本的\"{{name}}\"吗?",
+      "USE-AS-NEW-UNRESOLVED-MODELS-ERROR": "无法完整恢复指定版本的应用模型：因为它所引用的一些模型已丢失（比如被删除掉）。请根据实际情况更新应用模型。丢失的模型：",
+      "USE-AS-NEW-UNRESOLVED-MODEL": "ID {{id}} 模型 \"{{name}}\" 创建者 {{createdBy}}",
+      "SHARED-WITH": "共享",
+      "PERMISSION": "Permission",
+      "ACTIONS": "Actions",
+      "IMPORT": {
+        "DROPZONE": "拖入后缀名为.bpmn或.bpmn20.xml的BPMN文件",
+        "CANCEL-UPLOAD": "取消上传",
+        "ERROR": "处理BPMN XML文件时出错",
+        "NO-DROP": "不支持拖放"
+      }
+    },
+    "ALERT": {
+      "EDIT-CONFIRM": "模型已更新"
+    },
+    "ERROR": {
+      "NOT-FOUND": "请求的模型不存在"
+    }
+  },
+
+  "SUBPROCESS": {
+    "NAME": "子流程名称",
+    "DESCRIPTION": "描述信息",
+    "ACTION": {
+      "CREATE-CONFIRM": "创建新的子流程"
+    },
+    "POPUP": {
+      "CREATE-TITLE": "创建新的子流程",
+      "CREATE-DESCRIPTION": "您需要为新的子流程指定名称，同时您可以添加描述."
+    }
+  },
+
+  "FORM": {
+    "NAME": "表单名称",
+    "KEY": "表单key",
+    "DESCRIPTION": "描述信息",
+    "ACTION": {
+      "DETAILS": "显示详情",
+      "EDIT": "修改模型属性",
+      "DELETE": "删除此表单",
+      "CREATE-CONFIRM": "新建表单",
+      "DUPLICATE-CONFIRM": "复制表单",
+      "OPEN-IN-EDITOR": "表单编辑器",
+      "EDIT-CONFIRM": "保存",
+      "DELETE-CONFIRM": "删除表单",
+      "USE-AS-NEW-VERSION": "作为新版本使用"
+
+    },
+    "DETAILS": {
+      "HISTORY-TITLE": "历史",
+      "LAST-UPDATED-BY": "最后更新 {{lastUpdatedBy}} {{lastUpdated | dateformat}}" ,
+      "CREATED-BY": "创建人 {{createdBy}}"
+    },
+
+    "POPUP": {
+      "CREATE-TITLE": "新建表单",
+      "DUPLICATE-TITLE": "复制表单",
+      "CREATE-DESCRIPTION": "您需要为新表单添加名称，同时可以添加描述",
+      "DUPLICATE-DESCRIPTION": "您需要为复制的表单提供名称，同时可以添加描述",
+      "SAVE-FORM-TITLE": "保存表单",
+      "EDIT-DESCRIPTION": "更改下面的表单属性后，点击保存来更新表单",
+      "DELETE-DESCRIPTION": "确定要删除表单 \"{{name}}\" 吗?",
+      "EDIT-TITLE":"编辑表单详情",
+      "DELETE-TITLE": "删除表单",
+      "USE-AS-NEW-TITLE": "作为新版本使用",
+      "USE-AS-NEW-VERSION": "作为新版本使用",
+      "USE-AS-NEW-DESCRIPTION": "您确定要使用{{version}}版本来创建新版本的\"{{name}}\"吗？",
+      "USE-AS-NEW-UNRESOLVED-MODELS-ERROR": "无法完整恢复指定版本的应用模型：因为它所引用的一些模型已丢失。请根据实际情况更新应用模型。丢失的模型:",
+      "USE-AS-NEW-UNRESOLVED-MODEL": "ID {{id}} 模型 \"{{name}}\" 创建者 {{createdBy}} "
+    }
+  },
+
+  "DECISION-TABLE": {
+    "NAME": "决策表名称",
+    "KEY": "决策表key",
+    "DESCRIPTION": "描述信息",
+    "VERSION-COMMENT": "版本标注",
+    "HIT-POLICY": "命中Policy:",
+    "ACTION": {
+      "DETAILS": "显示详情",
+      "EDIT": "修改",
+      "SHARE": "分享",
+      "DELETE": "删除",
+      "ADD-COMMENT": "+ 添加备注",
+      "CREATE-CONFIRM": "新建决策表",
+      "OPEN-IN-EDITOR": "决策表编辑器",
+      "EXPORT": "导出",
+      "DELETE-CONFIRM": "确认删除",
+      "USE-AS-NEW-VERSION": "作为新版本使用",
+      "FAVORITE": "Favorite this decision table",
+      "DUPLICATE": "复制"
+    },
+    "DETAILS": {
+      "HISTORY-TITLE": "历史",
+      "COMMENTS-TITLE": "备注",
+      "LAST-UPDATED-BY": "最后更新 {{lastUpdatedBy}} {{lastUpdated | dateformat}}",
+      "CREATED-BY": "创建人 {{createdBy}}"
+    },
+    "HIT-POLICIES": {
+      "FIRST": "First",
+      "ANY": "Any",
+      "UNIQUE": "Unique",
+      "PRIORITY": "Priority",
+      "RULE ORDER": "Rule Order",
+      "OUTPUT ORDER": "Output Order",
+      "COLLECT": "Collect"
+    },
+    "POPUP": {
+      "CREATE-TITLE": "新建决策表",
+      "CREATE-DESCRIPTION": "您需要为新的决策表添加名称，同时可以添加描述。",
+      "SAVE-DESCRIPTION": "您需要为新的决策表添加名称和唯一的标识，同时可以添加描述。",
+      "DELETE-TITLE": "删除决策表",
+      "DELETE-DESCRIPTION": "确定要删除决策表 \"{{name}}\"?",
+      "SAVE-DECISION-TABLE-TITLE": "保存决策表",
+      "IMPORT-DESCRIPTION": "拖入后缀名为.dmn或.dmn.xml的DMN文件",
+      "IMPORT-TITLE": "导入DMN模型",
+      "IMPORT": {
+        "DROPZONE": "删除.dmn或.dmn.xml DMN XML文件",
+        "CANCEL-UPLOAD": "取消上传",
+        "ERROR": "处理DMN XML文件时出错",
+        "NO-DROP": "不支持拖放"
+      },
+      "USE-AS-NEW-TITLE": "作为新版本使用",
+      "USE-AS-NEW-VERSION": "作为新版本使用",
+      "USE-AS-NEW-DESCRIPTION": "您确定要使用版本{{version}}创建新版本的\"{{name}}\"？",
+      "USE-AS-NEW-UNRESOLVED-MODELS-ERROR": "无法将应用模型完全恢复为所选版本：某些关联的模型已被删除而丢失。 请更新应用模型。缺失的模型:",
+      "USE-AS-NEW-UNRESOLVED-MODEL": "ID {{id}} 模型 \"{{name}}\" 创建者 {{createdBy}}"
+    },
+    "ALERT": {
+      "FAVORITE-CONFIRM": "This decision table is now favorited",
+      "UN-FAVORITE-CONFIRM": "This decision table is no longer favorited"
+    }
+  },
+
+  "APP": {
+    "NAME": "应用名称",
+    "KEY": "应用key",
+    "DESCRIPTION": "描述信息",
+    "ICON": "图标",
+    "THEME": "主题",
+    "GROUPS-ACCESS": "允许访问的组，用逗号分隔",
+    "USERS-ACCESS": "允许访问的用户，用逗号分隔",
+    "ACTION": {
+      "DETAILS": "显示详情",
+      "EDIT": "修改应用属性",
+      "DUPLICATE": "复制此应用",
+      "SHARE": "分享此应用",
+      "DELETE": "删除此应用",
+      "CREATE-CONFIRM": "创建新的应用",
+      "DUPLICATE-CONFIRM": "复制应用",
+      "DELETE-CONFIRM": "删除应用",
+      "USE-AS-NEW-VERSION": "作为新版本使用",
+      "OPEN-IN-EDITOR": "应用编辑器",
+      "PUBLISH": "发布",
+      "PUBLISH-CONFIRM": "发布应用",
+      "SELECT-ICON": "更改图标……",
+      "SELECT-THEME": "更改主题……",
+      "EDIT-MODELS": "编辑包含的模型",
+      "EXPORT-ZIP": "将应用导出为zip文件",
+      "EXPORT-BAR": "将应用导出为可部署的bar文件"
+
+    },
+    "DETAILS": {
+      "TITLE": "应用详情：{{name}}",
+      "HISTORY-TITLE": "历史",
+      "MODELS-TITLE": "包含在应用中的模型",
+      "LAST-UPDATED-BY": "最后更新 {{lastUpdatedBy}} {{lastUpdated | dateformat}}",
+      "CREATED-BY": "创建人 {{createdBy}}",
+      "NO-DESCRIPTION": "此应用没有描述，可以添加",
+      "NO-MODELS-SELECTED": "您还没有为此应用选择模型"
+    },
+    "TITLE": {
+      "SELECT-ICON": "选择应用图标",
+      "SELECT-THEME": "选择应用颜色",
+      "PREVIEW": "预览"
+
+    },
+    "POPUP": {
+      "CREATE-TITLE": "新建应用",
+      "DUPLICATE-TITLE": "复制应用",
+      "SAVE-APP-TITLE": "保存应用",
+      "SAVE-APP-SAVE-SUCCESS": "应用已保存",
+      "CREATE-DESCRIPTION": "您需要为新的应用指定名称，同时可添加说明。",
+      "DUPLICATE-DESCRIPTION": "您可以为新的应用指定名称，同时可添加说明。",
+      "PUBLISH-TITLE": "发布应用",
+      "PUBLISH-DESCRIPTION": "您确定要发布应用\"{{name}}\"吗？请注意：该应用将被版本化，并且将会覆盖已存在的工作流应用",
+      "PUBLISH-FIELD": "确定发布吗? 发布将会更新应用为新的版本",
+      "PUBLISH-ERROR-PROCDEF-KEY-CONFLICT": "您的流程模型 \"{{modelInAppName}}\" 与名为 \"{{conflictingAppName}}\" 的应用中的已部署流程\"{{conflictingModelName}}\"的流程定义标识 \"{{processDefinitionKey}}\"冲突了， 请修改流程模型的 \"id\" 属性以避免冲突",
+      "PUBLISH-ERROR-PROCESS-ALREADY-USED": "以下流程模型已经在其他的应用中被使用了，可以吗？",
+      "PUBLISH-ERROR-PROCESS-ALREADY-USED-APP": "App",
+      "PUBLISH-ERROR-PROCDEF-DUPLICATE-KEYS": "非法的应用: 发现重复的流程标识 (请修改造成该问题的流程模型的 \"id\" 属性 ):",
+      "DELETE-TITLE": "删除应用",
+      "DELETE-DESCRIPTION": "确定要删除应用 \"{{name}}\" 吗?",
+      "DELETE-DESCRIPTION-WITH-RUNTIME": "确定要删除应用 \"{{name}}\"吗? ",
+      "DELETE-CASCADE-FALSE": "只删除应用的当前版本 (v{{version}})",
+      "DELETE-CASCADE-TRUE": "将应用的所有先前版本一并删除",
+      "HAS-CUSTOM-STENCILITEM" : "模型 \"{{modelName}}\" 使用了一个自定义的模板.该模型将不能在应用中使用",
+      "HAS-VALIDATIONERROR" : "模型 \"{{modelName}}\" 有验证错误 ，不能添加到应用中。 在编辑器中打开模型以便获得验证错误的更多细节",
+      "IMPORT-DESCRIPTION":"请使用 .zip 后缀的文件进行上传",
+      "IMPORT-TITLE":"导入一个应用模型",
+      "IMPORT": {
+        "DROPZONE": "拖入一个 .zip 后缀的应用文件",
+        "CANCEL-UPLOAD": "取消上传",
+        "RENEWIDM-IDS": "在导入步骤或BPMN模型的时候，重建用户和组的标识。当导入应用到一个不同的流程环境时，这通常是必要的。 它会在目标环境中将人工步骤和用户任务与用户和组的关系正确绑定",
+        "ERROR": "当处理应用文件的时候发生错误",
+        "NO-DROP": "不支持拖放"
+      },
+      "INCLUDE-MODELS-TITLE": "应用里包含的模型"
+    },
+    "ALERT": {
+      "DELETE-CONFIRM": "应用已经删除",
+      "PUBLISH-CONFIRM": "应用已经发布",
+      "PUBLISH-ERROR": "不能发布应用。请检查引用的流程模型的有效性"
+    }
+  },
+
+  "SHARE-INFO": {
+    "ACTION": {
+      "ADD": "添加另一个人员"
+    }
+  },
+
+  "FORM-BUILDER": {
+    "PALLETTE": {
+      "TEXT": "文本",
+      "MULTILINE-TEXT": "多行文本",
+      "NUMBER": "数字",
+      "CHECKBOX": "复选框",
+      "DATE": "日期",
+      "DROPDOWN": "下拉菜单",
+      "RADIO": "单选按钮",
+      "PEOPLE": "用户",
+      "GROUP-OF-PEOPLE": "组",
+      "UPLOAD": "上传",
+      "EXPRESSION": "表达式",
+      "DECIMAL": "小数",
+      "HYPERLINK": "超链接"
+    },
+    "TABS": {
+      "GENERAL": "常用",
+      "OPTIONS": "选项",
+      "UPLOAD-OPTIONS": "上传选项",
+      "ADVANCED-OPTIONS":"高级"
+    },
+    "VERSION": "版本 {{version}}",
+    "LAST-UPDATED": "最后更新 {{lastUpdatedBy}}, {{lastUpdated | dateformat}}",
+    "TITLE": {
+      "DESIGN": "设计",
+      "OUTCOME": "输出(Outcomes)"
+    },
+    "POPUP": {
+      "EDIT-TITLE": "编辑字段 '{{name}}'",
+      "EXPRESSION-TITLE": "编辑表达式"
+    },
+    "MESSAGE": {
+      "EMPTY-EXPRESSION": "(表达式没有值)",
+      "EXPRESSION-HELP": "你也可以显示之前在某个表单中提交的值,做为文本的一部分,通过使用 ${myFieldId}来引用它们"
+    },
+    "LABEL" : {
+      "FUNCTIONAL-GROUP": "选择组..",
+      "PERSON": "选择人员.."
+    },
+    "COMPONENT": {
+      "LABEL": "标签:",
+      "OVERRIDEID": "覆盖 id 吗?",
+      "ID": "Id:",
+      "PLACEHOLDER": "Placeholder:",
+      "OPTIONS": "选项",
+      "RADIO-BUTTON-DEFAULT": "选项 1",
+      "DROPDOWN-DEFAULT-EMPTY-SELECTION": "请选择一个……",
+      "DROPDOWN-EMPTY-VALUE-HELP": "这是 '空值' 选项. 在运行时候选择这个表示 'no value' 或者 'empty'。  这适用于选填的字段，但不可以用于必填的字段",
+      "REQUIRED": "必填",
+      "READONLY": "只读",
+      "EXPRESSION": "表达式",
+      "ADD-OPTION": "+ 添加一个新的选项",
+      "UPLOAD-ALLOW-MULTIPLE": "允许上传多个文件",
+      "SIZE": "大小",
+      "MAX-LENGTH":"最大长度:",
+      "MIN-LENGTH":"最小长度:",
+      "HYPERLINK-URL": "超链接 URL",
+      "REGEX-PATTERN":"正则表达式",
+      "MASK":{
+        "TITLE":"Input mask",
+        "EXAMPLES":{
+          "TITLE":"示例:",
+          "NUMBER":"任意数字",
+          "LETTER":"任意字母",
+          "NUMBERORLETTER":"任意字母或数字",
+          "OPTIONAL":"Make mask optional (not valid)",
+          "PHONE":"电话号码"
+        }
+      }
+    },
+    "OUTCOMES": {
+      "DESCRIPTION": "你可以为当前任务定义多个outcomes. 在完成任务时, 用户从获得的outcomes中选择一个来执行, 比如用于确定流程下一步骤的条件.",
+      "NO-OUTCOMES-OPTION": "不使用自定义的outcomes,只显示一个 '完成' 按钮",
+      "OUTCOMES-OPTION": "为此表单使用自定义的outcomes",
+      "POSSIBLE-OUTCOMES": "Possible outcomes",
+      "NEW-OUTCOME-PLACEHOLDER": "输入新的outcome",
+      "ADD": "Add outcome",
+      "REMOVE": "移除"
+    }
+  },
+
+  "DECISION-TABLE-EDITOR": {
+    "EMPTY-MESSAGES": {
+      "NO-VARIABLE-SELECTED": "未定义"
+    },
+    "POPUP": {
+      "EXPRESSION-EDITOR": {
+        "INPUT-TITLE": "编辑输入列",
+        "INPUT-DESCRIPTION": "选择输入变量作为列的输入",
+        "OUTPUT-TITLE": "编辑输出列",
+        "OUTPUT-DESCRIPTION": "选择现有的输出变量或创建一个新的输出变量",
+        "EXPRESSION-LABEL": "列标签：",
+        "EXPRESSION-PLACEHOLDER": "输入可选标签",
+        "EXPRESSION-VARIABLE-NAME": "变量名：",
+        "EXPRESSION-VARIABLE-TYPE": "变量类型：",
+        "EXPRESSION-VARIABLE-NAME-PLACEHOLDER": "输入变量名",
+        "OUTPUT-NEW-VARIABLE-ID": "变量ID：",
+        "OUTPUT-NEW-VARIABLE-TYPE": "变量类型：",
+        "COMPLEX-EXPRESSION-LABEL": "复杂表达：",
+        "ALLOWED-VALUES": "允许值（可选）：",
+        "OUTPUT-VALUES": "输出值",
+        "OUTPUT-VALUES-OPTIONAL": "（可选的）:",
+        "OUTPUT-VALUES-NOT-OPTIONAL": "（拖动行调整 优先级/输出 的顺序）:"
+      }
+    },
+    "BUTTON-ACTIONS-LABEL": "操作",
+    "BUTTON-ADD-INPUT-LABEL": "添加输入",
+    "BUTTON-ADD-OUTPUT-LABEL": "添加输出",
+    "BUTTON-ADD-RULE-LABEL": "添加规则",
+    "BUTTON-MOVE-RULE-UPWARDS-LABEL": "上移",
+    "BUTTON-MOVE-RULE-DOWNWARDS-LABEL": "下移",
+    "BUTTON-REMOVE-RULE-LABEL": "移除规则",
+    "ALERT": {
+      "EXPRESSION-VARIABLE-REQUIRED-ERROR": "所有输入和输出表达式必须引用一个表单域或变量。",
+      "SAVE-CONFIRM": "保存决策表'{{name}}'"
+    }
+  },
+
+  "TOUR": {
+    "WELCOME-TITLE": "欢迎, {{userName}}",
+    "WELCOME-CONTENT": "这是Flowable编辑器的简述。 接下来的几个步骤将引导您完成应用的不同部分，以便您开始使用。 按ESC键随时停止" ,
+    "PALETTE-TITLE": "调色板",
+    "PALETTE-CONTENT": "可以在这里找到创建业务流程的所有可用结构。 它们以逻辑组排列。 要打开组，只需点击它：",
+    "CANVAS-TITLE": "画布",
+    "CANVAS-CONTENT": "这是您创建业务流程的工作空间。 从左侧的调色板拖动元素并将其放在此画布上以开始建模",
+    "DRAGDROP-TITLE": "拖放示例",
+    "DRAGDROP-CONTENT": "以下是开始建模的示例：",
+    "PROPERTIES-TITLE": "属性",
+    "PROPERTIES-CONTENT": "您可以在此配置业务流程的属性。 只需选择画布上的条目，并显示其属性。 如果你想编辑它，点击该属性",
+    "TOOLBAR-TITLE": "工具栏",
+    "TOOLBAR-CONTENT": "所有操作都可以在这里找到：保存或验证模型，复制和粘贴过程的部分等等。 将鼠标悬停在按钮上以获取操作的说明",
+    "END-TITLE": "结束",
+    "END-CONTENT": "您现在可以开始对流程建模。 如果您有任何问题，请随时向<a href=\"http://forum.flowable.org/\" target=\"_blank\">Flowable 论坛</a>询问"
+  },
+
+  "FEATURE-TOUR" : {
+    "BENDPOINT" : {
+      "TITLE": "折线点指导",
+      "DESCRIPTION" : "当您使用连线（过程步骤之间的这些箭头）将过程步骤相互连接时，您可能会发现这些连线彼此交叉，或者您希望以不同的方式进行排列。 要做到这一点，您可以添加或删除连线中的折线点。<br/><br/>如图所示，您首先单击“添加折线点”，然后单击连线 添加它 请注意，连线将在绿色箭头处显示提醒，以显示折线点可以添加到那里。<br/><br/>除了折线点之外，还要遵循类似的模式：单击“删除折线点”按钮，然后单击 折线点再次移除"
+    }
+  },
+
+  "ACTION.OK" : "确定",
+  "ACTION.SAVE" : "保存",
+  "ACTION.SAVE-AND-CLOSE" : "保存并关闭编辑器",
+  "ACTION.SEND" : "发送",
+  "ACTION.CANCEL" : "取消",
+  "ACTION.SELECT" : "选择",
+  "ACTION.ADD" : "添加",
+  "ACTION.REMOVE" : "移除",
+  "ACTION.MOVE.UP" : "上移条目",
+  "ACTION.MOVE.DOWN" : "下移条目",
+
+  "TOOLBAR.ACTION.CLOSE" : "关闭编辑器并返回到概述页面",
+  "TOOLBAR.ACTION.SAVE" : "保存模型",
+  "TOOLBAR.ACTION.VALIDATE" : "验证模型",
+  "TOOLBAR.ACTION.CUT" : "剪切（选择业务流程中的一个或多个元素）",
+  "TOOLBAR.ACTION.COPY" : "复制（选择业务流程中的一个或多个元素）",
+  "TOOLBAR.ACTION.PASTE" : "粘贴",
+  "TOOLBAR.ACTION.DELETE" : "删除所选元素",
+  "TOOLBAR.ACTION.UNDO" : "撤销",
+  "TOOLBAR.ACTION.REDO" : "重做",
+  "TOOLBAR.ACTION.ZOOMIN" : "放大",
+  "TOOLBAR.ACTION.ZOOMOUT" : "缩小",
+  "TOOLBAR.ACTION.ZOOMACTUAL" : "缩放到实际尺寸",
+  "TOOLBAR.ACTION.ZOOMFIT" : "缩放到适用尺寸",
+  "TOOLBAR.ACTION.BENDPOINT.ADD" : "向所选连线添加折线点",
+  "TOOLBAR.ACTION.BENDPOINT.REMOVE" : "从所选连线中移除折线点",
+  "TOOLBAR.ACTION.ALIGNHORIZONTAL" : "水平对齐模型",
+  "TOOLBAR.ACTION.ALIGNVERTICAL" : "垂直对齐模型",
+  "TOOLBAR.ACTION.SAMESIZE" : "相同大小",
+  "TOOLBAR.ACTION.HELP": "开始guided tour",
+  "TOOLBAR.ACTION.FEEDBACK": "提供反馈信息",
+  "FORM_TOOLBAR.ACTION.SAVE" : "保存模型",
+  "APP_DEFINITION_TOOLBAR.ACTION.SAVE" : "保存应用",
+  "BUTTON.ACTION.DELETE.TOOLTIP": "从模型中删除元素",
+  "BUTTON.ACTION.MORPH.TOOLTIP": "更改元素类型",
+  "ELEMENT.AUTHOR" : "作者",
+  "ELEMENT.DATE_CREATED" : "创建日期",
+  "PROPERTY.REMOVED" : "已移除",
+  "PROPERTY.EMPTY" : "未填写",
+  "PROPERTY.PROPERTY.EDIT.TITLE" : "更改值",
+  "PROPERTY.FEEDBACK.TITLE" : "请填写您的意见",
+  "PROPERTY.ASSIGNMENT.TITLE" : "分配",
+  "PROPERTY.ASSIGNMENT.TYPE" : "类型",
+  "PROPERTY.ASSIGNMENT.TYPE.IDENTITYSTORE" : "从存储中选择",
+  "PROPERTY.ASSIGNMENT.TYPE.STATIC" : "使用固定值",
+  "PROPERTY.ASSIGNMENT.ASSIGNEE" : "接手人",
+  "PROPERTY.ASSIGNMENT.MATCHING" : "使用&uparrow;和&downarrow;进行选择,按Enter键或者左键确认",
+  "PROPERTY.ASSIGNMENT.ASSIGNEE_PLACEHOLDER" : "请选择接手人",
+  "PROPERTY.ASSIGNMENT.EMPTY" : "未选择接手人",
+  "PROPERTY.ASSIGNMENT.NONE" : "None ……",
+  "PROPERTY.ASSIGNMENT.PLACEHOLDER-SEARCHUSER": "搜索用户",
+  "PROPERTY.ASSIGNMENT.PLACEHOLDER-SEARCHGROUP": "搜索用户组",
+  "PROPERTY.ASSIGNMENT.SEARCH": "搜索: ",
+  "PROPERTY.ASSIGNMENT.ASSIGNEE_DISPLAY" : "接手人{{assignee}}",
+  "PROPERTY.ASSIGNMENT.CANDIDATE_USERS_DISPLAY" : "{{length}}个候选人",
+  "PROPERTY.ASSIGNMENT.CANDIDATE_USERS" : "候选人",
+  "PROPERTY.ASSIGNMENT.CANDIDATE_GROUPS_DISPLAY" :  "{{length}}个候选组",
+  "PROPERTY.ASSIGNMENT.CANDIDATE_GROUPS" :  "候选组",
+  "PROPERTY.ASSIGNMENT.USER_IDM_DISPLAY": "用户 {{firstName}} {{lastName}}",
+  "PROPERTY.ASSIGNMENT.USER_IDM_EMAIL_DISPLAY": "用户邮箱 {{email}}",
+  "PROPERTY.ASSIGNMENT.USER_IDM_FIELD_DISPLAY": "字段 {{name}}",
+  "PROPERTY.ASSIGNMENT.IDM_EMPTY" : "流程发起人",
+  "PROPERTY.ASSIGNMENT.IDM.TYPE" : "分配",
+  "PROPERTY.ASSIGNMENT.IDM.NO_CANDIDATE_USERS" : "未选中候选人……",
+  "PROPERTY.ASSIGNMENT.IDM.NO_CANDIDATE_GROUPS" : "未选中候选组……",
+  "PROPERTY.ASSIGNMENT.IDM.DROPDOWN.INITIATOR" : "分配给流程发起人",
+  "PROPERTY.ASSIGNMENT.IDM.DROPDOWN.USER" : "分配给单个用户",
+  "PROPERTY.ASSIGNMENT.IDM.DROPDOWN.USERS" : "候选用户",
+  "PROPERTY.ASSIGNMENT.IDM.DROPDOWN.GROUPS" : "候选用户组",
+  "PROPERTY.ASSIGNMENT.INITIATOR-CAN-COMPLETE" : "允许流程发起人结束任务",
+  "PROPERTY.EXECUTIONLISTENERS.DISPLAY" : "{{length}}个执行监听",
+  "PROPERTY.EXECUTIONLISTENERS.EMPTY" : "未配置执行监听",
+  "PROPERTY.EXECUTIONLISTENERS.EVENT" : "事件",
+  "PROPERTY.EXECUTIONLISTENERS.CLASS" : "类",
+  "PROPERTY.EXECUTIONLISTENERS.CLASS.PLACEHOLDER" : "请输入类名称",
+  "PROPERTY.EXECUTIONLISTENERS.EXPRESSION" : "表达式",
+  "PROPERTY.EXECUTIONLISTENERS.EXPRESSION.PLACEHOLDER" : "请输入表达式",
+  "PROPERTY.EXECUTIONLISTENERS.DELEGATEEXPRESSION" : "代理表达式",
+  "PROPERTY.EXECUTIONLISTENERS.DELEGATEEXPRESSION.PLACEHOLDER" : "请输入代理表达式",
+  "PROPERTY.EXECUTIONLISTENERS.UNSELECTED" : "未选择执行监听",
+  "PROPERTY.EXECUTIONLISTENERS.FIELDS.NAME" : "名称",
+  "PROPERTY.EXECUTIONLISTENERS.FIELDS.NAME.PLACEHOLDER" : "请输入名称",
+  "PROPERTY.EXECUTIONLISTENERS.FIELDS.EXPRESSION" : "表达式",
+  "PROPERTY.EXECUTIONLISTENERS.FIELDS.EXPRESSION.PLACEHOLDER" : "请输入表达式",
+  "PROPERTY.EXECUTIONLISTENERS.FIELDS.STRINGVALUE" : "字符串值",
+  "PROPERTY.EXECUTIONLISTENERS.FIELDS.STRINGVALUE.PLACEHOLDER" : "请输入字符串值",
+  "PROPERTY.EXECUTIONLISTENERS.FIELDS.STRING" : "字符串",
+  "PROPERTY.EXECUTIONLISTENERS.FIELDS.STRING.PLACEHOLDER" : "请输入字符串",
+  "PROPERTY.EXECUTIONLISTENERS.FIELDS.IMPLEMENTATION" : "实现",
+  "PROPERTY.EXECUTIONLISTENERS.FIELDS.EMPTY" : "未选择字段",
+
+  "PROPERTY.FIELDS" : "{{length}}个字段",
+  "PROPERTY.FIELDS.EMPTY" : "未选择字段",
+  "PROPERTY.FIELDS.NAME" : "名称",
+  "PROPERTY.FIELDS.NAME.PLACEHOLDER" : "请输入名称",
+  "PROPERTY.FIELDS.EXPRESSION" : "表达式",
+  "PROPERTY.FIELDS.EXPRESSION.PLACEHOLDER" : "请输入表达式",
+  "PROPERTY.FIELDS.STRINGVALUE" : "字符串值",
+  "PROPERTY.FIELDS.STRINGVALUE.PLACEHOLDER" : "请输入字符串值",
+  "PROPERTY.FIELDS.STRING" : "字符串",
+  "PROPERTY.FIELDS.STRING.PLACEHOLDER" : "请输入字符串",
+  "PROPERTY.FIELDS.IMPLEMENTATION" : "实现",
+
+  "PROPERTY.FORMPROPERTIES.VALUE" : "{{length}}个表单属性",
+  "PROPERTY.FORMPROPERTIES.EMPTY" : "未选中表单属性",
+  "PROPERTY.FORMPROPERTIES.ID" : "标识",
+  "PROPERTY.FORMPROPERTIES.ID.PLACEHOLDER" : "请输入表单标识",
+  "PROPERTY.FORMPROPERTIES.NAME" : "名称",
+  "PROPERTY.FORMPROPERTIES.NAME.PLACEHOLDER" : "请输入表单名称",
+  "PROPERTY.FORMPROPERTIES.TYPE" : "类型",
+  "PROPERTY.FORMPROPERTIES.DATEPATTERN" : "日期格式",
+  "PROPERTY.FORMPROPERTIES.DATEPATTERN.PLACEHOLDER" : "请输入日期格式",
+  "PROPERTY.FORMPROPERTIES.VALUES" : "值",
+  "PROPERTY.FORMPROPERTIES.ENUMVALUES.EMPTY" : "未选中枚举值",
+  "PROPERTY.FORMPROPERTIES.VALUES.ID" : "标识",
+  "PROPERTY.FORMPROPERTIES.VALUES.NAME" : "名称",
+  "PROPERTY.FORMPROPERTIES.VALUES.ID.PLACEHOLDER" : "请输入值标识",
+  "PROPERTY.FORMPROPERTIES.VALUES.NAME.PLACEHOLDER" : "请输入值名称",
+  "PROPERTY.FORMPROPERTIES.EXPRESSION" : "表达式",
+  "PROPERTY.FORMPROPERTIES.EXPRESSION.PLACEHOLDER" : "请输入表达式",
+  "PROPERTY.FORMPROPERTIES.VARIABLE" : "变量",
+  "PROPERTY.FORMPROPERTIES.VARIABLE.PLACEHOLDER" : "请输入变量",
+  "PROPERTY.FORMPROPERTIES.REQUIRED" : "必填",
+  "PROPERTY.FORMPROPERTIES.READABLE" : "只读",
+  "PROPERTY.FORMPROPERTIES.WRITABLE" : "可写",
+
+  "PROPERTY.INPARAMETERS.VALUE" : "{{length}}个输入参数",
+  "PROPERTY.INPARAMETERS.EMPTY" : "未配置输入参数",
+
+  "PROPERTY.OUTPARAMETERS.VALUE" : "{{length}}个输出参数",
+  "PROPERTY.OUTPARAMETERS.EMPTY" : "未配置输出参数",
+
+  "PROPERTY.PARAMETER.SOURCE" : "源",
+  "PROPERTY.PARAMETER.SOURCE.PLACEHOLDER" : "请输入源",
+  "PROPERTY.PARAMETER.SOURCEEXPRESSION" : "源表达式",
+  "PROPERTY.PARAMETER.SOURCEEXPRESSION.PLACEHOLDER" : "输入源表达式",
+  "PROPERTY.PARAMETER.TARGET" : "目标",
+  "PROPERTY.PARAMETER.TARGET.PLACEHOLDER" : "请输入目标",
+  "PROPERTY.PARAMETER.EMPTY" : "未选中参数",
+
+  "PROPERTY.SUBPROCESSREFERENCE.EMPTY" : "未选择子流程引用",
+  "PROPERTY.SUBPROCESSREFERENCE.TITLE" : "折叠子流程引用",
+  "PROPERTY.SUBPROCESSREFERENCE.ERROR.SUBPROCESS" : "加载子流程发生错误。请稍候重试",
+  "PROPERTY.SUBPROCESSREFERENCE.SUBPROCESS.LOADING" : "加载子流程……",
+  "PROPERTY.SUBPROCESSREFERENCE.SUBPROCESS.EMPTY" : "此文件夹不包含任何子流程",
+
+  "PROPERTY.FORMREFERENCE.EMPTY" : "未选择表单引用",
+  "PROPERTY.FORMREFERENCE.TITLE" : "表单引用",
+  "PROPERTY.FORMREFERENCE.DESCRIPTION" : "引用一个表单",
+  "PROPERTY.FORMREFERENCE.ERROR.FORM" : "加载表单时发生错误。请稍候重试",
+  "PROPERTY.FORMREFERENCE.FORM.LOADING" : "表单加载中……",
+  "PROPERTY.FORMREFERENCE.FORM.EMPTY" : "此文件夹不包含任何表单",
+
+  "PROPERTY.TASKLISTENERS.VALUE" : "{{length}}个任务监听",
+  "PROPERTY.TASKLISTENERS.EMPTY" : "未配置任务监听",
+  "PROPERTY.TASKLISTENERS.EVENT" : "事件",
+  "PROPERTY.TASKLISTENERS.CLASS" : "类",
+  "PROPERTY.TASKLISTENERS.CLASS.PLACEHOLDER" : "请输入类名称",
+  "PROPERTY.TASKLISTENERS.EXPRESSION" : "表达式",
+  "PROPERTY.TASKLISTENERS.EXPRESSION.PLACEHOLDER" : "请输入表达式",
+  "PROPERTY.TASKLISTENERS.DELEGATEEXPRESSION" : "删除表达式",
+  "PROPERTY.TASKLISTENERS.DELEGATEEXPRESSION.PLACEHOLDER" : "请输入代理表达式",
+  "PROPERTY.TASKLISTENERS.UNSELECTED" : "未选中任务监听",
+  "PROPERTY.TASKLISTENERS.FIELDS.NAME" : "名称",
+  "PROPERTY.TASKLISTENERS.FIELDS.NAME.PLACEHOLDER" : "请输入名称",
+  "PROPERTY.TASKLISTENERS.FIELDS.EXPRESSION" : "表达式",
+  "PROPERTY.TASKLISTENERS.FIELDS.EXPRESSION.PLACEHOLDER" : "请输入表达式",
+  "PROPERTY.TASKLISTENERS.FIELDS.STRINGVALUE" : "字符串值",
+  "PROPERTY.TASKLISTENERS.FIELDS.STRINGVALUE.PLACEHOLDER" : "请输入字符串值",
+  "PROPERTY.TASKLISTENERS.FIELDS.STRING" : "字符串",
+  "PROPERTY.TASKLISTENERS.FIELDS.STRING.PLACEHOLDER" : "请输入字符串",
+  "PROPERTY.TASKLISTENERS.FIELDS.IMPLEMENTATION" : "实现",
+  "PROPERTY.TASKLISTENERS.FIELDS.EMPTY" : "未选中字段",
+
+  "PROPERTY.EVENTLISTENERS.DISPLAY" : "{{length}}个时间监听",
+  "PROPERTY.EVENTLISTENERS.EMPTY" : "未配置事件监听",
+  "PROPERTY.EVENTLISTENERS.EVENTS": "事件",
+  "PROPERTY.EVENTLISTENERS.RETHROW": "再次抛出事件?",
+  "PROPERTY.EVENTLISTENERS.CLASS" : "类",
+  "PROPERTY.EVENTLISTENERS.CLASS.PLACEHOLDER" : "请输入类名称",
+  "PROPERTY.EVENTLISTENERS.DELEGATEEXPRESSION" : "代理表达式",
+  "PROPERTY.EVENTLISTENERS.DELEGATEEXPRESSION.PLACEHOLDER" : "请输入代理表达式",
+  "PROPERTY.EVENTLISTENERS.ENTITYTYPE" : "实体类型",
+  "PROPERTY.EVENTLISTENERS.ENTITYTYPE.PLACEHOLDER" : "请输入实体类型",
+  "PROPERTY.EVENTLISTENERS.RETHROWTYPE": "重新抛出事件类型",
+  "PROPERTY.EVENTLISTENERS.ERRORCODE" : "错误码",
+  "PROPERTY.EVENTLISTENERS.ERRORCODE.PLACEHOLDER" : "请输入错误码",
+  "PROPERTY.EVENTLISTENERS.MESSAGENAME" : "消息名称",
+  "PROPERTY.EVENTLISTENERS.MESSAGENAME.PLACEHOLDER" : "请输入消息名称",
+  "PROPERTY.EVENTLISTENERS.SIGNALNAME" : "信号名称",
+  "PROPERTY.EVENTLISTENERS.SIGNALNAME.PLACEHOLDER" : "请输入信号名称",
+  "PROPERTY.EVENTLISTENERS.UNSELECTED" : "未选择事件监听",
+
+  "PROPERTY.SIGNALDEFINITIONS.DISPLAY" : "{{length}} 条信号定义",
+  "PROPERTY.SIGNALDEFINITIONS.EMPTY" : "未配置信号定义",
+  "PROPERTY.SIGNALDEFINITIONS.SCOPE-GLOBAL": "全局",
+  "PROPERTY.SIGNALDEFINITIONS.SCOPE-PROCESSINSTANCE": "流程实例",
+  "PROPERTY.SIGNALDEFINITIONS.ID" : "标识",
+  "PROPERTY.SIGNALDEFINITIONS.NAME" : "名称",
+  "PROPERTY.SIGNALDEFINITIONS.SCOPE" : "作用域",
+
+  "PROPERTY.MESSAGEDEFINITIONS.DISPLAY" : "{{length}}条消息定义",
+  "PROPERTY.MESSAGEDEFINITIONS.EMPTY" : "未配置消息定义",
+  "PROPERTY.MESSAGEDEFINITIONS.ID" : "标识",
+  "PROPERTY.MESSAGEDEFINITIONS.NAME" : "名称",
+
+  "PROPERTY.SEQUENCEFLOW.ORDER.EMPTY" : "未配置顺序流的顺序",
+  "PROPERTY.SEQUENCEFLOW.ORDER.NOT.EMPTY" : "已配置顺序流的顺序",
+  "PROPERTY.SEQUENCEFLOW.ORDER.NO.OUTGOING.SEQUENCEFLOW.FOUND" : "未找到输出的顺序流.",
+  "PROPERTY.SEQUENCEFLOW.ORDER.DESCRIPTION" : "配置顺序流执行的顺序:",
+  "PROPERTY.SEQUENCEFLOW.ORDER.SEQUENCEFLOW.VALUE" : "顺序流流向 {{targetType}} {{targetTitle}}",
+
+  "PROPERTY.SEQUENCEFLOW.CONDITION.TITLE" : "顺序条件",
+  "PROPERTY.SEQUENCEFLOW.CONDITION.STATIC" : "条件表达式",
+  "PROPERTY.SEQUENCEFLOW.CONDITION.NO-CONDITION-DISPLAY": "未设置条件",
+
+  "PROPERTY.DUEDATE.EMPTY" : "无到期日",
+  "PROPERTY.DUEDATE.DEFINED" : "未定义到期日",
+  "PROPERTY.DUEDATE.TITLE" : "到期日",
+  "PROPERTY.DUEDATE.EXPRESSION-LABEL" : "到期日表达式",
+  "PROPERTY.DUEDATE.TASK-DUE-DATE-OPTIONS.NO-DUEDATE" : "无到期日",
+  "PROPERTY.DUEDATE.TASK-DUE-DATE-OPTIONS.EXPRESSION" : "表达式定义",
+  "PROPERTY.DUEDATE.TASK-DUE-DATE-OPTIONS.STATIC" : "任务创建后固定时限",
+  "PROPERTY.DUEDATE.TASK-DUE-DATE-OPTIONS.FIELD" : "基于字段",
+
+  "MODEL.SAVE.TITLE" : "保存模型",
+  "MODEL.VALIDATE.TITLE" : "验证结果",
+  "MODEL.NAME" : "名称",
+  "MODEL.KEY" : "键名",
+  "MODEL.DESCRIPTION" : "描述",
+  "MODEL.SAVE.NEWVERSION" : "是否保存为新的版本?  这样您就可以随时回到之前的版本",
+  "MODEL.SAVE.COMMENT" : "备注",
+  "MODEL.SAVE.SAVING" : "模型保存中……",
+  "MODEL.LASTMODIFIEDDATE" : "最近一次的保存",
+  "MODEL.SAVE.ERROR": "未知错误: 无法保存模型",
+  "MODEL.VALIDATIONERRORS": "注意此模型验证错误。无法部署到流程引擎。",
+  "MODEL.CONFLICT.WRITE": "不能保存模型: 此模型中的'{{userFullName}}' 已被修改",
+  "MODEL.CONFLICT.WRITE.OPTIONS": "请选择如何解决冲突:",
+  "MODEL.CONFLICT.WRITE.OPTION.OVERWRITE": "覆盖其它的模型",
+  "MODEL.CONFLICT.WRITE.OPTION.DISCARDCHANGES": "放弃修改",
+  "MODEL.CONFLICT.WRITE.OPTION.SAVEAS": "保存为新的模型",
+  "MODEL.CONFLICT.WRITE.OPTION.NEWVERSION": "创建新版本",
+  "MODEL.CONFLICT.SAVEAS" : "保存为:",
+
+  "EVENT_TYPE.ACTIVITY.COMPENSATE.TOOLTIP": "活动将被作为另一个活动的补偿来执行，该事件的接收者是将被作为补偿来执行的活动",
+  "EVENT_TYPE.ACTIVITY.COMPLETED.TOOLTIP": "活动成功完成",
+  "EVENT_TYPE.ACTIVITY.ERROR.RECEIVED.TOOLTIP": "活动已接收到错误事件,该事件会在活动接收到实际的错误之前被触发",
+  "EVENT_TYPE.MEMBERSHIP.CREATED.TOOLTIP": "已创建新的成员",
+  "EVENT_TYPE.MEMBERSHIP.DELETED.TOOLTIP": "已删除单个成员",
+  "EVENT_TYPE.MEMBERSHIPS.DELETED.TOOLTIP": "已删除组内所有的成员,考虑到性能原因不会为每个删除的成员单独发出事件",
+  "EVENT_TYPE.TASK.ASSIGNED.TOOLTIP": "任务已分配,它会随着ENTITY_UPDATED事件一起抛出",
+  "EVENT_TYPE.TASK.COMPLETED.TOOLTIP": "任务已完成,它会在任务被删除前触发",
+  "EVENT_TYPE.UNCAUGHT.BPMNERROR.TOOLTIP": "流程发生未捕获的BPMN错误",
+  "EVENT_TYPE.VARIABLE.CREATED.TOOLTIP": "已创建新的变量",
+  "EVENT_TYPE.VARIABLE.DELETED.TOOLTIP": "已删除现存的变量",
+  "EVENT_TYPE.VARIABLE.UPDATED.TOOLTIP": "已更新现存的变量",
+
+  "PROPERTY.DECISIONTABLEREFERENCE.EMPTY" : "没有选中的决策表",
+  "PROPERTY.DECISIONTABLEREFERENCE.TITLE" : "决策表参照",
+  "PROPERTY.DECISIONTABLEREFERENCE.ERROR.FORM" : "加载决策表时发生错误。请稍后重试",
+  "PROPERTY.DECISIONTABLEREFERENCE.DECISIONTABLE.LOADING" : "加载决策表……",
+  "PROPERTY.DECISIONTABLEREFERENCE.DECISIONTABLE.EMPTY" : "此文件夹不包含决策表"
+}

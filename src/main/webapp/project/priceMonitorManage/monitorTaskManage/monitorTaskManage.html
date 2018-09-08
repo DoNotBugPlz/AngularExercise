@@ -1,0 +1,127 @@
+<div class="select_b_zzy " >
+    <div class="leftSel_table_zzy" ng-class="{true:'up',false:'over_hide2'}[vm.advSearch]">
+        <table border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="10%" class="txt">监测任务：</td>
+                <td width="20%">
+                    <input type="text" class="sel_ipt_zzy" placeholder="请输入关键字" ng-model="vm.searchParams.name" name="name"/>
+                </td>
+                <td width="10%" class="txt">任务类型：</td>
+                <td width="20%" >
+                    <div class="chosen_div">
+                        <select ng-model="vm.searchParams.task_type" class="sel_sel_zzy"
+                                ng-chosen
+                                ng-chosen-data="vm.task_type"
+                                ng-options="n.id as n.chinaname for n in vm.task_type">
+                            <option ng-chosen-option></option>
+                        </select>
+                    </div>
+                </td>
+                <td class="txt">任务范围：</td>
+                <td >
+                    <div class="chosen_div">
+                        <select ng-model="vm.searchParams.task_level" class="sel_sel_zzy"
+                                ng-chosen
+                                ng-chosen-data="vm.task_level"
+                                ng-options="n.id as n.chinaname for n in vm.task_level">
+                            <option ng-chosen-option></option>
+                        </select>
+                    </div>
+                </td>
+                <td class="left">
+                    <a href="javascript:;" class="sel_btn_zzy " ng-click="vm.searchTask()">查询</a>
+                    <a href="javascript:;" class="reSet_btn_zzy" ng-click="vm.reset()">重置</a>
+                </td>
+
+            </tr>
+            <tr>
+
+                <td class="txt">任务状态：</td>
+                <td>
+                    <div class="chosen_div">
+                        <select ng-model="vm.searchParams.task_status" class="sel_sel_zzy"
+                                ng-chosen
+                                ng-chosen-data="vm.task_status"
+                                ng-options="n.id as n.chinaname for n in vm.task_status">
+                            <option ng-chosen-option></option>
+                        </select>
+                    </div>
+                </td>
+
+                <td class="left">
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="table_box_zzy ">
+    <div class="table_tip_zzy ng-scope" style="position: relative;top:0px;right: 0px;"><!--操作按钮-->
+        <div class="table_tip_btn_zzy">
+            <a href="javascript:;" ng-click="vm.addTask()" style="width: 120px">新增监测任务</a>
+
+        </div>
+        <!--<div class="table_tip_main_zzy">
+            <span class="tip1_zzy">所属类别：</span>
+            {{vm.beloneCategory}}
+        </div>-->
+        <div class="clear"></div>
+    </div>
+
+    <div class="table_box_zzy top1_zzy" style="top: 40px;">
+        <div class="table_head_zzy marginB2">
+            <table >
+                <tr >
+                    <td  width="5%">序号</td>
+                    <td  width="20%">任务名称</td>
+                    <td  width="10%">任务类型</td>
+                    <td  width="10%">任务周期</td>
+                    <td  width="20%">报送时间</td>
+                    <td  width="10%">报告单位</td>
+                    <td  width="10%">状态</td>
+                    <td  width="15%">操作</td>
+                </tr>
+            </table>
+        </div>
+        <div id="query_nothing" class="nothing nothingTop"
+             ng-show="!!!vm.taskList||vm.taskList.length==0">
+            <span></span>暂无数据
+        </div>
+        <div class="table_main_zzy" m-custom-scrollbar >
+            <table id="query-list-panel" cellpadding="0" cellspacing="0" style="table-layout: fixed"
+                   ng-hide="!!!vm.taskList||vm.taskList.length==0">
+                <tbody ng-model="vm.taskList" >
+                <tr ng-repeat="n in vm.taskList track by $index" ng-class-even="'bgcolor'"
+                    ng-class="{'false':'','true':'selected'}[n.selected]">
+                    <td  width="5%">{{n.index}}</td>
+                    <td  width="20%">{{n.name}}</td>
+                    <td  width="10%">{{n.task_type_text}}</td>
+                    <td  width="10%">{{n.task_cycle_text}}</td>
+                    <td  width="20%">报送时间</td>
+                        <td  width="10%">报告单位</td>
+                    <td width="10%" >
+                        <span >
+                            <span ng-if="n.task_status=='0'">暂存</span>
+                            <span ng-if="n.task_status=='1'">已下发</span>
+                            <span ng-if="n.task_status=='2'">确认启用</span>
+                            <span ng-if="n.task_status=='3'">停用</span>
+                        </span>
+
+                    </td>
+                    <td width="15%">
+                        <a href="javascript:;" class="table_main1_a" ng-click="vm.viewGoods(n)">详情</a>
+                        <a href="javascript:;" class="table_main1_a" ng-click="vm.editGoods(n)">编辑</a>
+                        <a href="javascript:;" class="table_main1_a" ng-if="n.delstatus==1" ng-click="vm.changeStatue(n.id,0)">启用</a>
+                        <a href="javascript:;" class="table_main1_a" ng-if="n.delstatus==0" ng-click="vm.changeStatue(n.id,1)">停用</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="table-tfoot">
+            <div class="table_page">
+                <div ng-turn-page="vm.taskListPage" turn-page-fn="vm.loadTaskList"></div>
+            </div>
+        </div>
+    </div>
+</div>

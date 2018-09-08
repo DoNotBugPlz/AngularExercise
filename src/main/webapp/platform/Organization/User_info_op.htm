@@ -1,0 +1,162 @@
+<div style="width:100%;height:100%">
+    <div class="datagrid-toolbar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-save'"
+           onclick="saveForm()">保存</a> <a href="javascript:void(0)" class="easyui-linkbutton"
+                                          data-options="plain:true,iconCls:'icon-clear'" onclick="clearForm()">清空</a>
+        <!--<a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-back'"
+           onclick="resetPassWord()">重设密码</a>-->
+    </div>
+    <form id="personForm" method="post" action="../../Sys_user/SaveForm.do">
+        <table style="width: 100%;">
+            <tr height="30">
+                <td width="20%" align="center">
+                    登录名称:
+                </td>
+                <td>
+                    <input class="easyui-validatebox" type="text" id="loginname" name="sys_user.loginname"
+                           data-options="required:true,validType:'remote[{url:rootPath+\'Sys_user/ValidLoginName.do\',data:{loginname:$(\'#loginname\').val(),userid:$(\'#userid\').val()}}]'"
+                           style="width: 300px" />
+                    <input type="hidden" id="userid" name="sys_user.id" />
+                </td>
+            </tr>
+            <tr height="30">
+                <td align="center">
+                    用户姓名:
+                </td>
+                <td>
+                    <input class="easyui-validatebox" type="text" name="sys_user.chinaname" data-options="required:true"
+                           style="width: 300px" />
+                </td>
+            </tr>
+            <tr height="30">
+                <td align="center">
+                    用户单位称呼:
+                </td>
+                <td>
+                    <input class="easyui-validatebox" type="text" name="sys_user.nameindept"　
+                           style="width: 300px" data-options="required:false,validType:'email'"/>
+                </td>
+            </tr>
+            <tr height="30">
+                <td align="center">
+                    身份证号:
+                </td>
+                <td>
+                    <input class="easyui-validatebox" type="text" name="sys_user.identitynum" data-options="required:false,validType:'idcard'"
+                           style="width: 300px" />
+                </td>
+            </tr>
+            <tr height="30">
+                <td align="center">
+                    用户性别:
+                </td>
+                <td>
+                    <input class="easyui-combobox" name="sys_user.sex" data-options="
+                    					required:true,
+                    					data:[{'sexvalue':0,'sextext':'男'},{'sexvalue':1,'sextext':'女'}],
+                    					valueField:'sexvalue',
+                    					textField:'sextext',
+                    					value:'0',
+                    					editable:false,
+                    					panelHeight:'auto'
+                    					" style="width: 310px" />
+                </td>
+            </tr>
+            <tr height="30">
+                <td align="center">
+                    出生年月:
+                </td>
+                <td>
+                    <input class="easyui-datebox" name="sys_user.birth" data-options="validType:'date',
+                    				editable:false,
+                    				formatter:formatNormalDate
+                    				" style="width: 310px" />
+                </td>
+            </tr>
+            <tr height="30">
+                <td align="center">
+                    电子邮件:
+                </td>
+                <td>
+                    <input class="easyui-validatebox" type="text" name="sys_user.mail" data-options="validType:'email'"
+                           style="width: 300px" />
+                </td>
+            </tr>
+            <tr height="30">
+                <td align="center">
+                    移动电话:
+                </td>
+                <td>
+                    <input class="easyui-validatebox" type="text" name="sys_user.mobile" style="width: 300px" />
+                </td>
+            </tr>
+            <tr height="30">
+                <td align="center">
+                    单位电话:
+                </td>
+                <td>
+                    <input class="easyui-validatebox" type="text" name="sys_user.phonedept" style="width: 300px" />
+                </td>
+            </tr>
+            <tr height="30">
+                <td align="center">
+                    家庭电话:
+                </td>
+                <td>
+                    <input class="easyui-validatebox" type="text" name="sys_user.phonehome" style="width: 300px" />
+                </td>
+            </tr>
+            <tr height="30">
+                <td align="center">
+                    部门内序号:
+                </td>
+                <td>
+                    <input class="easyui-validatebox" type="text" name="sys_user.sortindex" data-options="required:true"
+                           style="width: 300px" />
+                </td>
+            </tr>
+            <tr height="30">
+                <td align="center">
+                    所属部门:
+                </td>
+                <td>
+                    <input class="easyui-combobox" type="text" id="dept" name="dept.chinaname" data-options="required:true,onShowPanel:showDeptTreeGrid"
+                           style="width: 310px" />
+                    <input type="hidden" id="deptid" name="sys_user.deptid" />
+                </td>
+            </tr>
+            <tr height="30">
+                <td align="center">
+                    所属单位:
+                </td>
+                <td>
+                    <input class="easyui-combobox" type="text" id="unit" name="unit.chinaname" data-options="
+                            	required:true,
+                            	onShowPanel:showDeptTreeGrid" style="width: 310px" />
+                    <input type="hidden" id="unitid" name="sys_user.unitid" />
+                </td>
+            </tr>
+            <tr height="30">
+                <td align="center">
+                    角&nbsp;&nbsp;色:
+                </td>
+                <td>
+                    <input class="easyui-combobox" id="personroles" name="sys_user.personroles" style="width: 303px;"
+                           data-options=" url:rootPath + 'Sys_roles/LoadCanUseRoles.do',
+                     multiple:true,
+                    valueField:'id',
+                    textField:'chinaname',
+                    panelHeight:'auto'" />
+                </td>
+            </tr>
+            <tr height="30">
+                <td align="center">
+                    是否禁用:
+                </td>
+                <td>
+                    <input type="checkbox" name="sys_user.delstatus" />是，禁用
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>

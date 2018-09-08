@@ -1,0 +1,633 @@
+
+    <div class="select_b_zzy " >
+        <div class="leftSel_table_zzy" ng-if="vm.goods_familyValue===1" ng-class="{true:'up',false:'over_hide2'}[vm.advSearch]">
+            <table border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td width="10%" class="txt">商品基准库：</td>
+                    <td width="20%">
+                        <div class="chosen_div">
+                            <select ng-model="vm.goods_familyValue" class="sel_sel_zzy"
+                                    ng-chosen
+                                    ng-chosen-data="vm.goods_family"
+                                    ng-options="n.id as n.chinaname for n in vm.goods_family">
+                            </select>
+                        </div>
+                    </td>
+                    <td width="10%" class="txt">商品名称：</td>
+                    <td width="20%" >
+                        <input type="text" class="sel_ipt_zzy" placeholder="请输入关键字" ng-model="vm.searchParams.name" name="name"/>
+                    </td>
+                    <td class="txt">规格等级：</td>
+                    <td >
+                        <input type="text" class="sel_ipt_zzy" placeholder="请输入关键字" ng-model="vm.searchParams.spec" name="spec"/>
+                    </td>
+                    <td class="left">
+                        <a href="javascript:;" class="sel_btn_zzy " ng-click="vm.searchGoods()">查询</a>
+                        <a href="javascript:;" class="reSet_btn_zzy" ng-click="vm.reset()">重置</a>
+                    </td>
+
+                </tr>
+                <tr>
+
+                    <td  class="txt">计量单位：</td>
+                    <td  class="txt_center">
+                        <input type="text" class="sel_ipt_zzy" placeholder="请输入关键字" ng-model="vm.searchParams.measurement_unit" name="measurement_unit"/>
+                    </td>
+                    <td  class="txt">是否停用：</td>
+                    <td  >
+                        <div class="chosen_div" >
+                            <select  ng-model="vm.searchParams.delstatus"  class="sel_sel_zzy"
+                                     ng-chosen
+                                     ng-chosen-data="vm.yesnoCatagory"
+                                     ng-options="n.id as n.chinaname for n in vm.yesnoCatagory" >
+                                <option ng-chosen-option></option>
+                            </select>
+                        </div>
+
+                    </td>
+                    <td width="10%" class="txt" >别名：</td>
+                    <td width="20%" >
+                        <input type="text" class="sel_ipt_zzy" placeholder="请输入关键字" ng-model="vm.searchParams.alias" name="alias"/>
+                    </td>
+                    <td class="left">
+                        <a href="javascript:;" class="super_sel" ng-click="vm.advSearchFun()">高级检索</a>
+                    </td>
+                </tr>
+            </table>
+            <table ng-show="vm.advSearch" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+
+                    <td width="10%"  class="txt">生产企业：</td>
+                    <td width="20%"  class="txt_center">
+                        <input type="text" class="sel_ipt_zzy" placeholder="请输入关键字" ng-model="vm.searchParams.origin_company" name="origin_company"/>
+                    </td>
+                    <td width="10%"  class="txt">商品品牌：</td>
+                    <td width="20%"  class="txt_center">
+                        <input type="text" class="sel_ipt_zzy" placeholder="请输入关键字" ng-model="vm.searchParams.brand" name="brand"/>
+
+                    </td>
+                    <td width="10%" class="txt">备注信息：</td>
+                    <td width="20%">
+                        <input type="text" class="sel_ipt_zzy" placeholder="请输入关键字" ng-model="vm.searchParams.remark" name="remark"/>
+                    </td>
+                    <td  class="right">
+
+                    </td>
+
+                </tr>
+                <tr>
+
+                    <td  class="txt">产地：</td>
+                    <td  class="txt_center">
+                        <input type="text" class="sel_ipt_zzy" placeholder="请输入关键字" ng-model="vm.searchParams.origin_place" name="origin_place"/>
+                    </td>
+
+                </tr>
+            </table>
+        </div>
+        <div class="leftSel_table_zzy" ng-if="vm.goods_familyValue===2" ng-class="{true:'up',false:'over_hide2'}[vm.advSearch]">
+            <table border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td width="10%" class="txt">商品基准库：</td>
+                    <td width="20%">
+                        <div class="chosen_div">
+                            <select ng-model="vm.goods_familyValue" class="sel_sel_zzy"
+                                    ng-chosen
+                                    ng-chosen-data="vm.goods_family"
+                                    ng-options="n.id as n.chinaname for n in vm.goods_family">
+                            </select>
+                        </div>
+                    </td>
+
+                    <td width="10%" class="txt">商品名称：</td>
+                    <td width="20%" >
+                        <input type="text" class="sel_ipt_zzy" placeholder="请输入关键字" ng-model="vm.searchParams.name" name="name"/>
+                    </td>
+                    <td width="10%" class="txt">规格等级：</td>
+                    <td width="20%" >
+                        <input type="text" class="sel_ipt_zzy" placeholder="请输入关键字" ng-model="vm.searchParams.spec" name="spec"/>
+                    </td>
+                    <td class="left">
+                        <a href="javascript:;" class="sel_btn_zzy " ng-click="vm.searchGoods()">查询</a>
+                        <a href="javascript:;" class="reSet_btn_zzy" ng-click="vm.reset()">重置</a>
+                    </td>
+
+                </tr>
+                <tr>
+
+                    <td  class="txt">计量单位：</td>
+                    <td  class="txt_center">
+                        <input type="text" class="sel_ipt_zzy" placeholder="请输入关键字" ng-model="vm.searchParams.measurement_unit" name="measurement_unit"/>
+                    </td>
+                    <td  class="txt">剂型：</td>
+                    <td  class="txt_center">
+                        <input type="text" class="sel_ipt_zzy" placeholder="请输入关键字" ng-model="vm.searchParams.dosage" name="dosage"/>
+                    </td>
+
+                    <td class="txt" >通用名：</td>
+                    <td >
+                        <input type="text" class="sel_ipt_zzy" placeholder="请输入关键字" ng-model="vm.searchParams.alias" name="alias"/>
+                    </td>
+                    <td class="left">
+                        <a href="javascript:;" class="super_sel" ng-click="vm.advSearchFun()">高级检索</a>
+                    </td>
+                </tr>
+            </table>
+            <table ng-show="vm.advSearch" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+
+                    <td width="10%"  class="txt">药品属性：</td>
+                    <td width="20%" >
+                        <div class="chosen_div" >
+                            <select  ng-model="vm.searchParams.goods_properties"  class="sel_sel_zzy"
+                                     ng-chosen
+                                     ng-chosen-data="vm.drug_nature"
+                                     ng-options="n.id as n.chinaname for n in vm.drug_nature" >
+                                <option ng-chosen-option></option>
+                            </select>
+                        </div>
+                    </td>
+                    <td width="10%"  class="txt">用途：</td>
+                    <td width="20%"  class="txt_center">
+                        <input type="text" class="sel_ipt_zzy" placeholder="请输入关键字" ng-model="vm.searchParams.use_for" name="use_for"/>
+
+                    </td>
+                    <td width="10%" class="txt">准字号：</td>
+                    <td width="20%">
+                        <input type="text" class="sel_ipt_zzy" placeholder="请输入关键字" ng-model="vm.searchParams.quasi_word" name="quasi_word"/>
+                    </td>
+                    <td  class="right">
+
+                    </td>
+
+                </tr>
+                <tr>
+
+                    <td  class="txt">医保编码：</td>
+                    <td  class="txt_center">
+                        <input type="text" class="sel_ipt_zzy" placeholder="请输入关键字" ng-model="vm.searchParams.medical_insurance_code" name="medical_insurance_code"/>
+                    </td>
+                    <td  class="txt">厂商：</td>
+                    <td  class="txt_center">
+                        <input type="text" class="sel_ipt_zzy" placeholder="请输入关键字" ng-model="vm.searchParams.origin_company" name="origin_company"/>
+                    </td>
+                    <td  class="txt">是否停用：</td>
+                    <td  >
+                        <div class="chosen_div" >
+                            <select  ng-model="vm.searchParams.delstatus"  class="sel_sel_zzy"
+                                     ng-chosen
+                                     ng-chosen-data="vm.yesnoCatagory"
+                                     ng-options="n.id as n.chinaname for n in vm.yesnoCatagory" >
+                                <option ng-chosen-option></option>
+                            </select>
+                        </div>
+                    </td>
+
+                </tr>
+            </table>
+        </div>
+        <div class="leftSel_table_zzy" ng-if="vm.goods_familyValue===3" ng-class="{true:'up',false:'over_hide2'}[vm.advSearch]">
+            <table border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td width="10%" class="txt">商品基准库：</td>
+                    <td width="20%">
+                        <div class="chosen_div">
+                            <select ng-model="vm.goods_familyValue" class="sel_sel_zzy"
+                                    ng-chosen
+                                    ng-chosen-data="vm.goods_family"
+                                    ng-options="n.id as n.chinaname for n in vm.goods_family">
+                            </select>
+                        </div>
+                    </td>
+
+                    <td width="10%" class="txt">商品名称：</td>
+                    <td width="20%" >
+                        <input type="text" class="sel_ipt_zzy" placeholder="请输入关键字" ng-model="vm.searchParams.name" name="name"/>
+                    </td>
+                    <td width="10%" class="txt">规格等级：</td>
+                    <td width="20%">
+                        <input type="text" class="sel_ipt_zzy" placeholder="请输入关键字" ng-model="vm.searchParams.spec" name="spec"/>
+                    </td>
+                    <td class="left">
+                        <a href="javascript:;" class="sel_btn_zzy " ng-click="vm.searchGoods()">查询</a>
+                        <a href="javascript:;" class="reSet_btn_zzy" ng-click="vm.reset()">重置</a>
+                    </td>
+
+                </tr>
+                <tr>
+
+                    <td  class="txt">计量单位：</td>
+                    <td  class="txt_center">
+                        <input type="text" class="sel_ipt_zzy" placeholder="请输入关键字" ng-model="vm.searchParams.measurement_unit" name="measurement_unit"/>
+                    </td>
+
+                    <td class="txt" >别名：</td>
+                    <td  >
+                        <input type="text" class="sel_ipt_zzy" placeholder="请输入关键字" ng-model="vm.searchParams.alias" name="alias"/>
+                    </td>
+                    <td  class="txt">生产企业：</td>
+                    <td class="txt_center">
+                        <input type="text" class="sel_ipt_zzy" placeholder="请输入关键字" ng-model="vm.searchParams.origin_company" name="origin_company"/>
+                    </td>
+                    <td class="left">
+                        <a href="javascript:;" class="super_sel" ng-click="vm.advSearchFun()">高级检索</a>
+                    </td>
+                </tr>
+            </table>
+            <table ng-show="vm.advSearch" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+
+
+                    <td width="10%"  class="txt">行业类别：</td>
+                    <td width="20%"  class="txt_center">
+                        <input type="text" class="sel_ipt_zzy" placeholder="请输入关键字" ng-model="vm.searchParams.industry_category" name="industry_category"/>
+
+                    </td>
+                    <td width="10%" class="txt">备注信息：</td>
+                    <td width="20%">
+                        <input type="text" class="sel_ipt_zzy" placeholder="请输入关键字" ng-model="vm.searchParams.remark" name="remark"/>
+                    </td>
+                    <td  width="10%"   class="txt">产地：</td>
+                    <td  width="20%"  class="txt_center">
+                        <input type="text" class="sel_ipt_zzy" placeholder="请输入关键字" ng-model="vm.searchParams.origin_place" name="origin_place"/>
+                    </td>
+                    <td  class="right">
+
+                    </td>
+
+                </tr>
+                <tr>
+
+
+                    <td  class="txt">是否停用：</td>
+                    <td>
+                        <div class="chosen_div" >
+                            <select  ng-model="vm.searchParams.delstatus"  class="sel_sel_zzy"
+                                     ng-chosen
+                                     ng-chosen-data="vm.yesnoCatagory"
+                                     ng-options="n.id as n.chinaname for n in vm.yesnoCatagory" >
+                                <option ng-chosen-option></option>
+                            </select>
+                        </div>
+
+                    </td>
+
+                </tr>
+            </table>
+        </div>
+        <div class="leftSel_table_zzy" ng-if="vm.goods_familyValue===4" ng-class="{true:'up',false:'over_hide2'}[vm.advSearch]">
+            <table border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td width="10%" class="txt">商品基准库：</td>
+                    <td width="20%">
+                        <div class="chosen_div">
+                            <select ng-model="vm.goods_familyValue" class="sel_sel_zzy"
+                                    ng-chosen
+                                    ng-chosen-data="vm.goods_family"
+                                    ng-options="n.id as n.chinaname for n in vm.goods_family">
+                            </select>
+                        </div>
+                    </td>
+
+                    <td width="10%" class="txt">项目名称：</td>
+                    <td width="20%" >
+                        <input type="text" class="sel_ipt_zzy" placeholder="请输入关键字" ng-model="vm.searchParams.name" name="name"/>
+                    </td>
+                    <td width="10%" class="txt">外部编码：</td>
+                    <td width="20%">
+                        <input type="text" class="sel_ipt_zzy" placeholder="请输入关键字" ng-model="vm.searchParams.spec" name="spec"/>
+                    </td>
+                    <td class="left">
+                        <a href="javascript:;" class="sel_btn_zzy " ng-click="vm.searchGoods()">查询</a>
+                        <a href="javascript:;" class="reSet_btn_zzy" ng-click="vm.reset()">重置</a>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td  class="txt">是否停用：</td>
+                    <td>
+                        <div class="chosen_div" >
+                            <select  ng-model="vm.searchParams.delstatus"  class="sel_sel_zzy"
+                                     ng-chosen
+                                     ng-chosen-data="vm.yesnoCatagory"
+                                     ng-options="n.id as n.chinaname for n in vm.yesnoCatagory" >
+                                <option ng-chosen-option></option>
+                            </select>
+                        </div>
+
+                    </td>
+
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="table_box_zzy ">
+        <div class="rightSide_menus addScroll table_box_l_zzy">
+            <!--<div style="border: 1px;width: 100%;height: 10px">
+                <span ng-click="vm.addGoodsType()">+</span>
+                <span ng-click="vm.reduceGoodsType()">-</span>
+            </div>-->
+            <!--<div class="menus_searchBox">
+                <input class="search_input" type="text" placeholder="请填写关键词">
+                <a class="search_button" href="javascript:;">搜索</a>
+            </div>-->
+            <div class="div-tool">
+                <span>品类管理</span>
+                <ul>
+                    <li ng-click="vm.addGoodsType()">
+                        <span>新增</span>
+                    </li>
+                    <li ng-click="vm.reduceGoodsType()">
+                        <span>停用</span>
+                    </li>
+                </ul>
+            </div>
+            <div class=".menus_slider">
+                <ul ztree id="menuTree" class=" ztree" z-params="vm.zParams"></ul>
+            </div>
+
+        </div>
+        <!--标准商品库-->
+        <div class="table_box_r_zzy" ng-if="vm.goods_familyValue===1">
+                <div class="table_tip_zzy ng-scope" style="position: relative;top:0px;right: 0px;"><!--操作按钮-->
+                    <div class="table_tip_btn_zzy">
+                        <a href="javascript:;" ng-click="vm.addGoods()" style="width: 90px">新增商品</a>
+                        <a href="javascript:;" ng-click="vm.goodsLink()" style="width: 90px">商品关联</a>
+                    </div>
+                    <div class="table_tip_main_zzy">
+                        <span class="tip1_zzy">所属类别：</span>
+                        {{vm.beloneCategory}}
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="table_box_zzy top1_zzy" style="top: 40px;">
+                    <div class="table_head_zzy marginB2">
+                        <table >
+                            <tr >
+                                <td  width="20%">国家编码</td>
+                                <td  width="20%">系统编码</td>
+                                <td  width="10%">商品名称</td>
+                                <td  width="10%">规格等级</td>
+                                <td  width="10%">计量单位</td>
+                                <td  width="10%">状态</td>
+                                <td  width="20%">操作</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="query_nothing" class="nothing nothingTop"
+                         ng-show="!!!vm.goodsList||vm.goodsList.length==0">
+                        <span></span>暂无数据
+                    </div>
+                    <div class="table_main_zzy" m-custom-scrollbar >
+                        <table id="query-list-panel" cellpadding="0" cellspacing="0" style="table-layout: fixed"
+                               ng-hide="!!!vm.goodsList||vm.goodsList.length==0">
+                            <tbody ng-model="vm.goodsList" >
+                            <tr ng-repeat="n in vm.goodsList track by $index" ng-class-even="'bgcolor'"
+                                ng-class="{'false':'','true':'selected'}[n.selected]">
+                                <td width="20%" colspan="2" style="border-left:  1px solid #c6c6c6;">{{n.goods_code}}</td>
+                                <td width="20%" >{{n.id}}</td>
+                                <td width="10%" >{{n.name}}</td>
+                                <td width="10%" >{{n.spec}}</td>
+                                <td width="10%" >{{n.measurement_unit}}</td>
+                                <td width="10%" >
+                                    <span ng-class="{'true':'color_green','false':'color_normal'}[n.delstatus=='0']">
+                                        <span ng-if="n.delstatus=='0'">已启用</span>
+                                        <span ng-if="n.delstatus=='1'">已停用</span>
+                                    </span>
+                                    <i  ng-class="{'true':'start_zzy','false':'forbidden_zzy'}[n.delstatus=='0']"></i>
+                                </td>
+                                <td width="20%">
+                                    <a href="javascript:;" class="table_main1_a" ng-click="vm.viewGoods(n)">详情</a>
+                                    &nbsp;&nbsp;
+                                    <a href="javascript:;" class="table_main1_a" ng-click="vm.editGoods(n)">编辑</a>
+                                    &nbsp;&nbsp;
+                                    <a href="javascript:;" class="table_main1_a" ng-if="n.delstatus==1" ng-click="vm.changeStatue(n.id,0)">启用</a>
+                                    <a href="javascript:;" class="table_main1_a" ng-if="n.delstatus==0" ng-click="vm.changeStatue(n.id,1)">停用</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="table-tfoot">
+                        <div class="table_page">
+                            <div ng-turn-page="vm.goodsListPage" turn-page-fn="vm.loadGoodsList"></div>
+                        </div>
+                    </div>
+                </div>
+
+        </div>
+        <!--药品库-->
+        <div class="table_box_r_zzy" ng-if="vm.goods_familyValue===2">
+
+
+                <div class="table_tip_zzy ng-scope" style="position: relative;top:0px;right: 0px;"><!--操作按钮-->
+                    <div class="table_tip_btn_zzy">
+                        <a href="javascript:;" ng-click="vm.addGoods()" style="width: 90px">新增商品</a>
+                        <a href="javascript:;" ng-click="vm.goodsLink()" style="width: 90px">商品关联</a>
+                    </div>
+                    <div class="table_tip_main_zzy">
+                        <span class="tip1_zzy">所属类别：</span>
+                        {{vm.beloneCategory}}
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="table_box_zzy top1_zzy" style="top: 40px;">
+                    <div class="table_head_zzy marginB2">
+                        <table>
+                            <tr>
+                                <td width="20%">医保协会编码</td>
+                                <td  width="10%">国家编码</td>
+                                <td  width="10%">系统编码</td>
+                                <td  width="10%">商品名称</td>
+                                <td  width="5%">剂型</td>
+                                <td  width="10%">规格等级</td>
+                                <td  width="8%">计量单位</td>
+                                <td  width="7%">状态</td>
+                                <td  width="20%">操作</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="query_nothing2" class="nothing nothingTop"
+                         ng-show="!!!vm.goodsList||vm.goodsList.length==0">
+                        <span></span>暂无数据
+                    </div>
+                    <div class="table_main_zzy" m-custom-scrollbar >
+                        <table id="query-list-panel2" cellpadding="0" cellspacing="0" style="table-layout: fixed"
+                               ng-hide="!!!vm.goodsList||vm.goodsList.length==0">
+                            <tbody ng-model="vm.goodsList" >
+                            <tr ng-repeat="n in vm.goodsList track by $index" ng-class-even="'bgcolor'"
+                                ng-class="{'false':'','true':'selected'}[n.selected]">
+                                <td width="20%" style="border-left:  1px solid #c6c6c6;">{{n.medical_insurance_code}}</td>
+                                <td width="10%" >{{n.goods_code}}</td>
+                                <td width="10%" >{{n.id}}</td>
+                                <td width="10%" >{{n.name}}</td>
+                                <td width="5%" >{{n.dosage}}</td>
+                                <td width="10%" >{{n.spec}}</td>
+                                <td width="8%" >{{n.measurement_unit}}</td>
+                                <td width="7%" >
+                                    <span ng-class="{'true':'color_green','false':'color_normal'}[n.delstatus=='0']">
+                                        <span ng-if="n.delstatus=='0'">已启用</span>
+                                        <span ng-if="n.delstatus=='1'">已停用</span>
+                                    </span>
+                                    <i  ng-class="{'true':'start_zzy','false':'forbidden_zzy'}[n.delstatus=='0']"></i></td>
+                                <td width="20%">
+                                    <a href="javascript:;" class="table_main1_a" ng-click="vm.viewGoods(n)">详情</a>
+                                    &nbsp;&nbsp;
+                                    <a href="javascript:;" class="table_main1_a" ng-click="vm.editGoods(n)">编辑</a>
+                                    &nbsp;&nbsp;
+                                    <a href="javascript:;" class="table_main1_a" ng-if="n.delstatus==1" ng-click="vm.changeStatue(n.id,0)">启用</a>
+
+                                    <a href="javascript:;" class="table_main1_a" ng-if="n.delstatus==0" ng-click="vm.changeStatue(n.id,1)">停用</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="table-tfoot">
+                        <div class="table_page">
+                            <div ng-turn-page="vm.goodsListPage" turn-page-fn="vm.loadGoodsList"></div>
+                        </div>
+                    </div>
+                </div>
+
+        </div>
+        <!--重点工业行业库-->
+        <div class="table_box_r_zzy" ng-if="vm.goods_familyValue===3">
+            <div class="table_tip_zzy ng-scope" style="position: relative;top:0px;right: 0px;"><!--操作按钮-->
+                <div class="table_tip_btn_zzy">
+                    <a href="javascript:;" ng-click="vm.addGoods()" style="width: 90px">新增商品</a>
+                    <a href="javascript:;" ng-click="vm.goodsLink()" style="width: 90px">商品关联</a>
+                </div>
+                <div class="table_tip_main_zzy">
+                    <span class="tip1_zzy">所属类别：</span>
+                    {{vm.beloneCategory}}
+                </div>
+                <div class="clear"></div>
+            </div>
+                <div class="table_box_zzy top1_zzy" style="top: 40px;">
+                    <div class="table_head_zzy marginB2">
+                        <table>
+                            <tr >
+                                <td  width="20%">国家编码</td>
+                                <td  width="20%">系统编码</td>
+                                <td  width="10%">商品名称</td>
+                                <td  width="10%">规格等级</td>
+                                <td  width="10%">计量单位</td>
+                                <td  width="10%">状态</td>
+                                <td  width="20%">操作</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="query_nothing3" class="nothing nothingTop"
+                         ng-show="!!!vm.goodsList||vm.goodsList.length==0">
+                        <span></span>暂无数据
+                    </div>
+                    <div class="table_main_zzy" m-custom-scrollbar >
+                        <table id="query-list-panel3" cellpadding="0" cellspacing="0" style="table-layout: fixed"
+                               ng-hide="!!!vm.goodsList||vm.goodsList.length==0">
+                            <tbody ng-model="vm.goodsList" >
+                            <tr ng-repeat="n in vm.goodsList track by $index" ng-class-even="'bgcolor'"
+                                ng-class="{'false':'','true':'selected'}[n.selected]">
+                                <td width="20%" style="border-left:  1px solid #c6c6c6;">{{n.goods_code}}</td>
+                                <td width="20%" >{{n.id}}</td>
+                                <td width="10%" >{{n.name}}</td>
+                                <td width="10%" >{{n.spec}}</td>
+                                <td width="10%" >{{n.measurement_unit}}</td>
+                                <td width="10%" >
+                                    <span ng-class="{'true':'color_green','false':'color_normal'}[n.delstatus=='0']">
+                                        <span ng-if="n.delstatus=='0'">已启用</span>
+                                        <span ng-if="n.delstatus=='1'">已停用</span>
+                                    </span>
+                                    <i  ng-class="{'true':'start_zzy','false':'forbidden_zzy'}[n.delstatus=='0']"></i>
+                                </td>
+                                <td width="20%">
+                                    <a href="javascript:;" class="table_main1_a" ng-click="vm.viewGoods(n)">详情</a>
+                                    &nbsp;&nbsp;
+                                    <a href="javascript:;" class="table_main1_a" ng-click="vm.editGoods(n)">编辑</a>
+                                    &nbsp;&nbsp;
+                                    <a href="javascript:;" class="table_main1_a" ng-if="n.delstatus==1" ng-click="vm.changeStatue(n.id,0)">启用</a>
+
+                                    <a href="javascript:;" class="table_main1_a" ng-if="n.delstatus==0" ng-click="vm.changeStatue(n.id,1)">停用</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="table-tfoot">
+                        <div class="table_page">
+                            <div ng-turn-page="vm.goodsListPage" turn-page-fn="vm.loadGoodsList"></div>
+                        </div>
+                    </div>
+                </div>
+
+        </div>
+        <!--指数商品库-->
+        <div class="table_box_r_zzy" ng-if="vm.goods_familyValue===4">
+            <div class="table_tip_zzy ng-scope" style="position: relative;top:0px;right: 0px;"><!--操作按钮-->
+                <div class="table_tip_btn_zzy">
+                    <a href="javascript:;" ng-click="vm.addGoods()" style="width: 90px">新增商品</a>
+                    <a href="javascript:;" ng-click="vm.goodsLink()" style="width: 90px">商品关联</a>
+                </div>
+                <div class="table_tip_main_zzy">
+                    <span class="tip1_zzy">所属类别：</span>
+                    {{vm.beloneCategory}}
+                </div>
+                <div class="clear"></div>
+            </div>
+                <div class="table_box_zzy top1_zzy" style="top: 40px;">
+                    <div class="table_head_zzy marginB2">
+                        <table>
+                            <tr>
+                                <td  width="20%">系统编码</td>
+                                <td  width="20%">外部编码</td>
+                                <td  width="20%">项目名称</td>
+                                <td  width="20%">状态</td>
+                                <td  width="20%">操作</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="query_nothing4" class="nothing nothingTop"
+                         ng-show="!!!vm.goodsList||vm.goodsList.length==0">
+                        <span></span>暂无数据
+                    </div>
+                    <div class="table_main_zzy" m-custom-scrollbar >
+                        <table id="query-list-panel4" cellpadding="0" cellspacing="0" style="table-layout: fixed"
+                               ng-hide="!!!vm.goodsList||vm.goodsList.length==0">
+                            <tbody ng-model="vm.goodsList" >
+                            <tr ng-repeat="n in vm.goodsList track by $index" ng-class-even="'bgcolor'"
+                                ng-class="{'false':'','true':'selected'}[n.selected]">
+                                <td width="20%" style="border-left:  1px solid #c6c6c6;">{{n.goods_code}}</td>
+                                <td width="20%" >{{n.id}}</td>
+                                <td width="10%" >{{n.name}}</td>
+                                <td width="10%" >{{n.spec}}</td>
+                                <td width="10%" >{{n.measurement_unit}}</td>
+                                <td width="10%" >
+                                    <span ng-class="{'true':'color_green','false':'color_normal'}[n.delstatus=='0']">
+                                        <span ng-if="n.delstatus=='0'">已启用</span>
+                                        <span ng-if="n.delstatus=='1'">已停用</span>
+                                    </span>
+                                    <i  ng-class="{'true':'start_zzy','false':'forbidden_zzy'}[n.delstatus=='0']"></i>
+                                </td>
+                                <td width="20%">
+                                    <a href="javascript:;" class="table_main1_a" ng-click="vm.viewGoods(n)">详情</a>
+                                    &nbsp;&nbsp;
+                                    <a href="javascript:;" class="table_main1_a" ng-click="vm.editGoods(n)">编辑</a>
+                                    &nbsp;&nbsp;
+                                    <a href="javascript:;" class="table_main1_a" ng-if="n.delstatus==1" ng-click="vm.changeStatue(n.id,0)">启用</a>
+
+                                    <a href="javascript:;" class="table_main1_a" ng-if="n.delstatus==0" ng-click="vm.changeStatue(n.id,1)">停用</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="table-tfoot">
+                        <div class="table_page">
+                            <div ng-turn-page="vm.goodsListPage" turn-page-fn="vm.loadGoodsList"></div>
+                        </div>
+                    </div>
+                </div>
+
+        </div>
+    </div>

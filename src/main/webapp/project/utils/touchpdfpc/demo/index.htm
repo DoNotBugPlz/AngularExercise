@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+  <meta charset="UTF-8">
+  <title>PDF在线阅读</title>
+  <link href="../jquery.touchPDF.css" rel="stylesheet" media="screen" />
+	<style>
+		body , html{
+			background-color: #404040;
+			height: 100%;
+			padding: 0;
+			margin: 0;
+		}
+	</style>
+</head>
+<body>
+
+<div id="myPDF" style="height: 100%; width: 100%; margin: auto;"></div>
+
+<script type="text/javascript" src="../pdf.compatibility.js"></script>
+<script type="text/javascript" src="../pdf.js"></script>
+<script type="text/javascript" src="../jquery.min.js"></script>
+<script type="text/javascript" src="../jquery.touchSwipe.js"></script>
+<script type="text/javascript" src="../jquery.touchPDF.js"></script>
+<script type="text/javascript" src="../jquery.panzoom.js"></script>
+<script type="text/javascript" src="../jquery.mousewheel.js"></script>
+<script type="text/javascript">
+    function getUrlParams(key) {
+        return (window.location.search.match(new RegExp("(?:^\\?|&)" + key + "=(.*?)(?=&|$)")) || ['', null])[1];
+    }
+    var title = decodeURIComponent(getUrlParams("title") || "PDF在线阅读");
+    var file_path = decodeURIComponent(getUrlParams("file_path")|| "test201801041446.pdf");
+    $(function() {
+        if(file_path){
+            $("#myPDF").pdf( {
+                title : title,
+                source: file_path
+            } );
+        }
+    });
+</script>
+</body>
+</html>

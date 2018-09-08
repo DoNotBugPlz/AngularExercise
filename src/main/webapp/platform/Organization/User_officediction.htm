@@ -1,0 +1,68 @@
+<div style="width:100%;height:100%">
+    <div class="easyui-layout" data-options="fit:true">
+        <div data-options="region:'center',split:false,title:'办公用语'" style="padding-bottom: 0px">
+            <table id="dgList" class="easyui-datagrid" data-options="
+                fit: true,
+                loadMsg: '数据加载中……',
+                fitColumns: true,
+                rownumbers: true,
+                pageSize: 20,
+                pagination: true,
+                idField: 'id',
+                toolbar: '#gridToolBar',
+                onDblClickRow:taskDblClickRow,
+                url:rootPath + 'Sys_consign/LoadPageList.do',
+                queryParams:{userid:userId},
+                onLoadError: gridLoadError">
+                <thead>
+                <tr>
+                    <th data-options="field:'ck',checkbox:true">
+                    </th>
+                    <th data-options="field:'diction'" width="140">
+                        &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;办&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;公&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;用&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;语
+                    </th>
+                    <th data-options="field:'delstatus',formatter: formatterDictionCell" width="50" align="center">
+                        状态
+                    </th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <div id="gridToolBar" class="datagrid-toolbar">
+        <div>
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="addDicion()" data-options="plain:true,iconCls:'icon-add'">
+                添加</a> <a href="javascript:void(0)" class="easyui-linkbutton" onclick="setUnUsed()"
+                          data-options="plain:true,iconCls:'icon-pause'">禁用</a> <a href="javascript:void(0)"
+                                                                                   class="easyui-linkbutton" onclick="setUsed()" data-options="plain:true,iconCls:'icon-ok'">
+            启用</a> <a href="javascript:void(0)" class="easyui-linkbutton" onclick="deleteDiction()"
+                      data-options="plain:true,iconCls:'icon-delete'">删除</a>
+        </div>
+    </div>
+    <div id="DlgEditDiction" class="easyui-dialog" data-options="iconCls:'icon-customers',closed:true,resizable:false,top:200,
+            modal: true,draggable:true,cache:false,closable:false,buttons:'#DictionToolBar',title:'编辑办公用语',onClose:onDlgEditDictionClosed"
+         style="width: 450px; height: 150px; padding: 10px">
+        <br />
+        <form id="DictionForm" method="post">
+            <input type="hidden" name="officediction.id" id="dicId" />
+            <input type="hidden" name="officediction.userid" id="dicUserid" />
+            <table width="100%" style="table-layout: fixed;">
+                <tr>
+                    <td width="20%" align="center" style="font-size: 12px;">
+                        办公用语
+                    </td>
+                    <td width="80%" align="left">
+                        <input class="easyui-validatebox" type="text" name="officediction.diction" id="diction"
+                               data-options="required:true" style="width: 300px" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div id="DictionToolBar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-save" onclick="saveDictionData();">
+            确定</a> <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-save"
+                      onclick="DlgEditDictionClosed();">取消</a>
+    </div>
+</div>

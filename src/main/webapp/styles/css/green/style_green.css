@@ -1,0 +1,1395 @@
+.clearfix:before{
+    content:"";
+    display:table;
+    clear:both;
+}
+.inline{
+    display:inline-block;
+}
+.clear{
+    clear:both;
+}
+/*盒子*/
+.boxs{
+    box-sizing: border-box;
+}
+.txt_center{
+    text-align: center;
+}
+.hide{
+    display:none;
+}
+
+.show{
+    display:block;
+}
+.txt_right{
+    text-align: right;
+}
+.pull_left{
+    float:left;
+}
+.pull_right{
+    float:right;
+}
+/*江苏省价格监控平台-登录页-1.1*/
+.container_green{
+    position:absolute;
+    top:0px;
+    right:0px;
+    bottom:0px;
+    left:0px;
+    min-width:1580px;
+    min-height:730px;
+}
+.bgT{
+    background:url(../../images/green/loginBgT.jpg) no-repeat center top;
+    background-size:100% 100%;
+    height:71%;
+    text-align: center;
+}
+.bottom_login1{
+    position:absolute;
+    bottom:0px;
+    left:0px;
+    right:0px;
+    height:42%;
+}
+.login_box{
+    height:196px;
+    position:absolute;
+    top:0px;
+    left:0px;
+    right:0px;
+    background: url(../../images/green/loginBgB2.png) no-repeat center center;
+    background-size:100% 1000%;
+}
+.bottom_login2{
+    position:absolute;
+    top:180px;
+    bottom:0px;
+    right:0px;
+    left:0px;
+    background:url(../../images/green/loginBgB1.jpg) no-repeat center bottom;
+    background-size: 100% 100%;
+}
+.login_tit{
+    margin-top:172px;
+}
+.login_b{
+    width:972px;
+    margin:0px auto;
+
+}
+.login_line1{
+    font-size:0px;
+    padding-top:40px;
+    text-align: center;
+}
+
+.login_ipt{
+    width:264px;
+    height:44px;
+    line-height: 44px;
+    font-size:16px;
+    padding:0px 10px 0px  56px ;
+    outline: none;
+    border:1px solid  #cccccc;
+    margin-right:8px;
+    box-sizing: border-box;
+    vertical-align: middle;
+}
+.ipt_ico1{
+    background:#fff url(../../images/green/ipt_ico1.png) no-repeat left center;
+}
+.ipt_ico2{
+    background:#fff url(../../images/green/ipt_ico2.png) no-repeat left center;
+}
+.confirmation{
+    margin-right:8px;
+    vertical-align: middle;
+}
+.confirm_btn{
+    width:110px;
+    height:46px;
+    border:1px solid  #2ce0b9;
+    display:inline-block;
+    font-size:22px;
+    font-weight:bold;
+    color:#fff;
+    line-height: 45px;
+    text-align: center;
+    vertical-align: middle;
+    box-sizing: border-box;
+    text-decoration: none;
+    background: #16d0a8;
+    box-shadow: 0px 0px 5px 0px rgba(0,70,66,.6);
+}
+.confirm_btn:hover{
+    box-shadow: none;
+}
+.checkBox_b{
+    float:left;
+    margin-top:25px;
+    height:30px;
+    line-height: 30px;
+    margin-left:5px;
+    cursor: pointer;
+}
+.checkbox_txt{
+    font-size:16px;
+    color:#fff;
+    vertical-align: middle;
+    cursor: pointer;
+}
+.checkBox{
+    width:15px;
+    height:15px;
+    vertical-align: middle;
+    background:#fff;
+    cursor: pointer;
+    border:0px;
+}
+.password_back{
+    width:68px;
+    display:inline-block;
+    float:right;
+    margin-top:25px;
+    height:30px;
+    line-height: 30px;
+    margin-right:10px;
+    color:#fff;
+    font-size:16px;
+    text-decoration: underline;
+    text-align: center;
+}
+.login_last_txt{
+    font-size:15px;
+    color:#fff;
+    text-align: center;
+    position:absolute;
+    left:0px;
+    right:0px;
+    line-height: 20px;
+    bottom:25px;
+}
+/*江苏省价格监控平台-引导页-1*/
+.guideBg{
+    background:url(../../images/green/guideBg.jpg) no-repeat center center;
+    background-size:100% 100%;
+}
+.guideMain{
+    height:310px;
+    width:1400px;
+    position:absolute;
+    top:50%;
+    left:50%;
+    margin:-155px 0px 0px -700px;
+}
+.guideTit{
+    position:absolute;
+    top:-182px;
+    left:0px;
+    right:0px;
+    text-align: center;
+}
+.guide_main{
+    width:100%;
+    height:100%;
+}
+.guide_main li{
+    width:20%;
+    float:left;
+    padding:0px 20px;
+    box-sizing: border-box;
+}
+.guide_main li .guide_item{
+    display:inline-block;
+    background:url(../../images/green/guide_item.png) no-repeat center center;
+    width:240px;
+    height:284px;
+    background-size:100% 100%;
+    cursor: pointer;
+}
+.guide_main li .guide_item:hover{
+    background:url(../../images/green/guide_item_h.png) no-repeat center center;
+    box-shadow: 0px 1px 10px 1px rgba(3,146,129,.3);
+}
+.guide_out{
+    display:inline-block;
+    position:absolute;
+    top:0px;
+    right:0px;
+    width:74px;
+    height:30px;
+    background:url(../../images/green/guide_out.png) no-repeat center center;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+    text-align: left;
+    color:#fff;
+    font-size:13px;
+    line-height: 30px;
+    text-decoration: none;
+}
+.guide_switch{
+    display:inline-block;
+    float:left;
+    width:33px;
+    height:30px;
+    background:url(../../images/green/switch.png) no-repeat 13px center;
+}
+.guide_ico{
+    margin-top:48px;
+    display:inline-block;
+    width:100%;
+    height:132px;
+    text-align: center;
+    line-height: 132px;
+}
+.vertical{
+    vertical-align: middle;
+}
+.guide_txt{
+    display:inline-block;
+    width:100%;
+    margin-top:30px;
+    line-height: 38px;
+    text-align: center;
+    font-size:18px;
+    font-weight:bold;
+    color:#555555;
+}
+
+/*江苏省价格监控平台-商品基准库管理-商品条码管理*/
+.nav_line_zzy{
+    height:40px;
+    border-bottom:1px solid  #eef1f5;
+    line-height: 40px;
+    background:url(../../images/green/nav_ico_zzy.png) no-repeat 20px center;
+    padding-left:40px;
+    font-size:14px;
+    color:#2b323d;
+}
+.nav_a_zzy{
+    display:inline-block;
+    color:#2b323d;
+}
+.nav_a_zzy:hover{
+    text-decoration: underline;
+}
+.nav_span_zzy{
+    color:#27bd90;
+    display:inline-block;
+}
+.page_a_zzy{
+    position:absolute;
+    top:41px;
+    left:20px;
+    right:20px;
+    bottom:0px;
+}
+.page_tit_zzy,.page_tit_zzy2{
+    height:45px;
+    line-height: 45px;
+    font-size:15px;
+    font-weight:bold;
+    color:#333333;
+}
+.select_b_zzy{
+    position:relative;
+    z-index: 2;
+    border:1px dashed  #bec7d4 ;
+    background: #fafbfc;
+    padding:5px 10px;
+    box-sizing: border-box;
+
+}
+.over_hide{
+    overflow: hidden;
+    height:40px;
+}
+.over_hide2{
+    overflow: hidden;
+    height:80px;
+}
+.rightSel_zzy{
+    float:left;
+    width:233px;
+
+
+}
+.margin24{
+    margin-right:10px;
+    margin-left:24px;
+}
+.sel_btn_zzy,.reSet_btn_zzy{
+    color:#fff;
+    font-size:14px;
+    font-weight:bold;
+    display:inline-block;
+    width:58px;
+    height:30px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 2px;
+
+}
+.sel_btn_zzy{
+    background: #f79a4a;
+}
+.sel_btn_zzy:hover{
+    background:#f78625
+}
+.reSet_btn_zzy{
+    background: #3dc595;
+}
+.reSet_btn_zzy:hover{
+    background:#229d72;
+}
+.leftSel_zzy,.leftSel_zzy2{
+    width:877px;
+    float:left;
+
+}
+.sel_box_zzy{
+    float:left;
+    margin-top:10px;
+    margin-bottom:10px;
+}
+.sel_txt_zzy,.sel_txt_zzy2{
+    font-size:15px;
+    display:inline-block;
+    text-align: center;
+    min-width:80px;
+    line-height: 30px;
+}
+.sel_ipt_zzy,.sel_sel_zzy{
+    width:100%;
+    outline: none;
+    border:1px solid  #d5dae0;
+    height:30px;
+    background:#fff;
+    box-sizing: border-box;
+    line-height: 28px;
+    padding:0px 10px;
+    vertical-align: top;
+    /*margin-left: -5px;*/
+    border-radius: 2px;
+}
+.sel_sel_zzy{
+    margin-left:0px;
+    color: #999999;
+    padding:5px;
+    vertical-align: baseline;
+}
+.sel_sel2_zzy{
+    color:  #404040;
+}
+.sel_sel_border{
+    display:inline-block;
+    position:relative;
+    width:200px;
+    margin-left: -5px;
+}
+.select_ico_zzy{
+    position:absolute;
+    right:4px;
+    top:1px;
+    background:url(../../images/green/select_ico.jpg) no-repeat center center;
+    width:14px;
+    height:28px;
+}
+.table_box_zzy{
+    position:absolute;
+    top:115px;
+    left:0px;
+    right:0px;
+    bottom:0px;
+}
+.table_tip_zzy{
+    margin-bottom:10px;
+}
+.table_tip_btn_zzy{
+    float:right;
+    height:30px;
+}
+.table_tip_btn_zzy a{
+    float:right;
+    min-width:60px;
+    padding:0px 15px;
+    text-align: center;
+    border:1px solid  #d5dae0;
+    color:#4f5356;
+    line-height: 28px;
+    height:30px;
+    background: #fafbfc;
+    margin-left:5px;
+    border-radius: 2px;
+    font-size:14px;
+}
+.table_tip_btn_zzy a:hover{
+    background:#e9eff5;
+}
+.table_tip_main_zzy{
+    margin-right:300px;
+    height:30px;
+    line-height: 30px;
+    font-size:14px;
+    color:  #999999;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.tip1_zzy{
+   color: #606266;
+}
+.marginB2{
+    margin-bottom:2px;
+}
+.table_head_zzy td{
+    border:1px solid  #d5dae0;
+    background: #eef1f5;
+    text-align: center;
+    color:#2b323d;
+    height:42px;
+    font-size:14px;
+}
+.table_head_zzy table{
+    border:1px solid  #d5dae0;
+    width:100%;
+}
+.table_main_zzy table,.table_main_zzy3 table  {
+    font-size:14px;
+    text-align: center;
+    width:100%;
+    border :1px solid  #eeeeee;
+}
+.table_main_zzy tr,.table_main_zzy3 tr{
+    border-top:1px solid  #eeeeee;
+    border-bottom:1px solid  #eeeeee;
+}
+.table_main_zzy tr.black,.table_main_zzy3 tr.black{
+    background: #fafbfc;
+}
+.table_main_zzy td,.table_main_zzy3 td{
+    height:35px;
+    border-right:1px solid  #eeeeee;
+}
+.table_main_zzy td.pad_zzy{
+    /*padding:0px 20px;*/
+    text-align: center;
+}
+.table_main_zzy tr:hover{
+    border-top:1px solid  #ccefe6;
+    border-bottom:1px solid  #ccefe6;
+    box-shadow: 0px 0px 2px 1px #ccefe6;
+}
+.start_zzy,.forbidden_zzy{
+    display:inline-block;
+    background:url(../../images/green/start_zzy.png) no-repeat center center;
+    width:15px;
+    height:15px;
+    vertical-align: middle;
+}
+.forbidden_zzy{
+    background:url(../../images/green/forbidden_zzy.png) no-repeat center center;
+}
+.color_green{
+    color: #1cb98e;
+    display:inline-block;
+    vertical-align: middle;
+}
+.color_normal{
+    display:inline-block;
+    vertical-align: middle;
+}
+.table_main1_a{
+   display:inline-block;
+    width:60px;
+    text-align: center;
+    border:1px solid  #d5dae0;
+    color:#4f5356;
+    line-height: 28px;
+    height:30px;
+    background: #fff;
+    margin:0px 3px;
+    border-radius: 2px;
+}
+.table_main1_a:hover{
+    background: #3dc595;
+    border-color:#3dc595;
+    color:#fff;
+}
+.table_main1_span{
+    display:inline-block;
+    width:60px;
+    height:30px;
+    margin:0px 3px;
+    vertical-align: middle;
+}
+.marginR5{
+    margin-right:5px;
+}
+.page_check_zzy{
+    margin-top:10px;
+}
+.page_check_tip_zzy{
+    float:left;
+    font-size:14px;
+    line-height: 36px;
+}
+.bold_zzy{
+    font-weight:bold;
+}
+.pageCheck_zzy{
+
+    width:475px;
+    font-size:14px;
+}
+.first_page,.prev_page,.next_page,.last_page{
+    display: inline-block;
+    float:left;
+    padding:0px 10px;
+    line-height: 34px;
+    border:1px solid  #d5dae0;
+    border-right:0px;
+    border-top-left-radius:2px;
+    border-top-bottom-radius:2px;
+    color:#666666;
+}
+.dis{
+    color:#bbbbbb;
+}
+.prev_page{
+    border-radius:0px;
+}
+.last_page{
+    border:1px solid  #d5dae0;
+}
+.page_math{
+    float:left;
+}
+.page_math li{
+    float:left;
+    width:35px;
+    height:36px;
+    border:1px solid #d5dae0;
+    border-right:0px;
+    text-align: center;
+    line-height: 34px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+.page_math li:hover,.page_math li.active{
+    background: #1cb98e;
+    border-top-color:#1cb98e;
+    border-bottom-color:#1cb98e;
+    color:#fff;
+}
+/*江苏省价格监控平台-组织人员管理-监测机构及人员管理-2*/
+.page_tit_zzy2 li{
+    float:left;
+}
+.page_tit_zzy2 li a{
+    padding:0px 15px;
+    color:#929ca5;
+    line-height: 15px;
+    border-right:1px solid #b7bfc7;
+    font-size:15px;
+    display:inline-block;
+    font-weight:normal;
+}
+.page_tit_zzy2 li:hover a,.page_tit_zzy2 li.active a{
+    color:#333333;
+    font-weight:bold;
+}
+.page_tit_zzy2 li:last-child a{
+    border-right:0px;
+}
+.page_tit_zzy2 li:first-child a{
+    padding-left:0px;
+}
+.leftSel_zzy2{
+    min-height:101px;
+}
+.sel_txt_zzy2{
+    line-height:30px;
+    text-align: left;
+}
+.ipt_line{
+    background:url(../../images/green/ipt_line.png) no-repeat center center;
+    width:30px;
+    height:30px;
+    display:inline-block;
+    vertical-align: top;
+}
+.super_sel{
+    font-size:14px;
+    line-height: 30px;
+
+    background:url(../../images/green/super_sel_ico.png) no-repeat right center;
+    padding-right:21px;
+    display:inline-block;
+    color: #7e848c;
+}
+.super_sel.up{
+    background:url(../../images/green/super_sel_ico2.png) no-repeat right center;
+}
+.top1_zzy{
+    top:146px;
+}
+.ipt_check{
+    background:url(../../images/green/check_main.png) no-repeat center center;
+    width:14px;
+    height:14px;
+    display:inline-block;
+}
+.ipt_check.checked{
+    background:url(../../images/green/check_h.png) no-repeat center center;
+}
+
+/*首页*/
+.bgSheet2{
+    background: url("../../images/green/sheet_b2.png") center center no-repeat;
+    background-size: 100% 100%;
+}
+.rightSide_box_content03{
+    position: absolute;
+    top: 84px;
+    left:40px;
+    bottom:10px;
+    right:20px;
+}
+.menu_icon a {
+   text-align: center;
+    line-height: 57px;
+}
+.menu_icon a {
+    vertical-align: middle;
+}
+/*江苏省价格监控平台-组织人员管理-监测机构及人员管理-2*/
+.msg_limit_zzy{
+    outline: none;
+}
+.leftSel_table_zzy table{
+    width:100%;
+}
+.leftSel_table_zzy table td{
+    font-size:15px;
+    height:40px;
+
+    box-sizing: border-box;
+    padding:0px;
+}
+.leftSel_table_zzy table td.right{
+    text-align: right;
+}
+
+.leftSel_table_zzy table td.txt {
+    text-align: right;
+}
+
+/*江苏省价格监控平台-监测条数统计汇总-报送条数统计*/
+.posi_zzy{
+    display:inline-block;
+    position:relative;
+    vertical-align: top;
+    height:30px;
+
+}
+.data_ipt{
+    float:left;
+    width:100%;
+    outline: none;
+    border:1px solid  #d5dae0;
+    height:30px;
+    background:#fff;
+    box-sizing: border-box;
+    line-height: 28px;
+    padding:0px 17px 0px 2px !important;
+    border-radius: 2px;
+}
+.data_ico{
+    display:inline-block;
+   position:absolute;
+    right:5px;
+    top:0px;
+    cursor: pointer;
+    width:12px;
+    height:30px;
+    background:url(../../images/green/data_ico.png) no-repeat center ;
+}
+.table_head_zzy2{
+    background:#eef1f5;
+}
+.table_head_zzy2 td.bold{
+    font-weight:bold;
+}
+.table_head_zzy2 table{
+    border:1px solid  #d5dae0;
+    border-bottom:0px;
+}
+.table_head_zzy2 table td{
+    border:1px solid  #d5dae0;
+    border-bottom:0px;
+    font-size:14px;
+}
+/*江苏省价格监控平台-商品基准库-监测指标管理*/
+.table_tip_btn_zzy2 a{
+    /*width:68px;*/
+}
+.table_box_l_zzy{
+    position:absolute;
+    top:0px;
+    left:0px;
+    bottom:10px;
+    width:269px;
+}
+.table_box_r_zzy{
+    position:absolute;
+    top:0px;
+    right:0px;
+    bottom:0px;
+    left:289px;
+}
+.popup_container5_zzy{
+    position:absolute;
+    width:650px;
+    height:458px;
+    background:#fff;
+    top:50%;
+    left:50%;
+    margin:-229px 0px 0px -325px;
+}
+.popup_footer_zzy{
+    position:absolute;
+    bottom:0px;
+    left:0px;
+    right:0px;
+}
+.popup_footer_zzy a{
+    margin-left:10px;
+}
+.popup_footer_zzy a.delete{
+    background:#fff;
+    border:1px solid #d5dae0;
+    border-radius: 2px;
+    color:#333333;
+    line-height: 28px;
+}
+.popup_footer_zzy a.delete:hover{
+    background:#e9eff5;
+}
+.popup_content_zzy{
+    height:358px;
+    padding:30px 20px 0px;
+}
+.select_b_zzy2{
+    border:1px dashed  #bec7d4 ;
+    background: #fafbfc;
+    padding:15px 20px 15px 0px;
+    box-sizing: border-box;
+}
+.marginT30{
+    margin-top:30px;
+}
+.select_b_zzy3{
+    position:relative;
+    background:  #eef1f5;
+    padding:2.5px 20px 2.5px 0px;
+    box-sizing: border-box;
+    margin-bottom:10px;
+}
+.leftSel_table_close{
+    position:absolute;
+    width:20px;
+    height:45px;
+    right:0px;
+    top:0px;
+    background:url(../../images/green/leftSel_table_close.png) no-repeat center center;
+}
+.new_add_box{
+    padding-top:10px;
+    text-align: center;
+}
+.new_add_a{
+    display:inline-block;
+    height:30px;
+    width:90px;
+    text-align: center;
+    border:1px solid  #d5dae0;
+    line-height: 28px;
+    color: #666666;
+    border-radius: 3px;
+}
+.new_add_a:hover{
+    background:#e9eff5;
+}
+
+.popup_container6_zzy{
+    position:absolute;
+    width:650px;
+    height:234px;
+    background:#fff;
+    top:50%;
+    left:50%;
+    margin:-117px 0px 0px -325px;
+}
+.popup_content2_zzy{
+    height:134px;
+    padding:30px 20px;
+}
+
+.popup_container7_zzy{
+    position:absolute;
+    width:650px;
+    height:368px;
+    background:#fff;
+    top:50%;
+    left:50%;
+    margin:-184px 0px 0px -325px;
+}
+.leftSel_tablePop_zzy td{
+    color: #666666;
+}
+.leftSel_tablePop_zzy td.txt{
+    color:#2b323d;
+}
+
+/*江苏省价格监控平台-价格监测管理-待填报-本级待填报*/
+.prix_box{
+    border:1px solid  #d5dae0;
+    box-sizing: border-box;
+    position:relative;
+}
+.prix_tit{
+    /*float:left;*/
+    background:#eef1f5 url(../../images/green/prix_ico.png) no-repeat 20px center;
+    padding-left:33px;
+    width:100%;
+    height:50px;
+    line-height: 50px;
+    color:#333333;
+    font-size:15px;
+    font-weight:bold;
+    border-bottom:1px solid #d5dae0;
+    box-sizing: border-box;
+}
+.prix_check{
+    float:right;
+    margin-top:-1px;
+}
+.prix_check li{
+    float:left;
+    height:51px;
+    border-left:1px solid #d5dae0;
+    padding:0px 15px;
+    color:#666666;
+    line-height: 50px;
+    font-size:15px;
+    font-weight: normal;
+    cursor: pointer ;
+}
+.prix_check li.active,.prix_check li:hover{
+    background:#fff;
+    color:#31c093;
+    font-weight:bold;
+    border-top:3px solid  #31c093;
+    box-sizing: border-box;
+    line-height: 44px;
+}
+.marginT10{
+    margin-top:10px;
+}
+.prix_con{
+    padding:15px 15px;
+}
+.tip2_zzy{
+    color: #1cb98e;
+    font-weight:bold;
+}
+.color333{
+    color:#2b323d;
+}
+.prix_msg{
+   /*height:30px;*/
+    line-height: 30px;
+    font-size:15px;
+    color:#666666;
+    padding:0px 10px;
+    float:left;
+    width:100%;
+}
+.prix_msg li{
+    float:left;
+    width:33.3%;
+}
+.left{
+    text-align: left;
+}
+.center{
+    text-align: center;
+}
+.right{
+    text-align: right;
+}
+.table_main_zzy td.tit{
+    font-size:14px;
+    font-weight:bold;
+    text-align: left;
+    padding:0px 15px;
+}
+.prix_ipt{
+    width:103px;
+    height:28px;
+    line-height: 28px;
+    text-align: center;
+    color: #999999;
+    outline: none;
+    border:1px solid  #d5dae0;
+}
+.prix_ipt.active{
+    border-color: #1cb98e;
+}
+.last_tip_box{
+    font-size:13px;
+    line-height: 26px;
+    margin-top:15px;
+}
+.last_tip_left{
+    float:left;
+    font-size:14px;
+}
+.last_tip_box p{
+    margin-left:80px;
+    color:#999999;
+}
+.table_main_zzy td.red,.table_main_zzy td a.red{
+    color: #e81919;
+}
+.table_main_zzy td.green,.table_main_zzy td a.green{
+    color:#1cb98e;
+}
+.prix_table_a{
+    display:inline-block;
+    width:104px;
+    font-size:14px;
+    text-align: left;
+    text-decoration: underline;
+    color:#1cb98e;
+}
+/*江苏省价格监控平台-价格监测管理-监测任务反馈*/
+.marginT20{
+    margin-top:20px;
+}
+.table_main_zzy2 td{
+    padding:0px 8px;
+}
+.table_main2_a{
+    display:inline-block;
+    min-width:60px;
+    text-align: center;
+    border:1px solid  #d5dae0;
+    color:#4f5356;
+    line-height: 28px;
+    height:30px;
+    background: #fff;
+    margin:0px 3px;
+    border-radius: 2px;
+    padding:0px 8px;
+}
+.table_main2_a:hover{
+    background: #3dc595;
+    border-color:#3dc595;
+    color:#fff;
+}
+.prix_msg2 li{
+    width:25%;
+    float:left;
+}
+/*江苏省价格监控平台-组织人员管理-监测机构及人员管理*/
+.top_btn_box{
+    margin-bottom:15px;
+}
+.top_btn_a{
+    margin-right:10px;
+    float:left;
+    border:1px solid  #d5dae0;
+    background: #fafbfc;
+    height:30px;
+    padding:0px 15px;
+    line-height: 28px;
+    text-align: center;
+    display:inline-block;
+    color:#4f5356;
+    box-sizing: border-box;
+    border-radius: 2px;
+    font-size:14px;
+}
+.top_btn_a:hover{
+    background:#e9eff5;
+}
+.redStar_zzy{
+  position:absolute;
+    right:-12px;
+   top:0px;
+    display:inline-block;
+    width:6px;
+    height:30px;
+    background:url(../../images/green/redStar.png) no-repeat center center;
+}
+.position_zzy{
+    position:relative;
+}
+.padding_r1{
+    padding-right:20px;
+    padding-left:0px;
+}
+.leftSel_table_zzy table.height43 td{
+    height:43px;
+}
+.marginT15{
+    margin-top:15px;
+}
+.accessory_line{
+    height:40px;
+    line-height: 40px;
+    padding:0px 15px;
+    border:1px solid #d5dae0;
+    margin-bottom:1px;
+    border-top:2px solid  #06b77b;
+    box-sizing: border-box;
+    background:#eef1f5;
+    color:#2b323d;
+    font-size:15px;
+}
+.accessory_a{
+    float:right;
+    height:100%;
+    width:15px;
+    display:inline-block;
+    background:url(../../images/green/accessory_a.png) no-repeat center center;
+}
+.table_head_zzy3 table{
+    border-bottom:0px;
+    border-right:0px;
+}
+.table_head_zzy3 tr td,.table_main_zzy3 tr td{
+    border:0px;
+    border-right:1px solid  #d5dae0;
+}
+.table_main_zzy3 table{
+    border-top:0px;
+    border-right:0px;
+}
+.table_main_zzy3 td{
+    height:36px;
+    color:#606266;
+
+}
+.table_main_zzy3 tr{
+    border:0px;
+}
+.table_main_zzy3 tr:hover{
+    border:0px;
+    box-shadow: none;
+}
+.table_main_zzy3 td.left{
+    padding:0px 17px ;
+}
+.bottom20{
+    bottom:20px;
+}
+.cloud_down,.delete_down{
+    display:inline-block;
+    height:36px;
+    width:20px;
+    margin:0px 4px;
+    background:url(../../images/green/cloud_down.png) no-repeat center center;
+}
+.delete_down{
+    background:url(../../images/green/delete_down.png) no-repeat center center;
+}
+.keep_box{
+    text-align: center;
+    margin-top:10px;
+}
+.keep_btn{
+    display:inline-block;
+    width:90px;
+    height:38px;
+    line-height: 38px;
+    text-align: center;
+    font-size:15px;
+    font-weight:bold;
+    color:#fff;
+    background: #1cb98e;
+    border-radius: 2px;
+}
+.keep_btn:hover{
+    background:#02a578;
+}
+
+.rightSide_padding{
+    padding:0px 20px 20px;
+}
+.padding0{
+    padding:0px;
+}
+.posi_none{
+    position:relative;
+}
+.content_list02_zzy li{
+    height:46px;
+}
+.content_list02_zzy li:last-child .list02_text{
+    border-bottom: 1px dotted #b7b7b7;
+}
+.msg_tip1_zzy,.msg_tip2_zzy{
+    background:url(../../images/green/msg_tip1.png) no-repeat center center;
+    display:inline-block;
+    width:52px;
+    height:20px;
+    box-sizing: border-box;
+    padding-left:2px;
+    text-align: center;
+    font-size:12px;
+    line-height: 20px;
+}
+.msg_tip2_zzy{
+    background:url(../../images/green/msg_tip2.png) no-repeat center center;
+}
+.tip_color1{
+    color: #1cb98e;
+}
+.tip_color2{
+    color: #fa9c19;
+}
+/*江苏省价格监控平台-价格监测管理-监测任务列表*/
+.tit_a_box{
+    float:right;
+    margin-top:10px;
+    margin-right:15px;
+}
+.tit_a_box a{
+    display:inline-block;
+    float:left;
+    margin-left:10px;
+    min-width: 60px;
+    padding:0px 13px;
+    box-sizing: border-box;
+    height:30px;
+    border:1px solid  #d5dae0;
+    border-radius: 2px;
+    line-height: 28px;
+    text-align: center;
+    color:#666666;
+    background:#fff;
+    font-weight:normal;
+    font-size:14px;
+}
+.tit_a_box a:hover{
+    background:#e9eff5;
+}
+.prix_con_c{
+    background: #fafbfc;
+    padding:0px 15px 15px 15px;
+}
+.prix_con_c_line{
+    font-size:15px;
+    line-height: 55px;
+    color:#333333;
+}
+.select_b_table{
+    width:100%;
+    font-size:15px;
+}
+.select_b_table td{
+    height:50px;
+}
+.sel_check{
+    display:inline-block;
+    font-size:14px;
+    color:#666666;
+    min-width: 113px;
+    padding-left:23px;
+    background:url(../../images/green/main_check2.png) no-repeat left center;
+}
+.sel_check.checked{
+    background:url(../../images/green/main_check2_h.png) no-repeat left center;
+}
+.sel_a{
+    display:inline-block;
+    margin-left:10px;
+    width:60px;
+    height:28px;
+    line-height: 26px;
+    border:1px solid  #d5dae0;
+    border-radius: 2px;
+    text-align: center;
+    color:#666666;
+    font-size:14px;
+    box-sizing: border-box;
+    background:url(../../images/green/sel_a_bg.png) repeat-x ;
+
+}
+.sel_a:hover{
+    background:url(../../images/green/sel_a_h_bg.png) repeat-x ;
+}
+.marginB15{
+    margin-bottom:15px;
+}
+.monitor_box{
+    border:1px solid #d5dae0;
+}
+.monitor_tit{
+    border-bottom:1px solid #d5dae0;
+    font-size:15px;
+    padding-left:20px;
+    height:44px;
+    line-height: 44px;
+    background:#fafbfc;
+}
+.monitor_right{
+    position:relative;
+    float:right;
+    background:#eef1f5;
+    color:#2b323d;
+    padding:0px 20px;
+    height:43px;
+    line-height: 43px;
+    border-left:1px solid #d5dae0;
+}
+.monitor_right_close{
+    background:url(../../images/green/monitor_right_close.png) no-repeat center center;
+    position:absolute;
+    right:0px;
+    top:0px;
+    display:inline-block;
+    width:16px;
+    height:16px;
+}
+.monitor_right_add{
+    display:inline-block;
+    float:right;
+    /*width:80px;*/
+    margin-top:6px;
+    margin-right:20px;
+    background: #1cb98e url(../../images/green/monitor_right_add.png) no-repeat 14px center ;
+    padding-left:36px;
+    color:#fff;
+    height:30px;
+    line-height: 30px;
+    border-radius: 2px;
+    padding-right:15px;
+}
+.monitor_right_add:hover {
+    background:  #01a578 url(../../images/green/monitor_right_add.png) no-repeat 14px center ;
+}
+.border0{
+    border:0px;
+}
+.select_b_zzy4{
+    padding:10px 15px 10px 0px;
+}
+.font-15{
+    font-size:15px;
+}
+.scroll_box_zzy{
+    position:absolute;
+    top:45px;
+    left:0px;
+    right:0px;
+    bottom:0px;
+    overflow: hidden;
+
+}
+.bgWhite{
+    background:#fff;
+}
+.monitor_con{
+    padding:15px;
+}
+.paddingL28{
+    padding-left:28px;
+}
+.font-14{
+    font-size:14px;
+}
+.monitor_check_line{
+    height:33px;
+}
+.sel_check2{
+    height:33px;
+    line-height: 33px;
+    color:#999;
+    font-size:13px;
+}
+.color999{
+    color:#999;
+}
+.margin0{
+    margin:0px;
+}
+.paddingT20{
+    padding-top:20px;
+}
+.table_big_tit{
+    border:1px solid  #d5dae0;
+    border-bottom:0px;
+    height:79px;
+    padding-top:20px;
+    text-align: center;
+}
+.table_big_tit1{
+    font-size:17px;
+    font-weight:bold;
+    line-height: 17px;
+}
+.table_big_tit2{
+    line-height: 30px;
+    color:#999;
+    font-size:13px;
+}
+.table_math{
+    color:#333;
+}
+.table_main3_zzy td{
+    padding:0px 4px;
+}
+
+/*选中状态的颜色*/
+.table_main3_zzy td.colorPitch {
+    background: #ddd;
+}
+.inspect_a{
+    text-align: center;
+    padding-top:20px;
+    padding-bottom:20px;
+}
+.inspect_a a{
+    display:inline-block;
+    width:90px;
+    text-align: center;
+    line-height: 36px;
+    border:1px solid  #d5dae0;
+    border-radius: 2px;
+    font-size:15px;
+    color:#333333;
+    margin:0px 4px;
+}
+.inspect_a a.inspect_a_green{
+    border-color: #1cb98e;
+    background:#1cb98e;
+    color:#fff;
+    font-weight:bold;
+}
+.inspect_a a:hover{
+    background:#e9eff5;
+}
+.inspect_a a.inspect_a_green:hover{
+    background:#01a578;
+}
+.table_ipt_change{
+    vertical-align: middle;
+}

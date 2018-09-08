@@ -1,0 +1,75 @@
+﻿<div class="easyui-panel" fit="true" border="false">
+    <!--padding:5px;border:1px solid #ddd;  -->
+    <div class="datagrid-toolbar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveMdlProcessForm()"
+            data-options="plain:true,iconCls:'icon-save'">保存</a>
+    </div>
+    <div>
+        <form id="processForm" method="post" action="../../../Sys_mdl_process/SaveForm.do">
+        <table style="padding-left: 20px;">
+            <colgroup>
+                <col width="80px" align="left" />
+                <col align="left" />
+            </colgroup>
+            <tr style="display: none">
+                <td>
+                    流程标识:
+                </td>
+                <td>
+                    <input class="easyui-validatebox" type="text" name="sys_mdl_process.constname" id="mdlProcessConstname"/>
+                    <!--
+                    <input class="easyui-validatebox" type="text" name="sys_mdl_process.constname" id="mdlProcessConstname"
+                        data-options="required:true,validType:'remote[{url:rootPath+\'Sys_mdl_process/ValidConstName.do\',data:{constname:$(\'#mdlProcessConstname\').val(),processid:$(\'#mdlprocessid\').val()}}]'" style="width: 300px" />
+                    -->
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    流程名称:
+                </td>
+                <td>
+                    <input  class="easyui-validatebox" type="text" id="mdlProcessChinaname" name="sys_mdl_process.chinaname" data-options="required:true,validType:'remote[{url:rootPath+\'Sys_mdl_process/ValidConstName.do\',data:{constname:getPY_str($(\'#mdlProcessChinaname\').val()),processid:$(\'#mdlprocessid\').val()}}]',invalidMessage:'名称重复'"
+                            style="width: 300px" > </input>
+                </td>
+            </tr>
+           <!-- <tr>
+                <td>
+                    流程分类:
+                </td>
+                <td>
+                    
+                    <input class="easyui-combobox" type="text" id="mdlProcessType" name="sys_mdl_process.processtype"
+                        data-options=" url:rootPath+'Sys_categoryvalue/GetCategoryValues.do?constname=PROCESS_TYPE',
+                            valueField:'id',
+                            textField:'chinaname'," style="width: 300px" />
+                </td>
+            </tr>
+            -->
+            <!--
+            <tr>
+                <td>
+                    所属单位:
+                </td>
+                <td>
+                    <input type="hidden" name="sys_mdl_process.unitid" id="mdlProcessUnitid" />
+                    <input class="easyui-validatebox" type="text" name="sys_mdl_process.unitname" readonly="readonly" style="width: 300px"/>
+                    <input class="easyui-combobox" type="text" id="mdlProcessUnitname" name="sys_mdl_process.unitname"
+                        data-options="required:true,onShowPanel:showMdlDeptTreeGrid" style="width: 300px" />
+                </td>
+            </tr>
+            -->
+            <tr>
+                <td>
+                    描述:
+                </td>
+                <td>
+                    <textarea name="sys_mdl_process.description" style="width: 300px; height: 40px;"></textarea>
+                </td>
+            </tr>
+        </table>
+        <input type="hidden" name="sys_mdl_process.id" id="mdlprocessid" />
+        <input type="hidden" name="sys_mdl_process.unitid"  />
+         <input type="hidden"  name="sys_mdl_process.unitname" />
+        </form>
+    </div>
+</div>

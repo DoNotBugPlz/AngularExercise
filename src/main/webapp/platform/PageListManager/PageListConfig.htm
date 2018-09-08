@@ -1,0 +1,317 @@
+﻿<div class="easyui-panel" fit="true" border="false">
+    <div class="easyui-layout" data-options="fit:true,border:false">
+        <!-- 以下是基本信息配置表单-->
+        <div data-options="region:'north',border:false" style="padding: 0px; height: 200px">
+            <div class="datagrid-toolbar">
+                <a href="javascript:void(0)" class="easyui-linkbutton" onclick="savePageListConfig();"
+                    data-options="plain:true,iconCls:'icon-save'">保存</a> <a href="javascript:void(0)"
+                        class="easyui-linkbutton" onclick="previewPageListShow();" data-options="plain:true,iconCls:'icon-preview'">
+                        预览</a> <a href="javascript:void(0)" class="easyui-linkbutton" onclick="generateHtmlContent();"
+                            data-options="plain:true,iconCls:'icon-view'">生成HTML</a> <a href="javascript:void(0)"
+                                class="easyui-linkbutton" onclick="addList();" data-options="plain:true,iconCls:'icon-add'">
+                                添加列</a><a href="javascript:void(0)" class="easyui-linkbutton" onclick="destroyList();"
+                                    data-options="plain:true,iconCls:'icon-delete'"> 删除列</a>
+            </div>
+            <form id="pageListForm" method="post" action="../../Sys_pagelist/SaveForm.do">
+            <table style="width: 100%" border="0">
+                <tr height="30px">
+                    <td align="center" width="20%">
+                        列表名称:
+                    </td>
+                    <td width="10%">
+                        <input class="easyui-validatebox" type="text" id="listname" name="sys_pagelist.listname"
+                            style="width: 150px;" data-options="required:true" />
+                        <input type="hidden" id="id" name="sys_pagelist.id" />
+                        <input type="hidden" id="tablename" name="sys_pagelist.tablename" />
+                    </td>
+                    <td align="center" width="15%">
+                        标识常量：
+                    </td>
+                    <td align="left" width="25%">
+                        <input class="easyui-validatebox" type="text" id="constname" name="sys_pagelist.constname"
+                            style="width: 150px;" data-options="required:true,validType:'remote[{url:rootPath + \'Sys_pagelist/ValidConstName.do\',data:{constname:$(\'#constname\').val(),pagelistid:$(\'#id\').val()}}]'" />
+                    </td>
+                    <td align="center" width="10%">
+                        所属部门：
+                    </td>
+                    <td align="left" width="20%">
+                        <input type="hidden" id="unitid" name="sys_pagelist.unitid" />
+                        <input class="easyui-combobox" type="text" id="chinaname" name="sys_dept.chinaname"
+                            style="width: 150px" data-options="required:true,onShowPanel:showDeptTreeGrid" />
+                    </td>
+                </tr>
+                <tr height="30px">
+                    <td align="left" colspan="6">
+                        &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox"
+                            id="isshowcheckbox" name="sys_pagelist.isshowcheckbox" />
+                        允许多选 &nbsp;&nbsp;&nbsp;
+                        <input type="checkbox" id="isshownumber" name="sys_pagelist.isshownumber" />显示序号
+                        &nbsp;&nbsp;&nbsp;
+                        <input type="checkbox" id="isshowtoolbar" name="sys_pagelist.isshowtoolbar" />
+                        显示工具条 &nbsp;&nbsp;&nbsp;
+                        <input type="checkbox" id="ispagination" name="sys_pagelist.ispagination" />允许分页
+                        &nbsp;&nbsp;&nbsp; 每页条数：
+                        <select class="easyui-combobox" id="pagesize" name="sys_pagelist.pagesize" style="width: 50px;"
+                            data-options="editable:false,panelHeight:'auto'">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="40">40</option>
+                            <option value="50">50</option>
+                        </select>&nbsp;&nbsp;&nbsp; 列表高度：
+                        <input class="easyui-numberbox" id="height" name="sys_pagelist.height" required style="width: 50px;" />
+                        &nbsp;&nbsp;&nbsp; 列表宽度：
+                        <input class="easyui-numberbox" id="width" name="sys_pagelist.width" required style="width: 50px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" colspan="6">
+                        &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 排序规则：
+                        <input class="easyui-combobox" id="sortrules" name="sys_pagelist.sortrules" style="width: 200px;"
+                            data-options="editable:false,onShowPanel:showSortDialog" />&nbsp;&nbsp;&nbsp;
+                        <input type="checkbox" id="showfooter" name="sys_pagelist.showfooter" />
+                        显示汇总 &nbsp;&nbsp;&nbsp; 汇总标题列：<input class="easyui-combobox" name="sys_pagelist.collectdisplayfield"
+                            style="width: 100px;" id="collectdisplayfield" data-options="
+                                    url:rootPath + 'Sys_colsremark/LoadColsByTableName.do?tablename='+currentTableName,
+                                    valueField:'colname',
+                                    textField:'colname',
+                                    panelHeight:'auto'" />&nbsp;&nbsp;&nbsp;&nbsp; 页面根路径：
+                        <input class="easyui-validatebox" type="text" id="pagerootpath" name="sys_pagelist.pagerootpath"
+                            style="width: 150px;" data-options="required:true" />
+                    </td>
+                </tr>
+                <tr height="30px">
+                    <td align="right">
+                        新增页面地址：
+                    </td>
+                    <td align="left" colspan="2">
+                        <input type="text" id="addpagehref" name="sys_pagelist.addpagehref" style="width: 330px;" />
+                    </td>
+                    <td align="right">
+                        编辑页面地址：
+                    </td>
+                    <td align="left" colspan="2">
+                        <input type="text" id="modpagehref" name="sys_pagelist.modpagehref" style="width: 330px;" />
+                    </td>
+                </tr>
+                <tr height="30px">
+                    <td align="right">
+                        列表数据源地址：
+                    </td>
+                    <td align="left" colspan="2">
+                        <input class="easyui-validatebox" type="text" id="url" name="sys_pagelist.url" style="width: 330px;"
+                            data-options="required:true" />
+                    </td>
+                    <td align="right">
+                        禁用请求路径：
+                    </td>
+                    <td align="left" colspan="2">
+                        <input class="easyui-validatebox" type="text" id="forbidpagehref" name="sys_pagelist.forbidpagehref"
+                            style="width: 330px;" data-options="required:true" />
+                    </td>
+                </tr>
+            </table>
+            </form>
+        </div>
+        <!-- 以下是列信息配置列表 -->
+        <div data-options="region:'center',border:false">
+            <table id="pageListColsDataGrid" class="easyui-datagrid" style="padding: 0px;" data-options="
+	                        url: rootPath+'Sys_pagelistcols/LoadPageList.do?pagelistid='+currentPageListid,
+			                singleSelect: false,
+			                loadMsg: '数据加载中……',
+			                fit:true,
+			                rownumbers: true,
+			                pageSize: 10,
+			                pagination: true,
+			                idField: 'id',
+			                onDblClickRow: onDbClickRowImp,
+			                onLoadError: gridLoadError">
+                <thead data-options="frozen:true">
+                    <tr>
+                        <th data-options="field:'ck',checkbox:true" />
+                        <th data-options="field:'colname',
+                            formatter:formatterColNameCell,
+                            editor:{type:'combobox',options:{
+		                    				required:true,
+								            data:colDatas,
+										    valueField:'colname',
+										    textField:'colname',
+										    editable:false,
+		                                    panelHeight: 250,
+                                            onSelect: dynamicEditor}}" width="120" align="center">
+                            字段名
+                        </th>
+                    </tr>
+                </thead>
+                <thead>
+                    <tr>
+                        <th colspan="9">
+                            列表页配置
+                        </th>
+                        <th colspan="6">
+                            筛选条件配置
+                        </th>
+                    </tr>
+                    <tr>
+                        <th data-options="field:'displaytext',editor:{type:'validatebox',options:{
+		                    				required:true}}" width="120" align="center">
+                            显示名
+                        </th>
+                        <th data-options="field:'sortindex',editor:{type:'numberbox',options:{
+		                    				required:true}}" width="50" align="center">
+                            排序号
+                        </th>
+                        <th data-options="field:'colwidth',editor:{type:'numberbox',options:{
+		                    				required:true}}" width="50" align="center">
+                            列宽
+                        </th>
+                        <th data-options="field:'textalign',formatter:formatterAlign,editor:{type:'combobox',options:{
+		                    				required:true,
+										    data:[{id:'left',value:'left',text:'左对齐'},{id:'center',value:'center',text:'居中对齐'},{id:'right',value:'right',text:'右对齐'}],
+										    valueField:'value',
+										    textField:'text',
+                                            editable: false,
+		                                    panelHeight: 'auto'}}" width="70" align="center">
+                            水平对齐
+                        </th>
+                        <th data-options="field:'ishide',formatter:formatterIsOrNo,editor:{type:'combobox',options:{
+		                    				required:true,
+										    data:isOrNoDatas,
+										    valueField:'value',
+										    textField:'text',
+                                            editable: false,
+		                                    panelHeight: 'auto'}}" width="50" align="center">
+                            隐藏
+                        </th>
+                        <th data-options="field:'showtime',formatter:formatterIsOrNo,editor:{type:'combobox',options:{
+										    data:isOrNoDatas,
+										    valueField:'value',
+										    textField:'text',
+                                            editable: false,
+		                                    panelHeight: 'auto'}}" width="60" align="center">
+                            显示时间
+                        </th>
+                        <th data-options="field:'sortable',formatter:formatterIsOrNo,editor:{type:'combobox',options:{
+		                    				required:true,
+										    data:isOrNoDatas,
+										    valueField:'value',
+										    textField:'text',
+                                            editable: false,
+		                                    panelHeight: 'auto'}}" width="60" align="center">
+                            可否排序
+                        </th>
+                        <th data-options="field:'enablecollect',align:'center',formatter: formatterEnableCollectCell,
+                            editor:{type:'checkbox',options:{on:1,off:0}}" width="60">
+                            启用汇总
+                        </th>
+                        <th data-options="field:'collectrule',align:'center',
+                            formatter: formatterCollectRuleCell,
+                            editor:{
+                                type:'combobox',
+                                options:{
+                                    multiple:true,
+                                    panelHeight:'auto',
+								    data:collectRuleData,
+								    valueField:'value',
+                                    editable: false,
+								    textField:'text'
+                                }
+                            }" width="100">
+                            汇总规则
+                        </th>
+                        <th data-options="field:'insearch',formatter:formatterIsOrNo,editor:{type:'combobox',options:{
+		                    				required:true,
+										    data:isOrNoDatas,
+										    valueField:'value',
+										    textField:'text',
+                                            editable: false,
+		                                    panelHeight: 'auto',
+		                                    onSelect: changeCompareOption}}" width="60" align="center">
+                            搜索条件
+                        </th>
+                        <th data-options="field:'labelname',editor:{type:'validatebox',options:{
+		                    				required:true}}" width="60" align="center">
+                            条件标签
+                        </th>
+                        <th data-options="field:'controlwidth',editor:{type:'numberbox',options:{
+		                    				required:true}}" width="90" align="center">
+                            条件控件宽度
+                        </th>
+                        <th data-options="field:'compareoption',align:'center',formatter:formatCompareoption,
+                                    editor:{type:'combobox',options:{
+                                    		required:true,
+										    valueField:'value',
+										    textField:'text',
+                                            editable: false,
+		                                    panelHeight: 'auto'}}"
+                            width="70" align="center">
+                            比较符
+                        </th>
+                        <th data-options="field:'iskey',formatter:formatterIsOrNo,editor:{type:'combobox',options:{
+										    data:isOrNoDatas,
+										    valueField:'value',
+										    textField:'text',
+                                            editable: false,
+		                                    panelHeight: 'auto'}}" width="50">
+                            关键字
+                        </th>
+                        <th data-options="field:'ismultiselect',formatter:formatterIsOrNo,editor:{type:'combobox',options:{
+										    data:isOrNoDatas,
+										    valueField:'value',
+										    textField:'text',
+                                            editable: false,
+		                                    panelHeight: 'auto'}}" width="50" align="center">
+                            多选
+                        </th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div id="sortDialog" style="padding: 10px;">
+            <table id="sortDataGrid" class="easyui-datagrid" style="padding: 0px;" data-options="
+			                singleSelect: true,
+			                fitColumns: true,
+			                fit:true,
+			                rownumbers: true,
+			                idField: 'id',
+			                toolbar: '#sortToolBar',
+			                onClickRow: editSortGrid">
+                <thead>
+                    <tr>
+                        <th data-options="field:'ck',checkbox:true" />
+                        <th data-options="field:'colname',editor:{type:'combobox',options:{
+		                    				required:true,
+										    url:rootPath+'Sys_colsremark/LoadColsByTableName.do?tablename='+currentTableName,
+										    valueField:'colname',
+										    textField:'colname',
+										    editable:false,
+		                                    panelHeight: 250}}" width="120" align="center">
+                            字段名
+                        </th>
+                        <th data-options="field:'sortorder',formatter:formatterSort,editor:{type:'combobox',options:{
+	                    					data:[{id:'asc',text:'升序',value:'asc'},{id:'desc',text:'降序',value:'desc'}],
+	                    					required:true,
+	                    					valueField:'value',
+										    textField:'text',
+	                    					editable:false,
+	                    					panelHeight:'auto'}}" width="50" align="center">
+                            排序方式
+                        </th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div id="sortToolBar" class="datagrid-toolbar">
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="confirmSort();" data-options="plain:true,iconCls:'icon-ok'">
+                确认</a> <a href="javascript:void(0)" class="easyui-linkbutton" onclick="removeSort();"
+                    data-options="plain:true,iconCls:'icon-delete'">删除</a> <a href="javascript:void(0)"
+                        class="easyui-linkbutton" onclick="addSort();" data-options="plain:true,iconCls:'icon-add'">
+                        添加</a> <a href="javascript:void(0)" class="easyui-linkbutton" onclick="cancelSort();"
+                            data-options="plain:true,iconCls:'icon-undo'">取消</a>
+        </div>
+        <div id="show" class="easyui-window" title="预览" data-options="modal:true,closed:true,iconCls:'icon-preview'"
+            style="width: 900px; height: 600px; padding: 0px;">
+            <iframe id="showIframe" frameborder="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+</div>

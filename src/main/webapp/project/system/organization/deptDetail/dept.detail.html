@@ -1,0 +1,41 @@
+<!--<div class="popWhite" ng-controller="ChangePwdCtrl as changepwd">-->
+<div class="popWhite" >
+    <div class="css-content"  ng-form="dept_form">
+        <table cellpadding="0" cellspacing="0">
+            <tbody>
+                <tr>
+                    <td  class="name name-height">单位名称</td>
+                    <td  class="value">
+                        <input required maxlength="50" type="text" ng-model="deptDetail.dept.chinaname" name="chinaname"
+                               ng-class="{true:'warn',false:''}[dept_form.chinaname.$error.required]"/>
+                    </td>
+                    <td  class="name name-height">部门级别</td>
+                    <td  class="value">
+                        <select  ng-model="deptDetail.dept.deptlevel" name="deptlevel" required
+                                 ng-class="{true:'warn',false:''}[dept_form.deptlevel.$error.required]"
+                                 ng-options="n.id as n.chinaname for n in deptDetail.deptlevelCatagory">
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td  class="name name-height">排序号</td>
+                    <td  class="value">
+                        <input required maxlength="50" type="text" name="sortindex"
+                               ng-class="{true:'warn',false:''}[dept_form.sortindex.$error.required]"
+                               ng-model="deptDetail.dept.sortindex" />
+                    </td>
+                    <td  class="name name-height">是否禁用</td>
+                    <td class="value">
+                        <select  ng-model="deptDetail.dept.delstatus" name="delstatus" required
+                                 ng-class="{true:'warn',false:''}[dept_form.delstatus.$error.required]"
+                                 ng-options="n.id as n.chinaname for n in deptDetail.yesnoCatagory">
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="popBottom">
+        <span class="btn2" ng-click="deptDetail.saveDeptInf()" >保存</span>
+    </div>
+</div>

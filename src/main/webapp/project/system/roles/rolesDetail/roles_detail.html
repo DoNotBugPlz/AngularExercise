@@ -1,0 +1,30 @@
+<div class="popWhite" >
+    <div class="css-content" ng-form="role_detail_form" style="padding: 5px;">
+        <table cellpadding="0" cellspacing="0">
+            <tbody>
+            <tr>
+                <td  class="name name-height">角色名称</td>
+                <td class="value">
+                    <input  ng-class="{true:'warn',false:''}[role_detail_form.chinaname.$error.required]" ng-focus required maxlength="25" type="text" ng-model="vm.roleInfo.chinaname"  name="chinaname"/>
+                </td>
+            </tr>
+            <tr>
+                <td  class="name name-height">标识</td>
+                <td class="value">
+                    <input  ng-class="{true:'warn',false:''}[role_detail_form.constname.$error.required]" ng-focus required maxlength="20" type="text" ng-model="vm.roleInfo.constname"  name="constname"/>
+                </td>
+            </tr>
+            <tr>
+                <td  class="name name-height">排序号</td>
+                <td class="value">
+                    <input  ng-class="{true:'warn',false:''}[role_detail_form.sortindex.$error.required]"  ng-focus required maxlength="10" type="number" ng-model="vm.roleInfo.sortindex"  name="sortindex"/>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="popBottom">
+        <span class="btn2" ng-click="vm.saveOp()" >保存</span>
+        <span class="btn1" ng-click="vm.cancelOp()">取消</span>
+    </div>
+</div>

@@ -1,0 +1,105 @@
+<div class="table_tip_zzy">
+    <div class="table_tip_btn_zzy">
+        <a href="javascript:;" ng-click="vm.delSelectNotice()">删除</a>
+        <a href="javascript:;" ng-click="vm.addNotice()">新增</a>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="select_b_zzy ">
+    <div class="leftSel_table_zzy over_hide">
+        <table border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="10%" class="txt">关 &nbsp;键&nbsp; 字：</td>
+                <td width="20%">
+                    <input type="text" class="sel_ipt_zzy" placeholder="请输入关键字" ng-model="vm.searchParams.keyword"/>
+                </td>
+
+                <td width="10%" class="txt">状 &nbsp; &nbsp; 态：</td>
+                <td width="20%">
+                    <div class="chosen_div">
+                        <select ng-model="vm.searchParams.is_public" class="sel_sel_zzy"
+                                ng-chosen
+                                ng-chosen-data="vm.category_is_public"
+                                ng-options="n.id as n.text for n in vm.category_is_public">
+                            <option ng-chosen-option></option>
+                        </select>
+                    </div>
+                </td>
+                <td width="10%" class="txt">开始时间：</td>
+                <td width="20%" class="txt_center">
+                    <input type="text" class="sel_ipt_zzy sel_ipt_zzy_size pull_left Wdate" style="width: 40%"
+                           ng-model="vm.searchParams.start_time"
+                           ng-date="yyyy-MM-dd"
+                           id="start_time" name="start_time"
+                           max-date="#F{$dp.$D('end_time')}"/>
+                    <span class="ipt_line" style="width:5%;"></span>
+                    <input type="text" class="sel_ipt_zzy sel_ipt_zzy_size pull_right Wdate" style="width: 40%"
+                           ng-model="vm.searchParams.end_time" ng-date="yyyy-MM-dd" 　
+                           id="end_time" name="end_time"
+                           min-date="#F{$dp.$D('start_time')}"/>
+                </td>
+                <td class="left">
+                    <a href="javascript:;" class="sel_btn_zzy " ng-click="vm.loadNoticeList()">查询</a>
+                    <a href="javascript:;" class="reSet_btn_zzy" ng-click="vm.reset()">重置</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="table_box_zzy top1_zzy" style="top: 68px;">
+    <div class="table_head_zzy marginB2">
+        <table>
+            <tbody>
+            <tr>
+                <td width="5%">
+                    <a href="javascript:;" class="ipt_check" ng-click="vm.selectAll()"></a>
+                </td>
+                <td width="5%">序号</td>
+                <td width="40%">标题</td>
+                <td width="15%">发布时间</td>
+                <td width="10%">状态</td>
+                <td width="25%">操作</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="table_main_zzy">
+        <table class="table_word_space" ng-hide="!!!vm.noticeList||vm.noticeList.length==0">
+            <tbody>
+            <tr ng-repeat="n in vm.noticeList track by $index" ng-class-even="'bgcolor'"
+                ng-class="{'false':'','true':'selected'}[n.selected ]">
+                <td width="5%" ng-click="vm.selectItem(n)">
+                    <a href="javascript:;" class="ipt_check " ng-class="{'true':'checked','false':''}[n.selected]"></a>
+                </td>
+                <td width="5%">
+                    {{$index + 1+ (vm.currentPageInf.pageNumber-1)*vm.currentPageInf.pageSize}}
+                </td>
+                <td width="40%" class="word_space" style="text-align: left" title="{{n.title}}">
+                    &nbsp;&nbsp;{{n.title}}
+                </td>
+                <td width="15%" style="text-align: center">&nbsp;&nbsp;{{n.public_time}}</td>
+                <td width="10%"
+                    ng-style="{color:(n.is_public===0)?'red':((n.is_public===1)?'green':'orange')}">
+                    {{n.is_public_text}}
+                </td>
+                <td width="25%" class="pad_zzy">
+                    <a href="javascript:;" class="table_main1_a pull_left" style="margin-left: 48px;"
+                       ng-click="vm.viewNotice(n)">查看</a>
+                    <a href="javascript:;" class="table_main1_a pull_left" ng-click="vm.editNotice(n)">修改</a>
+                    <a href="javascript:;" class="table_main1_a " ng-click="vm.is_publicNotice(n)"
+                       style="display:none;">{{(n.is_public===0 || n.is_public===2)?'发布':'取消'}}</a>
+                    <a href="javascript:;" class="table_main1_a pull_left" ng-click="vm.delNoticeList(n)">删除</a>
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="table-tfoot">
+        <div class="table_page">
+            <div ng-turn-page="vm.noticeListPage" turn-page-fn="vm.loadNoticeList"></div>
+        </div>
+    </div>
+</div>
+

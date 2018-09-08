@@ -1,0 +1,82 @@
+<div class="table_tip_zzy">
+    <div class="table_tip_btn_zzy">
+        <a href="javascript:;" ng-click="vm.addTrend()">走势配置</a>
+        <a href="javascript:;" ng-click="vm.addMasterplate()">新增模版</a>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="select_b_zzy ">
+    <div class="leftSel_table_zzy " ng-class="{true:'up',false:'over_hide2'}[vm.advSearch]">
+        <table border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="10%" class="txt">模版名称：</td>
+                <td width="20%">
+                    <input type="text" class="sel_ipt_zzy" ng-model="vm.searchParams.keyword"/>
+                </td>
+
+                <td width="10%" class="txt">模版类型：</td>
+                <td width="20%">
+                    <div class="chosen_div">
+                        <select ng-model="vm.searchParams.masterplate_type" class="sel_sel_zzy"
+                                ng-chosen
+                                ng-chosen-data="vm.masterplatetypeCatagory"
+                                ng-options="n.id as n.chinaname for n in vm.masterplatetypeCatagory">
+                            <option ng-chosen-option></option>
+                        </select>
+                    </div>
+                </td>
+                <td width="10%" class="txt">模版状态：</td>
+                <td width="20%">
+                    <div class="chosen_div">
+                        <select ng-model="vm.searchParams.delstatus" class="sel_sel_zzy"
+                                ng-chosen
+                                ng-chosen-data="vm.category_delstatus"
+                                ng-options="n.id as n.chinaname for n in vm.category_delstatus">
+                            <option ng-chosen-option></option>
+                        </select>
+                    </div>
+                </td>
+
+                <td class="left">
+                    <a href="javascript:;" class="sel_btn_zzy " ng-click="vm.loadMasterplateList()">查询</a>
+                    <a href="javascript:;" class="reSet_btn_zzy" ng-click="vm.reset()">重置</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="table_box_zzy top1_zzy" style="top: 70px;">
+    <div class="table_head_zzy marginB2">
+        <table>
+            <tr>
+                <td width="40%">模版名称</td>
+                <td width="30%">模版类型</td>
+                <td width="30%">操作</td>
+            </tr>
+        </table>
+    </div>
+    <div id="query_nothing" class="nothing nothingTop"
+         ng-show="!!!vm.masterplateList||vm.masterplateList.length==0">
+        <span></span>暂无数据
+    </div>
+    <div class="table_main_zzy" m-custom-scrollbar>
+        <table class="table_word_space" ng-hide="!!!vm.masterplateList||vm.masterplateList.length==0">
+            <tr ng-repeat="n in vm.masterplateList track by $index" ng-class-even="'bgcolor'">
+                <td width="40%" class="word_space" style="text-align: left">&nbsp;&nbsp;{{n.masterplate_name}}</td>
+                <td width="30%">{{n.masterplate_type_text}}</td>
+                <td width="30%">
+                    <a href="javascript:;" class="table_main1_a" ng-click="vm.editMasterplate(n)">编辑</a>
+                    <a href="javascript:;" class="table_main1_a" ng-if="n.delstatus==1"
+                       ng-click="vm.changeStatue(n.id,0)">启用</a>
+                    <a href="javascript:;" class="table_main1_a" ng-if="n.delstatus==0"
+                       ng-click="vm.changeStatue(n.id,1)">停用</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="table-tfoot">
+        <div class="table_page">
+            <div ng-turn-page="vm.masterplateListPage" turn-page-fn="vm.loadMasterplateList"></div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>500</title>
+    <script type="text/javascript">
+        function request(key) {
+            var retValue = (window.location.search.match(new RegExp("(?:^\\?|&)" + key + "=(.*?)(?=&|$)")) || ['', null])[1];
+            return (retValue == null ? "" : retValue);
+        }
+    </script>
+</head>
+<body>
+<div>
+    响应状态码：
+    <script type="text/javascript">
+        document.write(request("error_status")+"<br/>");
+    </script>
+    <hr/>
+    错误信息：<br/>
+    <script type="text/javascript">
+//        document.write(request("error_text")+"<br/>");
+        document.write(decodeURI(request("error_text"))+"<br/>");
+    </script>
+</div>
+</body>
+</html>

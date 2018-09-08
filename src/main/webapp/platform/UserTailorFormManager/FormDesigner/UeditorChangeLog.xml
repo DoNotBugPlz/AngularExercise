@@ -1,0 +1,344 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<EasyUIChange>
+  <Log>
+    <Moder>黄朋</Moder>
+    <ModTime>2013-07-22</ModTime>
+    <Reason>
+      <![CDATA[新增格式化表格方法，格式化从Word中粘贴过来的表格]]>
+    </Reason>
+    <RowNumberBeg>2365</RowNumberBeg>
+    <RowNumberEnd>2365</RowNumberEnd>
+    <OldCode>
+      <![CDATA[]]>
+    </OldCode>
+    <NewCode>
+      <![CDATA[
+      ,
+     //格式化表格 HuangPeng
+    formatTable : function (table,range){
+		var retValue = "";
+		var __formtablewidth = 640;
+		var __wordtablewidth = 568;
+		
+		try
+		{
+			var _width = 0;
+			var tdArray = table.children[0].children[0].children;
+			for(var j=0;j<tdArray.length;j++)
+			{	
+				_width += parseInt(tdArray[j].width,10);
+			}
+			__wordtablewidth = _width;
+		}
+		catch(e)
+		{}
+			
+		try
+		{
+		    var trArray = table.children[0].children;//all rows
+		    for(var i=0;i<trArray.length;i++)
+		    {
+			    trArray[i].removeAttribute('style',0);
+			    trArray[i].removeAttribute('class',0);
+			    trArray[i].removeAttribute('valign',0);
+			    var tdArray = trArray[i].children;
+			    for(var j=0;j<tdArray.length;j++)
+			    { 
+			        if($(tdArray[j]).css("display") == "none")
+			        {
+				        tdArray[j].removeAttribute('style',0);
+				        $(tdArray[j]).css("display","none");
+			        }
+			        else
+			        {
+				        tdArray[j].removeAttribute('style',0);
+				    }
+				    tdArray[j].removeAttribute('class',0);
+				    tdArray[j].removeAttribute('valign',0);
+					
+				    var oldwidth = parseInt(tdArray[j].width,10);
+				    var newwidth = Math.round((oldwidth*(__formtablewidth/__wordtablewidth))); 
+				    tdArray[j].setAttribute('width',newwidth);
+				    tdArray[j].setAttribute('height',$(tdArray[j]).attr("rowspan") != undefined ? parseInt($(tdArray[j]).attr("rowspan")) * 25 : 25);
+					
+				    var tdText = $(tdArray[j]).text();
+				    $(tdArray[j]).html("");
+				    $(tdArray[j]).text(tdText);
+					
+				    if(tdText != "" && $(tdArray[j]).html() != "&nbsp;")
+				    {
+					    tdArray[j].setAttribute('align','center');
+					    tdArray[j].setAttribute('valign','middle');
+				    }
+				    else
+				    {
+					    tdArray[j].setAttribute('align','left');
+					    tdArray[j].setAttribute('valign','middle');
+				    }
+			    }
+		    }
+		    retValue = "<table style='border-collapse:collapse;' bordercolor='#000000' cellSpacing='0' cellPadding='0' border='1' width='" + __formtablewidth + "'>"	+	table.innerHTML	+"</table>";
+
+		}
+		catch(e)
+		{
+			alert(e);
+		}
+		return retValue;
+    }
+        ]]>
+    </NewCode>
+  </Log>
+  <Log>
+    <Moder>黄朋</Moder>
+    <ModTime>2013-07-22</ModTime>
+    <Reason>
+      <![CDATA[替换插入图片的方法，修改为绑定字段方法]]>
+    </Reason>
+    <RowNumberBeg>6848</RowNumberBeg>
+    <RowNumberEnd>6848</RowNumberEnd>
+    <OldCode>
+      <![CDATA[UE.commands['insertimage']]]>
+    </OldCode>
+    <NewCode>
+      <![CDATA[
+          execCommand:function (cmd, opt) {
+        opt = utils.isArray(opt) ? opt : [opt];
+        if (!opt.length) {
+            return;
+        }
+        var me = this,
+            range = me.selection.getRange(),
+            start = range.startContainer,
+            td = domUtils.findParentByTagName(start, ['td', 'th'], true) || me.currentSelectedArr[0],
+            img = range.getClosedNode();
+        var inputWidth=td?(td.width ? td.width : $(td).css("width").ReplaceAll("px","")):"100";
+        var inputHeight=td?(td.height ? td.height : $(td).css("height").ReplaceAll("px","")):"25";
+
+        var html = [], str = '';
+        for (var i = 0, ci = opt[i]; i<opt.length;i++ ) {
+            str = '<img border="0"  src="' + ci.src + '" ' + 
+                 (ci.datasource ? ' datasource=' + ci.datasource : '') +
+                  ' style = "' + (ci.style ? ci.style : '') +
+                  ' width :' + (ci.widthunit == 'px'? ci.width : Math.floor(inputWidth * ci.width * 0.01)) + 'px;' +
+                  ' height : ' + (ci.heightunit == 'px'? ci.height : Math.floor(inputHeight * ci.height * 0.01)) + 'px;" />';
+                
+            html.push(str);
+        }
+        me.execCommand('insertHtml', html.join(''));
+    }]]>
+    </NewCode>
+  </Log>
+
+  <Log>
+    <Moder>黄朋</Moder>
+    <ModTime>2013-07-22</ModTime>
+    <Reason>
+      <![CDATA[替换预览的方法，去除无效的绑定]]>
+    </Reason>
+    <RowNumberBeg>7937</RowNumberBeg>
+    <RowNumberEnd>7937</RowNumberEnd>
+    <OldCode>
+      <![CDATA[
+      d.write('<html><head><script src="'+this.options.UEDITOR_HOME_URL+'ueditor.parse.js"></script><script>' +
+            "setTimeout(function(){uParse('div',{" +
+            "    'highlightJsUrl':'"+this.options.UEDITOR_HOME_URL+"third-party/SyntaxHighlighter/shCore.js'," +
+                "    'highlightCssUrl':'"+this.options.UEDITOR_HOME_URL+"third-party/SyntaxHighlighter/shCoreDefault.css'" +
+            "})},300)" +
+            '</script></head><body><div>'+this.getContent(null,null,true)+'</div></body></html>');
+      ]]>
+    </OldCode>
+    <NewCode>
+      <![CDATA[
+         d.write("<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>"
+            + "<html xmlns='http://www.w3.org/1999/xhtml' >"
+            + "<head>"
+            + "<title></title>"
+            + "<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>"
+            + "</head>"
+            + "<body >" 
+            + this.getContent(null,null,true) 
+            + "</body></html>");
+    }]]>
+    </NewCode>
+  </Log>
+
+  <Log>
+    <Moder>黄朋</Moder>
+    <ModTime>2013-07-22</ModTime>
+    <Reason>
+      <![CDATA[替换插入表格的方法，固定表格宽度为A4纸宽度]]>
+    </Reason>
+    <RowNumberBeg>13368</RowNumberBeg>
+    <RowNumberEnd>13368</RowNumberEnd>
+    <OldCode>
+      <![CDATA[]]>
+    </OldCode>
+    <NewCode>
+      <![CDATA[ queryCommandState: function () {
+            return getTableItemsByRange(this).table ? -1 : 0;
+        },
+        execCommand: function (cmd, opt) {
+            function createTable(opt, tableWidth, tdWidth) {
+                var html = [],
+                    rowsNum = opt.numRows,
+                    colsNum = opt.numCols;
+                for (var r = 0; r < rowsNum; r++) {
+                    html.push('<tr>');
+                    for (var c = 0; c < colsNum; c++) {
+                        html.push('<td width="' + tdWidth + '" height="30" vAlign="' + opt.tdvalign + '">' + (browser.ie ? domUtils.fillChar : '<br/>') + '</td>')
+                    }
+                    html.push('</tr>')
+                }
+                return '<table width="' + tableWidth + '" style="border-collapse:collapse;" border="1" cellspacing="0" bordercolor="black" cellpadding="0"  align="center"><tbody>' + html.join('') + '</tbody></table>'
+            }
+
+            if (!opt) {
+                opt = utils.extend({}, {
+                    numCols: this.options.defaultCols,
+                    numRows: this.options.defaultRows,
+                    tdvalign: this.options.tdvalign
+                })
+            }
+
+            var range = this.selection.getRange(),
+                start = range.startContainer,
+                firstParentBlock = domUtils.findParent(start, function (node) {
+                    return domUtils.isBlockElm(node);
+                }, true);
+            var me = this,
+                defaultValue = getDefaultValue(me),
+                tableWidth = getTableWidth(me, true, defaultValue) - (firstParentBlock ? parseInt(domUtils.getXY(firstParentBlock).x, 10) : 0),
+                tableWidth =640;
+                //tdWidth = Math.floor(tableWidth / opt.numCols - defaultValue.tdPadding * 2 - defaultValue.tdBorder);
+                tdWidth = Math.floor(tableWidth / opt.numCols);
+            //todo其他属性
+            !opt.tdvalign && (opt.tdvalign = me.options.tdvalign);
+            me.execCommand("inserthtml", createTable(opt, tableWidth, tdWidth));
+        }]]>
+    </NewCode>
+  </Log>
+  <Log>
+    <Moder>黄朋</Moder>
+    <ModTime>2013-07-22</ModTime>
+    <Reason>
+      <![CDATA[添加格式化表格方法，格式化Word粘贴过来的方法]]>
+    </Reason>
+    <RowNumberBeg>14215</RowNumberBeg>
+    <RowNumberEnd>14215</RowNumberEnd>
+    <OldCode>
+      <![CDATA[]]>
+    </OldCode>
+    <NewCode>
+      <![CDATA[
+       
+    /**
+    * 格式化表格
+    */
+    UE.commands["formattable"] = {
+        queryCommandState: function (cmd) {
+            var rng = this.selection.getRange();
+            return domUtils.findParentByTagName(rng.startContainer, 'table', true) ? 0 : -1;
+        },
+        execCommand: function (cmd, classList) {           
+            var me = this,
+            rng = this.selection.getRange(),
+            table = table || domUtils.findParentByTagName(rng.startContainer, 'table', true);
+            if (table) {
+                var formatHTML = domUtils.formatTable(table, rng);
+                var next = table.nextSibling;
+                if (!next) {
+                    next = domUtils.createElement(this.document, 'p', {
+                        'innerHTML': browser.ie ? domUtils.fillChar : '<br/>'
+                    });
+                    table.parentNode.insertBefore(next, table);
+                }
+                domUtils.remove(table);
+                rng = this.selection.getRange();
+                if (next.nodeType == 3) {
+                    rng.setStartBefore(next)
+                } else {
+                    rng.setStart(next, 0)
+                }
+                rng.setCursor(false, true)
+                this.fireEvent("tablehasdeleted")
+                
+                me.execCommand("inserthtml", formatHTML);
+            }
+        }
+    };]]>
+    </NewCode>
+  </Log>
+  <Log>
+    <Moder>黄朋</Moder>
+    <ModTime>2013-07-22</ModTime>
+    <Reason>
+      <![CDATA[删除表格属性和单元格属性设置]]>
+    </Reason>
+    <RowNumberBeg>15702</RowNumberBeg>
+    <RowNumberEnd>15724</RowNumberEnd>
+    <OldCode>
+      <![CDATA[ ,
+                '-',
+                {
+                    label:lang.edittd,
+                    cmdName:'edittd',
+                    exec:function () {
+                        if ( UE.ui['edittd'] ) {
+                            new UE.ui['edittd']( this );
+                        }
+                        this.getDialog('edittd').open();
+                    }
+                },
+                {
+                    label:lang.edittable,
+                    cmdName:'edittable',
+                    exec:function () {
+                        if ( UE.ui['edittable'] ) {
+                            new UE.ui['edittable']( this );
+                        }
+                        this.getDialog('edittable').open();
+                    }
+                }]]>
+    </OldCode>
+    <NewCode>
+      <![CDATA[]]>
+    </NewCode>
+  </Log>
+  <Log>
+    <Moder>黄朋</Moder>
+    <ModTime>2013-07-22</ModTime>
+    <Reason>
+      <![CDATA[添加右键菜单绑定字段]]>
+    </Reason>
+    <RowNumberBeg>15904</RowNumberBeg>
+    <RowNumberEnd>15904</RowNumberEnd>
+    <OldCode>
+      <![CDATA[]]>
+    </OldCode>
+    <NewCode>
+      <![CDATA[{
+                    label:lang.insertimage,
+                    cmdName:'insertimage',
+                    exec: function() {
+                    this.ui._dialogs['insertimageDialog'].open();
+                    }
+                },]]>
+    </NewCode>
+  </Log>
+  <Log>
+    <Moder>黄朋</Moder>
+    <ModTime>2013-07-22</ModTime>
+    <Reason>
+      <![CDATA[添加格式化表格按钮]]>
+    </Reason>
+    <RowNumberBeg>19216</RowNumberBeg>
+    <RowNumberEnd>19216</RowNumberEnd>
+    <OldCode>
+      <![CDATA[, 'deletetable']]]>
+    </OldCode>
+    <NewCode>
+      <![CDATA[, 'deletetable','formattable']]>
+    </NewCode>
+  </Log>
+</EasyUIChange>

@@ -1,0 +1,42 @@
+<!--<div class="popWhite" ng-controller="ChangePwdCtrl as changepwd">-->
+<div class="popWhite"   >
+    <div class="css-content" m-custom-scrollbar  ng-form="foreignMaterial_detail_form">
+        <table cellpadding="0" cellspacing="0">
+            <tbody>
+            <tr>
+                <td  class="name name-height">发送对象：</td>
+                <td  colspan="3" class="value">
+                    <input ng-class="{true:'warn',false:''}[foreignMaterial_detail_form.receive_dept_name.$error.required]"
+                           required maxlength="50" type="text" ng-model="vm.foreignMaterial.receive_dept_name"  name="receive_dept_name"  />
+                </td>
+            </tr>
+            <tr>
+                <td  class="name name-height">材料名称：</td>
+                <td  colspan="3" class="value">
+                    <input ng-class="{true:'warn',false:''}[foreignMaterial_detail_form.foreign_material_name.$error.required]"
+                           required maxlength="50" type="text" ng-model="vm.foreignMaterial.foreign_name"  name="foreign_name"  />
+                </td>
+            </tr>
+            <tr>
+                <td  class="name name-height">材料说明：</td>
+                <td class="value" colspan="3">
+                    <textarea class="remarks" ng-model="vm.foreignMaterial.specification" name="specification"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <div class="fileListDiv"
+                         attach-file-list
+                         attach-file-list-init-options="vm.fileInitOptions"
+                         attach-file-list-load-options="vm.fileLoadOptions"
+                    ></div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="popBottom">
+        <a class="table_main1_a" ng-click="vm.saveInfo()" >保存</a>
+        <a class="table_main1_a" ng-click="vm.cancelOp()">取消</a>
+    </div>
+</div>

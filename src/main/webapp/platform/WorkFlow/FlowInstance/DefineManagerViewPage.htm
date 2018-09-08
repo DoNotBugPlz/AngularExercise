@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>流程图形监控</title>
+    <link href="../../ScriptSource/EasyUI/Skins/default/easyui.css" rel="stylesheet"
+        type="text/css" />
+    <link href="../../ScriptSource/WorkFlow/lib/myflow.css" rel="stylesheet" type="text/css" />
+    <link href="../../ScriptSource/EasyUI/Skins/icon.css" rel="stylesheet" type="text/css" />
+    <script src="../../ScriptSource/JQuery/jquery.min.js" type="text/javascript"></script>
+    <script src="../../ScriptSource/EasyUI/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../../ScriptSource/WorkFlow/lib/raphael-min.js" type="text/javascript"></script>
+    <script src="../../ScriptSource/WorkFlow/workflowtrace.js" type="text/javascript"></script>
+    <script src="../../ScriptSource/WorkFlow/userShowMyflow.jpdl4.js" type="text/javascript"></script>
+    <script src="DefineManagerViewPage.js" type="text/javascript"></script>
+    <style type="text/css">
+        #divMyflow
+        {
+            margin: 0;
+            pading: 0;
+            text-align: left;
+            font-family: Arial, sans-serif, Helvetica, Tahoma;
+            font-size: 12px;
+            line-height: 1.5;
+            color: black;
+            background-image: url(../../ScriptSource/WorkFlow/img/bg.png);
+        }
+
+    </style>
+</head>
+<body class="easyui-layout">
+    <div data-options="region:'center'" id="divMyflow">
+        <div id="myflow">
+        </div>
+    </div>
+    <div id="divShowInsActInfo" style="display: none;">
+    </div>
+</body>
+</html>
+

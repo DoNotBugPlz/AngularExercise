@@ -1,0 +1,70 @@
+﻿<div class="easyui-panel" fit="true" border="false">
+    <div class="datagrid-toolbar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveColsInfo()" data-options="plain:true,iconCls:'icon-save'">
+            保存</a>
+    </div>
+    <table class="easyui-datagrid" id="colsListGrid" data-options="
+                        loadMsg:'列表数据加载中......',
+                        fit: true,
+                        rownumbers:true,
+                        border:false,
+                        singleSelect:true,
+                        url:rootPath+'Sys_colsremark/LoadPageList.do?tablename='+tablename,
+                        onClickRow:onClickColsListRow ">
+        <thead data-options="frozen:true">
+            <tr>
+                <th data-options="field:'colname',width:80,halign:'center'">
+                    字段名
+                </th>
+                <th data-options="field:'coltype',width:100,halign:'center'">
+                    字段类型
+                </th>
+            </tr>
+        </thead>
+        <thead>
+            <tr>
+                <th data-options="field:'alias',width:150,halign:'center',editor:'text'">
+                    别名
+                </th>
+                <th data-options="field:'categoryid',width:100,halign:'center',
+                        formatter:formatCategoryId">
+                    绑定字典
+                </th>
+                <th data-options="field:'multiselected',width:80,align:'center',formatter: formatterCell">
+                    是否多选
+                </th>
+                <th data-options="field:'multilines',width:80,align:'center',formatter: formatterCell">
+                    是否多行
+                </th>
+                <th data-options="field:'required',width:80,align:'center',formatter: formatterCell,editor:{type:'checkbox',options:{on:1,off:0}}">
+                    是否必填
+                </th>
+                <th data-options="field:'validdata',width:100,halign:'center',
+                        formatter:formatValiddata,
+                        editor:{
+                                type:'combobox',
+                                options:{
+                                    valueField:'id',
+                                    textField:'chinaname',
+                                    data:validataCategoryData
+                                }
+                            }">
+                    数据校验
+                </th>
+                <th data-options="field:'isclientuse',width:80,align:'center',formatter: formatterCell,editor:{type:'checkbox',options:{on:1,off:0}}">
+                    用户使用
+                </th>
+                <th data-options="field:'fmttypetime',width:150,halign:'center',
+                        formatter:formatFmttypetime">
+                    时间格式
+                </th>
+                <th data-options="field:'autono',width:100,halign:'center'">
+                    编号规则
+                </th>
+                <th data-options="field:'coltypealias',width:100,halign:'center'">
+                    类型描述
+                </th>
+            </tr>
+        </thead>
+    </table>
+</div>

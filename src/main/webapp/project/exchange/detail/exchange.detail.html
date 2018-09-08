@@ -1,0 +1,76 @@
+<div class="popWhite">
+    <div class="css-content" m-custom-scrollbar ng-form="exchange_form">
+        <table cellpadding="0" cellspacing="0">
+            <tbody>
+            <tr>
+                <td class="name name-height" style="width: 10%">提交人</td>
+                <td class="value">
+                    <input ng-class="{true:'warn',false:''}[exchange_form.question_user_name.$error.required]" required
+                           maxlength="25"
+                           type="text" ng-model="vm.exchange.question_user_name" name="question_user_name"
+                           placeholder="请输入提交人姓名"
+                           ng-readonly="vm.is_answer"/>
+                </td>
+                <td class="name name-height" style="width: 10%">提交时间</td>
+                <td class="value">
+                    <input ng-class="{true:'warn',false:''}[exchange_form.question_add_time.$error.required]" required
+                           maxlength="50" ng-date="yyyy-MM-dd" class="Wdate"
+                           ng-model="vm.exchange.question_add_time" name="question_add_time" placeholder="请输入提交时间"
+                           ng-disabled="vm.is_answer"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="name name-height" style="width: 10%">标题</td>
+                <td colspan="3" class="value">
+                    <input ng-class="{true:'warn',false:''}[exchange_form.question_title.$error.required]" required
+                           maxlength="100"
+                           type="text" ng-model="vm.exchange.question_title" name="question_title" placeholder="请输入标题"
+                           ng-readonly="vm.is_answer"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="name name-height" style="width: 10%">提问内容</td>
+                <td class="value" colspan="3">
+                    <textarea required
+                              class="remarks" ng-class="{true:'warn',false:''}[exchange_form.question_content.$invalid]"
+                              required maxlength="1000"
+                              ng-model="vm.exchange.question_content" name="question_content"
+                              ng-readonly="vm.is_answer"></textarea>
+                </td>
+            </tr>
+            <tr ng-if="vm.is_answer">
+                <td class="name name-height" style="width: 10%">回复内容</td>
+                <td class="value" colspan="3">
+                    <textarea required
+                              class="remarks" ng-class="{true:'warn',false:''}[exchange_form.answer_content.$invalid]"
+                              required maxlength="1000"
+                              ng-model="vm.exchange.answer_content" name="answer_content"
+                              ng-readonly="vm.is_view"></textarea>
+                </td>
+            </tr>
+            <tr ng-if="vm.is_view">
+                <td class="name name-height" style="width: 10%">回复人</td>
+                <td class="value">
+                    <input ng-class="{true:'warn',false:''}[exchange_form.answer_user_name.$error.required]"
+                           maxlength="25"
+                           type="text" ng-model="vm.exchange.answer_user_name" name="answer_user_name"
+                           placeholder=""
+                           ng-readonly="vm.is_view"/>
+                </td>
+                <td class="name name-height" style="width: 10%">回复时间</td>
+                <td class="value">
+                    <input ng-class="{true:'warn',false:''}[exchange_form.answer_time.$error.required]"
+                           maxlength="50" ng-date="yyyy-MM-dd" class="Wdate"
+                           ng-model="vm.exchange.answer_time" name="answer_time" placeholder=""
+                           ng-disabled="vm.is_view"/>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="popBottom">
+        <span class="btn2" ng-click="vm.saveExchange()" ng-if="!vm.is_answer">保存</span>
+        <span class="btn2" ng-click="vm.answerExchange()" ng-if="vm.is_answer" ng-hide="vm.is_view==true">回复</span>
+        <span class="btn1" ng-click="vm.cancelOp()">取消</span>
+    </div>
+</div>

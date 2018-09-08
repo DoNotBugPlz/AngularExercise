@@ -1,0 +1,260 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>表单打印模板配置</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="../ScriptSource/EasyUI/Skins/default/easyui.css" rel="stylesheet" type="text/css" />
+    <link href="../ScriptSource/EasyUI/Skins/icon.css" rel="stylesheet" type="text/css" />
+    <script src="../ScriptSource/JQuery/jquery.min.js" type="text/javascript"></script>
+    <script src="../ScriptSource/JQuery/jquery.form.js" type="text/javascript"></script>
+    <script src="../ScriptSource/EasyUI/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../ScriptSource/JavaScript/GlobalTools.js" type="text/javascript"></script>
+    <script src="../ScriptSource/JavaScript/OrganizationTools.js" type="text/javascript"></script>
+    <script src="../ScriptSource/NTKOWebOffice/NTKOWebOfficeManager.js" type="text/javascript"></script>
+    <script language="javascript">
+        var rootPath = "../../"; //页面根路径
+        var currentTableName = ""; //当前物理表名称
+        var currentTemplateid = 0; //当前模板主键标识
+        var currentTailorFormid = 0; //当前表单主键标识
+        $(function () {
+            currentTableName = Request("tablename");
+            currentTailorFormid = Request("tailorformid");
+            currentTemplateid = Request("templateid");
+            NTKOWebOffice.init();
+            loadForm();
+        });
+        //初始化表单数据
+        function loadForm() {
+            GlobalTools.loadForm($("#templateForm"), { 
+                async: false,
+                url: rootPath + 'Sys_booktemplate/LoadForm.do?templateid=' + currentTemplateid, isNormalModel: false
+            }, loadComplete);
+        }
+        
+        //清理所有书签
+        function clearAllBookmark(){
+        	$.messager.confirm("清理书签","确定要删除该模板的所有书签",clearBook);
+        }
+        function clearBook(flag){
+        	if(flag){
+        		GlobalTools.ajax({
+        			url:rootPath + 'Sys_templatebookmarks/ClearBookmarks.do',
+        			data:{"templateid":currentTemplateid},
+        			success:clearSuccess
+        		});
+        	}
+        	
+        }
+        
+        function clearSuccess(){
+        	$.messager.alert("删除书签","删除成功");
+        }
+        
+        //表单数据加载完成后
+        function loadComplete(data) {
+            if ($("#tablename").val() == "") $("#tablename").val(currentTableName);
+            if ($("#tailorformid").val() == "") $("#tailorformid").val(currentTailorFormid);
+            if ($("#chinaname").val() == "") {
+                GlobalTools.ajax({
+                    async: false,
+                    type: "POST",
+                    url: rootPath + "Sys_def_tailorform/LoadTailorForm.do",
+                    data: { tailorformid: $("#tailorformid").val() },
+                    success: function (data) {
+                        $("#chinaname").val(data.chinaname);
+                    }
+                });
+            }
+            if (data && data.sys_booktemplate && data.sys_booktemplate.uploadfile) {
+                $("#uploadfile").val(data.sys_booktemplate.uploadfile);
+                loadTemplate(data.sys_booktemplate.uploadfile);
+                showABtns();
+            }else{
+                $("#aMarkInsert").hide();
+                $("#aMarkDelete").hide();
+                $("#aMarkClear").hide();
+            }
+        }
+
+        function showABtns(){
+            $("#aMarkInsert").show();
+            $("#aMarkDelete").show();
+            $("#aMarkClear").show();
+        }
+
+        //创建新模板
+        function creatNewTemplate(documentType) {
+            NTKOWebOffice.creatNewFile(documentType);
+        }
+        
+        //加载本地模板
+        function loadLocalDocument() {
+            NTKOWebOffice.loadLocalDocument({ loadDocumentActionPath: "" });
+        }
+        
+        //加载服务器模板
+        function loadTemplate(fileid) {
+            NTKOWebOffice.loadServerDocument({ loadDocumentActionPath: rootPath + "Sys_attachfile/DownLoadFile.do?fileid=" + fileid });
+        }
+        
+        //保存模板
+        function saveTemplate() {
+            var data = NTKOWebOffice.saveDocumentToServer({ saveDocumentActionPath: rootPath + "Sys_booktemplate/SaveFormPrint.do", fileName: $("#chinaname").val() + ".doc", postFormId: "templateForm",onSaveSuccess:function(data){
+                if (data) {
+                    currentTemplateid = data.templateid;
+                    $("#templateid").val(currentTemplateid);
+                    showABtns();
+                }
+            } });
+        }
+       
+        //打开插入书签对话框
+        function showInsertBookMark() {
+            $('#InsertBookMarkDialog').window({ href: rootPath + 'platform/UserTailorFormManager/TailorFormBookPrint.htm' });
+            $('#InsertBookMarkDialog').window('open');
+        }
+        //插入书签
+        function insertBookMark() {
+            var rowData = $('#dgInsertBookMark').datagrid('getSelected');
+            if (!rowData) {
+                GlobalTools.showError("请选择一个书签");
+                return;
+            }
+            if (currentTemplateid == 0) {
+                GlobalTools.showError("请先保存文档");
+                return;
+            }
+
+            if(NTKOWebOffice.isBookMarkExists(rowData.colname))
+           // if(checkBookMarkIn(rowData.chinaname))
+            {
+                NTKOWebOffice.insertBookMark(rowData.chinaname, rowData.colname);
+            }
+            else {
+                /*
+            同步式保存书签到数据库
+            */
+            var boolSuccess = true; //记录是否成功
+            var templateBookMark = {};
+            templateBookMark.templateid = currentTemplateid;
+            templateBookMark.bookmarkid = rowData.id;
+            templateBookMark.constname = rowData.colname;
+            templateBookMark.chinaname = rowData.chinaname;
+            templateBookMark.tablename = rowData.tablename;
+            templateBookMark.colname = rowData.colname;
+            GlobalTools.ajax({
+                async: false,
+                url: rootPath + 'Sys_templatebookmarks/SaveForm.do',
+                data: templateBookMark,
+                error: function (message) {
+                    boolSuccess = false;
+                }
+            });
+            if (boolSuccess) {
+                NTKOWebOffice.insertBookMark(rowData.chinaname, rowData.colname);
+            }
+            else {
+                GlobalTools.showError("保存书签失败！");
+            }
+                }
+            $('#InsertBookMarkDialog').window('close');
+        }
+
+
+        function checkBookMarkIn(BookMarkName){
+            var bkmkObj =  document.getElementById("TANGER_OCX").ActiveDocument.BookMarks(BookMarkName);
+            if(bkmkObj){
+                return true;
+            }
+            return false;
+        }
+
+        //打开删除书签对话框
+        function showDeleteBookMark() {
+            $('#DeleteBookMarkDialog').window({ href: rootPath + 'platform/UserTailorFormManager/BookMarkeDelete.htm' });
+            $('#DeleteBookMarkDialog').window('open');
+        }
+        //删除书签
+        function deleteBookMark() {
+            var boolSuccess = true;
+            var deleteDatas = $('#dgDeleteBookMark').datagrid('getSelections');
+            if (!deleteDatas || deleteDatas.length == 0) return;
+            GlobalTools.deleteGridList($('#dgDeleteBookMark'), {
+                async: false,
+                url: rootPath + "Sys_templatebookmarks/DestroyList.do",
+                error: function (message) {
+                    boolSuccess = false;
+                }
+            });
+            if (boolSuccess) {
+                //删除书签
+                var idArr = new Array();
+                for (index in deleteDatas) {
+                    NTKOWebOffice.deleteBookMark(deleteDatas[index].colname);
+                }
+            }
+            else {
+                GlobalTools.showError("删除书签失败！");
+            }
+        }
+
+        //文档编辑页面关闭事件
+        function checkDocumentStatus() {
+            if (!NTKOWebOffice.getDocumentSaveStatus()) {
+                $.messager.confirm('确认信息', '文档已经修改过，是否需要保存？', function (returnValue) {
+                    if (returnValue) {
+                        saveTemplate();
+                        window.parent.closeTemplateDesignTab();
+                    }
+                    else {
+                        window.parent.closeTemplateDesignTab();
+                    }
+                });
+            }
+            else {
+                window.parent.closeTemplateDesignTab();
+            }
+        }
+
+
+        //设置文档是否允许打印
+        function setDocumentAllowPrint(blnAllow) {
+            NTKOWebOffice.setDocumentAllowPrint(blnAllow);
+        }
+        //设置文档是否允许另存为
+        function setDocumentAllowSaveAs(blnAllow) {
+            NTKOWebOffice.setDocumentAllowSaveAs(blnAllow);
+        }
+
+    </script>
+</head>
+<body class="easyui-layout" data-options="fit:true">
+    <div data-options="region:'center',split:false,border:false">
+        <div id="templateDesignToolBar" class="datagrid-toolbar">
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveTemplate()" data-options="plain:true,iconCls:'icon-save'">
+                保存</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" onclick="loadLocalDocument()"
+                    data-options="plain:true,iconCls:'icon-archives'">打开文档</a> <a id="aMarkInsert" href="javascript:void(0)"
+                        class="easyui-linkbutton" onclick="showInsertBookMark()" data-options="plain:true,iconCls:'icon-edit'">
+                        插入书签</a> <a id="aMarkDelete" href="javascript:void(0)" class="easyui-linkbutton" onclick="showDeleteBookMark()"
+                            data-options="plain:true,iconCls:'icon-delete'">删除已插入书签</a> <a id="aMarkClear" href="javascript:void(0)" class="easyui-linkbutton" onclick="clearAllBookmark()" data-options="plain:true,iconCls:'icon-cut'">
+            清理所有已插入书签</a>
+        </div>
+        <form id="templateForm" method="post">
+        <input type="hidden" name="sys_booktemplate.id" id="templateid" />
+        <input type="hidden" name="sys_booktemplate.uploadfile" id="uploadfile" />
+        <input type="hidden" name="sys_booktemplate.tablename" id="tablename" />
+        <input type="hidden" name="sys_booktemplate.tailorformid" id="tailorformid" />
+        <input type="hidden" name="sys_booktemplate.chinaname" id="chinaname" />
+        </form>
+<!--         <script src="../ScriptSource/NTKOWebOffice/LoadWebOffice.js" type="text/javascript"></script> -->
+        <script src="../ScriptSource/NTKOWebOffice/ntkoofficecontrol.js" type="text/javascript"></script>
+    </div>
+    <div id="InsertBookMarkDialog" class="easyui-window" title="插入书签" data-options="modal:true,closed:true,iconCls:'icon-save'"
+        style="width: 500px; height: 350px;">
+    </div>
+    <div id="DeleteBookMarkDialog" class="easyui-window" title="删除书签" data-options="modal:true,closed:true,iconCls:'icon-save'"
+        style="width: 500px; height: 350px;">
+    </div>
+</body>
+</html>

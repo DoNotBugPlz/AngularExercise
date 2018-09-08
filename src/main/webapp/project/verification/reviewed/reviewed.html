@@ -1,0 +1,80 @@
+<div class="table_tip_zzy"><!--操作按钮-->
+</div>
+<div class="select_b_zzy">
+    <div class="leftSel_table_zzy " ng-class="{true:'up',false:'over_hide2'}[vm.advSearch]">
+        <table border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="10%" class="txt">监测任务：</td>
+                <td width="20%">
+                    <input type="text" class="sel_ipt_zzy"  ng-model="vm.searchParams.keyword"/>
+                </td>
+
+                <td  class="txt" style="">采价日期：</td>
+                <td  class="txt_center">
+                    <input type="text" class="sel_ipt_zzy sel_ipt_zzy_size pull_left Wdate" style="width: 40%"
+                           ng-model="vm.searchParams.start_time" ng-date="yyyy-MM-dd"
+                           id="start_date" name="start_date"
+                           max-date="#F{$dp.$D('end_date')}" />
+                    <span class="ipt_line" style="width:5%;"></span>
+                    <input type="text" class="sel_ipt_zzy sel_ipt_zzy_size pull_right Wdate" style="width: 40%"
+                           ng-model="vm.searchParams.end_time" ng-date="yyyy-MM-dd"　
+                           id="end_date" name="end_date" min-date="#F{$dp.$D('start_date')}" />
+                </td>
+                <td class="left">
+                    <a href="javascript:;" class="sel_btn_zzy " ng-click="vm.loadReviewedList()">查询</a>
+                    <a href="javascript:;" class="reSet_btn_zzy" ng-click="vm.clearSearchParams()">重置</a>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+
+</div>
+
+<div class="table_box_zzy top1_zzy" >
+
+    <div class="table_head_zzy marginB2">
+        <table >
+            <tr>
+                <td width="5%">
+                    <input type="checkbox" ng-model="allSelected" class="ipt_check" ng-click="vm.selectAll(vm.reviewedList)"/>
+                </td>
+                <td width="5%">序号</td>
+                <td width="30%">监测任务</td>
+                <td width="10%">采价日期</td>
+                <td width="10%">已审验报告单位 </td>
+                <td width="20%">操作</td>
+            </tr>
+        </table>
+    </div>
+    <div id="query_nothing" class="nothing nothingTop"
+         ng-show="!!!vm.reviewedList||vm.reviewedList.length==0">
+        <span></span>暂无数据
+    </div>
+
+    <div class="table_main_zzy" m-custom-scrollbar >
+
+        <table  ng-hide="!!!vm.reviewedList||vm.reviewedList.length==0">
+            <tr ng-repeat="n in vm.reviewedList track by $index" ng-class-even="'bgcolor'"
+                ng-class="{'false':'','true':'selected'}[n.selected]">
+                <td width="5%" ng-click="vm.selectItem(n)">
+                    <input type="checkbox"  ng-model="n.selected" ng-click="$event.stopPropagation();"/>
+                </td>
+                <td  width="5%">{{ $index + 1+ (vm.currentPageInf.pageNumber-1)*vm.currentPageInf.pageSize }}</td>
+                <td width="30%" style="text-align: left">&nbsp;&nbsp;{{n.name}}</td>
+                <td width="10%" ></td>
+                <td width="10%" ></td>
+                <td width="20%">
+                    <a  class="table_main1_a " ng-click="vm.find(n)">查看</a>
+                    &nbsp;&nbsp;
+                    <a class="table_main1_a"　 style="width: 100px" ng-click="vm.view(n)">批量取消审验</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="table-tfoot">
+        <div class="table_page">
+            <div ng-turn-page="vm.reviewedListtPage" turn-page-fn="vm.loadReviewedList"></div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,172 @@
+<div>
+    <input type="button" style="cursor: pointer"ng-class="{'true':'type_checked','false':'type_input'}[vm.check_type_a]"  ng-click="vm.changType(1)" value="调整监测点">
+    <input type="button" style="margin-left: -5px;cursor: pointer" ng-class="{'true':'type_checked','false':'type_input'}[vm.check_type_b]"  ng-click="vm.changType(2)" value="调整监品种">
+    <span class="table_title">城市居民零售价格监测</span>
+</div>
+
+<div class="select_b_zzy " style="top: 25px;">
+    <div class="leftSel_table_zzy over_hide" >
+        <table border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="10.6%" class="txt">报送单位：</td>
+                <td width="10.6%" class="txt left">南京市价格监测中心</td>
+
+                <td width="10.6%" class="txt">报送负责人：</td>
+                <td width="10.6%" class="txt left">张云建</td>
+
+                <td width="10.6%" class="txt">联系电话：</td>
+                <td width="10.6%" class="txt left">1823454356</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div ng-if="vm.check_type_a">
+    <div class="table_box_zzy top1_zzy" style="top: 138px;">
+        <div class="table_head_zzy marginB2">
+            <table>
+                <tr>
+                    <td width="5%"  ng-click="vm.selectAll(vm.demoList)">
+                        <a href="javascript:;" class="ipt_check"  ng-model="vm.allSelected" ng-class="{true:'checked',false:''}[vm.allSelected]"></a>
+                    </td>
+                    <td width="15%">商品名称</td>
+                    <td width="10%">规格等级</td>
+                    <td width="10%">计量单位</td>
+                    <td width="10%">零售价</td>
+                    <td width="20%">采价点</td>
+                    <td width="15%">备注</td>
+                    <td width="15%">附件</td>
+                </tr>
+            </table>
+        </div>
+        <div class="table_main_zzy" m-custom-scrollbar >
+            <table>
+                <tr ng-repeat="n in vm.signList track by $index" ng-class-even="'bgcolor'"
+                    ng-class="{'false':'','true':'selected'}[n.selected]">
+                    <td width="5%" ng-click="vm.selectItem(n)" >
+                        <a href="javascript:;" class="ipt_check"  ng-model="n.selected" ng-class="{true:'checked',false:''}[n.selected]"></a>
+                    </td>
+                    <td width="15%" ng-style="n.style">&nbsp;&nbsp;{{n.chinaname}}</td>
+                    <td width="10%">{{n.site_name}}</td>
+                    <td width="10%" >{{n.col_datetime}}</td>
+                    <td width="10%" >{{n.actual_sign_nums}}</td>
+                    <td width="20%" ng-style="{color:(n.is_pub===1)?'red':''}">{{n.monitor_point}}</td>
+                    <td width="15%" ng-style="{color:(n.is_pub===1)?'red':''}">{{n.remark}}</td>
+                    <td width="15%">
+                        <a href="javascript:;" class="table_main1_a" ng-if="n.is_pub ==1" ng-click="vm.editDemo(n)">上传</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div ng-if="vm.check_type_b">
+    <div class="monitor_viv" m-custom-scrollbar>
+        <div class="monitor_input">
+            <span>浦口区苏果超市</span>
+        </div>
+        <div class="monitor_input">
+            <span>浦口区大润发超市</span>
+        </div>
+        <div class="monitor_input">
+            <span>浦口区雨山路菜市场</span>
+        </div>
+
+        <div class="monitor_input">
+            <span>浦口区苏果超市</span>
+        </div>
+        <div class="monitor_input">
+            <span>浦口区大润发超市</span>
+        </div>
+        <div class="monitor_input">
+            <span>浦口区雨山路菜市场</span>
+        </div>
+
+        <div class="monitor_input">
+            <span>浦口区苏果超市</span>
+        </div>
+        <div class="monitor_input">
+            <span>浦口区大润发超市</span>
+        </div>
+        <div class="monitor_input">
+            <span>浦口区雨山路菜市场</span>
+        </div>
+
+        <div class="monitor_input">
+            <span>浦口区苏果超市</span>
+        </div>
+        <div class="monitor_input">
+            <span>浦口区大润发超市</span>
+        </div>
+        <div class="monitor_input">
+            <span>浦口区雨山路菜市场</span>
+        </div>
+    </div>
+    <div class="table_box_zzy top1_zzy" style="top: 230px;">
+        <div class="table_head_zzy marginB2">
+            <table>
+                <tr>
+                    <td width="5%"  ng-click="vm.selectAll(vm.demoList)">
+                        <a href="javascript:;" class="ipt_check"  ng-model="vm.allSelected" ng-class="{true:'checked',false:''}[vm.allSelected]"></a>
+                    </td>
+                    <td width="20%">商品名称</td>
+                    <td width="15%">规格等级</td>
+                    <td width="15%">计量单位</td>
+                    <td width="10%">零售价</td>
+                    <td width="20%">备注</td>
+                    <td width="15%">附件</td>
+                </tr>
+            </table>
+        </div>
+        <div class="table_main_zzy" m-custom-scrollbar >
+            <table>
+                <tr ng-repeat="n in vm.signList_b track by $index" ng-class-even="'bgcolor'"
+                    ng-class="{'false':'','true':'selected'}[n.selected]">
+                    <td width="5%" ng-click="vm.selectItem(n)" >
+                        <a href="javascript:;" class="ipt_check"  ng-model="n.selected" ng-class="{true:'checked',false:''}[n.selected]"></a>
+                    </td>
+                    <td width="20%" ng-style="n.style">&nbsp;&nbsp;{{n.chinaname}}</td>
+                    <td width="15%">{{n.site_name}}</td>
+                    <td width="15%" >{{n.col_datetime}}</td>
+                    <td width="10%" >{{n.actual_sign_nums}}</td>
+                    <td width="20%" ng-style="{color:(n.is_pub===1)?'red':''}">{{n.remark}}</td>
+                    <td width="15%">
+                        <a href="javascript:;" class="table_main1_a" ng-if="n.is_pub ==1" ng-click="vm.editDemo(n)">上传</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<style>
+    .type_input{
+        background-color: darkturquoise;
+    }
+    .type_checked{
+        background-color: white;
+    }
+    .table_title{
+        text-align: center;
+        margin-left: 31%;
+        font-size: 18px;
+        font-weight: 600;
+    }
+    .leftSel_table_zzy table td.left{
+        text-align: left;
+    }
+    .monitor_viv{
+        margin-top: 40px;
+        margin-bottom: 20px;
+        height:100px;
+        background-color: aliceblue;
+    }
+    .monitor_input{
+        cursor: pointer;
+        margin: 12px 50px 12px;
+        line-height: 26px;
+        float: left;
+        box-sizing: border-box;
+    }
+</style>

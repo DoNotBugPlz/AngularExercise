@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+           http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-3.1.xsd" default-autowire="byName">
+
+    <!-- 控制器异常处理-->
+    <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <!--定义默认的异常处理页面-->
+        <property name="defaultErrorView" value="default-error"/>
+        <!--定义异常处理页面用来获取异常信息的变量名-->
+        <property name="exceptionAttribute" value="ex"/>
+        <property name="defaultStatusCode" value="500"/>
+        <!--定义需要特殊处理的异常,key是异常类的全限定名，值是对应的异常页面名-->
+        <property name="exceptionMappings">
+            <props>
+                <prop key="com.skytech.persistence.exceptions.DAOException">dao-error</prop>
+                <prop key="com.skytech.persistence.exceptions.ServiceException">service-error</prop>
+            </props>
+        </property>
+        <!--http状态码-->
+        <property name="statusCodes" >
+            <map>
+                <entry key="default-error" value="500" />
+            </map>
+        </property>
+    </bean>
+
+    <!--配置异常的视图解析器-->
+    <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/platform/exceptions/catch/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+</beans>
+
+
+
+
+
+
+
+
+
+
+

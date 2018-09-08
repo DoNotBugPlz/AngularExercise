@@ -1,0 +1,25 @@
+<div class="popWhite">
+
+
+    <div class="css-content" ng-form="sms_sensitive">
+        <div style="display: none"  id="id" ng-model="vm.T_Sensitiveword.id" >  </div>
+        <table cellpadding="0" cellspacing="0">
+            <tbody>
+            <tr>
+                <td class="name name-height" style="width: 8%">敏感词</td>
+                <td class="value" colspan="3">
+                      <textarea id="content"
+                                class="remarks"
+                                ng-model="vm.T_Sensitiveword.sensitive"
+                                name="sensitive" ng-readonly="vm.is_view"></textarea>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--->
+    <div class="popBottom">
+        <a class="table_main1_a" ng-click="vm.savesensitivewords()" ng-if="!vm.is_view" >保存</a>
+        <a class="table_main1_a" ng-click="vm.cancelOp()" ng-if="!vm.is_view">取消</a>
+    </div>
+</div>

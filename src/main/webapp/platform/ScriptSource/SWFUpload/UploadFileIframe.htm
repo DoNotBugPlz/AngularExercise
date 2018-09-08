@@ -1,0 +1,72 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh_cn" lang="zh_cn">
+<head>
+    <title>多文件上传组件</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="../EasyUI/Skins/default/easyui.css" rel="stylesheet" type="text/css" />
+    <link href="../EasyUI/Skins/icon.css" rel="stylesheet" type="text/css" />
+    <script src="../JQuery/jquery.min.js" type="text/javascript"></script>
+    <script src="../EasyUI/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="Comm/SWFUpload.js" type="text/javascript"></script>
+    <script src="Comm/SWFUpload.Queue.js" type="text/javascript"></script>
+    <script src="Comm/SWFUpload.Speed.js" type="text/javascript"></script>
+    <script src="Comm/UploaderHandler.js" type="text/javascript"></script>
+    <script src="../JavaScript/GlobalTools.js" type="text/javascript"></script>
+</head>
+<body class="easyui-layout">
+    <div data-options="region:'south',split:false" style="height: 32px;">
+        <div class="datagrid-toolbar">
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true"><span>
+                当前速度：<span id="Span_CurrentSpeed">0 KB/S</span></span></a> <a href="javascript:void(0)"
+                    class="easyui-linkbutton" data-options="plain:true"><span>平均速度：<span id="Span_AvgSpeed">0
+                        KB/S</span></span></a> <a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true">
+                            <span>剩余时间：<span id="Span_Remaining">0 S</span></span></a> <a href="javascript:void(0)"
+                                class="easyui-linkbutton" data-options="plain:true"><span>总用时间：<span id="Span_Elapsed">0
+                                    S</span></span></a> <a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true"
+                                        style="float: right;"><span id="UploadStatus"></span>
+            </a>
+        </div>
+    </div>
+    <div data-options="region:'center'">
+        <table id="SWFUploadGrid" class="easyui-datagrid" data-options="border:false,
+        singleSelect:true,
+        fit:true,
+        fitColumns:true,
+        idField: 'id',
+        toolbar: '#uploadFileToolBar'">
+            <thead>
+                <tr>
+                    <th data-options="field:'FileName',halign:'center'" width="100">
+                        文件名称
+                    </th>
+                    <th data-options="field:'FileSize',halign:'center'" align="center" width="50">
+                        大小
+                    </th>
+                    <th data-options="field:'FileProcess',halign:'center',formatter: formatFileProcess"
+                        width="100">
+                        上传进度
+                    </th>
+                    <th data-options="field:'FileStatus',align:'center',formatter: formatFileStatus"
+                        width="50">
+                        上传状态
+                    </th>
+                    <th data-options="field:'FileDelete',halign:'center',formatter: formatFileDelete"
+                        width="20">
+                        删除
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div id="uploadFileToolBar" class="datagrid-toolbar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-add'"
+            style="float: left;">
+            <button id="BtnFindFiles">
+            </button>
+        </a><a href="javascript:void(0)" id="Btn_Start" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-add'">
+            开始上传</a> <a href="javascript:void(0)" id="Btn_Clear" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-add'">
+                清空列表</a> <a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true"
+                    style="float: right;"><span>总数：<span id="Span_TotalFileCount">0</span> 个 </span>
+                </a>
+    </div>
+</body>
+</html>

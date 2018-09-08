@@ -1,0 +1,187 @@
+﻿<div class="easyui-panel" fit="true" border="false">
+    <div class="easyui-layout" data-options="fit:true">
+        <div data-options="region:'north',split:false,border:false">
+            <form id="subTailorForm" method="post" action="../../Sys_virtualsubtable/SaveForm.do">
+            <div class="datagrid-toolbar">
+                <a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveSubTailorForm();"
+                    data-options="plain:true,iconCls:'icon-save'">保存</a> <a href="javascript:void(0)"
+                        class="easyui-linkbutton" onclick="creatNewColumn()" data-options="plain:true,iconCls:'icon-add'">
+                        新增列</a> <a href="javascript:void(0)" class="easyui-linkbutton" onclick="editColumn()"
+                            data-options="plain:true,iconCls:'icon-edit'">编辑列</a> <a href="javascript:void(0)"
+                                class="easyui-linkbutton" onclick="cancelEditColumn()" data-options="plain:true,iconCls:'icon-undo'">
+                                取消编辑</a> <a href="javascript:void(0)" class="easyui-linkbutton" onclick="destroyColumn();"
+                                    data-options="plain:true,iconCls:'icon-ok'">删除列</a>
+            </div>
+            <table style="width: 100%;">
+                <tr height="30">
+                    <td align="left" colspan="6">
+                        子表标题名称：
+                        <input class="easyui-validatebox" type="text" id="chinaname" name="sys_virtualsubtable.chinaname"
+                            data-options="required:true" style="width: 150px" />
+                        &nbsp;&nbsp;&nbsp; 子表标识：
+                        <input class="easyui-validatebox" type="text" id="constname" name="sys_virtualsubtable.constname"
+                            data-options="required:true,validType:'remote[{url:rootPath + \'Sys_virtualsubtable/ValidConstName.do\',data:{constname:$(\'#constname\').val(),subtailorformid:$(\'#subTailorFormid\').val()}}]'" style="width: 150px" />
+                        <input type="hidden" id="subTailorFormid" name="sys_virtualsubtable.id" />
+                        <input type="hidden" id="tablename" name="sys_virtualsubtable.tablename" />
+                        &nbsp;&nbsp;&nbsp; 所属单位：
+                        <input type="hidden" name="sys_virtualsubtable.unitid" id="tailorFormUnitid" />
+                        <input class="easyui-combobox" type="text" id="unitname" name="sys_dept.chinaname"
+                            data-options="required:true,onShowPanel:showDeptTreeGrid" style="width: 150px" />
+                        &nbsp;&nbsp;&nbsp; 关联父表字段：<input class="easyui-combobox" name="sys_virtualsubtable.foreignkeycolumn"
+                            style="width: 100px;" id="foreignkeycolumn" data-options=" required:true,
+                                    url:rootPath + 'Sys_colsremark/LoadColsByTableName.do?tablename='+currentTableName,
+                                    valueField:'colname',
+                                    textField:'colname',
+                                    panelHeight:'auto'" />
+                    </td>
+                </tr>
+                <tr height="30">
+                    <td align="left" valign="middle" colspan="4">
+                        <input type="checkbox" id="shownumber" name="sys_virtualsubtable.shownumber" />
+                        显示行号 &nbsp;&nbsp;&nbsp;
+                        <input type="checkbox" id="multiselect" name="sys_virtualsubtable.multiselect" />
+                        允许多选 &nbsp;&nbsp;&nbsp;
+                        <input type="checkbox" id="showfooter" name="sys_virtualsubtable.showfooter" />
+                        显示汇总 &nbsp;&nbsp;&nbsp; 
+                        汇总标题列：<input class="easyui-combobox" name="sys_virtualsubtable.collectdisplayfield"
+                            style="width: 100px;" id="collectdisplayfield" data-options=" required:true,
+                                    url:rootPath + 'Sys_colsremark/LoadColsByTableName.do?tablename='+currentTableName,
+                                    valueField:'colname',
+                                    textField:'colname',
+                                    panelHeight:'auto'" />
+                        &nbsp;&nbsp;&nbsp;
+                        <input type="checkbox" id="pagination" name="sys_virtualsubtable.pagination" />
+                        允许分页 &nbsp;&nbsp;&nbsp; 页大小：
+                        <select id="state" class="easyui-combobox" id="pagesize" name="sys_virtualsubtable.pagesize"
+                            style="width: 50px;">
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                            <option value="25">25</option>
+                            <option value="30">30</option>
+                            <option value="50">50</option>
+                        </select>
+                    </td>
+                    <td align="right">
+                        页面相对路径：
+                    </td>
+                    <td>
+                        <input class="easyui-validatebox" type="text" id="pagerootpath" name="sys_virtualsubtable.pagerootpath"
+                            data-options="required:true" style="width: 200px" />
+                    </td>
+                </tr>
+                <tr height="30">
+                    <td align="right">
+                        获取数据地址：
+                    </td>
+                    <td>
+                        <input class="easyui-validatebox" type="text" id="loaddataaction" name="sys_virtualsubtable.loaddataaction"
+                            data-options="required:true" style="width: 250px" />
+                    </td>
+                    <td align="right">
+                        保存数据地址：
+                    </td>
+                    <td>
+                        <input class="easyui-validatebox" type="text" id="savedataaction" name="sys_virtualsubtable.savedataaction"
+                            data-options="required:true" style="width: 200px" />
+                    </td>
+                    <td align="right">
+                        删除数据地址：
+                    </td>
+                    <td>
+                        <input class="easyui-validatebox" type="text" id="destroydataaction" name="sys_virtualsubtable.destroydataaction"
+                            data-options="required:true" style="width: 200px" />
+                    </td>
+                </tr>
+            </table>
+            </form>
+        </div>
+        <div data-options="region:'center',split:false,border:true,title:'子表配置'">
+            <table id="dgSubTailorFormConfig" class="easyui-datagrid" data-options="
+            	url: rootPath +  'Sys_virtualsubtablecol/LoadPageList.do?subtailorformid=' + currentSubTailorFormid,
+                fit: true,
+                loadMsg: '数据加载中……',
+                fitColumns: true,
+                rownumbers: true,
+                border:false,
+                pageSize: 20,
+                pagination: true,
+                idField: 'id',
+                onDblClickRow:subTailorFormConfigDblClickRow,
+                onLoadError: gridLoadError">
+                <thead>
+                    <tr>
+                        <th data-options="field:'ck',checkbox:true">
+                        </th>
+                        <th data-options="field:'colname',halign:'center',
+                            formatter:formatterColNameCell,
+                            editor:{
+                                type:'combobox',
+                                options:{
+								    required:true,
+								    data:colDatas,
+								    valueField:'colname',
+								    textField:'alias',
+                                    onSelect: dynamicEditor
+                                }
+                            }" width="40">
+                            字段名称
+                        </th>
+                        <th data-options="field:'chinaname',halign:'center',
+                            editor:{
+                                type:'validatebox',
+                                options:{required:true}
+                            }" width="40">
+                            列表标题
+                        </th>
+                        <th data-options="field:'colwidth',align:'center',
+                            editor:{
+                                type:'numberbox',
+                                options:{required:true}
+                            }" width="30">
+                            宽度
+                        </th>
+                        <th data-options="field:'textalign',align:'center',
+                            formatter: formatterSubTailorFormAlignCell,
+                            editor:{
+                                type:'combobox',
+                                options:{
+                                    panelHeight:'auto',
+								    required:true,
+								    data:alignData,
+								    valueField:'value',
+								    textField:'text'
+                                }
+                            }" width="30">
+                            单元格对齐
+                        </th>
+                        <th data-options="field:'sortindex',align:'center',
+                            editor:{
+                                type:'numberbox',
+                                options:{required:true}
+                            }" width="30">
+                            排序编号
+                        </th>
+                        <th data-options="field:'enablecollect',align:'center',formatter: formatterEnableCollectCell,
+                            editor:{type:'checkbox',options:{on:1,off:0}}" width="20">
+                            启用汇总
+                        </th>
+                        <th data-options="field:'collectrule',align:'center',
+                            formatter: formatterSubTailorFormCollectRuleCell,
+                            editor:{
+                                type:'combobox',
+                                options:{
+                                    multiple:true,
+                                    panelHeight:'auto',
+								    data:collectRuleData,
+								    valueField:'value',
+								    textField:'text'
+                                }
+                            }" width="30">
+                            汇总规则
+                        </th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>

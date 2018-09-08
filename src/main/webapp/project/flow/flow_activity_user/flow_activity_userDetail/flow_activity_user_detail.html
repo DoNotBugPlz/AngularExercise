@@ -1,0 +1,53 @@
+<!--<div class="popWhite" ng-controller="ChangePwdCtrl as changepwd">-->
+<div class="popWhite"   >
+    <div class="css-content" m-custom-scrollbar  ng-form="fau_form" >
+        <table cellpadding="0" cellspacing="0">
+            <tbody>
+            <tr>
+                <td  class="name name-height">流程关键字</td>
+                <td  colspan="3" class="value">
+                    <input ng-class="{true:'warn',false:''}[fau_form.def_process_key.$error.required]" ng-readonly="vm.readonly"
+                           required maxlength="50" type="text" ng-model="vm.fau.def_process_key"  name="def_process_key"  />
+                </td>
+            </tr>
+            <tr>
+                <td  class="name name-height">流程步骤关键字</td>
+                <td  colspan="3"class="value" >
+                    <input ng-class="{true:'warn',false:''}[fau_form.def_activity_key.$error.required]" ng-readonly="vm.readonly"
+                           required maxlength="50" type="text" ng-model="vm.fau.def_activity_key"  name="def_activity_key"  />
+                </td>
+            </tr>
+            <tr>
+                <td class="name name-height">人员</td>
+                <td colspan="3" class="value" >
+                    <input required maxlength="50" type="text"
+                           ng-model="vm.fau.user_names" name="user_names"
+                           ng-class="{true:'warn',false:''}[fau_form.user_names.$error.required]"/>
+                    <i class="selectOp " ng-click="vm.selectUserInfo()"></i>
+                    <input required maxlength="50" type="hidden"
+                           ng-model="vm.fau.user_ids" name="user_ids"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="name name-height">部门</td>
+                <td colspan="3" class="value" >
+                    <input ng-class="{true:'warn',false:''}[fau_form.dept_ids.$error.required]" ng-readonly="vm.readonly"
+                           required maxlength="50" type="text" ng-model="vm.fau.dept_ids"  name="dept_ids"  />
+                </td>
+            </tr>
+            <tr>
+                <td class="name name-height">角色</td>
+                <td colspan="3" class="value" >
+                    <input ng-class="{true:'warn',false:''}[fau_form.role_ids.$error.required]" ng-readonly="vm.readonly"
+                           required maxlength="50" type="text" ng-model="vm.fau.role_ids"  name="role_ids"  />
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+    <div class="popBottom" ng-if="!vm.readonly">
+        <a class="table_main1_a"  ng-click="vm.saveFauInfo()" >保存</a>
+        <a class="table_main1_a" ng-click="vm.cancelOp()">取消</a>
+    </div>
+</div>

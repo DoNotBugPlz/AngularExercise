@@ -1,0 +1,130 @@
+<div class="table_tip_zzy"><!--操作按钮-->
+    <div class="table_tip_btn_zzy">
+        <a ng-click="">打印</a>
+        <a ng-click="">导出</a>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="select_b_zzy">
+    <div class="leftSel_table_zzy " ng-class="{true:'up',false:'over_hide2'}[vm.advSearch]">
+        <table border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="10%" class="txt">姓名：</td>
+                <td width="20%">
+                    <input type="text" class="sel_ipt_zzy"  ng-model="vm.searchParams.keyword"/>
+                </td>
+                <td  class="txt" width="10%">时间：</td>
+                <td  class="txt_center" width="20%" >
+                    <input type="text" class="sel_ipt_zzy sel_ipt_zzy_size pull_left Wdate"
+                           ng-model = "vm.searchParams.start_date" ng-date="yyyy-MM-dd"
+                           id="start_date" name="start_date"  max-date="#F{$dp.$D('end_date')}"  style="width: 40%"/>
+                    <span class="ipt_line" style="width:5%;"></span>
+                    <input type="text" class="sel_ipt_zzy sel_ipt_zzy_size pull_right Wdate"
+                           ng-model="vm.searchParams.end_date" ng-date="yyyy-MM-dd"　
+                           id="end_date" name="end_date" min-date="#F{$dp.$D('start_date')}" style="width: 40%"/>
+
+                </td>
+
+
+                <td width="10%" class="txt">单位：</td>
+                <td width="20%">
+                    <div class="chosen_div" >
+                        <select  ng-model="vm.searchParams.is_public"  class="sel_sel_zzy"
+                                 ng-chosen
+                                 ng-chosen-data="vm.yesnoCatagory"
+                                 ng-options="n.id as n.chinaname for n in vm.yesnoCatagory" >
+                            <option ng-chosen-option></option>
+                        </select>
+                    </div>
+                </td>
+                <td class="left">
+                    <a href="javascript:;" class="sel_btn_zzy " ng-click="vm.loadDemoList()">查询</a>
+                    <a href="javascript:;" class="reSet_btn_zzy" ng-click="vm.clearSearchParams()">重置</a>
+                </td>
+            </tr>
+            <tr>
+                <td class="txt">部门：</td>
+                <td >
+                    <div class="chosen_div" >
+                        <select  ng-model="vm.searchParams.is_public2"  class="sel_sel_zzy"
+                                 ng-chosen
+                                 ng-chosen-data="vm.yesnoCatagory"
+                                 ng-options="n.id as n.chinaname for n in vm.yesnoCatagory" >
+                            <option ng-chosen-option></option>
+                        </select>
+                    </div>
+                </td>
+                <td class="txt">变更类型：</td>
+                <td >
+                    <div class="chosen_div" >
+                        <select  ng-model="vm.searchParams.is_public2"  class="sel_sel_zzy"
+                                 ng-chosen
+                                 ng-chosen-data="vm.yesnoCatagory"
+                                 ng-options="n.id as n.chinaname for n in vm.yesnoCatagory" >
+                            <option ng-chosen-option></option>
+                        </select>
+                    </div>
+                </td>
+                <td  class="txt">监测任务：</td>
+                <td width="10%">
+                    <input type="text" class="sel_ipt_zzy"  ng-model="vm.searchParams.keyword"/>
+                </td>
+
+            </tr>
+        </table>
+
+    </div>
+
+</div>
+<div class="table_box_zzy top1_zzy" style="top: 108px;">
+    <div class="table_head_zzy marginB2">
+        <table >
+            <tr>
+                <td width="5%"  ng-click="vm.selectAll(vm.monitorTableQueryList)">
+                    <a href="javascript:;" class="ipt_check"  ng-model="vm.allSelected" ng-class="{true:'checked',false:''}[vm.allSelected]"></a>
+                </td>
+                <td width="5%">序号</td>
+                <td width="10%">姓名</td>
+                <td width="10%">日期</td>
+                <td width="15%">单位</td>
+                <td width="10%">部门</td>
+                <td width="10%">更变类型</td>
+                <td width="15%">监测任务</td>
+                <td width="5%">状态</td>
+                <td widht="5%">审核</td>
+                <td width="10%">操作</td>
+            </tr>
+        </table>
+    </div>
+    <div id="query_nothing" class="nothing nothingTop"
+         ng-show="!!!vm.monitorTableQueryList||vm.monitorTableQueryList.length==0">
+        <span></span>暂无数据
+    </div>
+    <div class="table_main_zzy" m-custom-scrollbar >
+        <table  ng-hide="!!!vm.monitorTableQueryList||vm.monitorTableQueryList.length==0">
+            <tr ng-repeat="n in vm.monitorTableQueryList track by $index" ng-class-even="'bgcolor'"
+                ng-class="{'false':'','true':'selected'}[n.selected]">
+                <td width="5%" ng-click="vm.selectItem(n)">
+                    <a href="javascript:;" class="ipt_check"  ng-model="n.selected" ng-class="{true:'checked',false:''}[n.selected]"></a>
+                </td>
+                <td  width="5%">{{ $index + 1+ (vm.currentPageInf.pageNumber-1)*vm.currentPageInf.pageSize }}</td>
+                <td width="30%" style="text-align: left">&nbsp;&nbsp;{{n.col_str}}</td>
+                <td width="10%" >{{n.col_date}}</td>
+                <td width="10%" >{{n.col_datetime}}</td>
+                <td width="10%" >{{n.col_category_text}}</td>
+                <td width="10%" ng-style="{color:(n.is_pub===1)?'red':''}">{{n.is_pub_text}}</td>
+                <td width="15%" class="pad_zzy">
+                    <a href="javascript:;" class="table_main1_a" ng-click="vm.editMonitorTableQuery(n,'view')">查看</a>
+                    <a href="javascript:;" class="table_main1_a" ng-click="vm.editMonitorTableQuery(n,'edit')">修改</a>
+                    <a href="javascript:;" class="table_main1_a"　ng-click="vm.deleteMonitorTableQuery(n)">删除</a>
+                    <!--<span class="delRole" ng-click="vm.deleteMonitorTableQuery(n)">[删除]</span>-->
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="table-tfoot">
+        <div class="table_page">
+            <div ng-turn-page="vm.monitorTableQueryListPage" turn-page-fn="vm.loadMonitorTableQueryList"></div>
+        </div>
+    </div>
+</div>

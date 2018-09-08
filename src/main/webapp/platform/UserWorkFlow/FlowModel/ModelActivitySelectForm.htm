@@ -1,0 +1,43 @@
+﻿<div data-options="region:'north',split:false,border:false" style="height: 40px">
+    <table style="height: 100%;" border="0">
+        <tr>
+            <td width="15%" align="right">
+                表单名:
+            </td>
+            <td width="40%">
+                <input class="easyui-validatebox" type="text" id="title" name="title" style="width: 95%" />
+            </td>
+            <td width="15%">
+                <a href="javascript:void(0)" class="easyui-linkbutton" onclick="searchSelectForms()"
+                    data-options="iconCls:'icon-search'">搜索</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div data-options="region:'center',border:true,title:'表单列表'" style="padding-bottom: 0px;
+    height: 370px">
+    <table id="divSelectTailorForm" class="easyui-datagrid" data-options="
+                            url: rootPath+'Sys_def_tailorform/LoadTailorForms.do',
+                            singleSelect: false,
+                            fit: true,
+                            fitColumns: true,
+                            rownumbers: true,
+                            pageSize: 10,
+                            pagination: true,
+                            idField: 'id',
+                            onCheck:onCheckSelectTailorForm,
+                            onLoadError: gridLoadError">
+        <thead>
+            <tr>
+                <th data-options="field:'ck',checkbox:true">
+                </th>
+                <th data-options="field:'chinaname',halign:'center'" width="50">
+                    表单名称
+                </th>
+                <th data-options="field:'formtype',align:'center'" width="50">
+                    类型
+                </th>
+            </tr>
+        </thead>
+    </table>
+</div>

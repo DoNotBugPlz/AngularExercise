@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>有效工作日管理</title>
+    <link href="../ScriptSource/EasyUI/Skins/default/easyui.css" rel="stylesheet" type="text/css" />
+    <link href="../ScriptSource/EasyUI/Skins/icon.css" rel="stylesheet" type="text/css" />
+    <script src="../ScriptSource/JQuery/jquery.min.js" type="text/javascript"></script>
+    <script src="../ScriptSource/EasyUI/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../ScriptSource/JavaScript/GlobalTools.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var grid;
+        var rootPath="../../";
+        $(function () {
+            //init year
+            for (var j = 0, tmpyear = new Date().getFullYear(); j < 10; j++) {
+                $("#year").append('<option value="' + tmpyear + '" >' + tmpyear + ' 年</option>');
+                tmpyear = tmpyear + 1;
+            }
+            $("#year").combobox({ panelHeight: 'auto', onSelect: yearMonthOnSelect });
+            //init month
+            for (j = 1; j < 13; j++) {
+                if (j == new Date().getMonth() + 1) {
+                    $("#month").append('<option value="' + j + '" selected >' + j + ' 月</option>');
+                }
+                else {
+                    $("#month").append('<option value="' + j + '" >' + j + ' 月</option>');
+                }
+            }
+            $("#month").combobox({ panelHeight: 'auto', onSelect: yearMonthOnSelect });
+
+            isSaved();
+        });
+
+        function isSaved() {
+            $.ajax({
+                type: "POST",
+                url: rootPath+"Sys_effectdate/IsSaved.do",
+                data: { year: $("#year").combobox('getValue'), month: $('#month').combobox('getValue') },
+                success: function (data) {
+                    if (data) {
+                        $("#tdSaved").html("(已保存过该月工作日信息)");
+                    }
+
+                    else {
+                        $("#tdSaved").html("(未保存过该月工作日信息)");
+                    }
+                }
+            });
+        }
+
+        //年、月 选项改变事件
+        function yearMonthOnSelect() {
+            $("#dateGrid").datagrid('load', {
+                year: $("#year").combobox('getValue'),
+                month: $('#month').combobox('getValue')
+            });
+            isSaved();
+        }
+
+        function save_click() {
+            GlobalTools.ajax({
+                type: "POST",
+                url: rootPath+"Sys_effectdate/SaveForm.do",
+                data: { year: $("#year").combobox('getValue'), month: $('#month').combobox('getValue'), formdata: JSON2.stringify(chkDatas()) },
+                loading: "正在设置........",
+                success: function (data) {
+                    $("#tdSaved").html("(已保存过该月工作日信息)");
+                    GlobalTools.tip("设置成功");
+                }
+            });
+        }
+
+        //保存前，表格内的值放到formData中
+        function chkDatas() {
+            var formData = new Array();
+            $("input[type=checkbox][id^='ckb_']", $("#mainform"))
+			.each(function () {
+			    formData.push({ name: this.id.substr(4), value: this.checked });
+			});
+            return formData;
+        }
+
+        function formatCell(value, rowData) {
+			value = value?value:"";
+            if (value.length > 0) {
+                if (value.substring(0, 1) == "f") {
+                    return "<input id='ckb_" + value.substr(5) + "' type='checkbox' />" + (value.substr(5).length < 2 ? ("0" + value.substr(5)) : value.substr(5));
+                }
+                else if (value.substring(0, 1) == "t") {
+                    return "<input id='ckb_" + value.substr(4) + "' type='checkbox' checked />" + (value.substr(4).length < 2 ? ("0" + value.substr(4)) : value.substr(4));
+                }
+            }
+            else {
+                return value;
+            }
+        }
+
+    </script>
+</head>
+<body>
+    <center>
+        <form id="mainform">
+        <table class="easyui-datagrid" title="有效工作日设置" id="dateGrid" style="width: 1060px;
+            height: 250px" data-options="toolbar:'#tb',pagination:false,url:rootPath+'Sys_effectdate/LoadEffectDate.do',queryParams:{year:new Date().getFullYear(),month:(new Date().getMonth() + 1)}">
+            <thead>
+                <tr>
+                    <th data-options="field:'sunday',width:150,align:'center',formatter:formatCell">
+                        星期日
+                    </th>
+                    <th data-options="field:'monday',width:150,align:'center',formatter:formatCell">
+                        星期一
+                    </th>
+                    <th data-options="field:'tuesday',width:150,align:'center',formatter:formatCell">
+                        星期二
+                    </th>
+                    <th data-options="field:'wednesday',width:150,align:'center',formatter:formatCell">
+                        星期三
+                    </th>
+                    <th data-options="field:'thursday',width:150,align:'center',formatter:formatCell">
+                        星期四
+                    </th>
+                    <th data-options="field:'friday',width:150,align:'center',formatter:formatCell">
+                        星期五
+                    </th>
+                    <th data-options="field:'saturday',width:150,align:'center',formatter:formatCell">
+                        星期六
+                    </th>
+                </tr>
+            </thead>
+        </table>
+        <div id="tb" style="padding: 5px; height: auto">
+            <div>
+                <table>
+                    <tr>
+                        <td>
+                            查看：
+                            <select name='year' id='year' style="width: 80px" />
+                        </td>
+                        <td>
+                            <select name='month' id='month' style="width: 80px" />
+                        </td>
+                        <td>
+                            工作日信息
+                        </td>
+                        <td id="tdSaved">
+                        </td>
+                        <td style="width: 150px;" align="right">
+                            <a href="#" class="easyui-linkbutton" onclick="save_click();" iconcls="icon-save">保存</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        </form>
+    </center>
+</body>
+</html>

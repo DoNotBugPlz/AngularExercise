@@ -1,0 +1,401 @@
+﻿<div class="easyui-panel" fit="true" border="false">
+    <!--padding:5px;border:1px solid #ddd;  -->
+    <div class="datagrid-toolbar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="savedefActivityform()"
+           data-options="plain:true,iconCls:'icon-save'">保存</a>
+    </div>
+    <div>
+        <form id="defActivityform" method="post" action="../../../Sys_def_activity/SaveForm.do">
+            <table style="padding-left: 20px;">
+                <colgroup>
+                    <col width="70px" align="left"/>
+                    <col align="left"/>
+                    <col width="60px" align="left"/>
+                    <col align="left"/>
+                </colgroup>
+                <tr>
+                    <td>
+                        活动名称:
+                    </td>
+                    <td style="width: 30%">
+                        <input class="easyui-validatebox" type="text" name="sys_def_activity.chinaname"
+                               id="defActivityChinaname"
+                               data-options="required:true" style="width: 90%"/>
+                    </td>
+                    <td>
+                        排序号:
+                    </td>
+                    <td colspan="1">
+                        <input class="easyui-validatebox" type="text" name="sys_def_activity.showsort"
+                               id="defActivityShowsort"
+                               data-options="required:false" style="width: 87px"/>
+                    </td>
+                </tr>
+                <tr trtype="join">
+                    <td>
+                        汇聚类型:
+                    </td>
+                    <td colspan="3">
+                        <input class="easyui-combobox" id="jointype" name="sys_def_activity.jointype" data-options="
+                    					data:[{'value':'all','text':'全部'},{'value':'anyone','text':'任意一个分支'},{'value':'any','text':'任意一个任务'}],
+                    					valueField:'value',
+                    					textField:'text',
+                    					value:'',
+                    					editable:false,
+                    					panelHeight:'auto'
+                    					" style="width: 300px"/>
+                </tr>
+                <tr trtype="commondate">
+                    <td style="width: 20%">
+                        办理期限:
+                    </td>
+                    <td style="width: 30%">
+                        <input class="easyui-validatebox" type="text" id="sys_def_activity.timelimit"
+                               name="sys_def_activity.timelimit"
+                               style="width: 90%"/>
+                    </td>
+                    <td style="width: 20%">
+                        期限单位:
+                    </td>
+                    <td>
+                        <input class="easyui-combobox" name="sys_def_activity.limitunit" data-options="
+                    					required:true,
+                    					data:[{'value':0,'text':'工作日'},{'value':1,'text':'天'}],
+                    					textField:'text',
+                    					value:'0',
+                    					editable:false,
+                    					panelHeight:'auto'
+                    					" style="width: 87px"/>
+                    </td>
+                </tr>
+                <tr trtype="common">
+                    <td>
+                        开启自由流:
+                    </td>
+                    <td>
+                        <input class="easyui-combobox" id="sys_def_activity.iscanstartcustomprocess"
+                               name="sys_def_activity.iscanstartcustomprocess"
+                               data-options="data:[{'value':0,'text':'否'},{'value':1,'text':'是'}],
+                    					valueField:'value',
+                    					textField:'text',
+                    					value:'',
+                    					editable:false,
+                    					panelHeight:'auto'
+                    					" style="width: 87px"/>
+                    </td>
+                    <td>
+                        等待自由流:
+                    </td>
+                    <td>
+                        <input class="easyui-combobox" name="sys_def_activity.iswaitcustom" data-options="
+                    					data:[{'value':0,'text':'否'},{'value':1,'text':'是'}],
+                    					valueField:'value',
+                    					textField:'text',
+                    					value:'',
+                    					editable:false,
+                    					panelHeight:'auto'
+                    					" style="width: 87px"/>
+                    </td>
+                </tr>
+                <tr trtype="common">
+                    <td tdtype="tdBack">
+                        是否回退:
+                    </td>
+                    <td tdtype="tdBack">
+                        <input class="easyui-combobox" name="sys_def_activity.isallowback" data-options="
+                    					data:[{'value':0,'text':'否'},{'value':1,'text':'是'}],
+                    					valueField:'value',
+                    					textField:'text',
+                    					value:'',
+                    					editable:false,
+                    					panelHeight:'auto'
+                    					" style="width: 87px"/>
+                    </td>
+                    <td>
+                        意见隔离
+                    </td>
+                    <td>
+                        <input class="easyui-combobox" name="sys_def_activity.isinsulatemind" data-options="
+                    					data:[{'value':0,'text':'否'},{'value':1,'text':'是'}],
+                    					valueField:'value',
+                    					textField:'text',
+                    					value:'',
+                    					editable:false,
+                    					panelHeight:'auto'
+                    					" style="width: 87px"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        是否并行:
+                    </td>
+                    <td>
+                        <input class="easyui-combobox" name="sys_def_activity.isparallel" data-options="
+                    					data:[{'value':0,'text':'否'},{'value':1,'text':'是'}],
+                    					valueField:'value',
+                    					textField:'text',
+                    					value:'',
+                    					editable:false,
+                    					panelHeight:'auto'
+                    					" style="width: 87px"/>
+                    </td>
+                    <td>
+                        是否正本:
+                    </td>
+                    <td>
+                        <input class="easyui-combobox" name="sys_def_activity.isoriginal" data-options="
+                    					data:[{'value':0,'text':'否'},{'value':1,'text':'是'}],
+                    					valueField:'value',
+                    					textField:'text',
+                    					value:'',
+                    					editable:false,
+                    					panelHeight:'auto'
+                    					" style="width: 87px"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        按人员顺序执行(并行使用):
+                    </td>
+                    <td>
+                        <input class="easyui-combobox" name="sys_def_activity.isinorderexecution" data-options="
+                    					data:[{'value':0,'text':'否'},{'value':1,'text':'是'}],
+                    					valueField:'value',
+                    					textField:'text',
+                    					value:'',
+                    					editable:false,
+                    					panelHeight:'auto'
+                    					" style="width: 87px"/>
+                    </td>
+                    <td colspan="2">（接收者之间，按序执行。A->B->C：A办完后，B的代办启动，B可接手办理）</td>
+                </tr>
+                <tr>
+                    <td>
+                        触发新流程:
+                    </td>
+                    <td colspan="3">
+                        <input type="hidden" id="anotherprocessdefineid"
+                               name="sys_def_activity.anotherprocessdefineid"/>
+                        <input class="easyui-validatebox" name="sys_def_activity.anotherprocessname"
+                               id="anotherprocessname" onfocus="openSelectAnotherProcessDialog()" style="width: 280px"/>
+                        <a href="#" onclick="clearAnotherprocess()">[清除]</a>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        等待新流程:
+                    </td>
+                    <td>
+                        <input class="easyui-combobox" name="sys_def_activity.iswaitanotherprocess"
+                               id="iswaitanotherprocess" data-options="
+                    					data:[{'value':0,'text':'否'},{'value':1,'text':'是'}],
+                    					valueField:'value',
+                    					textField:'text',
+                    					value:'',
+                    					editable:false,
+                    					panelHeight:'auto'
+                    					" style="width: 87px"/>
+                    </td>
+                    <td>
+                        触发按钮:
+                    </td>
+                    <td>
+                        <input class="easyui-validatebox" type="text" id="triggerbuttonname"
+                               name="sys_def_activity.triggerbuttonname"
+                               style="width: 87px"/>
+                    </td>
+                </tr>
+                <tr trtype="countersign" style="display: none;">
+                    <td>
+                        主持人可否填写该步骤的可编辑字段:
+                    </td>
+                    <td colspan="3">
+                        <input class="easyui-combobox" name="sys_def_activity.ismastercanedit" data-options="
+                    					data:[{'value':0,'text':'否'},{'value':1,'text':'是'}],
+                    					valueField:'value',
+                    					textField:'text',
+                    					value:'',
+                    					editable:false,
+                    					panelHeight:'auto'
+                    					" style="width: 87px"/>
+                    </td>
+                </tr>
+                <tr trtype="common" subprocess="true" style="display: none;">
+                    <td>
+                        子流程:
+                    </td>
+                    <td colspan="3">
+                        <input class="easyui-validatebox" type="text" id="subprocessname"
+                               name="sys_def_activity.subprocessname"
+                               style="width: 300px"/>
+                        <input type="hidden" id="subprocessid" name="sys_def_activity.subprocessdefineid"/>
+                    </td>
+                </tr>
+                <tr id="trIsWaitSubProcess" style="display: none;" trtype="common" subprocess="true"
+                    style="display: none;">
+                    <td>
+                        等待子流程:
+                    </td>
+                    <td>
+                        <input class="easyui-combobox" name="sys_def_activity.iswaitsubprocess" data-options="
+                    					data:[{'value':0,'text':'否'},{'value':1,'text':'是'}],
+                    					valueField:'value',
+                    					textField:'text',
+                    					value:'',
+                    					editable:false,
+                    					panelHeight:'auto'
+                    					" style="width: 87px"/>
+                    </td>
+                    <td>
+                        触发按钮:
+                    </td>
+                    <td>
+                        <input class="easyui-validatebox" type="text" id="subprocessbuttonname"
+                               name="sys_def_activity.subprocessbuttonname"
+                               style="width: 87px"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        允许挂起
+                    </td>
+                    <td>
+                        <input class="easyui-combobox" name="sys_def_activity.is_allowed_suspend" data-options="
+                    					data:[{'value':0,'text':'否'},{'value':1,'text':'是'}],
+                    					valueField:'value',
+                    					textField:'text',
+                    					value:'',
+                    					editable:false,
+                    					panelHeight:'auto'
+                    					" style="width: 87px"/>
+                    </td>
+                    <td>
+                        允许激活
+                    </td>
+                    <td>
+                        <input class="easyui-combobox" name="sys_def_activity.is_allowed_active" data-options="
+                    					data:[{'value':0,'text':'否'},{'value':1,'text':'是'}],
+                    					valueField:'value',
+                    					textField:'text',
+                    					value:'',
+                    					editable:false,
+                    					panelHeight:'auto'
+                    					" style="width: 87px"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        允许撤消:
+                    </td>
+                    <td>
+                        <input class="easyui-combobox" name="sys_def_activity.isallowrecall" data-options="
+                    					data:[{'value':0,'text':'否'},{'value':1,'text':'是'}],
+                    					valueField:'value',
+                    					textField:'text',
+                    					value:'',
+                    					editable:false,
+                    					panelHeight:'auto'
+                    					" style="width: 87px"/>
+                    </td>
+                    <td>
+                        允许强制撤消:
+                    </td>
+                    <td>
+                        <input class="easyui-combobox" name="sys_def_activity.isallowrecallforce" data-options="
+                    					data:[{'value':0,'text':'否'},{'value':1,'text':'是'}],
+                    					valueField:'value',
+                    					textField:'text',
+                    					value:'',
+                    					editable:false,
+                    					panelHeight:'auto'
+                    					" style="width: 87px"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        允许补发(只适用并行发送后)
+                    </td>
+                    <td>
+                        <input class="easyui-combobox" name="sys_def_activity.is_allowed_reissue" data-options="
+                    					data:[{'value':0,'text':'否'},{'value':1,'text':'是'}],
+                    					valueField:'value',
+                    					textField:'text',
+                    					value:'',
+                    					editable:false,
+                    					panelHeight:'auto'
+                    					" style="width: 87px"/>
+                    </td>
+                    <td>
+                        活动标识
+                    </td>
+                    <td>
+                        <input class="easyui-validatebox" type="text" id="sys_def_activity_constname"
+                               name="sys_def_activity.constname"
+                               style="width: 87px"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        可删除所有附件
+                    </td>
+                    <td>
+                        <input class="easyui-combobox" name="sys_def_activity.operateallfiles" data-options="
+                    					data:[{'value':0,'text':'否'},{'value':1,'text':'是'}],
+                    					valueField:'value',
+                    					textField:'text',
+                    					value:'',
+                    					editable:false,
+                    					panelHeight:'auto'
+                    					" style="width: 87px"/>
+                    </td>
+                    <td>
+                        允许加签
+                    </td>
+                    <td>
+                        <input class="easyui-combobox" name="sys_def_activity.canaddnewact" data-options="
+                    					data:[{'value':0,'text':'否'},{'value':1,'text':'是'}],
+                    					valueField:'value',
+                    					textField:'text',
+                    					value:0,
+                    					editable:false,
+                    					panelHeight:'auto'
+                    					" style="width: 87px"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        可减签至
+                    </td>
+                    <td colspan="3">
+                        <input class="easyui-combobox" name="sys_def_activity.canskipact"
+                               data-options="
+                    					url:rootPath+'Sys_def_activity/LoadCanSelectActivitys.do?activityid='+whichNode.props.id.value+'&processid='+processid,
+                    					valueField:'id',
+                    					textField:'chinaname',
+										editable:false,
+                                        multiple:true,
+                    					panelHeight:'auto'
+                    					" style="width: 200px"/>
+                    </td>
+                </tr>
+            </table>
+            <input type="hidden" name="sys_def_activity.id" id="mdlactivityid"/>
+            <input type="hidden" name="sys_def_activity.processdefineid" id="processmodelid"/>
+        </form>
+    </div>
+</div>
+<div id="divSelectSubprocess" class="easyui-dialog" data-options="closed:true" style="padding: 10px;">
+</div>
+<div id="divSelectSubprocessButtons">
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveCheckedSubProcess();">
+        确定</a> <a href="javascript:void(0)" class="easyui-linkbutton" onclick="closeSelectSubProcessDialog();">
+    取消</a>
+</div>
+<div id="divSelectAnotherprocess" class="easyui-dialog" data-options="closed:true" style="padding: 10px;">
+</div>
+<div id="divSelectAnotherprocessButtons">
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveCheckedAnotherProcess();">
+        确定</a> <a href="javascript:void(0)" class="easyui-linkbutton" onclick="closeSelectAnotherProcessDialog();">
+    取消</a>
+</div>

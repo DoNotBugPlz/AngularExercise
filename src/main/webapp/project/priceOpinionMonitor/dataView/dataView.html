@@ -1,0 +1,46 @@
+<div class="select_b_zzy ">
+    <div class="leftSel_table_zzy over_hide2" >
+        <table border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="10.6%" class="txt">方案名：</td>
+                <td width="17.9%">
+                    <input type="text" class="sel_ipt_zzy" name="name" ng-model="vm.searchParams.name" placeholder="请输入报表名、监测品种关键字"/>
+                </td>
+
+                <td width="10.6%" class="txt">时间范围：</td>
+                <td width="17.9%">
+                    <input type="text" placeholder="请输入开始时间" name="start_date" id="start_date"
+                           ng-date="yyyy-MM-dd" class="Wdate"    max-date="#F{$dp.$D('end_date')}"
+                           ng-model="vm.condition.start_date"/>
+                </td>
+                <td width="10.6%" class="txt">至：</td>
+                <td width="17.9%">
+                    <input type="text" placeholder="请输入结束时间"  name="end_date" id="end_date"
+                           ng-date="yyyy-MM-dd" class="Wdate"  min-date="#F{$dp.$D('start_date')}"
+                           ng-model="vm.condition.end_date"/>
+                </td>
+                <td class="left">
+                    <a href="javascript:;" class="sel_btn_zzy" ng-click="vm.getList()">查询</a>
+                    <a href="javascript:;" class="reSet_btn_zzy" ng-click="vm.clearAll()">重置</a>
+                </td>
+            </tr>
+        </table>
+        <div class="view_type">
+            <span ng-click="vm.changeType(1)">走势图</span>
+            <span ng-click="vm.changeType(2)">来源图</span>
+            <span ng-click="vm.changeType(3)">地域分布</span>
+            <span ng-click="vm.changeType(4)">查询词云</span>
+        </div>
+    </div>
+</div>
+<div class="table_box_zzy top1_zzy">
+    <div  id ="main" style="width:100%;height: 100%">
+
+    </div>
+</div>
+
+<style>
+    .view_type span{
+        cursor: pointer;
+    }
+</style>

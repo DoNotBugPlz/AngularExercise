@@ -1,0 +1,126 @@
+<div style="width:100%;height:100%">
+    <div class="easyui-layout" data-options="fit:true">
+        <div data-options="region:'center',border:true,title:'代理人列表'" style="padding-bottom: 0px">
+            <table id="dgProxyer" class="easyui-datagrid" data-options="
+                fit: true,
+                loadMsg: '数据加载中……',
+                fitColumns: true,
+                rownumbers: true,
+                pageSize: 20,
+                pagination: true,
+                idField: 'id',
+                toolbar: '#gridProxyerToolBar',
+                onDblClickRow:taskDblClickRow,
+                url:rootPath + 'Officediction/LoadPageList.do',
+                queryParams:{userid:userId},
+                onLoadError: gridLoadError">
+                <thead>
+                <tr>
+                    <th data-options="field:'ck',checkbox:true">
+                    </th>
+                    <th data-options="field:'consignername'" width="140">
+                        委托人
+                    </th>
+                    <th data-options="field:'proxyername'" width="140">
+                        代理人
+                    </th>
+                    <th data-options="field:'consignstarttime',formatter:formatNormalDate" width="140">
+                        委托开始时间
+                    </th>
+                    <th data-options="field:'consignendtime',formatter:formatNormalDate" width="140">
+                        委托结束时间
+                    </th>
+                    <th data-options="field:'configername'" width="140">
+                        配置人
+                    </th>
+                    <th data-options="field:'consignstatus',formatter: formatterCell" width="50" align="center">
+                        状态
+                    </th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <div id="gridProxyerToolBar" class="datagrid-toolbar">
+        <div>
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="addProxyer()" data-options="plain:true,iconCls:'icon-add'">
+                添加</a> <a href="javascript:void(0)" class="easyui-linkbutton" onclick="setProxyerUnUsed()"
+                          data-options="plain:true,iconCls:'icon-pause'">禁用</a> <a href="javascript:void(0)"
+                                                                                   class="easyui-linkbutton" onclick="setProxyerUsed()" data-options="plain:true,iconCls:'icon-ok'">
+            启用</a> <a href="javascript:void(0)" class="easyui-linkbutton" onclick="deleteProxyer()"
+                      data-options="plain:true,iconCls:'icon-delete'">删除</a>
+        </div>
+    </div>
+    <div id="DlgEditProxyer" class="easyui-dialog" data-options="iconCls:'icon-customers',closed:true,resizable:false,top:200,
+            modal: true,draggable:true,cache:false,closable:false,buttons:'#ProxyerToolBar',title:'编辑代理人'"
+         style="width: 600px; height: 300px; padding: 10px">
+        <br />
+        <form id="ProxyerForm" method="post">
+            <input type="hidden" name="sys_consign.id" id="proxyId" />
+            <table width="100%" style="table-layout: fixed;">
+                <colgroup>
+                    <col width="80px" />
+                    <col width="200px" />
+                    <col width="80px" />
+                    <col width="200px" />
+                </colgroup>
+                <tr height="30">
+                    <td>
+                        委托人:
+                    </td>
+                    <td>
+                        <input type="hidden" name="sys_consign.consignerid" id="consignerid" />
+                        <input class="easyui-validatebox" type="text" name="sys_consign.consignername" id="consignername"
+                               readonly="readonly" style="width: 150px" />
+                    </td>
+                    <td>
+                        代理人:
+                    </td>
+                    <td>
+                        <input type="hidden" name="sys_consign.proxyerid" id="proxyerid" />
+                        <input class="easyui-combobox" type="text" id="proxyername" name="sys_consign.proxyername"
+                               setvaluectlname="sys_consign.proxyerid" data-options="required:true,multiple:false,onShowPanel:proxyerNameClick"
+                               style="width: 150px" />
+                    </td>
+                </tr>
+                <tr height="30">
+                    <td>
+                        委托时间:
+                    </td>
+                    <td>
+                        <input class="easyui-datebox" type="text" id="consignstarttime" name="sys_consign.consignstarttime"
+                               data-options="required:true,editable:false, formatter:formatNormalDate" style="width: 150px" />
+                    </td>
+                    <td>
+                        至:
+                    </td>
+                    <td>
+                        <input class="easyui-datebox" type="text" id="consignendtime" name="sys_consign.consignendtime"
+                               data-options="required:false,editable:false, formatter:formatNormalDate" style="width: 150px" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        委托状态:
+                    </td>
+                    <td width="80%" align="left">
+                        <input class="easyui-combobox" name="sys_consign.delstatus" id="consignstatus" data-options="
+                    					required:true,
+                    					data:[{'value':0,'text':'启用'},{'value':1,'text':'禁用'}],
+                    					valueField:'value',
+                    					textField:'text',
+                    					value:'0',
+                    					editable:false,
+                    					panelHeight:'auto'
+                    					" style="width: 150px" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div id="ProxyerToolBar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-save" onclick="saveProxyerData();">
+            确定</a> <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-cancel"
+                      onclick="DlgEditProxyerClosed();">取消</a>
+    </div>
+</div>

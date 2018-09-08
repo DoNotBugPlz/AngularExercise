@@ -1,0 +1,79 @@
+<div class="select_b_zzy ">
+    <div class="leftSel_table_zzy " ng-class="{true:'up',false:'over_hide2'}[vm.advSearch]">
+        <table border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="10%" class="txt">监测表：</td>
+                <td width="20%">
+                    <input type="text" class="sel_ipt_zzy" ng-model="vm.searchParams.keyword"/>
+                </td>
+                <td width="10%" class="txt">采价点：</td>
+                <td width="20%">
+                    <input type="text" class="sel_ipt_zzy" ng-model="vm.searchParams.adress"/>
+                </td>
+
+                <td width="10%" class="txt">状态：</td>
+                <td width="20%">
+                    <div class="chosen_div">
+                        <select ng-model="vm.searchParams.status" class="sel_sel_zzy"
+                                ng-chosen
+                                ng-chosen-data="vm.category_status"
+                                ng-options="n.id as n.text for n in vm.category_status">
+                            <option ng-chosen-option></option>
+                        </select>
+                    </div>
+                </td>
+                <td class="left">
+                    <a href="javascript:;" class="sel_btn_zzy " ng-click="vm.loadMonitoringPointWorkerList()">查询</a>
+                    <a href="javascript:;" class="reSet_btn_zzy" ng-click="vm.reset()">重置</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="table_box_zzy top1_zzy" style="top: 70px;">
+    <div class="table_head_zzy marginB2">
+        <table>
+            <tr>
+                <td width="5%">序号</td>
+                <td width="25%">监测表</td>
+                <td width="20%">采价点</td>
+                <td width="15%">采价日期</td>
+                <td width="15%">填报截止日期</td>
+                <td width="10%">状态</td>
+                <td width="10%">操作</td>
+            </tr>
+        </table>
+    </div>
+    <div id="query_nothing" class="nothing nothingTop"
+         ng-show="!!!vm.monitoringPointWorkerList||vm.monitoringPointWorkerList.length==0">
+        <span></span>暂无数据
+    </div>
+    <div class="table_main_zzy" m-custom-scrollbar>
+        <table class="table_word_space"
+               ng-hide="!!!vm.monitoringPointWorkerList||vm.monitoringPointWorkerList.length==0">
+            <tr ng-repeat="n in vm.monitoringPointWorkerList track by $index" ng-class-even="'bgcolor'"
+                ng-class="{'false':'','true':'selected'}[n.selected]">
+                <td width="5%">{{ $index + 1+ (vm.currentPageInf.pageNumber-1)*vm.currentPageInf.pageSize }}</td>
+                <td width="25%" class="word_space">{{n.excelname}}</td>
+                <td width="20%" class="word_space">{{n.adress}}</td>
+                <td width="15%">{{n.collect_time}}</td>
+                <td width="15%">{{n.deadline}}</td>
+                <td width="10%">{{n.status_text}}</td>
+                <td width="10%">
+                    <a href="javascript:;" class="table_main1_a" ng-show="n.status == 0"
+                       ng-click="vm.addMonitoringPointWorker(n)">填报</a>
+                    <a href="javascript:;" class="table_main1_a" ng-show="n.status == 1"
+                       ng-click="vm.editMonitoringPointWorker(n)">编辑</a>
+                    <a href="javascript:;" class="table_main1_a" ng-show="n.status == 2"
+                       ng-click="vm.amendMonitoringPointWorker(n)">修改</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="table-tfoot">
+        <div class="table_page">
+            <div ng-turn-page="vm.monitoringPointWorkerListPage" turn-page-fn="vm.loadMonitoringPointWorkerList"></div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,131 @@
+﻿<div class="easyui-panel" fit="true" border="false">
+    <!--padding:5px;border:1px solid #ddd;  -->
+    <div class="datagrid-toolbar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveCategoryForm()"
+            data-options="plain:true,iconCls:'icon-save'">保存</a>
+    </div>
+    <div>
+        <form id="form" method="post" action="../../../Sys_category/SaveForm.do">
+        <table style="padding-left: 20px;">
+            <tr height="30px">
+                <td width="20%" align="center">
+                    中文名:
+                </td>
+                <td width="20%" align="left">
+                    <input class="easyui-validatebox" type="text" name="sys_category.chinaname" data-options="required:true">
+                    </input>
+                </td>
+                <td width="20%" align="left">
+                    常量标识:
+                </td>
+                <td width="30%" align="left">
+                    <input class="easyui-validatebox" type="text" id="constname" name="sys_category.constname"
+                        data-options="required:true,validType:'remote[{url:rootPath +  \'Sys_category/ValidConstName.do\',data:{constname:$(\'#constname\').val(),categoryid:$(\'#categoryid\').val()}}]'" />
+                </td>
+            </tr>
+            <tr height="30px">
+                <td align="center">
+                    排序号:
+                </td>
+                <td align="left">
+                    <input class="easyui-validatebox" type="text" id="sys_category.sortindex" name="sys_category.sortindex">
+                </td>
+
+            </tr>
+            <tr height="30px">
+                <td align="center">
+                    字符型属性1:
+                </td>
+                <td align="left">
+                    <input type="text" id="sys_category.extchar1name" name="sys_category.extchar1name">
+                </td>
+
+                <td align="left">
+                    字符型属性2:
+                </td>
+                <td align="left">
+                    <input type="text" id="sys_category.extchar2name" name="sys_category.extchar2name">
+                </td>
+            </tr>
+            <tr height="30px">
+                <td align="center">
+                    字符型属性3:
+                </td>
+                <td align="left">
+                    <input type="text" id="sys_category.extchar3name" name="sys_category.extchar3name">
+                </td>
+
+                <td align="left">
+                    字符型属性4:
+                </td>
+                <td align="left">
+                    <input type="text" id="sys_category.extchar4name" name="sys_category.extchar4name">
+                </td>
+            </tr>
+            <tr height="30px">
+                <td align="center">
+                    数字型属性1:
+                </td>
+                <td align="left">
+                    <input type="text" id="sys_category.extint1name" name="sys_category.extint1name">
+                </td>
+
+                <td align="left">
+                    数字型属性1引用:
+                </td>
+                <td align="left">
+                    <input class="easyui-combobox" name="sys_category.extint1categoryid" data-options=" 
+                    data:categoryListData,
+                    valueField:'id',
+                    textField:'chinaname'" />
+                </td>
+            </tr>
+            <tr height="30px">
+                <td align="center">
+                    数字型属性2:
+                </td>
+                <td align="left">
+                    <input class="easyui-validatebox" type="text" id="sys_category.extint2name" name="sys_category.extint2name">
+                </td>
+
+                <td align="left">
+                    数字型属性2引用:
+                </td>
+                <td align="left">
+                    <input class="easyui-combobox" name="sys_category.extint2categoryid" data-options=" 
+                    data:categoryListData,
+                    valueField:'id',
+                    textField:'chinaname'" />
+                </td>
+            </tr>
+            <tr height="30px">
+                <td align="center">
+                    数字型属性3:
+                </td>
+                <td align="left">
+                    <input class="easyui-validatebox" type="text" id="sys_category.extint3name" name="sys_category.extint3name">
+                </td>
+
+                <td align="left">
+                    数字型属性3引用:
+                </td>
+                <td align="left">
+                    <input class="easyui-combobox" name="sys_category.extint3categoryid" data-options=" 
+                    data:categoryListData,
+                    valueField:'id',
+                    textField:'chinaname'" />
+                </td>
+            </tr>
+            <tr height="30px">
+                <td align="center">
+                    备注:
+                </td>
+                <td colspan="4">
+                    <textarea name="sys_category.remark" style="width: 400px"></textarea>
+                </td>
+            </tr>
+        </table>
+        <input type="hidden" id="categoryid" name="sys_category.id" />
+        </form>
+    </div>
+</div>

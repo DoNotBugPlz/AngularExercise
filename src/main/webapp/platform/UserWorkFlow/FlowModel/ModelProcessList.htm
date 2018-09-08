@@ -1,0 +1,245 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="../../ScriptSource/EasyUI/Skins/default/easyui.css" rel="stylesheet"
+        type="text/css" />
+    <link href="../../ScriptSource/EasyUI/Skins/icon.css" rel="stylesheet" type="text/css" />
+    <script src="../../ScriptSource/JQuery/jquery.min.js" type="text/javascript"></script>
+    <script src="../../ScriptSource/EasyUI/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../../ScriptSource/JavaScript/GlobalTools.js" type="text/javascript"></script>
+    <script language="javascript">
+        var rootPath = "../../../";
+        var currentUnitid;
+        var parmUnitid;
+        //动态加载属于当前部门的流程
+        function clickRow(row) {
+            parmUnitid = row.id;
+            $('#mdlProcessList').datagrid('load', {
+                "unitid": parmUnitid
+            });
+        }
+        function searchList() {
+            $('#mdlProcessList').datagrid('load', {
+                "unitid": parmUnitid,
+                keyname: $('#keyname').val()
+            });
+        }
+
+        //格式化是否禁用单元格
+        function formatterCell(value, row, index) {
+            return "<img src='../../Styles/ButtonIcons/" + (value && value > 0 ? "busy.gif" : "check.gif") + "'>";
+        }
+
+        //编辑流程模型
+        function dblClickRow(rowIndex, rowData) {
+            if (rowData.delstatus == "1") {
+                GlobalTools.tip("流程模型已经禁用，如需编辑请先启用。");
+                return;
+            }
+            if (rowData) {
+                top.addTab(rowData.chinaname, "../UserWorkFlow/FlowModel/ModelManagerPage.htm?currentunitid=" + currentUnitid + "&processid=" + rowData.id + "&constname=" + rowData.constname);
+            }
+        }
+        //创建流程模型
+        function creatModelProcess() {
+            top.addTab("创建流程模型", "../UserWorkFlow/FlowModel/ModelManagerPage.htm?currentunitid=" + currentUnitid);
+        }
+        //发布流程模型
+        function releaseModelProcess() {
+            var selectedDatas = $('#mdlProcessList').datagrid('getSelections');
+            if (!selectedDatas || selectedDatas.length == 0) return;
+            var idArr = new Array();
+            for (index in selectedDatas) {
+                idArr.push(selectedDatas[index].id);
+            }
+
+            GlobalTools.ajax({
+                url: rootPath + 'Releasemodelprocess/ReleaseModelProcess.do',
+                loading: '流程模型发布中……',
+                data: { ids: idArr.join(',') },
+                success: function (data) {
+                    GlobalTools.tip("流程发布成功");
+                    $("#mdlProcessList").datagrid('reload');
+                }
+            });
+        }
+
+        //流程复制
+        function copyModelProcess() {
+            var selectedDatas = $('#mdlProcessList').datagrid('getSelections');
+            if (!selectedDatas || selectedDatas.length == 0){
+                GlobalTools.tip("请至少选择一个流程！");
+                return;
+            }
+            var idArr = new Array();
+            for (index in selectedDatas) {
+                idArr.push(selectedDatas[index].id);
+            }
+
+            GlobalTools.ajax({
+                //url: rootPath + 'Releasemodelprocess/CopyModelProcess.do',
+                url: rootPath + 'Sys_mdl_process/CopyModelProcess.do',
+                loading: '流程模型复制中……',
+                data: { ids: idArr.join(',') },
+                success: function (data) {
+                    GlobalTools.tip("流程复制成功");
+                    $("#mdlProcessList").datagrid('reload');
+                }
+            });
+        }
+
+        //禁用流程模型
+        function deleteModelProcess() {
+            GlobalTools.deleteGridList($('#mdlProcessList'), { url: rootPath + "Sys_mdl_process/DeleteList.do" });
+        }
+        //启用流程模型
+        function unDeleteModelProcess() {
+            GlobalTools.unDeleteGridList($('#mdlProcessList'), { url: rootPath + "Sys_mdl_process/UnDeleteList.do" });
+        }
+        //彻底销毁流程模型
+        function destroyModelProcess() {
+            GlobalTools.destroyGridList($('#mdlProcessList'), { url: rootPath + "Sys_mdl_process/DestroyList.do" });
+        }
+
+        $(function () {
+
+            $.get(rootPath + "Sys_user/GetCurrentUserInfo.do").done(function(result){
+                currentUnitid = result.data.unitid;
+                $.get(rootPath + "Sys_dept/LoadForm.do?id=" + currentUnitid).done(function(deptData){
+                    parmUnitid = currentUnitid;
+                    if (deptData.data.sys_dept.parentid == -1) {
+                        parmUnitid = null;
+                    }
+
+                    $("#mdlProcessList").datagrid('options').url = rootPath + 'Sys_mdl_process/LoadPageList.do';
+                    $('#mdlProcessList').datagrid('load', {
+                        "unitid": parmUnitid
+                    });
+                    $("#mdlProcessList").datagrid("getPager").pagination({
+                        displayMsg: ""
+                    });
+                });
+            })
+
+         /*   GlobalTools.ajax({
+                dataType: "json",
+                url: rootPath + "Sys_user/GetCurrentUserInfo.do",
+                loading: '流程列表加载中……',
+                success: function (data) {
+                    currentUnitid = data.unitid;
+
+                    GlobalTools.ajax({
+                        dataType: "json",
+                        url: rootPath + "Sys_dept/LoadForm.do?id=" + currentUnitid,
+                        //loading: '流程列表加载中……',
+                        success: function (deptData) {
+                            parmUnitid = currentUnitid;
+                            if (deptData.sys_dept.parentid == -1) {
+                                parmUnitid = null;
+                            }
+
+                            $("#mdlProcessList").datagrid('options').url = rootPath + 'Sys_mdl_process/LoadPageList.do';
+                            $('#mdlProcessList').datagrid('load', {
+                                "unitid": parmUnitid
+                            });
+                            $("#mdlProcessList").datagrid("getPager").pagination({
+                                displayMsg: ""
+                            });
+                        }
+                    });
+                }
+            });*/
+        });
+    </script>
+</head>
+<body class="easyui-layout" data-options="fit:true">
+    <div style="width: 250px;" data-options="region:'west',split:false">
+        <table id="organizationTreeGrid" class="easyui-treegrid" data-options="title:'组织机构列表',
+			            url:rootPath+'Sys_dept/LoadPageListWithUnitid.do?',
+			            rownumbers: true,
+                        fit: true,
+                        fitColumns: true,
+						idField: 'id',
+						treeField: 'chinaname',
+						border:false,
+						onClickRow:clickRow
+			            ">
+            <thead>
+                <tr>
+                    <th data-options="field:'chinaname'" halign="center" width="264px">
+                        单位名称
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div style="width: 250px;" data-options="region:'center',split:false,title:'流程模型列表'">
+        <div class="easyui-layout" data-options="fit:true">
+            <div data-options="region:'north',split:false,border:false" style="height: 50px">
+                <table style="height: 100%;" border="0">
+                    <tr>
+                        <td width="10%" align="right">
+                            关键字:
+                        </td>
+                        <td>
+                            <input class="easyui-validatebox" type="text" id="keyname" name="keyname" style="width: 95%" />
+                        </td>
+                        <td width="15%" style="white-space: nowrap">
+                            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="searchList()" data-options="iconCls:'icon-search'" >
+                                搜索</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div data-options="region:'center',border:true" style="padding-bottom: 0px">
+                <table id="mdlProcessList" class="easyui-datagrid" data-options="
+                border:false,
+                fit: true,
+                loadMsg: '数据加载中……',
+                fitColumns: true,
+                rownumbers: true,
+                pageSize: 20,
+                pagination: true,
+                idField: 'id',
+                onDblClickRow:dblClickRow,
+                toolbar: '#gridToolBar',
+                onLoadError: gridLoadError">
+                    <thead>
+                        <tr>
+                            <th data-options="field:'ck',checkbox:true">
+                            </th>
+                            <th data-options="field:'constname',halign:'center'" width="50">
+                                流程标识
+                            </th>
+                            <th data-options="field:'chinaname',halign:'center'" width="200">
+                                流程名称
+                            </th>
+                            <th data-options="field:'unitname',align:'center',halign:'center'" width="50">
+                                所属单位
+                            </th>
+                            <th data-options="field:'createtime',align:'center',halign:'center'" width="50">
+                                创建时间
+                            </th>
+                            <th data-options="field:'delstatus',align:'center',formatter: formatterCell" width="40">
+                                状态
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div id="gridToolBar" class="datagrid-toolbar">
+                <a href="javascript:void(0)" class="easyui-linkbutton" onclick="creatModelProcess()"
+                    data-options="plain:true,iconCls:'icon-add'">新增</a> <a href="javascript:void(0)"
+                        class="easyui-linkbutton" onclick="copyModelProcess()" data-options="plain:true,iconCls:'icon-view'">
+                        复制</a><a href="javascript:void(0)"
+                        class="easyui-linkbutton" onclick="releaseModelProcess()" data-options="plain:true,iconCls:'icon-view'">
+                        发布</a><a href="javascript:void(0)" class="easyui-linkbutton" onclick="deleteModelProcess();"
+                            data-options="plain:true,iconCls:'icon-pause'">禁用</a> <a href="javascript:void(0)"
+                                class="easyui-linkbutton" onclick="unDeleteModelProcess();" data-options="plain:true,iconCls:'icon-ok'">
+                                启用</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

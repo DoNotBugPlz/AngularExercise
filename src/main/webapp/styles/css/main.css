@@ -1,0 +1,21 @@
+html { box-sizing: border-box; color: #404040; font-family: Helvetica, arial, sans-serif; line-height: 1.4 }
+*, *:before, *:after { box-sizing: inherit }
+a { color: #000000 }
+h1, h2, h3, h4, h5, h6 { margin: 20px 0 10px; -webkit-font-smoothing: antialiased }
+hr { background: #ddd; border: 0; height: 1px; margin: 40px 0 }
+header { text-align: center }
+h1 a, h2 a, h3 a { color: #404040; text-decoration: none }
+output { display: block; width: 100%; line-height: 21px; text-align: center; font-size: 12px; }
+input[type="text"], input[type="number"] { padding: 4px 8px }
+.button { background: #e6e6e6; background-image: linear-gradient(#fafafa, #eaeaea); border: 1px solid #d4d4d4; border-radius: 4px; border-bottom-color: #bcbcbc; color: #555; cursor: pointer; display: inline-block; font-size: 16px; font-weight: bold; line-height: 22px; text-decoration: none; text-align: center; padding: 10px; margin: 20px 0 }
+.button:hover { background-image: linear-gradient(#eaeaea, #fafafa) }
+.button--small { font-size: .8em; line-height: 1; padding: 5px 8px; margin: 0 }
+.img-circular { margin: 0 auto; position: relative }
+.img-circular, .img-circular:after, .img-circular img { width: 120px; height: 120px; behavior: url(css/PIE.htc); -webkit-border-radius: 70px; -moz-border-radius: 70px; -ms-border-radius: 70px; -o-border-radius: 70px; border-radius: 70px }
+.img-circular:after { content: ""; display: block; position: absolute; top: 0; left: 0; -webkit-box-shadow: rgba(0, 0, 0, 0.6) 0 1px 6px inset; -moz-box-shadow: rgba(0, 0, 0, 0.6) 0 1px 6px inset; box-shadow: rgba(0, 0, 0, 0.6) 0 1px 6px inset }
+
+
+
+
+
+

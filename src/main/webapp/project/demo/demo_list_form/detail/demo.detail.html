@@ -1,0 +1,129 @@
+<!--<div class="popWhite" ng-controller="ChangePwdCtrl as changepwd">-->
+<div class="popWhite"   >
+    <div class="css-content" m-custom-scrollbar  ng-form="demo_form" >
+        <table cellpadding="0" cellspacing="0">
+            <tbody>
+            <tr>
+                <td  class="name name-height">字符串</td>
+                <td  colspan="3" class="value">
+                    <input ng-class="{true:'warn',false:''}[demo_form.col_str.$error.required]" ng-readonly="vm.readonly"
+                           required maxlength="50" type="text" ng-model="vm.demo.col_str"  name="col_str"  />
+                </td>
+            </tr>
+            <tr>
+                <td  class="name name-height">数字</td>
+                <td  class="value">
+                    <input required maxlength="10" name="col_num" required  ng-readonly="vm.readonly"
+                           ng-class="{true:'warn',false:''}[demo_form.col_num.$invalid]"
+                           type="number" ng-model="vm.demo.col_num" placeholder="请输入序号"/>
+                </td>
+                <td  class="name name-height">是否公开</td>
+                <td class="value" >
+                    <div class="chosen_div" ng-class="{true:'warn',false:''}[demo_form.is_pub.$invalid]">
+                        <select placeholder="是否公开" ng-model="vm.demo.is_pub" name="is_pub"  ng-disabled="vm.readonly"
+                                required  ng-chosen ng-chosen-data="vm.yesnoCatagory"
+                                ng-options="n.id as n.chinaname for n in vm.yesnoCatagory" >
+                            <option value="">==请选择==</option>
+                        </select>
+                    </div>
+
+
+                </td>
+            </tr>
+            <tr>
+                <td  class="name name-height">日期</td>
+                <td class="value" >
+                   <input ng_date="yyyy-MM-dd" class="Wdate" ng-model="vm.demo.col_date" name="col_date"   ng-disabled="vm.readonly"/>
+                </td>
+                <td  class="name name-height">日期（秒）</td>
+                <td class="value" >
+                    <input ng_date="yyyy-MM-dd HH:mm:ss" class="Wdate" ng-model="vm.demo.col_datetime" name="col_datetime"  ng-disabled="vm.readonly"/>
+                </td>
+            </tr>
+            <tr>
+                <td  class="name name-height">字典项数字</td>
+                <td  class="value"  >
+
+                    <div class="chosen_div" ng-class="{true:'warn',false:''}[demo_form.catagoryNum.$invalid]">
+                        <select  ng-model="vm.demo.col_category" name="col_category"
+                                 ng-disabled="vm.readonly"
+                                 required
+                                 ng-chosen
+                                 ng-chosen-data="vm.catagoryNum"
+                                 ng-options="n.id as n.chinaname for n in vm.catagoryNum" >
+                            <option value="">==请选择==</option>
+                        </select>
+                    </div>
+                </td>
+                <td  class="name name-height">字典项字符</td>
+                <td  class="value">
+                    <div class="chosen_div" ng-class="{true:'warn',false:''}[demo_form.catagoryStr.$invalid]">
+                        <select  ng-model="vm.demo.col_category_str" name="col_category_str"
+                                 ng-options="n.id as n.chinaname for n in vm.catagoryStr"
+                                 ng-disabled="vm.readonly"
+                                 required
+                                 ng-chosen
+                                 ng-chosen-data="vm.catagoryStr" >
+                            <option value="">==请选择==</option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td  class="name name-height">字典项<br/>（多选）</td>
+                <td class="value" colspan="3" >
+                    <!--<input ng-model="vm.demo.col_category_multi"/>-->
+                    <div name="col_category_multi"  ng-class="{true:'warn',false:''}[demo_form.col_category_multi.$invalid]"
+                         ng-checkbox-select="vm.catagoryNum"
+                         ng-model="vm.demo.col_category_multi"
+                         ng-disabled="vm.readonly"
+                         required
+                         multiple >
+                    </div>
+
+                         <!--<a class="ipt_check" ></a>&nbsp;测试
+                         <a class="ipt_check"></a>&nbsp;测试
+                         <a class="ipt_check" ></a>&nbsp;测试-->
+
+                    <!--<div >-->
+                        <!--<select  ng-model="vm.demo.col_category_str" name="col_category_str" required ng-chosen multiple  ng-chosen-data="vm.catagoryStr"-->
+                                 <!--ng-class="{true:'warn',false:''}[demo_form.col_category_str.$error.required]"-->
+                                 <!--ng-options="n.id as n.chinaname for n in vm.catagoryStr" >-->
+                            <!--<option value="">==请选择==</option>-->
+                        <!--</select>-->
+                    <!--</div>-->
+
+                </td>
+            </tr>
+            <tr>
+                <td  class="name name-height">备注</td>
+                <td class="value" colspan="3">
+                    <textarea class="remarks" ng-model="vm.demo.remark" name="remark"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" >
+                    <div class="fileListDiv"
+                         attach-file-list
+                         attach-file-list-init-options="vm.fileZwInitOptions"
+                         attach-file-list-load-options="vm.fileZwLoadOptions"
+                    ></div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" >
+                    <div class="fileListDiv"
+                         attach-file-list
+                         attach-file-list-init-options="vm.fileInitOptions"
+                         attach-file-list-load-options="vm.fileLoadOptions"
+                    ></div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="popBottom" ng-if="!vm.readonly">
+        <a class="table_main1_a"  ng-click="vm.saveDemo()" >保存</a>
+        <a class="table_main1_a" ng-click="vm.cancelOp()">取消</a>
+    </div>
+</div>

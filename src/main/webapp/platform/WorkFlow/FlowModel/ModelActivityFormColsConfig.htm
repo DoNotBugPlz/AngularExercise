@@ -1,0 +1,25 @@
+﻿<table id="divSelectFormCols" class="easyui-datagrid" data-options="
+                            singleSelect: false,
+                            fit: true,
+                            fitColumns: true,
+                            rownumbers: true,
+                            pagination: false,
+                            idField: 'id',
+                            onCheck:onClickColsListRow,
+                            onLoadError: gridLoadError">
+    <thead>
+        <tr>
+            <th data-options="field:'ck',checkbox:true">
+            </th>
+            <th data-options="field:'chinaname',halign:'center'" width="50">
+                字段名称
+            </th>
+            <th data-options="field:'ismindcol',align:'center',formatter: formatterColType" width="50">
+                类型
+            </th>
+            <th data-options="field:'required',width:20,align:'center',editor:{type:'checkbox',options:{on:1,off:0}}">
+                必填
+            </th>
+        </tr>
+    </thead>
+</table>

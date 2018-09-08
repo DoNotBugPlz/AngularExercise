@@ -1,0 +1,33 @@
+<div class="picshow" style="display: block;">
+    <div class="title">
+        <div class="tit_r">
+            <div class="tit_01 tit_01_close" ng-click="closeThisDialog()"><div class="tit_close"></div></div>
+            <!--<div class="tit_01 tit_01_down" ng-click="downloadFile()"><div class="tit_down"></div></div>-->
+            <div class="tit_01 tit_01_whirl" ng-click="rotateImg()"><div class="tit_whirl"></div></div>
+            <div class="tit_01 tit_01_reset" ng-click="initImg()"><div class="tit_reset"></div></div>
+            <div class="tit_01 tit_01_scale">
+                <div class="tit_enlarge" ng-click="scaleImg(1)"></div>
+                <div class="til_scale">{{ showImg.scale }}%</div>
+                <div class="tit_reduce" ng-click="scaleImg(-1)"></div>
+            </div>
+        </div>
+        <div class="tit_l">
+            <div class="tit_02">{{ showImg.file_name || "" }}</div>
+            <div class="tit_03">
+                <div class="msg_02" ng-click="changeIndex(-1)"></div>
+                <div class="tit_img_seq">{{ showIndex + 1 }} / {{ dataArr.length }}</div>
+                <div class="msg_04" ng-click="changeIndex(1)"></div>
+            </div>
+        </div>
+    </div>
+    <div class="pic" id="201710191717picpanel">
+        <div class="next" ng-click="changeIndex(1)"></div>
+        <div class="previous" ng-click="changeIndex(-1)"></div>
+        <div class="pic_loading" ng-show="pic_loading">
+            <div class="loading_img"></div>
+        </div>
+        <div class="pic_content">
+            <img src="{{ showImg.href }}" ng-style="imgStyle"/>
+        </div>
+    </div>
+</div>

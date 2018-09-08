@@ -1,0 +1,12 @@
+.goodsLink-noborder td{
+    border: 0px!important;
+}
+.goodsLink-noborder{
+    border: 0px!important;
+}
+.isdrug{
+    top:30px;
+}
+.nodrug{
+    top:0px;
+}

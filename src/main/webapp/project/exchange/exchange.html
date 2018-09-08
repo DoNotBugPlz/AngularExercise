@@ -1,0 +1,125 @@
+<div class="table_tip_zzy">
+    <div class="table_tip_btn_zzy">
+        <a href="javascript:;" ng-click="vm.addExchange()">新增</a>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="select_b_zzy ">
+    <div class="leftSel_table_zzy " ng-class="{true:'up',false:'over_hide2'}[vm.advSearch]">
+        <table border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="10%" class="txt">关键字：</td>
+                <td width="20%">
+                    <input type="text" class="sel_ipt_zzy" ng-model="vm.searchParams.keyword"/>
+                </td>
+
+                <td width="10%" class="txt">是否已回复：</td>
+                <td width="20%">
+                    <div class="chosen_div">
+                        <select ng-model="vm.searchParams.answer_status" class="sel_sel_zzy"
+                                ng-chosen
+                                ng-chosen-data="vm.yesnoCatagory"
+                                ng-options="n.id as n.chinaname for n in vm.yesnoCatagory">
+                            <option ng-chosen-option></option>
+                        </select>
+                    </div>
+                </td>
+                <td width="10%" class="txt">提交人：</td>
+                <td width="20%">
+                    <input type="text" class="sel_ipt_zzy" ng-model="vm.searchParams.question"/>
+                </td>
+                <td class="left">
+                    <a href="javascript:;" class="sel_btn_zzy " ng-click="vm.loadExchangeList()">查询</a>
+                    <a href="javascript:;" class="reSet_btn_zzy" ng-click="vm.reset()">重置</a>
+                </td>
+            </tr>
+            <tr>
+                <td class="txt">提交时间：</td>
+                <td class="txt_center">
+                    <input type="text" class="sel_ipt_zzy sel_ipt_zzy_size pull_left Wdate" style="width: 40%"
+                           max-date="#F{$dp.$D('question_end_time')}" id="question_start_time"
+                           ng-date="yyyy-MM-dd" ng-model="vm.searchParams.question_start_time"
+                           name="question_start_time"/>
+                    <span class="ipt_line" style="width:5%;"></span>
+                    <input type="text" class="sel_ipt_zzy sel_ipt_zzy_size pull_right Wdate" style="width: 40%"
+                           ng-date="yyyy-MM-dd" ng-model="vm.searchParams.question_end_time"
+                           min-date="#F{$dp.$D('question_start_time')}" id="question_end_time"
+                           name="question_end_time"/>
+                </td>
+                <td width="10%" class="txt">回复人：</td>
+                <td width="20%">
+                    <input type="text" class="sel_ipt_zzy" ng-model="vm.searchParams.answer"/>
+                </td>
+                <td class="txt">回复时间：</td>
+                <td class="txt_center">
+                    <input type="text" class="sel_ipt_zzy sel_ipt_zzy_size pull_left Wdate" style="width: 40%"
+                           max-date="#F{$dp.$D('answer_end_time')}" id="answer_start_time"
+                           ng-date="yyyy-MM-dd" ng-model="vm.searchParams.answer_start_time" name="answer_start_time"/>
+                    <span class="ipt_line" style="width:5%;"></span>
+                    <input type="text" class="sel_ipt_zzy sel_ipt_zzy_size pull_right Wdate" style="width: 40%"
+                           ng-date="yyyy-MM-dd" ng-model="vm.searchParams.answer_end_time"
+                           min-date="#F{$dp.$D('answer_start_time')}" id="answer_end_time"
+                           name="answer_end_time"/>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="table_box_zzy top1_zzy" style="top: 108px;">
+    <div class="table_head_zzy marginB2">
+        <table>
+            <tr>
+                <td width="5%" ng-click="vm.selectAll()">
+                    <a href="javascript:;" class="ipt_check" ng-model="vm.allSelected"
+                       ng-class="{true:'checked',false:''}[vm.allSelected]"></a>
+                </td>
+                <td width="5%">序号</td>
+                <td width="15%">标题</td>
+                <td width="10%">提交人</td>
+                <td width="10%">提交时间</td>
+                <td width="10%">回复状态</td>
+                <td width="10%">回复人</td>
+                <td width="10%">回复时间</td>
+                <td width="15%">回复内容</td>
+                <td width="10%">操作</td>
+            </tr>
+        </table>
+    </div>
+    <div id="query_nothing" class="nothing nothingTop"
+         ng-show="!!!vm.exchangeList||vm.exchangeList.length==0">
+        <span></span>暂无数据
+    </div>
+    <div class="table_main_zzy" m-custom-scrollbar>
+        <table class="table_word_space" ng-hide="!!!vm.exchangeList||vm.exchangeList.length==0">
+            <tr ng-repeat="n in vm.exchangeList track by $index" ng-class-even="'bgcolor'"
+                ng-class="{'false':'','true':'selected'}[n.selected]">
+                <td width="5%" ng-click="vm.selectItem(n)">
+                    <a href="javascript:;" class="ipt_check" ng-model="n.selected"
+                       ng-class="{true:'checked',false:''}[n.selected]"></a>
+                </td>
+                <td width="5%">{{ $index + 1+ (vm.currentPageInf.pageNumber-1)*vm.currentPageInf.pageSize }}</td>
+                <td width="15%" class="word_space" style="text-align: left">&nbsp;&nbsp;{{n.question_title}}</td>
+                <td width="10%">{{n.question_user_name}}</td>
+                <td width="10%">{{n.question_add_time}}</td>
+                <td width="10%" ng-style="{color:(n.answer_status===1)?'green':'red'}">
+                    {{(n.answer_status===1)?'已回复':'未回复'}}
+                </td>
+                <td width="10%">{{n.answer_user_name}}</td>
+                <td width="10%">{{n.answer_time}}</td>
+                <td width="15%" class="word_space" style="text-align: left">&nbsp;&nbsp;{{n.answer_content}}</td>
+                <td width="10%">
+                    <a href="javascript:;" class="table_main1_a" ng-show="n.answer_status == 1"
+                       ng-click="vm.viewExchange(n)">查看</a>
+                    <a href="javascript:;" class="table_main1_a" ng-show="n.answer_status == 0"
+                       ng-click="vm.answerExchange(n)">回复</a>
+                    <a href="javascript:;" class="table_main1_a" ng-click="vm.deleteExchange(n)">删除</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="table-tfoot">
+        <div class="table_page">
+            <div ng-turn-page="vm.exchangeListPage" turn-page-fn="vm.loadExchangeList"></div>
+        </div>
+    </div>
+</div>

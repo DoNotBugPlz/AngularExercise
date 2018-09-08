@@ -1,0 +1,368 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>管理所有代理人</title>
+    <link href="../ScriptSource/EasyUI/Skins/default/easyui.css" rel="stylesheet" type="text/css" />
+    <link href="../ScriptSource/EasyUI/Skins/icon.css" rel="stylesheet" type="text/css" />
+    <script src="../ScriptSource/JQuery/jquery.min.js" type="text/javascript"></script>
+    <script src="../ScriptSource/EasyUI/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../ScriptSource/JQuery/jquery.form.js" type="text/javascript"></script>
+    <script src="../ScriptSource/JavaScript/GlobalTools.js" type="text/javascript"></script>
+    <script src="../ScriptSource/JavaScript/OrganizationTools.js" type="text/javascript"></script>
+    <script language="javascript" type="text/javascript">
+        var rootPath = "../../"; //根目录路径 
+
+        $(function () {
+            OrganizationTools.user_Init({ rootPath: rootPath, deptid: "", title: "选择人员", onOKClick: selectUserOK });
+        });
+
+        function consignerNameClick() {
+            var sourceElement = this;
+            $(sourceElement).combobox("hidePanel");
+            OrganizationTools.user_ShowSelectDialog({ sourceElement: sourceElement, sigleSelect: !$(sourceElement).combobox("options").multiple });
+        }
+        //选择人员后回调函数
+        function selectUserOK(treeNodes, sourceElement) {
+            var text = "", ids = "";
+            $.each(treeNodes, function (index, item) {
+                if (ids != '') {
+                    text += ',';
+                    ids += ',';
+                }
+                text += item.text;
+                ids += item.id.toString().ReplaceAll("user_", "");
+            });
+            $(sourceElement).combobox("setText", text);
+            $("#ProxyerForm :hidden[name='" + $(sourceElement).attr("setvaluectlname") + "']").val(ids);
+            $("#ProxyerForm :hidden[name='" + $(sourceElement).attr("comboname") + "']").val(text);
+        }
+
+        function proxyerNameClick() {
+            var sourceElement = this;
+            $(sourceElement).combobox("hidePanel");
+            OrganizationTools.user_ShowSelectDialog({ sourceElement: sourceElement, sigleSelect: !$(sourceElement).combobox("options").multiple });
+        }
+
+        //是否公开 单元格处理
+        function formatterCell(value, row, index) {
+            return (value && value > 0 ? "禁用" : "在用");
+        }
+
+        //展示详细信息页面
+        function taskDblClickRow(rowIndex, rowData) {
+            $('#DlgEditProxyer').dialog('open');
+            $('#DlgEditProxyer').form('clear');
+            $("#ProxyerForm").form("validate");
+            $("#ProxyerForm #proxyId").val(rowData.id);
+            $("#ProxyerForm #consignerid").val(rowData.consignerid);
+            $("#ProxyerForm #consignername").combobox("setText", rowData.consignername);
+            $("#ProxyerForm [name='sys_consign.consignername']").val(rowData.consignername);
+            $("#ProxyerForm #proxyerid").val(rowData.proxyerid);
+            $("#ProxyerForm #proxyername").combobox("setText", rowData.proxyername);
+            $("#ProxyerForm [name='sys_consign.proxyername']").val(rowData.proxyername);
+            $("#ProxyerForm #consignstarttime").datebox("setValue", formatterStringToDate(rowData.consignstarttime, "yyyy-MM-dd"));
+            $("#ProxyerForm #consignendtime").datebox("setValue", formatterStringToDate(rowData.consignendtime, "yyyy-MM-dd"));
+            $("#ProxyerForm #consignstatus").combobox("setValue", rowData.delstatus);
+            setConfiger();
+        }
+        //获取表单定义对象
+
+        //重新加载列表
+        function reloadGrid() {
+            $("#dgList").datagrid("reload");
+        }
+
+        function addProxyer() {
+            $('#DlgEditProxyer').dialog('open');
+            $('#DlgEditProxyer').form('clear');
+            $("#ProxyerForm").form("validate");
+            setConfiger();
+        }
+
+        //填充配置人为当前登陆人
+        function setConfiger(){
+        	GlobalTools.ajax({
+                url: rootPath + 'Sys_user/GetCurrentUserInfo.do',
+                success: function (data) {
+                    $("#ProxyerForm #configerid").val(data.id);
+                    $("#ProxyerForm #configername").val(data.chinaname);
+                }
+            });
+        }
+        
+        function getSelectedIds() {
+            var dataChecked = $("#dgList").datagrid("getChecked");
+            if (dataChecked == null || dataChecked.length == 0) {
+                GlobalTools.tip("请选择办公用语");
+                return "";
+            }
+            var selectInfo = new Array();
+            for (var index in dataChecked) {
+                selectInfo.push(dataChecked[index].id);
+            }
+            return selectInfo.join(",");
+        }
+
+        //禁用
+        function setUnUsed() {
+            var ids = getSelectedIds();
+            if (ids == "") {
+                return;
+            }
+            $.messager.confirm('确认提示', '确定禁用?', function (r) {
+                if (r) {
+                    GlobalTools.ajax({
+                        url: rootPath + "Sys_consign/DeleteList.do",
+                        data: { ids: ids },
+                        success: function (data) {
+                            GlobalTools.tip("禁用成功");
+                            $('#dgList').datagrid('reload');
+                        }
+                    });
+                }
+            });
+        }
+
+        //启用
+        function setUsed() {
+            var ids = getSelectedIds();
+            if (ids == "") {
+                return;
+            }
+            $.messager.confirm('确认提示', '确定启用?', function (r) {
+                if (r) {
+                    GlobalTools.ajax({
+                        url: rootPath + "Sys_consign/UnDeleteList.do",
+                        data: { ids: ids },
+                        success: function (data) {
+                            GlobalTools.tip("启用成功");
+                            $('#dgList').datagrid('reload');
+                        }
+                    });
+                }
+            });
+        }
+
+        function deleteProxyer() {
+            var ids = getSelectedIds();
+            if (ids == "") {
+                return;
+            }
+            $.messager.confirm('确认提示', '确定删除?', function (r) {
+                if (r) {
+                    GlobalTools.ajax({
+                        url: rootPath + "Sys_consign/DestroyList.do",
+                        data: { ids: ids },
+                        success: function (data) {
+                            GlobalTools.tip("删除成功");
+                            $('#dgList').datagrid('reload');
+                        }
+                    });
+                }
+            });
+        }
+
+        function DlgEditProxyerClosed() {
+            $('#DlgEditProxyer').dialog('close');
+        }
+
+        //保存
+        function saveProxyerData() {
+            if (!$("#ProxyerForm").form("validate")) { return; }
+
+            var consignerid = $("#ProxyerForm #consignerid").val();
+            var proxyerid = $("#ProxyerForm #proxyerid").val();
+
+            if (consignerid == proxyerid) {
+                GlobalTools.tip("委托人和代理人不能是同一个人");
+                return;
+            }
+
+            var startTime = $("#ProxyerForm #consignstarttime").datebox("getValue");
+            var endTime = $("#ProxyerForm #consignendtime").datebox("getValue");
+
+            if (!CheckDate(startTime, endTime)) {
+                GlobalTools.tip("结束时间不能小于开始时间");
+                return;
+            }
+
+            /* $.ajax({
+                async: false,
+                url: rootPath + 'Sys_consign/CheckConsignToProxy.do',
+                data: { id: $("#ProxyerForm #proxyId").val(), consignerid: consignerid, proxyerid: proxyerid, consignstarttime: startTime, consignendtime: endTime },
+                dataType: 'json',
+                success: function (result) {
+                    if (!result) return;
+                    if (!result.iserror) {
+                        if (result.message.length > 0) {
+                            // $.messager.alert("提示信息", data.ReplaceAll('\\n', '<BR>'), "info");
+                            ConsignData = new Array();
+                            for (var index in result.data) {
+                                ConsignData.push({ consignername: result.data[index].consignername, proxyername: result.data[index].proxyername, consignstarttime: formatterStringToDate(result.data[index].consignstarttime, "yyyy-MM-dd"), consignendtime: formatterStringToDate(result.data[index].consignendtime, "yyyy-MM-dd") });
+                            }
+                            OpenConsignList(result.message);
+                        }
+                        else {
+                            GlobalTools.submitForm($("#ProxyerForm"), { submiturl: rootPath + 'Sys_consign/SaveForm.do', success: saveFormSuccess });
+                        }
+                    }
+                }
+            }); */
+            GlobalTools.submitForm($("#ProxyerForm"), { submiturl: rootPath + 'Sys_consign/SaveForm.do', success: saveFormSuccess });
+        }
+        function saveFormSuccess(formData) {
+            GlobalTools.tip("保存成功");
+            $('#dgList').datagrid('reload');
+            $('#DlgEditProxyer').dialog('close');
+        }
+
+        var ConsignData = new Array();
+        var divConsignList;
+        function OpenConsignList(title) {
+            if ($("#divConsignForm").get(0)) {
+                $("#divConsignForm").remove();
+            }
+            divConsignList = $("<div id=\"divConsignForm\" class=\"easyui-window\" title=\"委托代理信息\"></div>");
+            var gridNewList = "<table id=\"dgConsignList\" title=\"" + title + "\" class=\"easyui-datagrid\" data-options=\"data:ConsignData,nowrap:false,fit: true,fitColumns: true,rownumbers: true,onLoadError: gridLoadError\"><thead><tr><th data-options=\"field:'consignername'\" width=\"40\">委托人</th><th data-options=\"field:'proxyername'\" width=\"40\">代理人</th><th data-options=\"field:'consignstarttime'\" width=\"50\">开始时间</th><th data-options=\"field:'consignendtime'\" width=\"50\">结束时间</th></tr></thead></table>";
+            divConsignList.append(gridNewList);
+            divConsignList.window({
+                modal: true,
+                minimizable: false,
+                maximizable: false,
+                closed: true,
+                iconCls: 'icon-save',
+                width: 350,
+                height: 400
+            });
+            $("#dgConsignList").datagrid();
+            divConsignList.window('open');
+        }
+    </script>
+</head>
+<body class="easyui-layout" data-options="fit:true">
+    <div data-options="region:'center',border:true,title:'代理人列表'" style="padding-bottom: 0px">
+        <table id="dgList" class="easyui-datagrid" data-options="
+            	url: rootPath+'Sys_consign/LoadPageList.do?isadmin=true',
+                fit: true,
+                loadMsg: '数据加载中……',
+                fitColumns: true,
+                rownumbers: true,
+                pageSize: 20,
+                pagination: true,
+                idField: 'id',
+                toolbar: '#gridToolBar',
+                onDblClickRow:taskDblClickRow,
+                onLoadError: gridLoadError">
+            <thead>
+                <tr>
+                    <th data-options="field:'ck',checkbox:true">
+                    </th>
+                    <th data-options="field:'consignername'" width="140">
+                        委托人
+                    </th>
+                    <th data-options="field:'proxyername'" width="140">
+                        代理人
+                    </th>
+                    <th data-options="field:'consignstarttime',formatter:formatNormalDate" width="140">
+                        委托开始时间
+                    </th>
+                    <th data-options="field:'consignendtime',formatter:formatNormalDate" width="140">
+                        委托结束时间
+                    </th>
+                    <th data-options="field:'configername'" width="140">
+                        配置人
+                    </th>
+                    <th data-options="field:'delstatus',formatter: formatterCell" width="50" align="center">
+                        状态
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div id="gridToolBar" class="datagrid-toolbar">
+        <div>
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="addProxyer()" data-options="plain:true,iconCls:'icon-add'">
+                添加</a> <a href="javascript:void(0)" class="easyui-linkbutton" onclick="setUnUsed()"
+                    data-options="plain:true,iconCls:'icon-pause'">禁用</a> <a href="javascript:void(0)"
+                        class="easyui-linkbutton" onclick="setUsed()" data-options="plain:true,iconCls:'icon-ok'">
+                        启用</a> <a href="javascript:void(0)" class="easyui-linkbutton" onclick="deleteProxyer()"
+                            data-options="plain:true,iconCls:'icon-delete'">删除</a>
+        </div>
+    </div>
+    <div id="DlgEditProxyer" class="easyui-dialog" data-options="iconCls:'icon-customers',closed:true,resizable:false,top:200,
+            modal: true,draggable:true,cache:false,closable:false,buttons:'#ProxyerToolBar',title:'编辑代理人'"
+        style="width: 600px; height: 300px; padding: 10px">
+        <br />
+        <form id="ProxyerForm" method="post">
+        <input type="hidden" name="sys_consign.id" id="proxyId" />
+        <input type="hidden" name="sys_consign.configerid" id="configerid" />
+        <input type="hidden" name="sys_consign.configername" id="configername" />
+        <table width="100%" style="table-layout: fixed;">
+            <colgroup>
+                <col width="80px" />
+                <col width="200px" />
+                <col width="80px" />
+                <col width="200px" />
+            </colgroup>
+            <tr height="30">
+                <td>
+                    委托人:
+                </td>
+                <td>
+                    <input type="hidden" name="sys_consign.consignerid" id="consignerid" />
+                    <input class="easyui-combobox" type="text" id="consignername" name="sys_consign.consignername"
+                        setvaluectlname="sys_consign.consignerid" data-options="required:false,multiple:false,onShowPanel:consignerNameClick"
+                        style="width: 150px" />
+                </td>
+                <td>
+                    代理人:
+                </td>
+                <td>
+                    <input type="hidden" name="sys_consign.proxyerid" id="proxyerid" />
+                    <input class="easyui-combobox" type="text" id="proxyername" name="sys_consign.proxyername"
+                        setvaluectlname="sys_consign.proxyerid" data-options="required:true,multiple:false,onShowPanel:proxyerNameClick"
+                        style="width: 150px" />
+                </td>
+            </tr>
+            <tr height="30">
+                <td>
+                    委托时间:
+                </td>
+                <td>
+                    <input class="easyui-datebox" type="text" id="consignstarttime" name="sys_consign.consignstarttime"
+                        data-options="required:true,editable:false, formatter:formatNormalDate" style="width: 150px" />
+                </td>
+                <td>
+                    至:
+                </td>
+                <td>
+                    <input class="easyui-datebox" type="text" id="consignendtime" name="sys_consign.consignendtime"
+                        data-options="required:false,editable:false, formatter:formatNormalDate" style="width: 150px" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    委托状态:
+                </td>
+                <td width="80%" align="left">
+                    <input class="easyui-combobox" name="sys_consign.delstatus" id="consignstatus" data-options="
+                    					required:true,
+                    					data:[{'value':0,'text':'启用'},{'value':1,'text':'禁用'}],
+                    					valueField:'value',
+                    					textField:'text',
+                    					value:'0',
+                    					editable:false,
+                    					panelHeight:'auto'
+                    					" style="width: 150px" />
+                </td>
+            </tr>
+        </table>
+        </form>
+    </div>
+    <div id="ProxyerToolBar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-save" onclick="saveProxyerData();">
+            确定</a> <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-cancel"
+                onclick="DlgEditProxyerClosed();">取消</a>
+    </div>
+</body>
+</html>

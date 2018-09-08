@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>表单打印模板</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="../ScriptSource/EasyUI/Skins/default/easyui.css" rel="stylesheet" type="text/css" />
+    <link href="../ScriptSource/EasyUI/Skins/icon.css" rel="stylesheet" type="text/css" />
+    <script src="../ScriptSource/JQuery/jquery.min.js" type="text/javascript"></script>
+    <script src="../ScriptSource/JQuery/jquery.form.js" type="text/javascript"></script>
+    <script src="../ScriptSource/EasyUI/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../ScriptSource/JavaScript/GlobalTools.js" type="text/javascript"></script>
+    <script src="../ScriptSource/NTKOWebOffice/NTKOWebOfficeManager.js" type="text/javascript"></script>
+    <script language="javascript">
+        var rootPath = "../../"; //页面根路径
+        var currentTableName = ""; //当前物理表名称
+        var currentTemplateid = 0; //当前模板主键标识
+        var currentTailorFormid = 0; //当前表单主键标识
+        var currentRecordid = 0; //当前表单记录主键
+        var currentFileid = 0; //当前表单绑定的文档id
+        $(function () {
+            currentRecordid = Request("recordid");
+            currentTailorFormid = Request("tailorformid");
+            GlobalTools.ajax({
+                dataType: "json",
+                url: rootPath + "Sys_booktemplate/FindTemplate.do",
+                data: { tailorformid: currentTailorFormid, time: Math.round(Math.random() * 1000) },
+                success: function (data, msg) {
+                    if (data != null) {
+                        currentTemplateid = data.id;
+                        currentTableName = data.tablename;
+                        currentFileid = data.uploadfile;
+                        NTKOWebOffice.init();
+
+                        loadTemplate();
+                        //replaceBookMark();
+                    }
+                    else {
+                        GlobalTools.showError("未设置打印模板");
+                    }
+                }
+            });
+        });
+
+        //加载服务器模板并替换标签
+        function loadTemplate() {
+            NTKOWebOffice.loadServerDocument({ loadDocumentActionPath: rootPath + "Sys_attachfile/DownLoadFile.do?fileid=" + currentFileid }, replaceBookMark);
+        }
+        //替换书签为实际值
+        function replaceBookMark() {
+            var bookMarkList=[];
+            GlobalTools.ajax({
+                type: "POST",
+                dataType: "JSON",
+                async: false,
+                url: rootPath+'Sys_templatebookmarks/LoadFormTemplateBookMarks.do',
+                data: { templateid: currentTemplateid, recordid: currentRecordid },
+                success: function (result) {
+                    if(result){
+                        bookMarkList=result;
+                    }
+                    //NTKOWebOffice.replaceBookMark(result);
+                }
+            });
+            GlobalTools.ajax({
+                type: "POST",
+                dataType: "JSON",
+                async: false,
+                url: rootPath+'Sys_ins_activitymind/LoadFormMindTemplateBookMarks.do',
+                data: { tailorformid: currentTailorFormid, recordid: currentRecordid },
+                success: function (result) {
+                    if(result){
+                        for(var index in result){
+                            bookMarkList.push(result[index]);
+                        }
+                    }
+                    // NTKOWebOffice.replaceBookMark(result);
+                }
+            });
+
+            if(bookMarkList.length>0){
+                NTKOWebOffice.replaceBookMark(bookMarkList);
+            }
+        }
+        //文档打印
+        function FilePrint() {
+            WebOfficeOCX.ShowDialog(4);
+        }
+
+    </script>
+</head>
+<body class="easyui-layout" data-options="fit:true">
+    <div data-options="region:'center',split:false,border:false">
+        <div id="templateDesignToolBar" class="datagrid-toolbar">
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="FilePrint()" data-options="plain:true,iconCls:'icon-print'">
+                打印</a>
+        </div>
+        <form id="templateForm" method="post">
+        </form>
+<!--         <script src="../ScriptSource/NTKOWebOffice/LoadWebOffice.js" type="text/javascript"></script> -->
+        <script src="../ScriptSource/NTKOWebOffice/ntkoofficecontrol.js" type="text/javascript"></script>
+    </div>
+</body>
+</html>

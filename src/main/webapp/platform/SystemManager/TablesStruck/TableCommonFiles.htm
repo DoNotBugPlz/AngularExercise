@@ -1,0 +1,245 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>物理表列表</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="../../ScriptSource/EasyUI/Skins/gray/easyui.css" rel="stylesheet"
+      type="text/css" />
+<link href="../../ScriptSource/EasyUI/Skins/icon.css" rel="stylesheet" type="text/css" />
+<script src="../../ScriptSource/JQuery/jquery.min.js" type="text/javascript"></script>
+<script src="../../ScriptSource/JQuery/jquery.form.js" type="text/javascript"></script>
+<script src="../../ScriptSource/EasyUI/jquery.easyui.min.js" type="text/javascript"></script>
+<script src="../../ScriptSource/JavaScript/GlobalTools.js" type="text/javascript"></script>
+<script src="../../ScriptSource/CodeHighLighter/scripts/shCore.js" type="text/javascript"></script>
+<script src="../../ScriptSource/CodeHighLighter/scripts/shBrushJava.js" type="text/javascript"></script>
+<script src="../../ScriptSource/CodeHighLighter/scripts/shBrushXml.js" type="text/javascript"></script>
+<script src="../../ScriptSource/CodeHighLighter/scripts/shBrushCSharp.js" type="text/javascript"></script>
+<link href="../../ScriptSource/CodeHighLighter/styles/shCoreDefault.css" rel="stylesheet"
+      type="text/css" />
+<script type="text/javascript">
+    SyntaxHighlighter.all();
+</script>
+<script language="javascript" type="text/javascript">
+    var rootPath = "../../../";
+    var tablename = Request("tablename");
+    var platform = "dotnet";
+    var filetype = "xml";
+    var sequence = "";
+    var assemblypackage = "";
+    $(function () {
+        $("[refid='sequence']").show();
+    });
+    //下拉 平台
+    function onSelectPlatForm(record) {
+        platform = record.value;
+        showOrHide();
+    }
+
+    function onUnSelectPlatForm(record) {
+        platform = "";
+        showOrHide();
+    }
+
+    //下拉 选文件模板
+    function onSelectFileType(record) {
+        filetype = record.value;
+        showOrHide();
+    }
+
+    function onUnSelectFileType(record) {
+        filetype = "";
+        sequence = "";
+        showOrHide();
+    }
+
+    function showOrHide() {
+        if (platform == "java") {
+            $("#txtSequence").val("DEFAULTSEQUENCE");
+        }
+        else {
+            $("#txtSequence").val("");
+        }
+        switch (platform) {
+            case "dotnet":
+                if (filetype != "entityclass" && filetype != "daointerface" && filetype != "serviceinterface") {
+                    if (filetype == "xml") {
+                        $("[refid='sequence']").show();
+                        $("[refid='assembly']").hide();
+                    }
+                    else {
+                        $("[refid='sequence']").hide();
+                        $("[refid='assembly']").show();
+                    }
+                }
+                else {
+                    $("[refid='sequence']").hide();
+                    $("[refid='assembly']").hide();
+                }
+                break;
+            case "java":
+                var prefix = "com.skytech.project."+tablename+".";
+                switch (filetype) {
+                    case "entityclass":
+                        $("[refid='sequence']").show();
+                        $("[refid='assembly']").show();
+                        $("#assembly").text("程序集或包名：")
+                        $("#txtAssemblyPackage").val(prefix+"model");
+                        break;
+                    case "xml":
+                        $("[refid='sequence']").hide();
+                        $("[refid='assembly']").hide();
+                        hideSqAs();
+                        break;
+                    case "javaall":
+                        $("[refid='sequence']").hide();
+                        $("[refid='assembly']").hide();
+                        $("#assembly").text("所属模块名称：");
+                        $("#txtAssemblyPackage").val("")
+                        hideSqAs();
+                        break;
+                    case "daointerface":
+                        $("#assembly").text("程序集或包名：")
+                        $("#txtAssemblyPackage").val(prefix+"dao");
+                        hideSqAs();
+                        break
+                    case "daoclass":
+                        $("#assembly").text("程序集或包名：")
+                        $("#txtAssemblyPackage").val(prefix+"dao.impl");
+                        hideSqAs();
+                        break
+                    case "serviceinterface":
+                        $("#txtAssemblyPackage").val(prefix+"service");
+                        $("#assembly").text("程序集或包名：")
+                        hideSqAs();
+                        break
+                    case "serviceclass":
+                        $("#txtAssemblyPackage").val(prefix+"service.impl");
+                        $("#assembly").text("程序集或包名：")
+                        hideSqAs();
+                        break
+                    case "controllerclass":
+                        $("#txtAssemblyPackage").val("com.skytech.api."+tablename);
+                        $("#assembly").text("程序集或包名：")
+                        hideSqAs();
+                        break;
+                }
+        }
+    }
+
+    function hideSqAs() {
+        $("[refid='sequence']").hide();
+        $("[refid='assembly']").show();
+    }
+
+    //获取相应的文件内容
+    function createFiles() {
+        //历史遗留问题 java和.net传递的参数不一致
+        var ajaxData={};
+        if (platform == "dotnet" && filetype == "javaall") {
+            GlobalTools.tip("DotNet平台不支持；Java专用！");
+            return;
+        }
+
+        if (platform == "java" && filetype == "xml") {
+            GlobalTools.tip("Java平台无需XML");
+            return;
+        }
+
+        sequence = $("#txtSequence").val();
+        assemblypackage = $("#txtAssemblyPackage").val();
+        if (filetype == "" || tablename == "") {
+            return;
+        }
+
+        var brushClass = "";
+        switch (platform) {
+            case "dotnet":
+                if (filetype != "entityclass" && filetype != "xml" && filetype != "daointerface" && filetype != "serviceinterface") {
+                    if (assemblypackage == "") {
+                        GlobalTools.tip("请输入程序集名！");
+                        return;
+                    }
+                }
+                data={"type":filetype, "tablename":tablename,"sequence": sequence, "assemblypackage": assemblypackage};
+                brushClass = "brush:c#;";
+                break;
+            case "java":
+                if (filetype == "entityclass") {
+                    if (sequence == "") {
+                        GlobalTools.tip("请输入sequence！");
+                        return;
+                    }
+                }
+                data={"type":filetype, "tablename":tablename,"sequencename": sequence, "fullPackageName": assemblypackage};
+                if (filetype != "javaall" && assemblypackage == "") {
+                    GlobalTools.tip("请输入包名！");
+                    return;
+                }
+                if (filetype == "javaall" && assemblypackage == "") {
+                    GlobalTools.tip(" 所属模块名称(放置的文件夹名)！");
+                    return;
+                }
+                brushClass = "brush:java;";
+                break;
+            default:
+                GlobalTools.tip("请选择平台");
+                return;
+                break;
+        }
+
+
+        $.ajax({
+            type: "POST",
+            url: rootPath + "Sys_tablesremark/LoadTableCommonFiles.do",
+            data: data,
+            success: function (data) {
+                if (filetype != "javaall") {
+                    if (filetype == "xml") {
+                        brushClass = "brush:xml;";
+                    }
+
+                    $("#preCSharp").html("<script type='syntaxhighlighter' class='" + brushClass + " toolbar:false;'>" + data + "<\/script>");
+                    SyntaxHighlighter.highlight();
+                }
+                else {
+                    $("#preCSharp").html("");
+                    GlobalTools.tip("生成成功");
+                }
+            }
+        });
+    }
+</script>
+</head>
+<body class="easyui-layout" data-options="fit:true">
+<div data-options="region:'center',split:false,border:false">
+    <div class="datagrid-toolbar">
+        平台:
+        <select class="easyui-combobox" id="selPlatForm" name="selPlatForm" style="width: 100px"
+                data-options="onSelect:onSelectPlatForm,onUnselect:onUnSelectPlatForm">
+            <option value="dotnet">DotNet</option>
+            <option value="java">Java</option>
+        </select>
+        文件模板:
+        <select class="easyui-combobox" id="selFileType" name="selFileType" style="width: 150px"
+                data-options="onSelect:onSelectFileType,onUnselect:onUnSelectFileType">
+            <option value="xml">NHibernate-XML</option>
+            <option value="entityclass">表实体类</option>
+            <option value="daointerface">Dao接口</option>
+            <option value="daoclass">Dao实现类</option>
+            <option value="serviceinterface">Service接口</option>
+            <option value="serviceclass">Service实现类</option>
+            <option value="controllerclass">Controller类</option>
+            <option value="javaall">全部生成（Java专用）</option>
+        </select>
+        <!--<span id="sequence" style="display: none;" refid="sequence">sequence：</span>-->
+        <input type="hidden" id="txtSequence" style="width: 150px; display: none;" refid="sequence" />
+        <span id="assembly" style="display: none;" refid="assembly">程序集或包名：</span>
+        <input type="text" id="txtAssemblyPackage" style="width: 200px; display: none;" refid="assembly" />
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="createFiles()" data-options="plain:true,iconCls:'icon-save'">
+            生成</a>
+    </div>
+    <div id="preCSharp" style="height: 500px">
+    </div>
+</div>
+</body>
+</html>

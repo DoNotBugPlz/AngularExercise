@@ -1,0 +1,105 @@
+<!--<div class="popWhite" ng-controller="ChangePwdCtrl as changepwd">-->
+<div class="popWhite"   >
+    <div class="css-content" m-custom-scrollbar  ng-form="oa_lw_form" >
+        <table cellpadding="0" cellspacing="0">
+            <tbody>
+            <tr>
+                <td  class="name name-height">收文标题</td>
+                <td  colspan="3" class="value">
+                    <input ng-class="{true:'warn',false:''}[oa_lw_form.title.$error.required]" ng-readonly="vm.readonly"
+                           required maxlength="50" type="text" ng-model="vm.lw.title"  name="title"  />
+                </td>
+            </tr>
+            <tr>
+                <td  class="name name-height">文号</td>
+                <td  colspan="3"class="value" >
+                    <input ng-class="{true:'warn',false:''}[oa_lw_form.wh.$error.required]" ng-readonly="vm.readonly"
+                           required maxlength="50" type="text" ng-model="vm.lw.wh"  name="wh"  />
+                </td>
+            </tr>
+            <tr>
+                <td class="name name-height">主题词</td>
+                <td colspan="3" class="value" >
+                    <input ng-class="{true:'warn',false:''}[oa_lw_form.subject_value.$error.required]" ng-readonly="vm.readonly"
+                           required maxlength="50" type="text" ng-model="vm.lw.subject_value"  name="subject_value"  />
+                </td>
+            </tr>
+            <tr>
+                <td  class="name name-height">关键词</td>
+                <td class="value" >
+                    <input ng-class="{true:'warn',false:''}[oa_lw_form.key_value.$error.required]" ng-readonly="vm.readonly"
+                           required maxlength="50" type="text" ng-model="vm.lw.key_value"  name="key_value"  />
+                </td>
+                <td  class="name name-height">限办日期</td>
+                <td class="value" >
+                    <input ng_date="yyyy-MM-dd" class="Wdate" ng-model="vm.lw.limit_date" name="limit_date"   ng-disabled="vm.readonly"/>
+                </td>
+            </tr>
+            <tr>
+                <td  class="name name-height">收文时间</td>
+                <td class="value" >
+                    <input ng_date="yyyy-MM-dd" class="Wdate" ng-model="vm.lw.receive_date" name="limit_date"   ng-disabled="vm.readonly"/>
+                </td>
+                <td  class="name name-height">来文单位</td>
+                <td class="value" >
+                    <input ng-class="{true:'warn',false:''}[oa_lw_form.send_dept.$error.required]" ng-readonly="vm.readonly"
+                           required maxlength="50" type="text" ng-model="vm.lw.send_dept"  name="send_dept"  />
+                </td>
+            </tr>
+            <tr>
+                <td  class="name name-height">签收人</td>
+                <td class="value" >
+                    <input ng-class="{true:'warn',false:''}[oa_lw_form.singer_name.$error.required]" ng-readonly="vm.readonly"
+                           required maxlength="50" type="text" ng-model="vm.lw.singer_name"  name="singer_name"  />
+                </td>
+                <td  class="name name-height">密级</td>
+                <td class="value" >
+                    <div class="chosen_div" ng-class="{true:'warn',false:''}[oa_lw_form.emergency.$invalid]">
+                        <select placeholder="密级" ng-model="vm.lw.emergency" name="emergency"  ng-disabled="vm.readonly"
+                                required  ng-chosen ng-chosen-data="vm.fwEmergencyCatagory"
+                                ng-options="n.id as n.chinaname for n in vm.fwEmergencyCatagory" >
+                            <option value="">==请选择==</option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td  class="name name-height">公开范围</td>
+                <td class="value" colspan="3" >
+                    <div name="open_range"  ng-class="{true:'warn',false:''}[oa_lw_form.open_range.$invalid]"
+                         ng-checkbox-select="vm.fwOpenrangeCatagory"
+                         ng-model="vm.lw.open_range"
+                         ng-disabled="vm.readonly"
+                         required
+                         multiple >
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" >
+                    <div class="fileListDiv"
+                         attach-file-list
+                         attach-file-list-init-options="vm.fileZwInitOptions"
+                         attach-file-list-load-options="vm.fileZwLoadOptions"
+                    ></div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" >
+                    <div class="fileListDiv"
+                         attach-file-list
+                         attach-file-list-init-options="vm.fileInitOptions"
+                         attach-file-list-load-options="vm.fileLoadOptions"
+                    ></div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="popBottom" ng-if="!vm.readonly">
+        <a class="table_main1_a"  ng-click="vm.saveLw()" >保存</a>
+        <a class="table_main1_a" ng-click="vm.cancelOp()">取消</a>
+    </div>
+</div>

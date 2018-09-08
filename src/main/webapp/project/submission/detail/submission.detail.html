@@ -1,0 +1,95 @@
+<div class="popWhite">
+    <div class="css-content" m-custom-scrollbar ng-form="submission_form">
+        <table cellpadding="0" cellspacing="0">
+            <tbody>
+            <tr>
+                <td class="name name-height" style="width: 10%">撰稿人姓名</td>
+                <td class="value">
+                    <input ng-class="{true:'warn',false:''}[submission_form.write_user_name.$error.required]"
+                           maxlength="50"
+                           type="text" ng-model="vm.material.write_user_name" name="write_user_name"
+                           ng-readonly="vm.is_view"/>
+                </td>
+                <td class="name name-height" style="width: 10%">撰稿人单位</td>
+                <td class="value">
+                    <input ng-class="{true:'warn',false:''}[submission_form.write_user_unitname.$error.required]"
+                           maxlength="50" ng-click="vm.selectUnitDept()"
+                           type="text" ng-model="vm.material.write_user_unitname" name="write_user_unitname"
+                           placeholder="请输入撰稿人单位"
+                           ng-readonly="vm.is_view"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="name name-height" style="width: 10%">材料名称</td>
+                <td colspan="3" class="value">
+                    <input ng-class="{true:'warn',false:''}[submission_form.material_name.$error.required]" required
+                           maxlength="50"
+                           type="text" ng-model="vm.material.material_name" name="material_name" placeholder="请输入材料名称"
+                           ng-readonly="vm.is_view"/>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="name name-height" style="width: 10%">材料类型</td>
+                <td class="value">
+                    <select ng-model="vm.material.clattachtype" name="clattachtype" ng-change="vm.clattachtypeOp()"
+                            ng-class="{true:'warn',false:''}[submission_form.clattachtype.$error.required]"
+                            ng-options="n.id as n.chinaname for n in vm.clattachtypeCatagory"
+                            ng-disabled="vm.is_view">
+                    </select>
+                </td>
+                <td class="name name-height" style="width: 10%">材料子类型</td>
+                <td class="value">
+                    <select ng-model="vm.material.clattach_sub_type" name="clattach_sub_type"
+                            ng-class="{true:'warn',false:''}[submission_form.clattach_sub_type.$error.required]"
+                            ng-options="n.id as n.chinaname for n in vm.clattach_sub_typeCatagory"
+                            ng-disabled="vm.is_view">
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="name name-height" style="width: 10%">对外发布</td>
+                <td class="value" colspan="3">
+                    <select ng-model="vm.submission.submissionobject" name="submissionobject"
+                            ng-class="{true:'warn',false:''}[submission_form.submissionobject.$error.required]"
+                            ng-options="n.id as n.chinaname for n in vm.clattchpublicobjectCatagory">
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="name name-height" style="width: 10%">报送对象</td>
+                <td class="value" colspan="3">
+                    <select ng-model="vm.submission.submissiontype" name="submissiontype"
+                            ng-class="{true:'warn',false:''}[submission_form.submissiontype.$error.required]"
+                            ng-options="n.id as n.chinaname for n in vm.clattachreportobjectCatagory">
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <div class="fileListDiv"
+                         attach-file-list
+                         attach-file-list-init-options="vm.fileZwInitOptions"
+                         attach-file-list-load-options="vm.fileZwLoadOptions"
+                    ></div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <div class="fileListDiv"
+                         attach-file-list
+                         attach-file-list-init-options="vm.fileInitOptions"
+                         attach-file-list-load-options="vm.fileLoadOptions"
+                    ></div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="popBottom">
+        <!--<span class="table_main1_a" ng-click="vm.saveSubmission(0)">预览</span>-->
+        <span class="table_main1_a" ng-click="vm.saveSubmission(2)">暂存</span>
+        <span class="table_main1_a" ng-click="vm.saveSubmission(1)">提交</span>
+        <span class="table_main1_a" ng-click="vm.cancelOp()">取消</span>
+    </div>
+</div>

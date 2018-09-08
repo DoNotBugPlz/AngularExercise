@@ -1,0 +1,205 @@
+<div class="popWhite">
+    <div class="css-content"   m-custom-scrollbar  ng-form="sms_form">
+        <table cellpadding="0" cellspacing="0">
+            <tbody>
+            <tr>
+                <td class="name name-height" style="width: 10%">事项名称</td>
+                <td  class="value">
+                    <input  id="title" ng-class="{true:'warn',false:''}[question_form.title.$error.required]" required
+                            ng-model="vm.matter.name"
+                            maxlength="50"
+                            ng-readonly="vm.is_view"/>
+                </td>
+
+                <td  class="name name-height" style="width: 10%">生效时间</td>
+                <td class="value">
+                    <input   ng-model="vm.matter.entry_time"
+                             maxlength="50" ng-date="yyyy-MM-dd" class="Wdate"
+                             ng-disabled="vm.is_view"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="name name-height" style="width: 8%">法律</td>
+                <td class="value" colspan="3">
+                      <textarea   ng-model="vm.matter.law"
+                                  class="remarks"
+                                  name="content" ng-readonly="vm.is_view"></textarea>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="name name-height" style="width: 8%">办理条件</td>
+                <td class="value" colspan="3">
+                      <textarea
+                              ng-model="vm.matter.handling_msg"
+                              class="remarks"
+                              name="content" ng-readonly="vm.is_view"></textarea>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="name name-height" style="width: 8%">常见问题</td>
+                <td class="value" colspan="3">
+                      <textarea
+                              ng-model="vm.matter.question"
+                              class="remarks"
+                              name="content" ng-readonly="vm.is_view"></textarea>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+
+        <table cellpadding="0" cellspacing="0" style="margin-top: 15px">
+            <tbody>
+            <tr>
+                <td class="name name-height" style="width: 10%">企业名称</td>
+                <td  class="value">
+                    <input  id="" ng-class="{true:'warn',false:''}[question_form.title.$error.required]" required
+                            maxlength="50"
+                            ng-model="vm.matter_monitor.enterprise"
+                            type="text"  name="title"
+                            ng-readonly="vm.is_view"/>
+                </td>
+
+                <td class="name name-height" style="width: 10%">信用代码</td>
+                <td  class="value">
+                    <input  ng-class="{true:'warn',false:''}[question_form.title.$error.required]" required
+                            ng-model="vm.matter_monitor.credit_code"
+                            maxlength="50"
+                            type="text" name="title"
+                            ng-readonly="vm.is_view"/>
+                </td>
+
+            </tr>
+            <tr>
+                <td class="name name-height" style="width: 10%">企业类型</td>
+                <td  class="value">
+                    <select placeholder="" ng-model="vm.matter_monitor.enterprise_type"     ng-readonly="vm.is_view" style="font-size: 15px" class="sel_sel_zzy"
+                            ng-options="n.id as n.chinaname for n in vm.clattachstatusCatagory">
+                        <option value="">请选择</option>
+                    </select>
+                </td>
+
+                <td class="name name-height" style="width: 10%">企业地址</td>
+                <td  class="value">
+                    <input   ng-class="{true:'warn',false:''}[question_form.title.$error.required]" required
+                             ng-model="vm.matter_monitor.enterprise_street"
+                             maxlength="50"
+                             type="text"  name="title"
+                             ng-readonly="vm.is_view"/>
+                </td>
+
+            </tr>
+
+
+            <tr>
+                <td class="name name-height" style="width: 10%">法人</td>
+                <td  class="value">
+                    <input   ng-class="{true:'warn',false:''}[question_form.title.$error.required]" required
+                             ng-model="vm.matter_monitor.law"
+                             maxlength="50"
+                             type="text"  name="title"
+                             ng-readonly="vm.is_view"/>
+                </td>
+
+                <td class="name name-height" style="width: 10%">联系方式</td>
+                <td  class="value">
+                    <input   ng-class="{true:'warn',false:''}[question_form.title.$error.required]" required
+                             ng-model="vm.matter_monitor.law_phone"
+                             maxlength="50"
+                             ng-readonly="vm.is_view"/>
+                </td>
+
+            </tr>
+
+            <tr>
+                <td class="name name-height" style="width: 10%">联系人</td>
+                <td  class="value">
+                    <input   ng-class="{true:'warn',false:''}[question_form.title.$error.required]" required
+                             ng-model="vm.matter_monitor.contacts_name"
+                             maxlength="50"
+                             type="text"
+                             ng-readonly="vm.is_view"/>
+                </td>
+
+                <td class="name name-height" style="width: 10%">联系方式</td>
+                <td  class="value">
+                    <input    ng-class="{true:'warn',false:''}[question_form.title.$error.required]" required
+                              ng-model="vm.matter_monitor.contacts_phone"
+                              maxlength="50"
+                              ng-readonly="vm.is_view"/>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+
+        <div class="table_head_zzy marginB2" style="margin-top: 10px">
+            <table>
+                <tr>
+                    <td width="5%">品种</td>
+                    <td width="10%">规格</td>
+                    <td width="10%">计量单位</td>
+                    <td width="10%">价格形势</td>
+                    <td width="10%">原价</td>
+                    <td width="10%">当期价</td>
+                    <td width="10%">异动原因</td>
+                    <td width="10%">调价时间</td>
+                </tr>
+            </table>
+        </div>
+        <table >
+            <tbody>
+            <tr ng-repeat="n in vm.goodsLis">
+                <td width="5%" style="display: none"> {{n.good_id}} </td>
+                <td width="5%"> {{n.name}} </td>
+                <td width="10%">{{n.guige}}</td>
+                <td width="10%">{{n.unit}}</td>
+                <td width="10%"><sapn></sapn></td>
+                <td width="10%"><input type="text" style="border: 0px"  ng-readonly="vm.is_view" ng-model="n.orginal_price"/></td>
+                <td width="10%"><input type="text" style="border: 0px"  ng-readonly="vm.is_view" ng-model="n.cunrrent_price"/></td>
+                <td width="10%"><input type="text" style="border: 0px"  ng-readonly="vm.is_view"  ng-model="n.change_reaon"/></td>
+                <td width="10%">
+                    <input
+                            maxlength="50" ng-date="yyyy-MM-dd" class="Wdate"
+                            ng-model="n.price_readjust" name="write_time"
+                            ng-disabled="vm.is_view"/>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+
+        <!--<div class="table_head_zzy marginB2" style="margin-top: 10px">-->
+            <!--<table>-->
+                <!--<tr>-->
+                    <!--<td width="10%">材料名称</td>-->
+                    <!--<td width="10%">来源渠道</td>-->
+                    <!--<td width="10%">纸质材料</td>-->
+                    <!--<td width="10%">材料必要性</td>-->
+                <!--</tr>-->
+            <!--</table>-->
+        <!--</div>-->
+        <!--<table >-->
+            <!--<tbody>-->
+            <!--<tr ng-repeat="n in vm.material">-->
+
+                <!--<td width="10%"><input type="text" style="border: 0px"  ng-readonly="vm.is_view"  ng-model="n.name"/></td>-->
+                <!--<td width="10%"><input type="text" style="border: 0px"  ng-readonly="vm.is_view"  ng-model="n.channel"/></td>-->
+                <!--<td width="10%"><input type="text" style="border: 0px"  ng-readonly="vm.is_view"  ng-model="n.papery"/></td>-->
+                <!--<td width="10%">-->
+                    <!--<select placeholder="" ng-model="v.is_necessity"   ng-readonly="vm.is_view" class="sel_sel_zzy"-->
+                            <!--ng-options="n.id as n.chinaname for n in vm.clattachstatusCatagorys">-->
+                        <!--<option value="">请选择</option>-->
+                    <!--</select>-->
+                <!--</td>-->
+            <!--</tr>-->
+            <!--</tbody>-->
+        <!--</table>-->
+    </div>
+    <div class="popBottom">
+        <a class="table_main1_a" ng-click="vm.saveMatter()" ng-if="!vm.is_view" >保存</a>
+        <a class="table_main1_a" ng-click="vm.cancelOp()" ng-if="!vm.is_view">取消</a>
+    </div>
+</div>

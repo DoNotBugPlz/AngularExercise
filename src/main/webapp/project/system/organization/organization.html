@@ -1,0 +1,26 @@
+<div class="dom-left">
+    <div class="div-tool">
+        <span >部门管理</span>
+        <ul id="op">
+            <li ng-click="organization.addNewdept()" ng-show="organization.dept_flag">
+                <span>新增部门</span>
+            </li>
+            <li ng-click="organization.addMonitorCenter()"  ng-show="organization.monitor_flag" >
+                <span>新增机构</span>
+            </li>
+        </ul>
+    </div>
+    <div class="content-left" style="top: 45px;">
+        <ul ztree id="treeDemo" class="ztree" z-params="organization.zParams"></ul>
+    </div>
+</div>
+<div>
+    <div class="dom-right">
+        <div class="div-tool">
+            <span id="content-title">部门信息</span>
+        </div>
+        <div class="content-right"  ui-view="details">
+        </div>
+    </div>
+</div>
+

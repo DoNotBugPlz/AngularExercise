@@ -1,0 +1,100 @@
+<div class="dom-left" style="right: 40%">
+    <div class="div-tool">
+        <span >字典列表</span>
+        <ul>
+            <li ng-click="category.addOrUpdateCategory(0)">
+                <span >新增</span>
+            </li>
+            <li ng-click="category.deleteCategorys()">
+                <span >禁用</span>
+            </li>
+            <li ng-click="category.undeleteCategorys()">
+                <span >启用</span>
+            </li>
+        </ul>
+    </div>
+    <div class="content-left" style="top: 45px;overflow-y: hidden;">
+        <table class="query-conditions" cellspacing="0" cellpadding="0">
+            <tbody>
+            <tr>
+                <td class="name" style="width: 10%">关键字：</td>
+                <td class="value">
+                    <input type="text"style="width: 250px" placeholder="请输入关键字" ng-model="category.searchParams.keyvalue" name="keyword" />
+                </td>
+                <td>
+                    <div class="seach" style="margin-left: 342px;margin-top: 10px" ng-click="category.loadCategoryList()">
+                        <span class="icon"></span>搜索
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="query-list" style="top: 50px;">
+            <div class="table-thead" style="border-left: 0;border-right: 0;">
+                <table cellpadding="0" cellspacing="0"  style="table-layout: fixed">
+                    <thead>
+                    <tr>
+                        <th width="5%">
+                            <input type="checkbox" ng-model="category.allSelected" ng-click="category.selectAll()"/>
+                        </th>
+                        <th width="5%">序号</th>
+                        <th width="40%">字典名称</th>
+                        <th width="25%">字典常量名</th>
+                        <th width="10%">是否禁用</th>
+                        <th width="25%">操作</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+            <div id="query_nothing" class="nothing nothingTop"
+                 ng-show="!!!category.categoryList||category.categoryList.length==0">
+                <span></span>暂无数据
+            </div>
+            <div class="table-tbody" m-custom-scrollbar style="border-left: 0;border-right: 0;">
+                <table id="query-list-panel" cellpadding="0" cellspacing="0" style="table-layout: fixed"
+                       ng-hide="!!!category.categoryList||category.categoryList.length==0">
+                    <tbody>
+                    <tr ng-repeat="n in category.categoryList track by $index" ng-class-even="'bgcolor'"
+                        ng-class="{'false':'','true':'selected'}[n.selected]">
+                        <td width="5%" ng-click="category.selectItem(n)" >
+                            <input type="checkbox"  ng-model="n.selected" ng-click="$event.stopPropagation();"/>
+                        </td>
+                        <td  width="5%">{{ $index + 1+ (category.currentPageInf.pageNumber-1)*category.currentPageInf.pageSize }}</td>
+                        <td width="40%" style="text-align: left">&nbsp;&nbsp;{{n.chinaname}}</td>
+                        <td width="25%">{{n.constname}}</td>
+                        <td width="10%" ng-style="{color:(n.delstatus===1)?'red':''}">{{n.delText}}</td>
+                        <td width="25%">
+                            <span class="modify" ng-click="category.addOrUpdateCategory(1,n.id)" style="color: royalblue;cursor: pointer;">[编辑]</span>
+                            &nbsp;&nbsp;
+                            <span class="delRole" ng-click="category.loadCategoryValueList(n.id,n.chinaname)" style="color: royalblue;cursor: pointer;">[查看子项]</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-tfoot" style="border: none">
+                <div class="table_page">
+                    <div ng-turn-page="category.categoryListPage" turn-page-fn="category.loadCategoryList"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div>
+    <div class="dom-right" style="left: 60%;">
+        <div class="content-right"  ui-view="category_value" style="padding: 0;top: 0">
+            <div class="div-tool">
+                <span >字典子项列表</span>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .table-tbody table tr{
+        cursor: auto;
+    }
+</style>

@@ -1,0 +1,49 @@
+<div class="popWhite"   >
+    <div class="css-content" m-custom-scrollbar  ng-form="demo_form" >
+        <table cellpadding="0" cellspacing="0">
+            <tbody>
+                <tr>
+                    <td  class="name name-height">审核人</td>
+                    <td  colspan="3" class="value">
+                        {{vm.audit_man}}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td  class="name name-height">退回原因</td>
+                    <td  colspan="3" class="value">
+                        {{vm.back_reason}}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="4" >
+                        <div class="fileListDiv"
+                             attach-file-list
+                             attach-file-list-init-options="vm.fileInitOptions"
+                             attach-file-list-load-options="vm.fileLoadOptions"
+                        ></div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td  class="name name-height">说明</td>
+                    <td  colspan="3" class="value">
+                        <input type="text"  maxlength="50"  ng-model="vm.demo.col_str"  name="col_str" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="popBottom" ng-if="!vm.readonly">
+        <a class="table_main1_a"  ng-click="vm.saveDemo()" >保存</a>
+        <a class="table_main1_a" ng-click="vm.cancelDialog()">取消</a>
+    </div>
+</div>
+
+<style>
+    .css-content table tbody .name-height{
+        text-align: center;
+        width: 10%;
+    }
+</style>

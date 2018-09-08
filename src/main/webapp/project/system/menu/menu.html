@@ -1,0 +1,36 @@
+<div class="dom-left" style="right: 60%">
+    <div class="div-tool">
+        <span >菜单管理</span>
+        <ul id="op">
+            <li ng-click="menu.addNewMenu(0)"   >
+                <span >新增</span>
+            </li>
+            <li ng-click="menu.addNewMenu(1)"   >
+                <span >新增下级</span>
+            </li>
+            <li ng-click="menu.unDeleteMenuList()"   >
+                <span >启用</span>
+            </li>
+            <li ng-click="menu.deleteMenuList()"   >
+                <span >禁用</span>
+            </li>
+            <li ng-click="menu.destoryMenuList()" >
+                <span >删除</span>
+            </li>
+        </ul>
+    </div>
+    <div class="content-left" style="top: 45px;" m-custom-scrollbar>
+        <ul ztree id="menuTree" class="ztree" z-params="menu.zParams"></ul>
+    </div>
+</div>
+<div>
+    <div class="dom-right" style="left: 40%">
+        <!--<div class="div-tool">
+            <span id="content-title">菜单信息</span>
+        </div>-->
+        <div class="content-right" style="top: 2px;padding: inherit" ui-view="menu_details">
+
+        </div>
+    </div>
+</div>
+

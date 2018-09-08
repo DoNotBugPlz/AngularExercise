@@ -1,0 +1,27 @@
+﻿<div class="easyui-panel" fit="true" border="false">
+    <!--padding:5px;border:1px solid #ddd;  -->
+    <div class="datagrid-toolbar">
+        <a href="javascript:void(0)" id="saveCustomTransitionForm" class="easyui-linkbutton" onclick="saveCustomTransitionform()"
+            data-options="plain:true,iconCls:'icon-save'">保存</a>
+    </div>
+    <div>
+        <form id="customTransitionform" method="post" action="../../../../Sys_custom_transition/SaveForm.do">
+        <table style="padding-left: 20px;">
+            <colgroup>
+                <col width="80px" align="left" />
+                <col align="left" />
+            </colgroup>
+            <tr>
+                <td>
+                    流向名称:
+                </td>
+                <td>
+                    <input class="easyui-validatebox" type="text" name="sys_custom_transition.chinaname"
+                        id="sys_custom_transitionchinaname" data-options="required:true" style="width: 300px" />
+                </td>
+            </tr>
+        </table>
+        <input type="hidden" name="sys_custom_transition.id" id="customtransitionid" />
+        </form>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+<div class="popWhite"  style="height: 100%">
+    <div class="css-content"  style="bottom: 0px" >
+        <div  ng-if="vm.officeButton.editAble">
+            <span class="btn1" ng-if="vm.officeButton.editAble" ng-click="vm.saveWebOffice()">保存</span>
+        </div>
+        <div web-office="vm.officeInf" class="web_office_content"
+            ng-style="{'top':vm.officeButton.editAble?'50px':'0px'}"
+        ></div>
+    </div>
+    <script type="text/ng-template" id="webOfficeFileNameDiv">
+        <div class="popWhite"   >
+            <div class="css-content" m-custom-scrollbar  ng-form="vm.filename_form" style="bottom: 0px">
+                <table cellpadding="0" cellspacing="0">
+                    <tbody>
+                    <tr>
+                        <td  class="name name-height">文件名</td>
+                        <td  colspan="2" class="value">
+                            <input ng-class="{true:'warn',false:''}[vm.filename_form.currentFileName.$error.required]"
+                                   required maxlength="50" type="text" ng-model="vm.currentFileName"  name="currentFileName"  />
+                        </td>
+                        <td class="name name-height" style="text-align: center">
+                            <a class="table_main1_a" ng-click="vm.saveOfficeWithFileName()" >确认</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </script>
+</div>

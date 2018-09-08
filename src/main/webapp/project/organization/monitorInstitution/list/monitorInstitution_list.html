@@ -1,0 +1,153 @@
+<div class="table_tip_zzy"><!--操作按钮-->
+    <div class="table_tip_btn_zzy">
+        <a ng-click="">打印</a>
+        <a ng-click="">导出</a>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="select_b_zzy">
+    <div class="leftSel_table_zzy " ng-class="{true:'up',false:'over_hide2'}[vm.advSearch]">
+        <table border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="10%" class="txt">名称：</td>
+                <td width="20%">
+                    <input type="text" class="sel_ipt_zzy" ng-model="vm.searchParams.chinaname"/>
+                </td>
+                <td width="10%" class="txt">区域：</td>
+                <td width="20%">
+                    <input type="text" class="sel_ipt_zzy" style=""
+                           ng-click="vm.selectAreaInfo()"
+                           ng-model="vm.searchParams.area_name"/>
+                    <!--<i class="selectOp " ng-click="vm.selectAreaInfo()"></i>-->
+                </td>
+                <td width="10%" class="txt">性质：</td>
+                <td width="20%">
+                    <div class="chosen_div">
+                        <select ng-model="vm.searchParams.dept_properties" class="sel_sel_zzy"
+                                ng-chosen
+                                ng-chosen-data="vm.deptProperty"
+                                ng-options="n.id as n.chinaname for n in vm.deptProperty">
+                            <option ng-chosen-option></option>
+                        </select>
+                    </div>
+                </td>
+
+                <td class="left">
+                    <a class="sel_btn_zzy cursor_pointer" ng-click="vm.searchList()">查询</a>
+                    <a class="reSet_btn_zzy cursor_pointer" ng-click="vm.resetSearch()">重置</a>
+                </td>
+            </tr>
+            <tr>
+                <td class="txt">是否独立办公：</td>
+                <td>
+                    <div class="chosen_div">
+                        <select ng-model="vm.searchParams.is_independent_office" class="sel_sel_zzy"
+                                ng-chosen
+                                ng-chosen-data="vm.yesnoCatagory"
+                                ng-options="n.id as n.chinaname for n in vm.yesnoCatagory">
+                            <option ng-chosen-option></option>
+                        </select>
+                    </div>
+                </td>
+                <td class="txt">编制人数：</td>
+                <td class="txt_center">
+                    <input type="text" class="sel_ipt_zzy sel_ipt_zzy_size pull_left" style="width: 40%"
+                        ng-model="vm.searchParams.min_person"/>
+                    <span class="ipt_line" style="width:5%;"></span>
+                    <input type="text" class="sel_ipt_zzy sel_ipt_zzy_size pull_right" style="width: 40%"
+                        ng-model="vm.searchParams.max_person"/>
+                </td>
+                <td></td>
+                <td>
+                    <a class="ipt_check deptSelectBox cursor_pointer"  ng-model="vm.searchParams.queryDept" ng-click="vm.selectQueryType()"
+                       ng-class="{true:'checked',false:''}[vm.searchParams.queryDept]">查询部门</a>
+                </td>
+                <td class="left">
+
+                    <a class="super_sel" ng-click="vm.advSearchFun()">高级检索</a>
+                </td>
+            </tr>
+        </table>
+        <table ng-show="vm.advSearch" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="10%" class="txt">地址：</td>
+                <td width="20%"><input type="text" class="sel_ipt_zzy" ng-model="vm.searchParams.address"></td>
+                <td width="10%" class="txt">邮编：</td>
+                <td width="20%"><input type="text" class="sel_ipt_zzy" ng-model="vm.searchParams.zip_code"></td>
+                <td width="10%" class="txt">社会信用代码：</td>
+                <td width="20%"><input type="text" class="sel_ipt_zzy" ng-model="vm.searchParams.credit_code"></td>
+                <td class="right"></td>
+            </tr>
+            <tr>
+                <td class="txt">负责人：</td>
+                <td><input type="text" class="sel_ipt_zzy" ng-model="vm.searchParams.leader_name"></td>
+                <td class="txt">传真：</td>
+                <td><input type="text" class="sel_ipt_zzy" ng-model="vm.searchParams.fax"></td>
+                <td class="txt">移动预警电话：</td>
+                <td><input type="text" class="sel_ipt_zzy" ng-model="vm.searchParams.warning_mobile"></td>
+                <td class="right"></td>
+            </tr>
+            <tr>
+                <td class="txt">固定预警电话：</td>
+                <td><input type="text" class="sel_ipt_zzy" ng-model="vm.searchParams.warning_telephone"></td>
+                <td class="txt">状态：</td>
+                <td width="20%">
+                    <div class="chosen_div">
+                        <select ng-model="vm.searchParams.delstatus" class="sel_sel_zzy"
+                                ng-chosen
+                                ng-chosen-data="vm.deptStatus"
+                                ng-options="n.id as n.chinaname for n in vm.deptStatus">
+                            <option ng-chosen-option></option>
+                        </select>
+                    </div>
+                </td>
+                <td></td>
+                <td></td>
+                <td class="right"></td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+<div class="table_box_zzy top1_zzy" style="top: 108px;">
+    <div class="table_head_zzy marginB2">
+        <table>
+            <tr>
+                <td width="5%">序号</td>
+                <td width="30%">机构名称</td>
+                <td width="10%">性质</td>
+                <td width="10%">区域</td>
+                <td width="10%">人数</td>
+                <td width="10%">是否独立办公</td>
+                <td width="5%">状态</td>
+                <td width="10%">操作</td>
+            </tr>
+        </table>
+    </div>
+    <div id="query_nothing" class="nothing nothingTop"
+         ng-show="!!!vm.deptList||vm.deptList.length==0">
+        <span></span>暂无数据
+    </div>
+    <div class="table_main_zzy" m-custom-scrollbar>
+        <table ng-hide="!!!vm.deptList||vm.deptList.length==0">
+            <tr ng-repeat="n in vm.deptList track by $index" ng-class-even="'bgcolor'">
+                <td width="5%">{{ $index + 1+ (vm.currentPageInf.pageNumber-1)*vm.currentPageInf.pageSize }}</td>
+                <td width="30%" style="text-align: left">&nbsp;&nbsp;{{n.chinaname}}</td>
+                <td width="10%">{{n.dept_properties_text||'--'}}</td>
+                <td width="10%">{{n.area_name||'--'}}</td>
+                <td width="10%">{{n.person_num||'--'}}</td>
+                <td width="10%">{{n.is_independent_office_text||'--'}}</td>
+                <td width="5%" ng-style="{color:(n.delstatus===1)?'red':''}">{{n.delstatus ===1? '禁用':'启用'}}</td>
+                <td width="10%" class="pad_zzy">
+                    <a class="table_main1_a" ng-click="vm.readDetail(n)">详情</a>
+                    <!--<span class="delRole" ng-click="vm.deleteDemo(n)">[删除]</span>-->
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="table-tfoot">
+        <div class="table_page">
+            <div ng-turn-page="vm.deptListPage" turn-page-fn="vm.loadDeptList"></div>
+        </div>
+    </div>
+</div>

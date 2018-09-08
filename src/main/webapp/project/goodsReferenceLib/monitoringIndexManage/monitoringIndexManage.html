@@ -1,0 +1,116 @@
+<div class="select_b_zzy ">
+    <div class="leftSel_table_zzy over_hide2" >
+        <table border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="10.6%" class="txt">指标名称：</td>
+                <td width="17.9%">
+                    <input type="text" class="sel_ipt_zzy" name="name" ng-model="vm.searchParams.name"/>
+                </td>
+
+                <td width="10.6%" class="txt">指标性质：</td>
+                <td width="17.9%">
+                    <div class="chosen_div" >
+                        <select class="sel_sel_zzy"
+                                ng-chosen
+                                ng-chosen-data="vm.index_nature"
+                                ng-model="vm.searchParams.index_nature"
+                                ng-options="n.id as n.chinaname for n in vm.index_nature">
+                            <option ng-chosen-option></option>
+                        </select>
+                    </div>
+
+
+                </td>
+                <td width="10.6%" class="txt">指标类别：</td>
+                <td width="17.9%">
+                    <div class="chosen_div" >
+                        <select class="sel_sel_zzy"
+                                ng-chosen
+                                ng-chosen-data="vm.index_category"
+                                ng-model="vm.searchParams.index_category"
+                                ng-options="n.id as n.chinaname for n in vm.index_category">
+                            <option ng-chosen-option></option>
+                        </select>
+                    </div>
+                </td>
+
+                <td class="left">
+                    <a href="javascript:;" class="sel_btn_zzy" ng-click="vm.searchIndex()">查询</a>
+                    <a href="javascript:;" class="reSet_btn_zzy" ng-click="vm.clearAll()">重置</a>
+                </td>
+            </tr>
+            <tr>
+                <td width="10.6%" class="txt">状态：</td>
+                <td width="17.9%">
+                    <div class="chosen_div" >
+                        <select class="sel_sel_zzy"
+                                ng-chosen
+                                ng-chosen-data="vm.delstatus"
+                                ng-model="vm.searchParams.delstatus"
+                                ng-options="n.id as n.chinaname for n in vm.delstatus" >
+                            <option ng-chosen-option></option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="table_box_zzy top1_zzy">
+    <div class="rightSide_menus addScroll table_box_l_zzy" style="top: -35px">
+        <!--<div class="menus_searchBox">-->
+            <!--&lt;!&ndash;<input class="search_input" type="text" placeholder="请填写关键词">&ndash;&gt;-->
+            <!--&lt;!&ndash;<a class="search_button" href="javascript:;">搜索</a>&ndash;&gt;-->
+        <!--</div>-->
+        <div class="menus_slider">
+            <ul ztree id="treeDemo" class="ztree" z-params="vm.zParams"></ul>
+        </div>
+    </div>
+
+    <div class="table_box_r_zzy">
+        <div class="table_tip_zzy" style="left: 0px">
+            <div class="table_tip_btn_zzy ">
+                <a href="javascript:;" ng-click="vm.addIndex()">新增</a>
+            </div>
+            <div class="table_tip_main_zzy">
+                <span class="tip1_zzy">所属类别：</span>
+                基准商品库{{vm.index_category_text}}{{vm.cf_index_text}}
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="table_head_zzy marginB2">
+            <table>
+                <tr>
+                    <td width="20%">指标名称</td>
+                    <td width="15%">指标性质</td>
+                    <td width="15%">状态</td>
+                    <td width="30%">操作</td>
+                </tr>
+            </table>
+        </div>
+        <div class="table_main_zzy" m-custom-scrollbar>
+            <table>
+                <tr ng-repeat="n in vm.monitoringIndexList track by $index">
+                    <td width="20%">{{n.name}}</td>
+                    <td width="15%">{{n.index_nature_text}}</td>
+                    <td width="15%">
+                        <span ng-style="{color:(n.delstatus==1)?'red':'green'}">{{n.delstatus_text}}</span>
+                    </td>
+                    <td width="30%" class="pad_zzy">
+                        <a href="javascript:;" class="table_main1_a" ng-click="vm.operateIndex(n,0)">查看</a>
+                        <span class="table_main1_span" style="display:none;"></span>
+                        <a href="javascript:;" class="table_main1_a" ng-click="vm.operateIndex(n,1)">编辑</a>
+                        <a href="javascript:;" class="table_main1_a" ng-click="vm.updateIndex(n)">{{n.delstatus == 0 ?'停用':'启用'}}</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="table-tfoot">
+            <div class="table_page">
+                <div ng-turn-page="vm.monitoringIndexListPage" turn-page-fn="vm.loadIndexList"></div>
+            </div>
+        </div>
+    </div>
+
+</div>

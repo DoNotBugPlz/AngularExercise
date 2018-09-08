@@ -1,0 +1,54 @@
+<!--<div class="popWhite" ng-controller="ChangePwdCtrl as changepwd">-->
+<div class="popWhite"   >
+    <div class="css-content" m-custom-scrollbar  ng-form="wqt_detail_form">
+        <table cellpadding="0" cellspacing="0">
+            <tbody>
+            <tr>
+                <td  class="name name-height">文签头名称：</td>
+                <td  colspan="3" class="value">
+                    <input ng-class="{true:'warn',false:''}[wqt_detail_form.name.$error.required]"
+                           required maxlength="50" type="text" ng-model="vm.wqt.name"  name="name"  />
+                </td>
+            </tr>
+            <tr>
+                <td  class="name name-height">所属单位名称：</td>
+                <td  colspan="3" class="value">
+                    <input ng-class="{true:'warn',false:''}[wqt_detail_form.adderdeptid.$error.required]"
+                           required maxlength="50" type="text" ng-model="vm.wqt.adderdeptid"  name="adderdeptid"  />
+                </td>
+            </tr>
+            <tr>
+                <td  class="name name-height">公文字：</td>
+                <td  colspan="3" class="value">
+                    <input ng-class="{true:'warn',false:''}[wqt_detail_form.fair_character.$error.required]"
+                           required maxlength="50" type="text" ng-model="vm.wqt.fair_character"  name="fair_character"  />
+                    <!--<select  ng-model="vm.demo.col_category" name="col_category" required ng-chosen  ng-chosen-data="vm.catagoryNum"
+                             ng-class="{true:'warn',false:''}[wqt_detail_form.col_category.$error.required]"
+                             ng-options="n.id as n.chinaname for n in vm.catagoryNum" >
+                        <option value="">==请选择==</option>
+                    </select>-->
+                </td>
+            </tr>
+            <tr>
+                <td  class="name name-height">描述：</td>
+                <td class="value" colspan="3">
+                    <textarea class="remarks" ng-model="vm.wqt.remark" name="remark"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <div class="fileListDiv"
+                         attach-file-list
+                         attach-file-list-init-options="vm.fileInitOptions"
+                         attach-file-list-load-options="vm.fileLoadOptions"
+                    ></div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="popBottom">
+        <a class="table_main1_a" ng-click="vm.saveInfo()" >保存</a>
+        <a class="table_main1_a" ng-click="vm.cancelOp()">取消</a>
+    </div>
+</div>

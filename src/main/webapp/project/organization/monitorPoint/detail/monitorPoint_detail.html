@@ -1,0 +1,121 @@
+<!--<div class="popWhite" ng-controller="ChangePwdCtrl as changepwd">-->
+<div class="popWhite"   >
+    <div class="css-content" m-custom-scrollbar  ng-form="oa_mp_form" >
+        <table cellpadding="0" cellspacing="0">
+            <tbody>
+            <tr>
+                <td  class="name name-height">名称</td>
+                <td  class="value">
+                    <input ng-class="{true:'warn',false:''}[oa_mp_form.name.$error.required]" ng-readonly="vm.readonly"
+                           required maxlength="50" type="text" ng-model="vm.mp.name"  name="name"  />
+                </td>
+                <td  class="name name-height">简称</td>
+                <td  class="value">
+                    <input ng-class="{true:'warn',false:''}[oa_mp_form.simple_name.$error.required]" ng-readonly="vm.readonly"
+                           required maxlength="50" type="text" ng-model="vm.mp.simple_name"  name="simple_name"  />
+                </td>
+            </tr>
+            <tr>
+                <td  class="name name-height">区域、</td>
+                <td class="value" >
+                    <div class="chosen_div" ng-class="{true:'warn',false:''}[oa_fw_form.file_type.$invalid]">
+                        <select placeholder="文件类型" ng-model="vm.fw.file_type" name="file_type"  ng-disabled="vm.readonly"
+                                required  ng-chosen ng-chosen-data="vm.fwFileTypeCatagory"
+                                ng-options="n.id as n.chinaname for n in vm.fwFileTypeCatagory" >
+                            <option value="">==请选择==</option>
+                        </select>
+                    </div>
+                </td>
+
+
+                <td  class="name name-height">紧急程度</td>
+                <td class="value" >
+                    <div class="chosen_div" ng-class="{true:'warn',false:''}[oa_fw_form.emergency.$invalid]">
+                        <select placeholder="紧急程度" ng-model="vm.fw.emergency" name="emergency"  ng-disabled="vm.readonly"
+                                required  ng-chosen ng-chosen-data="vm.fwEmergencyCatagory"
+                                ng-options="n.id as n.chinaname for n in vm.fwEmergencyCatagory" >
+                            <option value="">==请选择==</option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td  class="name name-height">主送</td>
+                <td class="value" >
+                    <input ng-class="{true:'warn',false:''}[oa_fw_form.main_send_name.$error.required]" ng-readonly="vm.readonly"
+                           required maxlength="50" type="text" ng-model="vm.fw.main_send_name"  name="main_send_name"  />
+                </td>
+                <td  class="name name-height">抄送</td>
+                <td class="value" >
+                    <input ng-class="{true:'warn',false:''}[oa_fw_form.main_send_name.$error.required]" ng-readonly="vm.readonly"
+                           required maxlength="50" type="text" ng-model="vm.fw.main_send_name"  name="main_send_name"  />
+                </td>
+            </tr>
+
+            <tr>
+                <td  class="name name-height">文号选择</td>
+                <td class="value" >
+                    <input ng-class="{true:'warn',false:''}[oa_fw_form.wh.$error.required]" ng-readonly="vm.readonly"
+                           required maxlength="50" type="text" ng-model="vm.fw.wh"  name="wh"  />
+                </td>
+                <td  class="name name-height">承办部门拟稿人</td>
+                <td class="value" >
+                    <input ng-class="{true:'warn',false:''}[oa_fw_form.cb_drafter.$error.required]" ng-readonly="vm.readonly"
+                           required maxlength="50" type="text" ng-model="vm.fw.cb_drafter"  name="cb_drafter"  />
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td  class="name name-height">打印人</td>
+                <td class="value" >
+                    <input ng-class="{true:'warn',false:''}[oa_fw_form.print_name.$error.required]" ng-readonly="vm.readonly"
+                           required maxlength="50" type="text" ng-model="vm.fw.print_name"  name="print_name"  />
+                </td>
+                <td  class="name name-height">打印分数</td>
+                <td class="value" >
+                    <input ng-class="{true:'warn',false:''}[oa_fw_form.print_num.$error.required]" ng-readonly="vm.readonly"
+                           required maxlength="50" type="text" ng-model="vm.fw.print_num"  name="print_num"  />
+                </td>
+            </tr>
+
+            <tr>
+                <td  class="name name-height">公开范围</td>
+                <td class="value" colspan="3" >
+                    <div name="open_range"  ng-class="{true:'warn',false:''}[oa_fw_form.open_range.$invalid]"
+                         ng-checkbox-select="vm.fwOpenrangeCatagory"
+                         ng-model="vm.fw.open_range"
+                         ng-disabled="vm.readonly"
+                         required
+                         multiple >
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" >
+                    <div class="fileListDiv"
+                         attach-file-list
+                         attach-file-list-init-options="vm.fileZwInitOptions"
+                         attach-file-list-load-options="vm.fileZwLoadOptions"
+                    ></div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" >
+                    <div class="fileListDiv"
+                         attach-file-list
+                         attach-file-list-init-options="vm.fileInitOptions"
+                         attach-file-list-load-options="vm.fileLoadOptions"
+                    ></div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="popBottom" ng-if="!vm.readonly">
+        <a class="table_main1_a"  ng-click="vm.saveFw()" >保存</a>
+        <a class="table_main1_a" ng-click="vm.cancelOp()">取消</a>
+    </div>
+</div>

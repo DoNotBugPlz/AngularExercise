@@ -1,0 +1,88 @@
+﻿<div class="easyui-panel" fit="true" border="false">
+    <div class="easyui-layout" data-options="fit:true">
+        <div data-options="region:'west',split:false,border:false" style="width: 200px;">
+            <table id="subTableTree" class="easyui-treegrid" title="表单目录" data-options="
+                        url: rootPath + 'Sys_tablesremark/LoadPageList.do',
+                        showHeader:false,
+                        rownumbers: true,
+                        fit: true,
+                        fitColumns: true,
+			            idField: 'id',
+			            treeField: 'chinaname',
+                        onClickRow:clickSubTablesRow">
+                <thead>
+                    <tr>
+                        <th data-options="field:'chinaname'" width="268px">
+                            物理表名称
+                        </th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div data-options="region:'center',border:true">
+            <div class="easyui-layout" data-options="fit:true">
+                <div data-options="region:'north',split:false,border:false" style="height: 40px">
+                    <table style="height: 100%;" border="0">
+                        <tr>
+                            <td width="10%" align="right">
+                                关键字:
+                            </td>
+                            <td>
+                                <input class="easyui-validatebox" type="text" id="subKeyName" name="subKeyName" style="width: 80" />
+                            </td>
+                            <td width="15%" align="right">
+                                所属单位:
+                            </td>
+                            <td>
+                                <input type="hidden" name="searchSubUnitid" id="searchSubUnitid" />
+                                <input class="easyui-combobox" type="text" id="searchSubUnitName" name="searchSubUnitName"
+                                    data-options="onShowPanel:showDeptTreeGrid" style="width: 150px" />
+                            </td>
+                            <td width="20%">
+                                <a href="javascript:void(0)" class="easyui-linkbutton" onclick="searchSubTailorFormList()"
+                                    data-options="iconCls:'icon-search'">搜索</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div data-options="region:'center'">
+                    <table id="dgSubTailorForm" class="easyui-datagrid" data-options="
+                        fit: true,
+                        border:false,
+                        loadMsg: '数据加载中……',
+                        singleSelect: true,
+                        fitColumns: true,
+                        rownumbers: true,
+                        pageSize: 20,
+                        pagination: true,
+                        idField: 'id',
+                        toolbar: '#subTableToolBar',
+                        onLoadError: gridLoadError">
+                        <thead>
+                            <tr>
+                                <th data-options="field:'ck',checkbox:true">
+                                </th>
+                                <th data-options="field:'unitname',halign:'center'" width="40">
+                                    单位名称
+                                </th>
+                                <th data-options="field:'constname',halign:'center'" width="20">
+                                    子表标识
+                                </th>
+                                <th data-options="field:'chinaname',halign:'center'" width="80">
+                                    子表标题名称
+                                </th>
+                                <th data-options="field:'delstatus',align:'center',formatter: formatterCell" width="10">
+                                    状态
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="subTableToolBar" class="datagrid-toolbar">
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="insertSubTable()"
+        data-options="plain:true,iconCls:'icon-add'">插入</a>
+</div>

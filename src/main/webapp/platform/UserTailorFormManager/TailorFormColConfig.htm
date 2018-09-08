@@ -1,0 +1,92 @@
+﻿<div class="easyui-panel" fit="true" border="false">
+    <table class="easyui-datagrid" id="tailorFormColListGrid" data-options="
+                        url:rootPath+'Sys_def_tailorformcol/LoadPageListForUser.do?tailorformid=' + currentTailorFormid + '&tablename='+currentTableName,
+                        loadMsg:'列表数据加载中......',
+                        singleSelect: true,
+                        fit: true,
+                        fitColumns: true,
+                        border:false,
+                        rownumbers:true,
+                        toolbar:'#formColToolBar',
+                        onClickRow:tailorFormColClickRow,
+                        onLoadError: gridLoadError">
+        <thead>
+            <tr>
+                <th data-options="field:'chinaname',width:150,align:'center',
+                            editor:{
+                                type:'validatebox',
+                                options:{required:true}
+                            }">
+                    字段名称
+                </th>
+                <th data-options="field:'formuserule',width:100,halign:'center',
+                            formatter:formatterUseRuleCell,
+                            editor:{
+                                type:'combobox',
+                                options:{
+								    required:true,
+								    data:ruleDatas,
+								    valueField:'id',
+								    textField:'text',
+								    panelHeight:'80',
+								    value:'1'
+                                }
+                            }">
+                    使用规则
+                </th>
+                <th data-options="field:'col_type',width:100,halign:'center',
+                        formatter:formatColType">
+                    字段类型
+                </th>
+                <th data-options="field:'categoryconstname',width:100,halign:'center',
+                        formatter:formatCategory,
+                        editor: {
+        type: 'combobox',
+        options: {
+            valueField: 'constname',
+            textField: 'chinaname',
+            data: categoryListData
+        }
+    }">
+                    下拉选项
+                </th>
+                <th data-options="field:'fmttypetime',width:100,halign:'center',
+                        formatter:formatFmttypetime,
+                        editor: {
+        type: 'combobox',
+        options: {
+            valueField: 'id',
+            textField: 'chinaname',
+            data: datetimeCategoryData
+        }
+    }">
+                    日期格式
+                </th>
+                <th data-options="field:'required',width:80,align:'center',formatter: formatterRequiredCell,editor:{type:'checkbox',options:{on:1,off:0}}">
+                    是否必填
+                </th>
+                <th data-options="field:'validdata',width:100,halign:'center',
+                        formatter:formatValiddata,
+                        editor:{
+                                type:'combobox',
+                                options:{
+                                    valueField:'id',
+                                    textField:'chinaname',
+                                    data:validataCategoryData
+                                }
+                            }">
+                    数据校验
+                </th>
+            </tr>
+        </thead>
+    </table>
+    <div id="formColToolBar" class="datagrid-toolbar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveTailorFormCols()"
+            data-options="plain:true,iconCls:'icon-save'">保存</a><a href="javascript:void(0)"
+                                                                   class="easyui-linkbutton" onclick="addCommonCol()" data-options="plain:true,iconCls:'icon-add'">
+        添加字段</a><a href="javascript:void(0)"
+                class="easyui-linkbutton" onclick="addMindCol()" data-options="plain:true,iconCls:'icon-add'">
+                添加意见</a> <a href="javascript:void(0)" class="easyui-linkbutton" onclick="cancelEditMindCol()"
+                    data-options="plain:true,iconCls:'icon-undo'">取消</a>
+    </div>
+</div>

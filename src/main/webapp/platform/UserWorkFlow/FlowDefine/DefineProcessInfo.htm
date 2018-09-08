@@ -1,0 +1,46 @@
+﻿<div class="easyui-panel" fit="true" border="false">
+    <!--padding:5px;border:1px solid #ddd;  -->
+    <div class="datagrid-toolbar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveDefProcessForm()"
+            data-options="plain:true,iconCls:'icon-save'">保存</a>
+    </div>
+    <div>
+        <form id="processForm" method="post" action="../../../Sys_def_process/SaveForm.do">
+        <table style="padding-left: 20px;">
+            <colgroup>
+                <col width="80px" align="left" />
+                <col align="left" />
+            </colgroup>
+            <tr style="display: none">
+                <td>
+                    流程标识:
+                </td>
+                <td>
+                    <input class="easyui-validatebox" type="text" name="sys_def_process.constname" id="mdlProcessConstname"
+                        readonly="readonly" style="width: 300px" />
+                </td>
+            </tr>
+            <tr style="display: none">
+                <td>
+                    流程名称:
+                </td>
+                <td>
+                    <input type="text" id="mdlProcessChinaname" name="sys_def_process.chinaname"
+                        style="width: 300px" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    描述:
+                </td>
+                <td>
+                    <textarea name="sys_def_process.description" style="width: 300px; height: 40px;"></textarea>
+                </td>
+            </tr>
+        </table>
+        <input type="hidden" name="sys_def_process.id" id="defprocessid" />
+            <input type="hidden" name="sys_def_process.unitid"  />
+            <input type="hidden"  name="sys_def_process.unitname" />
+        </form>
+    </div>
+</div>

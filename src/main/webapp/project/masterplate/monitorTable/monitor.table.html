@@ -1,0 +1,83 @@
+<div class="popWhite">
+    <div class="css-content">
+        <div class="select_b_zzy ">
+            <div class="leftSel_table_zzy">
+                <table cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td width="12%" class="txt">监测报表：</td>
+                        <td width="25%">
+                            <input type="text" class="sel_ipt_zzy" name="name" ng-model="vm.searchParams.name" placeholder="请输入关键字"/>
+                        </td>
+
+
+                        <td width="15%" class="txt">我关注的报表</td>
+                        <td width="4%" class="txt">
+                            <input type="checkbox"  style="width: 18px;height: 18px" name="" ng-model="vm.searchParams.myCareTable"/>
+                        </td>
+
+                        <td width="12%" class="txt">所有报表</td>
+                        <td width="4%" class="txt">
+                            <input type="checkbox"  style="width: 18px;height: 18px"  name="" ng-model="vm.searchParams.allTable"/>
+                        </td>
+
+                        <td class="left">
+                            <a href="javascript:;" class="sel_btn_zzy" ng-click="vm.getList()">查询</a>
+                            <a href="javascript:;" class="reSet_btn_zzy" ng-click="vm.clearAll()">重置</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="table_box_zzy" style="top: 90px;">
+            <div class="table_head_zzy marginB2">
+                <table>
+                    <tr>
+                        <td width="33%">常规监测任务</td>
+                        <td width="33%">专项监测任务</td>
+                        <td width="33%">应急监测任务</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="table_main_zzy"  style="width: 33.43%;" m-custom-scrollbar >
+                <table>
+                    <tr ng-repeat="n in vm.signList track by $index" ng-class-even="'bgcolor'"
+                        ng-class="{'false':'','true':'selected'}[n.selected]">
+                        <td  style="text-align: left">&nbsp;&nbsp;{{n.chinaname}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="table_main_zzy" style="width: 33.43%;left: 33.33%" m-custom-scrollbar >
+                <table>
+                    <tr ng-repeat="n in vm.signList1 track by $index" ng-class-even="'bgcolor'"
+                        ng-class="{'false':'','true':'selected'}[n.selected]">
+                        <td  style="text-align: left">&nbsp;&nbsp;{{n.chinaname}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="table_main_zzy" style="width: 33.33%;left: 66.66%;" m-custom-scrollbar >
+                <table>
+                    <tr ng-repeat="n in vm.signList2 track by $index" ng-class-even="'bgcolor'"
+                        ng-class="{'false':'','true':'selected'}[n.selected]">
+                        <td  style="text-align: left">&nbsp;&nbsp;{{n.chinaname}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="popBottom">
+        <a class="table_main1_a" ng-show="!vm.operate_flag" ng-click="vm.saveOrUpdateIndex()" >保存</a>
+        <a class="table_main1_a" ng-click="vm.cancelDialog()">取消</a>
+    </div>
+</div>
+
+<style>
+    .leftSel_table_zzy table td {
+        border: 0px solid #dcdcdc;
+    }
+    .leftSel_table_zzy table td.left {
+        padding: 0 0 0 50px;
+    }
+</style>

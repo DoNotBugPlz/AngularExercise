@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>设置表单字段</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="../../../../ScriptSource/EasyUI/Skins/default/easyui.css" rel="stylesheet"
+        type="text/css" />
+    <script type="text/javascript" src="../../../../ScriptSource/JQuery/jquery.min.js"></script>
+    <script src="../../../../ScriptSource/EasyUI/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../../../../ScriptSource/JavaScript/GlobalTools.js" type="text/javascript"></script>
+    <script language="javascript">
+        var rootPath = "../../../../../"; //全局定位页面根路径
+        var selectedTableName = "";
+        var selectedColname = "";
+        var unitDatas = [{ id: "0", text: "%",value:"%" },{ id: "1", text: "PX", value: "px" }];
+        $(function () {
+            initThisDialog();
+            initPageCtrol();
+        });   //初始化窗口的OK按钮事件接口
+        var dialog = null;
+        var editor = null;
+        function initThisDialog() {
+            //当前窗口元素
+            var iframe = window.frameElement;
+            var parentWindow = window.parent;
+            var dialogId = iframe.id.replace(/_iframe$/, '');
+            dialog = parentWindow.$EDITORUI[dialogId];
+            editor = dialog.editor;
+            //点击确定时的事件处理
+            dialog.onok = function () {
+                if ($('#fieldName').combobox('getValue') == "") {
+                    alert('请选择表单字段！');
+                    return false
+                }
+                SaveColFormat();
+            };
+        }
+
+        function SaveColFormat() {
+            $(":input").each(function (index) {
+                $(this).blur();
+            });
+            var imgObj = {};
+            var fileUrl = "../../Sys_def_tailorformcol/LoadTailorFormFieldImg.do?tailorformid=" + parent.currentTailorFormid + "&view=" + selectedTableName + "&colname=" + encodeURI(selectedColname);
+            imgObj.src = "../Styles/TailorFormField/blank.gif";
+            imgObj.datasource = selectedTableName + "|" + selectedColname;
+            imgObj.width = $('#fieldWidth').numberspinner('getValue');
+            imgObj.widthunit = $('#widthUnit').combobox('getValue');
+            imgObj.height = $('#fieldHeight').numberspinner('getValue');
+            imgObj.heightunit = $('#heightUnit').combobox('getValue');
+            imgObj.style = "background-image:url('" + fileUrl + "');background-position:left center;background-repeat:no-repeat;background-color:#00FFFF;";
+            editor.execCommand("insertImage", imgObj);
+        }
+
+        function initPageCtrol() {
+            oImg = editor.selection.getRange().getClosedNode()
+            if (oImg && oImg.tagName == "IMG") {
+                if (oImg.getAttribute("datasource") && oImg.getAttribute("datasource").split("|").length > 1) {
+                    var dataSource = oImg.getAttribute("datasource").split("|");
+                    selectedTableName = dataSource[0];
+                    selectedColname = dataSource[1];
+                    $('#fieldName').combobox('setValue', selectedColname);
+                }
+                if (oImg.style.width) {
+                    $("#fieldWidth").numberspinner('setValue', oImg.style.width.ReplaceAll("px", "").ReplaceAll("%", ""));
+                    $("#widthUnit").combobox('setValue', (oImg.style.width.indexOf("px") >= 0 ? "px" : "%"));
+                }
+                if (oImg.style.height) {
+                    $("#fieldHeight").numberspinner('setValue', oImg.style.height.ReplaceAll("px", "").ReplaceAll("%", ""));
+                    $("#heightUnit").combobox('setValue', (oImg.style.height.indexOf("px") >= 0 ? "px" : "%"));
+                }
+            }
+        }
+        function selectField(item) {
+            selectedTableName = item.tablename;
+            selectedColname = item.colname;
+        }
+    </script>
+</head>
+<body>
+    <form id="form" runat="server">
+    <table style="width: 100%;">
+        <tr height="30">
+            <td align="right">
+                表单字段：
+            </td>
+            <td>
+                <input class="easyui-combobox" type="text" id="fieldName" name="fieldName" 
+                data-options="
+                    url:rootPath + 'Sys_def_tailorformcol/LoadTailorFormColUsedList.do?tailorformid=' + parent.currentTailorFormid,
+                    valueField:'id',
+                    textField:'chinaname',
+                    panelHeight:'160',
+                    onSelect:selectField"
+                style="width: 230px" />
+            </td>
+        </tr>
+        <tr height="30">
+            <td align="right">
+                字段宽度：
+            </td>
+            <td>
+                <input class="easyui-numberspinner" type="text" id="fieldWidth" name="fieldWidth" data-options="min:0" value="100" style="width: 180px" />
+                
+                <input class="easyui-combobox" type="text" id="widthUnit" name="widthUnit" 
+                data-options="
+                    data:unitDatas,
+                    valueField:'value',
+                    textField:'text',
+                    value:'%',
+                    panelHeight:'auto'"
+                style="width: 45px" />
+            </td>
+        </tr>
+        <tr height="30">
+            <td align="right">
+                字段高度：
+            </td>
+            <td>
+                <input class="easyui-numberspinner" type="text" id="fieldHeight" name="fieldHeight" data-options="min:0" value="100" style="width: 180px" />
+                <input class="easyui-combobox" type="text" id="heightUnit" name="heightUnit" 
+                data-options="
+                    data:unitDatas,
+                    valueField:'value',
+                    textField:'text',
+                    value:'%',
+                    panelHeight:'auto'"
+                style="width: 45px" />
+            </td>
+        </tr>
+    </table>
+    </form>
+</body>
+</html>

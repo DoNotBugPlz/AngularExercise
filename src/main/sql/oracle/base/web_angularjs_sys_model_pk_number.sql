@@ -1,0 +1,1 @@
+insert into web_angularjs.sys_model_pk_number (id,ID_NAME) values(( select nvl(max(id),0)+1 from ( select id from sys_category union all select id from sys_categoryvalue )), 'default' );

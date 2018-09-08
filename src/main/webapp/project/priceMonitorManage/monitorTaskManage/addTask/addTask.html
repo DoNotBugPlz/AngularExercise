@@ -1,0 +1,244 @@
+<div class="scroll_box_zzy " style="top: 0px!important;" m-custom-scrollbar>
+    <div class="prix_box">
+        <div class="prix_tit">
+            <div class="tit_a_box">
+                <a href="javascript:;">保存</a>
+                <a href="javascript:;">下发</a>
+                <a href="javascript:;">取消</a>
+            </div>
+            新增监测任务
+        </div>
+
+        <div class="prix_con">
+            <div class="prix_con_c marginB15">
+                <div class="prix_con_c_line">基础信息设置</div>
+                <div class="select_b_zzy marginB15 bgWhite">
+                    <table class="select_b_table font-15">
+                        <tr>
+                            <td width="10%" class="right">任务名称：</td>
+                            <td width="20%"><input type="text" class="sel_ipt_zzy sel_ipt_zzy_c" style="" ng-model="vm.task.name"></td>
+                            <td width="10%" class="right">任务类型：</td>
+                            <td width="20%">
+                                <div class="chosen_div">
+                                    <select ng-model="vm.searchParams.task_type" class="sel_sel_zzy"
+                                            ng-chosen
+                                            ng-chosen-data="vm.task_type"
+                                            ng-options="n.id as n.chinaname for n in vm.task_type">
+                                        <option ng-chosen-option></option>
+                                    </select>
+                                </div>
+                            </td>
+                            <td width="10%" class="right">报送流程：</td>
+                            <td width="20%">
+                                <a href="javascript:;" class="sel_check">区县级审核</a>
+                                <a href="javascript:;" class="sel_check checked">市级审核</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <!--责任人和监测制度是点击选择的-->
+                            <td  class="right">责任人：</td>
+                            <td ><input type="text" class="sel_ipt_zzy sel_ipt_zzy_c" style=""></td>
+                            <td  class="right">监测制度：</td>
+                            <td ><input type="text" class="sel_ipt_zzy sel_ipt_zzy_c" style=""></td>
+                            <td class="left"></td>
+                            <td class="left"></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="monitor_box ">
+                    <div class="monitor_tit">
+                        <div class="monitor_right"><a href="javascript:;" class="monitor_right_close"></a> 报送期2</div>
+
+
+                        <a href="javascript:;" class="monitor_right_add">添加</a>
+                        报送时间：
+                    </div>
+
+                    <div class="select_b_zzy border0 bgWhite">
+                        <table class="select_b_table font-15">
+                            <tr>
+                                <td width="13%" class="right">报送期开始时间：</td>
+                                <td width="20.3%">
+                                    <div class="posi_zzy" style="width:100%;">
+                                        <span class="data_ico"></span>
+                                        <input type="text" class="data_ipt " >
+                                    </div>
+                                </td>
+                                <td width="13%" class="right">报送期结束时间：</td>
+                                <td width="20.3%">
+                                    <div class="posi_zzy" style="width:100%;">
+                                        <span class="data_ico"></span>
+                                        <input type="text" class="data_ipt " >
+                                    </div>
+                                </td>
+                                <td width="13%" class="right">报送频率：</td>
+                                <td>
+                                    <select name="" id="" class="sel_sel_zzy">
+                                        <option value="">月报</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td  class="right">采价日：</td>
+                                <td >
+                                    <div class="posi_zzy" style="width:100%;">
+                                        <span class="data_ico"></span>
+                                        <input type="text" class="data_ipt " >
+                                    </div>
+                                </td>
+                                <td  class="right">开始报送时间：</td>
+                                <td >
+                                    <div class="posi_zzy" style="width:100%;">
+                                        <span class="data_ico"></span>
+                                        <input type="text" class="data_ipt " >
+                                    </div>
+                                </td>
+                                <td  class="right">结束报送时间：</td>
+                                <td>
+                                    <div class="posi_zzy" style="width:100%;">
+                                        <span class="data_ico"></span>
+                                        <input type="text" class="data_ipt " >
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="prix_con_c ">
+                <div class="prix_con_c_line">监测表设置</div>
+                <div class="monitor_box ">
+                    <div class="monitor_tit">
+                        <div class="monitor_right"><a href="javascript:;" class="monitor_right_close"></a> 报送期1</div>
+                        <a href="javascript:;" class="monitor_right_add">添加子表</a>
+                    </div>
+                    <div class="bgWhite monitor_con ">
+                        <div class="table_tip_zzy" style="position: static">
+                            <div class="table_tip_btn_zzy ">
+                                <a href="javascript:;">批量设置校验规则</a>
+                                <a href="javascript:;">添加计算指标</a>
+                                <a href="javascript:;" ng-click="vm.addMonitorIndicators()">添加监测指标</a>
+                                <a href="javascript:;" ng-click="vm.addMonitorGoods()">添加监测品种</a>
+                                <a href="javascript:;" ng-click="vm.addOneGoodsKind()">添加一行</a>
+                                <select name="" id="" class="sel_sel_zzy pull_right" style="width:140px;">
+                                    <option value="">固定品种</option>
+                                </select>
+                            </div>
+                            <div class="table_tip_main_zzy color333">
+                                一、监测品种及指标设置
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="table_head_zzy marginB2">
+                            <table>
+                                <tr>
+                                    <td width="10%">品种名称</td>
+                                    <td width="10%">规格等级</td>
+                                    <td width="10%">计量单位</td>
+                                    <td ng-repeat="n in vm.monitorIndicators track by $index" width="10%">{{n.name}}</td>
+
+                                    <td width="15%">备注</td>
+                                    <td>操作</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="table_main_zzy  font-14" style="position: static">
+                            <table ng-hide="!!!vm.addGoods||vm.addGoods.length==0">
+                                <tr ng-repeat="n in vm.addGoods track by $index">
+                                    <td ng-if="n.id != undefined" width="10%">{{n.name}}</td>
+                                    <td ng-if="n.id != undefined" width="10%">{{n.spec}}</td>
+                                    <td ng-if="n.id != undefined" width="10%">{{n.measurement_unit}}</td>
+                                    <td ng-if="n.id != undefined" ng-repeat="p in vm.monitorIndicators track by $index" width="10%">
+                                        <a href="javascript:;" class="ipt_check"  ng-model="p.selected" ng-click="vm.selectItem(p)" ng-class="{true:'checked',false:''}[p.selected]"></a>
+                                    </td>
+                                    <td ng-if="n.id != undefined" width="15%"><input type="text" ng-model="n.name" class="sel_ipt_zzy sel_ipt_zzy_c" width="100%" placeholder="请填写备注"></td>
+                                    <td ng-if="n.id != undefined">
+                                        <a href="javascript:;" class="table_main2_a">校验规则</a>
+                                        <a href="javascript:;" class="table_main2_a">上移</a>
+                                        <a href="javascript:;" class="table_main2_a">下移</a>
+                                        <a href="javascript:;" class="table_main2_a">删除</a>
+                                    </td>
+                                    <td ng-if="n.id == undefined" colspan="{{vm.monitorIndicators.length+4}}" class="bold_zzy left">
+                                        <input type="text" ng-model="n.name" class="sel_ipt_zzy sel_ipt_zzy_c" width="100%" placeholder="请填写关键字">
+                                    </td>
+                                    <td ng-if="n.id == undefined">
+                                        <a href="javascript:;" class="table_main2_a">上移</a>
+                                        <a href="javascript:;" class="table_main2_a">下移</a>
+                                        <a href="javascript:;" class="table_main2_a">删除</a>
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </div>
+                        <div class="monitor_check_line marginB15">
+                            <a href="javascript:;" class="sel_check sel_check2" >是否允许数据不报</a>
+                        </div>
+                        <div class="table_tip_zzy" style="position: static">
+                            <div class="table_tip_btn_zzy ">
+                                <a href="javascript:;">添加监测点</a>
+                                <a href="javascript:;">添加监测机构</a>
+
+                            </div>
+                            <div class="table_tip_main_zzy color333">
+                                二、报告单位设置
+                                <span class="color999 sel_check2">（如有子表，则在子表中设置报告单位，此处不用设置）</span>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="table_head_zzy marginB2">
+                            <table>
+                                <tr>
+                                    <td width="19.2%">报告单位名称</td>
+                                    <td width="16.7%">地区</td>
+                                    <td width="17.5%">报送监测点数量</td>
+                                    <td>说明</td>
+                                    <td width="13.3%">操作</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="table_main_zzy  font-14" style="position: static">
+                            <table>
+                                <tr>
+                                    <td width="19.2%">南京市价格监测中心</td>
+                                    <td width="16.7%">南京市</td>
+                                    <td width="17.5%">2</td>
+                                    <td></td>
+                                    <td width="13.3%">
+                                        <a href="javascript:;" class="table_main2_a margin0">编辑</a>
+                                        <a href="javascript:;" class="table_main2_a margin0">删除</a>
+                                    </td>
+                                </tr>
+                                <tr class="black">
+                                    <td width="19.2%">苏州市价格监测中心</td>
+                                    <td width="16.7%">苏州市</td>
+                                    <td width="17.5%">4</td>
+                                    <td></td>
+                                    <td width="13.3%">
+                                        <a href="javascript:;" class="table_main2_a margin0">编辑</a>
+                                        <a href="javascript:;" class="table_main2_a margin0">删除</a>
+                                    </td>
+                                </tr>
+                                <tr >
+                                    <td width="19.2%">山西路苏果超市</td>
+                                    <td width="16.7%">鼓楼区</td>
+                                    <td width="17.5%">1</td>
+                                    <td></td>
+                                    <td width="13.3%">
+                                        <a href="javascript:;" class="table_main2_a margin0">编辑</a>
+                                        <a href="javascript:;" class="table_main2_a margin0">删除</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

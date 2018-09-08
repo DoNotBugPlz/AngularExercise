@@ -1,0 +1,58 @@
+﻿<table id="activityOperationList" class="easyui-datagrid" data-options="
+                         
+                            singleSelect: false,
+                            fit: true,
+                            fitColumns: true,
+                            rownumbers: true,
+                            pageSize: 20,
+                            pagination: true,
+                            idField: 'id',
+                             toolbar:[{text:'保存',iconCls:'icon-save',handler:function(){saveActivityOperation();}},{text:'新增',iconCls:'icon-add',handler:function(){creatActivityOperation();}},{text:'编辑',iconCls:'icon-edit',handler:function(){editorActivityOperation();}},{text:'取消',iconCls:'icon-undo',handler:function(){cancelEditorActivityOperation();}},{text:'禁用',iconCls:'icon-pause',handler:function(){deleteActivityOperation();}},{text:'启用',iconCls:'icon-ok',handler:function(){undeleteActivityOperation();}},{text:'彻底销毁',iconCls:'icon-delete',handler:function(){destroyActivityOperation();}}],
+                            onDblClickCell:dblClickOperation,
+                            onLoadError: gridLoadError">
+    <thead>
+        <tr>
+            <th data-options="field:'ck',checkbox:true">
+            </th>
+            <th data-options="field:'constname',editor:{type:'validatebox',options:{required:true}}"
+                width="50">
+                编码
+            </th>
+            <th data-options="field:'chinaname',editor:{type:'validatebox',options:{required:true}}"
+                width="50">
+                名称
+            </th>
+            <th data-options="field:'functionname',halign:'center',editor:{type:'validatebox',options:{required:true}}"
+                width="100">
+                函数名
+            </th>
+            <th data-options="field:'iconcls',align:'center',formatter: formatterButtonIconCell,
+                                editor:{type:'combobox',options:{
+								    required:true,
+								    data:iconDatas,
+								    valueField:'iconid',
+								    textField:'iconvalue',
+                                    panelHeight: 230,
+				                    formatter: formatItem
+							    }}" width="80">
+                图标
+            </th>
+
+            <th data-options="field:'showtype',align:'center',formatter: formatterShowtypeCell,
+                                editor:{type:'combobox',options:{
+								    required:true,
+								    data:showTypeDatas,
+                                    valueField:'showtypeid',
+								    textField:'showtypevalue',
+                                    panelHeight: 80
+							    }}" width="80">
+                何时显示
+            </th>
+            <th data-options="field:'delstatus',align:'center',formatter: formatterCell,
+                            editor:{type:'checkbox',options:{on:1,off:0}}" width="40">
+                状态
+            </th>
+        </tr>
+    </thead>
+</table>
+

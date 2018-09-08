@@ -1,0 +1,86 @@
+<div class="table_tip_zzy" style="top :60px;margin-right: 15px">
+    <div class="table_tip_btn_zzy ">
+        <a class="font46" href="javascript:;" ng-click="os.addAllCollect()">收藏所选记录</a>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="select_b_zzy "style="top :85px;">
+    <div class="leftSel_table_zzy over_hide">
+        <table border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="10%" class="txt">关 &nbsp;键&nbsp; 字：</td>
+                <td width="20%"><input type="text" class="sel_ipt_zzy" placeholder="请输入关键字"
+                                       ng-model="os.searchParams.name"
+                >
+                </td>
+                <td width="10%" class="txt">上 &nbsp;传&nbsp; 人：</td>
+                <td width="20%"><input type="text" class="sel_ipt_zzy" placeholder="请输入关键字"
+                                       ng-model="os.searchParams.user_name"
+                ></td>
+                <td width="10%" class="txt"></td>
+                <td width="20%"></td>
+                <td class="left">
+                    <a href="javascript:;" class="sel_btn_zzy " ng-click="vm.loadList()">查询</a>
+                    <a href="javascript:;" class="reSet_btn_zzy" ng-click="vm.reset()">重置</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="table_box_zzy top1_zzy" style="top:135px;margin: 30px 15px 15px 15px; ">
+    <div class="table_head_zzy marginB2">
+        <table>
+            <tbody>
+            <tr>
+                <td width="5%">
+                    <a href="javascript:;" class="ipt_check"
+                       ng-class="{'true':'checked','false':''}[os.allSelected]" ng-click="os.selectAll()"></a>
+                </td>
+                <td width="5%">序号</td>
+                <td width="50%">标题</td>
+                <td width="10%">查询类型</td>
+                <td width="10%">上传人</td>
+                <td width="20%">操作</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="table_main_zzy" m-custom-scrollbar>
+        <table class="table_word_space" ng-hide="!!!os.dataList||os.dataList.length==0">
+            <tbody>
+            <tr ng-repeat="n in os.dataList track by $index" ng-class-even="'bgcolor'"
+                ng-class="{'false':'','true':'selected'}[n.selected ]">
+                <td width="5%" ng-click="os.selectItem(n)">
+                    <a href="javascript:;" class="ipt_check "
+                       ng-class="{'true':'checked','false':''}[n.selected]"></a>
+                </td>
+                <td width="5%">
+                    {{$index + 1+ (os.currentPageInf.pageNumber-1)*os.currentPageInf.pageSize}}
+                </td>
+                <td width="50%" class="word_space" style="text-align: center" title="{{n.name}}"> &nbsp;&nbsp;{{n.name}}
+                </td>
+                <td width="10%">
+                    {{os.searchParams.is_collect=='1'?'我的收藏':'我的查询'}}
+                </td>
+                <td width="10%">
+                    {{n.chinaname}}
+                </td>
+                <td width="20%" class="pad_zzy">
+                    <a href="javascript:;" class="table_main1_a  "
+                       ng-click="os.viewData(n)">查看</a>
+                    <a href="javascript:;" class="table_main1_a  "
+                       ng-click="os.addCollect(n)">收藏</a>
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="table-tfoot">
+        <div class="table_page">
+            <div ng-turn-page="os.dataListPage" turn-page-fn="os.loadList"></div>
+        </div>
+    </div>
+</div>
+

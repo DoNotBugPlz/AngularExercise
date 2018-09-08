@@ -1,0 +1,108 @@
+<div class="popWhite">
+    <div class="css-content">
+        <div class="select_b_zzy ">
+            <div class="leftSel_table_zzy over_hide2" >
+                <table cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td width="12%" class="txt">基准库：</td>
+                        <td width="25%">
+                            <div class="chosen_div" >
+                                <select class="sel_sel_zzy" ng-model="vm.searchParams.delstatus"
+                                        ng-chosen
+                                        ng-chosen-data="vm.delstatus"
+                                        ng-options="n.id as n.chinaname for n in vm.delstatus" >
+                                    <option ng-chosen-option></option>
+                                </select>
+                            </div>
+                        </td>
+
+                        <td width="12%" class="txt">商品名称：</td>
+                        <td width="25%">
+                            <input type="text" class="sel_ipt_zzy" name="name" ng-model="vm.searchParams.name"/>
+                        </td>
+
+                        <td class="left">
+                            <a href="javascript:;" class="sel_btn_zzy" ng-click="vm.getList()">查询</a>
+                            <a href="javascript:;" class="reSet_btn_zzy" ng-click="vm.clearAll()">重置</a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td width="12%" class="txt">规格等级：</td>
+                        <td width="25%">
+                            <div class="chosen_div" >
+                                <select class="sel_sel_zzy" ng-model="vm.searchParams.delstatus"
+                                        ng-chosen
+                                        ng-chosen-data="vm.delstatus"
+                                        ng-options="n.id as n.chinaname for n in vm.delstatus" >
+                                    <option ng-chosen-option></option>
+                                </select>
+                            </div>
+                        </td>
+
+                        <td width="12%" class="txt">计量单位：</td>
+                        <td width="25%">
+                            <div class="chosen_div" >
+                                <select class="sel_sel_zzy" ng-model="vm.searchParams.delstatus"
+                                        ng-chosen
+                                        ng-chosen-data="vm.delstatus"
+                                        ng-options="n.id as n.chinaname for n in vm.delstatus" >
+                                    <option ng-chosen-option></option>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="table_box_zzy" style="left: 14px;right: 14px;">
+            <div class="table_head_zzy marginB2">
+                <table>
+                    <tr>
+                        <td width="5%">序号</td>
+                        <td width="30%">品种名称</td>
+                        <td width="15%">规格等级</td>
+                        <td width="30%">计量单位</td>
+                        <td width="20%">操作</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="table_main_zzy" m-custom-scrollbar >
+                <table>
+                    <tr ng-repeat="n in vm.signList track by $index" ng-class-even="'bgcolor'"
+                        ng-class="{'false':'','true':'selected'}[n.selected]">
+                        <td  width="5%">{{ $index + 1+ (vm.currentPageInf.pageNumber-1)*vm.currentPageInf.pageSize }}</td>
+                        <td width="30%" style="text-align: left">&nbsp;&nbsp;{{n.chinaname}}</td>
+                        <td width="15%">{{n.site_name}}</td>
+                        <td width="30%" >{{n.col_datetime}}</td>
+                        <td width="20%">
+                            <a href="javascript:;" class="table_main1_a" style="border: 0px solid #d5dae0;text-decoration: underline;" ng-click="vm.editDemo(n)">选择</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="table-tfoot" style="height: 55px">
+                <div class="table_page">
+                    <div ng-turn-page="vm.signListPage" turn-page-fn="vm.getList"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="popBottom">
+        <a class="table_main1_a" style="width: auto" ng-show="vm.cf_index.index_nature ==3 && !vm.operate_flag" ng-click="vm.addOption()">新增选项</a>
+        <a class="table_main1_a" ng-show="!vm.operate_flag" ng-click="vm.saveOrUpdateIndex()" >保存</a>
+        <a class="table_main1_a" ng-click="vm.cancelDialog()">取消</a>
+    </div>
+</div>
+
+<style>
+    .leftSel_table_zzy table td {
+        border: 0px solid #dcdcdc;
+    }
+    .leftSel_table_zzy table td.left {
+        padding: 0 0 0 50px;
+    }
+</style>

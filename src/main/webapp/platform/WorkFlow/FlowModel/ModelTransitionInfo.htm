@@ -1,0 +1,52 @@
+﻿<div class="easyui-panel" fit="true" border="false">
+    <!--padding:5px;border:1px solid #ddd;  -->
+    <div class="datagrid-toolbar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="savemdlTransitionform()"
+            data-options="plain:true,iconCls:'icon-save'">保存</a>
+    </div>
+    <div>
+        <form id="modTransitionform" method="post" action="../../../Sys_mdl_transition/SaveForm.do">
+        <table style="padding-left: 20px;">
+            <colgroup>
+                <col width="80px" align="left" />
+                <col align="left" />
+            </colgroup>
+            <tr>
+                <td>
+                    流向名称:
+                </td>
+                <td>
+                    <input class="easyui-validatebox" type="text" name="sys_mdl_transition.chinaname"
+                        id="mdlTransitionchinaname" data-options="required:true" style="width: 300px" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    流向特殊名称:
+                </td>
+                <td>
+                    <input class="easyui-validatebox" type="text" name="sys_mdl_transition.specialname"
+                        id="mdlTransitionspecialname" style="width: 300px" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    人员具有角色:
+                </td>
+                <td>
+                    <input class="easyui-combobox" name="sys_mdl_transition.actorroles" id="actorroles"
+                           data-options="
+                    					url:rootPath+'Sys_roles/LoadAllRoles.do',
+                    					valueField:'id',
+                    					textField:'chinaname',
+										editable:false,
+                                        multiple:true,
+                    					panelHeight:'auto'
+                    					" style="width: 300px;" />
+                </td>
+            </tr>
+        </table>
+        <input type="hidden" name="sys_mdl_transition.id" id="mdltransitionid" />
+        </form>
+    </div>
+</div>

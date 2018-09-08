@@ -1,0 +1,53 @@
+﻿<div class="easyui-layout" data-options="fit:true,border:false">
+    <div data-options="region:'north',split:false,border:false" style="height: 50px">
+        <table style="height: 100%;" border="0">
+            <tr>
+                <td width="10%" align="right">
+                    关键字:
+                </td>
+                <td>
+                    <input class="easyui-validatebox" type="text" id="anotherkeyname" name="anotherkeyname" style="width: 70%" />
+                </td>
+                <td width="15%" style="white-space: nowrap">
+                    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="searchAnotherProcessList()" data-options="iconCls:'icon-search'">搜索</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div data-options="region:'center'">
+        <table id="anotherDefProcessList" class="easyui-treegrid" data-options="
+            	url: rootPath+'Sys_def_process/LoadCanBeAnotherProcessList.do?constname=' + escape(processconstname),
+                border:false,
+                singleSelect: true,
+                fit: true,
+                loadMsg: '数据加载中……',
+                fitColumns: true,
+                rownumbers: true,
+                pageSize: 20,
+                pagination: true,
+                idField: 'id',
+                treeField: 'constname',
+                onBeforeExpand:beforeExpand,
+                onLoadError: gridLoadError">
+            <thead>
+                <tr>
+                    <th data-options="field:'constname',halign:'center'" width="80">
+                        流程标识
+                    </th>
+                    <th data-options="field:'chinaname',halign:'center'" width="50">
+                        流程名称
+                    </th>
+                    <th data-options="field:'unitname',halign:'center'" width="80">
+                        所属单位
+                    </th>
+                    <th data-options="field:'createtime',halign:'center'" width="100">
+                        创建时间
+                    </th>
+                    <th data-options="field:'version',formatter: formatterVersionCell" width="50" align="center">
+                        流程版本号
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>

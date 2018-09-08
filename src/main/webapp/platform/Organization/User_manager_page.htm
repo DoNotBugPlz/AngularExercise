@@ -1,0 +1,1145 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title></title>
+<link href="../ScriptSource/EasyUI/Skins/default/easyui.css" rel="stylesheet" type="text/css" />
+<link href="../ScriptSource/EasyUI/Skins/icon.css" rel="stylesheet" type="text/css" />
+<script src="../ScriptSource/JQuery/jquery.min.js" type="text/javascript"></script>
+<script src="../ScriptSource/EasyUI/jquery.easyui.min.js" type="text/javascript"></script>
+<script src="../ScriptSource/JavaScript/GlobalTools.js" type="text/javascript"></script>
+<script src="../ScriptSource/JQuery/jquery.form.js" type="text/javascript"></script>
+<script src="../ScriptSource/JavaScript/EncodeData/cryptico-min.js" type="text/javascript"></script>
+<script src="../ScriptSource/JavaScript/EncodeData/hmac-sha256.js" type="text/javascript"></script>
+<script src="../ScriptSource/JavaScript/EncodeData/enc-base64-min.js" type="text/javascript"></script>
+<script src="../ScriptSource/JavaScript/OrganizationTools.js" type="text/javascript"></script>
+<script language="javascript" type="text/javascript">
+var rootPath = "../../";
+var userId = "";
+$(function () {
+
+    //初始化组织机构选择对话框
+    OrganizationTools.dept_Init({ rootPath: rootPath, deptid: "", title: "选择单位", onOKClick: selectDeptOK });
+    $("#personsDataGrid").datagrid('options').url = rootPath + 'Sys_user/LoadPageList.do?current=true';
+    $("#personsDataGrid").datagrid("getPager").pagination({
+        displayMsg: ""
+    });
+});
+//用户列表加载成功后
+function onLoadUserSuccess(data) {
+    //            var deptRow = $("#organizationTreeGrid").treegrid("getSelected");
+    //            if (deptRow == null) {
+    //                $("#organizationTreeGrid").treegrid("select", 1);
+    //            }
+}
+//组织机构树行点击事件，加载组织机构下所有人员
+function clickRow(row) {
+    $("#personsDataGrid").datagrid('options').url = rootPath + 'Sys_user/LoadPageList.do';
+    $('#personsDataGrid').datagrid("clearSelections")
+            .datagrid("clearChecked").datagrid('load', {
+        "sys_user.deptid": row.id
+    });
+    $("#menuList").treegrid("loadData", []);
+    $("#menuOperationList").datagrid("loadData", []);
+}
+
+//格式化是否禁用单元格
+function formatterCell(value, row, index) {
+    return "<img src='../Styles/ButtonIcons/" + (value && value > 0 ? "busy.gif" : "check.gif") + "'>";
+}
+//禁用用户
+function deleteUser() {
+    GlobalTools.deleteGridList($('#personsDataGrid'), { url: rootPath + "Sys_user/DeleteList.do" });
+}
+//启用用户
+function unDeleteUser() {
+    GlobalTools.unDeleteGridList($('#personsDataGrid'), { url: rootPath + "Sys_user/UnDeleteList.do" });
+}
+//加载人员信息表单数据
+function loadPersonForm(rowIndex, rowData) {
+    flag = false; //切换为修改状态
+    $(this).datagrid("unselectAll"); //取消选择所有节点
+    $(this).datagrid("selectRow", rowIndex); //选择当前节点
+    GlobalTools.loadForm($("#personForm"), {
+        url: rootPath + "Sys_user/LoadForm.do?sys_user.id=" + rowData.id,
+        isNormalModel: false//此参数默认为false,告诉loadForm方法，personForm中的元素的name是以表名.属性名的方式命名的，让其也以此方式构建返回的json格式，以便正确加载表单
+    }, callback);
+}
+//回调函数
+function callback(data) {
+    //$("#personForm").form("load"); //消除表单验证警告样式，避免出现表单域有值却依然警示等情况
+    $("#personForm").form("validate");
+    //控制禁用checkbox
+    if (data != null) {
+        if (data.sys_user.delstatus == 1) {
+            $("input[name='sys_user.delstatus']").attr("checked", true);
+        } else {
+            $("input[name='sys_user.delstatus']").removeAttr("checked");
+        }
+        //$("#menuList").treegrid("options").url = rootPath + 'Sys_dept/LoadDeptMenuPermConfigList.do?fromform=usermanager&userid=' + data.sys_user.id + '&deptid=' + data.sys_user.deptid;
+        //$("#menuList").treegrid("reload");
+        userId = data.sys_user.id;
+       /* //加载关联账号列表
+        $("#userGroup").datagrid("options").url = rootPath + 'Sys_user_group/LoadGroupUserIds.do?userid=' + userId;
+        $("#userGroup").datagrid("reload");
+        //return;//如果无工作流功能就禁用下面的代码
+        //加载常用办公用语
+        $("#dgList").datagrid("options").url = rootPath + 'Officediction/LoadPageList.do?userid=' + userId;
+        $("#dgList").datagrid("reload");
+        //加载代理人
+        $("#dgProxyer").datagrid("options").url = rootPath + 'Sys_consign/LoadPageList.do?userid=' + userId;
+        $("#dgProxyer").datagrid("reload");*/
+    }
+}
+var flag = true; //表示新增
+//保存表单
+function saveForm() {
+    if ($("input[name='sys_user.delstatus']").attr("checked") == 'checked') {//判断禁用状态是否选中
+        $("input[name='sys_user.delstatus']").val(1);
+    } else {
+        $("input[name='sys_user.delstatus']").val(0);
+    }
+    GlobalTools.submitForm($("#personForm"), { success: saveSuccess, error: saveError });
+}
+
+//表单提交成功后的回调方法
+function saveSuccess(data, message) {
+    if (message)
+        GlobalTools.showSuccess(message);
+    flag = false;
+    $("#userid").val(data);
+    $('#personsDataGrid').datagrid("reload");
+}
+
+//表单提交错误的回调方法
+function saveError() {
+    $.messager.alert("提示信息", "用户信息保存失败", "error"); //icon:error,question,info,warning
+}
+
+//新增用户
+function addUserInfo() {
+    var msg = "";
+    if (!flag) {
+        flag = true;
+        clearForm(); //清空表单
+        msg = "已切换到新增状态！";
+    } else {
+        msg = "当前就是新增状态！";
+    }
+
+    var selectDeptNode = $("#organizationTreeGrid").treegrid('getSelected');
+    if (selectDeptNode) {
+        $("#dept").combobox("setText", selectDeptNode.chinaname);
+        $("#deptid").val(selectDeptNode.id);
+
+        var unitNode = $('#organizationTreeGrid').treegrid("find", selectDeptNode.unitid);
+        if (unitNode) {
+            $("#unit").combobox("setText", unitNode.chinaname);
+            $("#unitid").val(unitNode.id);
+        }
+        else {
+            $("#unit").combobox("setText", selectDeptNode.chinaname);
+            $("#unitid").val(selectDeptNode.id);
+        }
+    }
+    GlobalTools.tip(msg);
+}
+
+//清空人员信息表单
+function clearForm() {
+    $('#personForm').form('clear');
+}
+
+//单用户重置密码
+function resetPassWord() {
+    if ($("#userid").val() == "") {
+        GlobalTools.tip("请选择人员。");
+        return;
+    }
+    GlobalTools.ajax({
+        url: rootPath + "Sys_user/RestPassWord.do",
+        data: { userid: $("#userid").val(), loginname: $("#loginname").val() },
+        success: function (data, msg) {
+            GlobalTools.showSuccess("重设密码成功，新密码为：" + data.password);
+        },
+        error: function (msg) {
+            GlobalTools.tip(msg);
+        }
+    });
+}
+
+//多用户修改密码
+function resetSelectPassWord() {
+    var personsDatas = $("#personsDataGrid").datagrid('getSelections');
+    if (!personsDatas || personsDatas.length == 0) {
+        GlobalTools.tip("请选择人员！")
+        return;
+    };
+    $.messager.prompt('确认信息', '请输入新密码', function(pwd){
+        if (pwd){
+            var cryPwdArr = [];
+            var idArr = new Array();
+            for (index in personsDatas) {
+                idArr.push(personsDatas[index].id);
+                cryPwdArr.push(CryptoJS.enc.Base64.stringify(CryptoJS.HmacSHA256(personsDatas[index].loginname, pwd)));
+            }
+            GlobalTools.ajax({
+                url: rootPath + "Sys_user/ResetSelectPassWord.do",
+                data: { userids: idArr.join(','),pwds: cryPwdArr.join(',') },
+                success: function (data, msg) {
+                    GlobalTools.showSuccess("修改成功！");
+                },
+                error: function (msg) {
+                    GlobalTools.tip(msg);
+                }
+            });
+        }
+    });
+}
+
+//重置系统中所有用户的密码
+function resetAllPassWord() {
+    $.messager.confirm('操作确认', '确定要修改所有用户密码吗?', function (result) {
+        if (result) {
+            GlobalTools.ajax({
+                url: rootPath + "Sys_user/ResetAllPassWord.do",
+                success: function (data, msg) {
+                    GlobalTools.showSuccess("重设密码成功，新密码为：" + data.password);
+                },
+                error: function (msg) {
+                    GlobalTools.tip(msg);
+                }
+            });
+        }
+    });
+}
+
+
+
+/*******人员序号设置相关*********/
+var editOperationIndex;
+//打开序号设置对话框
+function openALlUsersIndexSetDialog(){
+    $("#userIndexDataGrid").datagrid({url:rootPath + 'Sys_user/LoadPageList.do'});
+    var height = top.innerHeight - window.innerHeight;
+    var width = top.innerWidth - window.innerWidth;
+    $("#userIndexDialog").dialog({top:(top.innerHeight-$("#userIndexDialog").height())/2-height,left:(top.innerWidth-$("#userIndexDialog").width())/2-width});
+    $("#userIndexDialog").dialog("open");
+}
+//关键字搜索
+function doSearchForUserIndex(value) {
+    $("#userIndexDataGrid").datagrid('options').url = rootPath + 'Sys_user/LoadPageListForUserIndex.do';
+    $('#userIndexDataGrid').datagrid('load', { keyvalue: value });
+}
+//序号设置列表双击事件 编辑状态
+function dblClickUserIndexRow(rowIndex, field, value) {
+    if (editOperationIndex == rowIndex) return;
+    if (!endUserIndexEditing()) return;
+    $('#userIndexDataGrid').datagrid("unselectAll");
+    editOperationIndex = rowIndex;
+    $('#userIndexDataGrid').datagrid('beginEdit', editOperationIndex);
+}
+//保存序号
+function saveUserIndex(){
+    if (!endUserIndexEditing()) return;
+    var changesData = $('#userIndexDataGrid').datagrid('getChanges');
+    if (!changesData || changesData.length == 0) return;
+    GlobalTools.ajax({
+        dataType: "json",
+        url: rootPath + "Sys_user/SaveUserIndex.do",
+        data: { changeDatas: JSON2.stringify(changesData) },
+        success: function (data, msg) {
+            $('#userIndexDataGrid').datagrid('reload');
+            $('#userIndexDataGrid').datagrid('acceptChanges');
+            GlobalTools.tip(msg);
+        }
+    });
+}
+//编辑序号
+function editorUserIndex(){
+    if (!endUserIndexEditing()) return;
+    var row = $('#userIndexDataGrid').datagrid('getSelected');
+    if (row) {
+        editOperationIndex = $('#userIndexDataGrid').datagrid('getRowIndex', row);
+        $('#userIndexDataGrid').datagrid('beginEdit', editOperationIndex);
+    }
+    else {
+        GlobalTools.tip("请选择需要编辑的行。");
+    }
+}
+//取消编辑序号
+function cancelEditorUserIndex(){
+    if (editOperationIndex == undefined) return;
+    $('#userIndexDataGrid').datagrid('selectRow', editOperationIndex)
+            .datagrid('cancelEdit', editOperationIndex);
+    editOperationIndex = undefined;
+}
+//结束编辑序号
+function endUserIndexEditing() {
+    if (editOperationIndex == undefined) { return true }
+    if ($('#userIndexDataGrid').datagrid('validateRow', editOperationIndex)) {
+        $('#userIndexDataGrid').datagrid('endEdit', editOperationIndex);
+        editOperationIndex = undefined;
+        return true;
+    } else {
+        GlobalTools.tip("数据校验失败，请检查数据格式。");
+        return false;
+    }
+}
+/***********人员序号设置相关结束*************/
+
+
+
+
+
+
+
+
+
+
+
+
+//打开一个对话框，显示单位和部门treegrid
+function showDeptTreeGrid() {
+    var sourceElement = this;
+    $(sourceElement).combobox("hidePanel");
+    OrganizationTools.dept_ShowSelectDialog({ sourceElement: sourceElement });
+}
+//选择组织机构后回调函数
+function selectDeptOK(treeNodes, sourceElement) {
+    var text = "", ids = "";
+    $.each(treeNodes, function (index, item) {
+        if (ids != '') {
+            text += ',';
+            ids += ',';
+        }
+        text += item.text;
+        ids += item.id.toString().ReplaceAll("dept_", "");
+    });
+
+    $(sourceElement).combobox("setValue", text);
+    switch ($(sourceElement).attr("id")) {
+        case "dept":
+            $("#deptid").val(ids);
+            break;
+        case "unit":
+            $("#unitid").val(ids);
+            break;
+    }
+}
+
+/*********操作权限相关**********/
+var menuOperations =
+        [
+            { id: "0", value: "私人" },
+            { id: "1", value: "所属部门" },
+            { id: "2", value: "所属单位" },
+            { id: "3", value: "全系统" }
+        ];
+
+function formatterOperationrangeCell(value, row, index) {//替换单元格中的标识序号为对应的文本
+    switch (value) {
+        case 0:
+            value = '私人';
+            break;
+        case 1:
+            value = '所属部门';
+            break;
+        case 2:
+            value = '所属单位';
+            break;
+        case 3:
+            value = '全系统';
+            break;
+        default:
+            value = '';
+            break;
+    }
+    return value;
+}
+function initMenuListStatus(menuPermString) {
+    if(menuPermString){
+        $('#menuList').treegrid('clearChecked');
+        var menuPerms = menuPermString.split(',');
+        for (index in menuPerms) {
+            if ($('#menuList').treegrid('find', menuPerms[index])) {
+                $('#menuList').treegrid('checkRow', menuPerms[index]);
+            }
+        }
+    }
+}
+
+//保存用户菜单权限
+function saveUserMenuPerm() {
+    if ($("#userid").val() == "") {
+        GlobalTools.tip("请选择人员。");
+        return;
+    }
+
+    var menuNodes = $('#menuList').treegrid('getSelections')
+    var idArr = new Array();
+    for (index in menuNodes) {
+        idArr.push(menuNodes[index].id);
+    }
+    var userData = {};
+    userData.id = $("#userid").val();
+    userData.permstring = (idArr.length > 0 ? idArr.join(',') : ",0,");
+
+    GlobalTools.ajax({
+        dataType: "json",
+        url: rootPath + "Sys_user/SaveUserMenuPerms.do",
+        data: userData,
+        success: function (data, msg) {
+            GlobalTools.tip("保存成功。");
+        }
+    });
+}
+function loadSuccess(row, data) {
+    if (data) {
+        $(data.rows).each(
+                function (index, _data) {
+                    if (this.state == 'closed') {
+                        $('#menuList').treegrid('expandAll');
+                    }
+                    if(this.checked == 'true'){
+                        $('#menuList').treegrid("select",this.id);
+                    }
+                });
+    }
+}
+function loadMenuOperation(rowData) {
+    bindMenuOperationList(rowData.id);
+}
+//绑定菜单操作列表
+function bindMenuOperationList(menuid) {
+    if ($("#userid").val() == "") {
+        GlobalTools.tip("请选择人员。");
+        return;
+    }
+    $("#Hid_CurrentMenuID").val(menuid);
+    GlobalTools.ajax({
+        dataType: "json",
+        url: rootPath + "Sys_authority/LoadPageList.do",
+        data: {
+            menuid: menuid,
+            authoritylevel: "USER",
+            relationid: $("#userid").val()
+        },
+        success: function (data) {
+            $('#menuOperationList').datagrid({
+                data: data
+            });
+        }
+    });
+}
+
+function menuOperationChecked(index) {
+    $('#menuOperationList').datagrid('beginEdit', index);
+}
+function menuOperationUnChecked(index) {
+    $('#menuOperationList').datagrid('cancelEdit', index);
+}
+function menuOperationLoadSuccess(data) {
+    if (data) {
+        $(data.rows).each(
+                function (index, _data) {
+                    if (this.checkstate == 'true') {
+                        $('#menuOperationList').datagrid('selectRow', $('#menuOperationList').datagrid('getRowIndex', this));
+                    }
+                });
+    }
+}
+function saveMenuOperationPerm() {
+    if ($("#userid").val() == "") {
+        GlobalTools.tip("请选择人员。");
+        return;
+    }
+    var menuOperationData = $('#menuOperationList').datagrid('getSelections');
+    if (menuOperationData.length == 0) {
+        GlobalTools.tip("请选择操作权限。");
+        return;
+    }
+    for (index in menuOperationData) {
+        $('#menuOperationList').datagrid('endEdit', $('#menuOperationList').datagrid('getRowIndex', menuOperationData[index]));
+    }
+    GlobalTools.ajax({
+        dataType: "json",
+        url: rootPath+"Sys_authority/SaveMenuOperationAuthority.do",
+        data: { authoritylevel: "USER", relationid: $("#userid").val(), menuid: $("#Hid_CurrentMenuID").val(), menuoperationdata: JSON2.stringify(menuOperationData) },
+        success: function (data, msg) {
+            GlobalTools.tip("保存成功。");
+
+            for (index in menuOperationData) {
+                $('#menuOperationList').datagrid('beginEdit', $('#menuOperationList').datagrid('getRowIndex', menuOperationData[index]));
+            }
+        }
+    });
+}
+
+function doSearch(value) {
+    $("#organizationTreeGrid").treegrid("unselectAll");
+
+    $("#personsDataGrid").datagrid("unselectAll");
+    $("#personsDataGrid").datagrid('options').url = rootPath + 'Sys_user/LoadPageList.do?current=true';
+    $('#personsDataGrid').datagrid('load', { keyvalue: value });
+}
+
+</script>
+<script language="javascript" type="text/javascript">
+
+    //是否公开 单元格处理
+    function formatterDictionCell(value, row, index) {
+        return (value && value > 0 ? "禁用" : "在用");
+    }
+
+    //展示详细信息页面
+    function taskDblClickRow(rowIndex, rowData) {
+        $("#DictionForm #dicId").val(rowData.id);
+        $("#DictionForm #dicUserid").val(rowData.userid);
+        $("#DictionForm #diction").val(rowData.diction);
+        $('#DlgEditDiction').dialog('open');
+        $("#DictionForm").form("validate");
+    }
+    //获取表单定义对象
+
+    function addDicion() {
+        $('#DlgEditDiction').dialog('open');
+        $("#DictionForm").form("validate");
+    }
+
+    function getSelectedIds() {
+        var dataChecked = $("#dgList").datagrid("getChecked");
+        if (dataChecked == null || dataChecked.length == 0) {
+            GlobalTools.tip("请选择办公用语");
+            return "";
+        }
+        var selectInfo = new Array();
+        for (var index in dataChecked) {
+            selectInfo.push(dataChecked[index].id);
+        }
+        return selectInfo.join(",");
+    }
+
+    //禁用
+    function setUnUsed() {
+        var ids = getSelectedIds();
+        if (ids == "") {
+            return;
+        }
+        $.messager.confirm('确认提示', '确定禁用?', function (r) {
+            if (r) {
+                GlobalTools.ajax({
+                    url: rootPath + "Officediction/DeleteList.do",
+                    data: { ids: ids },
+                    success: function (data) {
+                        GlobalTools.tip("禁用成功");
+                        $('#dgList').datagrid('reload');
+                    }
+                });
+            }
+        });
+    }
+
+    //启用
+    function setUsed() {
+        var ids = getSelectedIds();
+        if (ids == "") {
+            return;
+        }
+        $.messager.confirm('确认提示', '确定启用?', function (r) {
+            if (r) {
+                GlobalTools.ajax({
+                    url: rootPath + "Officediction/UnDeleteList.do",
+                    data: { ids: ids },
+                    success: function (data) {
+                        GlobalTools.tip("启用成功");
+                        $('#dgList').datagrid('reload');
+                    }
+                });
+            }
+        });
+    }
+
+    function deleteDiction() {
+        var ids = getSelectedIds();
+        if (ids == "") {
+            return;
+        }
+        $.messager.confirm('确认提示', '确定删除?', function (r) {
+            if (r) {
+                GlobalTools.ajax({
+                    url: rootPath + "Officediction/DestroyList.do",
+                    data: { ids: ids },
+                    success: function (data) {
+                        GlobalTools.tip("删除成功");
+                        $('#dgList').datagrid('reload');
+                    }
+                });
+            }
+        });
+    }
+
+    function DlgEditDictionClosed() {
+        $('#DlgEditDiction').dialog('close');
+    }
+    function onDlgEditDictionClosed(){
+        $('#DictionForm').form('clear');
+    }
+
+    //保存
+    function saveDictionData() {
+        if (!$("#DictionForm").form("validate")) { return; }
+        var dictionid = $("#dicId").val();
+        var userid = $("#userid").val();
+        if (dictionid == "") {
+            userid = userId;
+        }
+        GlobalTools.ajax({
+            url: rootPath + "Officediction/SaveForm.do",
+            data: { id: dictionid, userid: userid, diction: $("#diction").val() },
+            success: function (data) {
+                GlobalTools.tip("保存成功");
+                $('#dgList').datagrid('reload');
+                DlgEditDictionClosed();
+            }
+        });
+    }
+
+</script>
+<script language="javascript" type="text/javascript">
+/*$(function () {
+ OrganizationTools.user_Init({ rootPath: rootPath, deptid: "", title: "选择人员", onOKClick: selectUserOK, onCancelClick: cancelSelectUser });
+ });*/
+
+//选择人员后回调函数
+function selectUserOK(treeNodes, sourceElement) {
+    var text = "", ids = "";
+    $.each(treeNodes, function (index, item) {
+        if (ids != '') {
+            text += ',';
+            ids += ',';
+        }
+        text += item.text;
+        ids += item.id.toString().ReplaceAll("user_", "");
+    });
+    $(sourceElement).combobox("setText", text);
+    $("#ProxyerForm :hidden[name='" + $(sourceElement).attr("setvaluectlname") + "']").val(ids);
+    $("#ProxyerForm :hidden[name='" + $(sourceElement).attr("comboname") + "']").val(text);
+}
+function cancelSelectUser(sourceElement) {
+    $(sourceElement).combobox("setValue", "");
+    $("#ProxyerForm #proxyId").val("");
+    $("#ProxyerForm #proxyerid").val("");
+    $("#ProxyerForm #proxyername").combobox("setText", "");
+}
+function proxyerNameClick() {
+    var sourceElement = this;
+    $(sourceElement).combobox("hidePanel");
+    OrganizationTools.user_ShowSelectDialog({ sourceElement: sourceElement, sigleSelect: !$(sourceElement).combobox("options").multiple });
+}
+//是否公开 单元格处理
+function formatterProxyerCell(value, row, index) {
+    return (value && value > 0 ? "禁用" : "在用");
+}
+
+//展示详细信息页面
+function taskDblClickRow(rowIndex, rowData) {
+    $('#DlgEditProxyer').dialog('open');
+    $('#DlgEditProxyer').form('clear');
+    $("#ProxyerForm").form("validate");
+    $("#ProxyerForm #proxyId").val(rowData.id);
+    $("#ProxyerForm #consignerid").val(rowData.consignerid);
+    $("#ProxyerForm #consignername").val(rowData.consignername);
+    $("#ProxyerForm #proxyerid").val(rowData.proxyerid);
+    $("#ProxyerForm #proxyername").combobox("setText", rowData.proxyername);
+    $("#ProxyerForm [name='sys_consign.proxyername']").val(rowData.proxyername);
+    $("#ProxyerForm #consignstarttime").datebox("setValue", formatterStringToDate(rowData.consignstarttime, "yyyy-MM-dd"));
+    $("#ProxyerForm #consignendtime").datebox("setValue", formatterStringToDate(rowData.consignendtime, "yyyy-MM-dd"));
+    $("#ProxyerForm #consignstatus").combobox("setValue", rowData.delstatus);
+}
+//获取表单定义对象
+
+//重新加载列表
+function reloadGrid() {
+    $("#dgProxyer").datagrid("reload");
+}
+
+function addProxyer() {
+    OrganizationTools.user_Init({ rootPath: rootPath, deptid: "", title: "选择人员", onOKClick: selectUserOK, onCancelClick: cancelSelectUser });
+    $('#DlgEditProxyer').dialog('open');
+    $('#DlgEditProxyer').form('clear');
+    $("#ProxyerForm").form("validate");
+
+    GlobalTools.ajax({
+        url: rootPath + 'Sys_user/GetCurrentUserInfo.do',
+        success: function (data) {
+            $("#ProxyerForm #consignerid").val(data.id);
+            $("#ProxyerForm #consignername").val(data.chinaname);
+        }
+    });
+}
+
+function getSelectedIds() {
+    var dataChecked = $("#dgProxyer").datagrid("getChecked");
+    if (dataChecked == null || dataChecked.length == 0) {
+        GlobalTools.tip("请选择数据项");
+        return "";
+    }
+    var selectInfo = new Array();
+    for (var index in dataChecked) {
+        selectInfo.push(dataChecked[index].id);
+    }
+    return selectInfo.join(",");
+}
+
+//禁用
+function setProxyerUnUsed() {
+    var ids = getSelectedIds();
+    if (ids == "") {
+        return;
+    }
+    $.messager.confirm('确认提示', '确定禁用?', function (r) {
+        if (r) {
+            GlobalTools.ajax({
+                url: rootPath + "Sys_consign/DeleteList.do",
+                data: { ids: ids },
+                success: function (data) {
+                    GlobalTools.tip("禁用成功");
+                    $('#dgProxyer').datagrid('reload');
+                }
+            });
+        }
+    });
+}
+
+//启用
+function setProxyerUsed() {
+    var ids = getSelectedIds();
+    if (ids == "") {
+        return;
+    }
+    $.messager.confirm('确认提示', '确定启用?', function (r) {
+        if (r) {
+            GlobalTools.ajax({
+                url: rootPath + "Sys_consign/UnDeleteList.do",
+                data: { ids: ids },
+                success: function (data) {
+                    GlobalTools.tip("启用成功");
+                    $('#dgProxyer').datagrid('reload');
+                }
+            });
+        }
+    });
+}
+
+function deleteProxyer() {
+    var ids = getSelectedIds();
+    if (ids == "") {
+        return;
+    }
+    $.messager.confirm('确认提示', '确定删除?', function (r) {
+        if (r) {
+            GlobalTools.ajax({
+                url: rootPath + "Sys_consign/DestroyList.do",
+                data: { ids: ids },
+                success: function (data) {
+                    GlobalTools.tip("删除成功");
+                    $('#dgProxyer').datagrid('reload');
+                }
+            });
+        }
+    });
+}
+
+function DlgEditProxyerClosed() {
+    $('#DlgEditProxyer').dialog('close');
+}
+
+//保存
+function saveProxyerData() {
+    if (!$("#ProxyerForm").form("validate")) { return; }
+
+    var consignerid = $("#ProxyerForm #consignerid").val();
+    var proxyerid = $("#ProxyerForm #proxyerid").val();
+
+    if (consignerid == proxyerid) {
+        GlobalTools.tip("委托人和代理人不能是同一个人");
+        return;
+    }
+
+    var startTime = $("#ProxyerForm #consignstarttime").datebox("getValue");
+    var endTime = $("#ProxyerForm #consignendtime").datebox("getValue");
+
+    if (!CheckDate(startTime, endTime)) {
+        GlobalTools.tip("结束时间不能小于开始时间");
+        return;
+    }
+
+    $.ajax({
+        async: false,
+        url: rootPath + 'Sys_consign/CheckConsignToProxy.do',
+        data: { id: $("#ProxyerForm #proxyId").val(), consignerid: consignerid, proxyerid: proxyerid, consignstarttime: startTime, consignendtime: endTime, iscurrent: true },
+        dataType: 'json',
+        success: function (result) {
+            if (!result) return;
+            if (!result.iserror) {
+                if (result.message.length > 0) {
+                    // $.messager.alert("提示信息", data.ReplaceAll('\\n', '<BR>'), "info");
+                    ConsignData = new Array();
+                    /*for (var index in result.data) {
+                     ConsignData.push({ consignername: result.data[index].consignername, proxyername: result.data[index].proxyername, consignstarttime: formatterStringToDate(result.data[index].consignstarttime, "yyyy-MM-dd"), consignendtime: formatterStringToDate(result.data[index].consignendtime, "yyyy-MM-dd") });
+                     }*/
+                    ConsignData.push({
+                        consignername: result.data.consignername,
+                        proxyername: result.data.proxyername,
+                        consignstarttime: formatterStringToDate(result.data.consignstarttime, "yyyy-MM-dd"),
+                        consignendtime: formatterStringToDate(result.data.consignendtime, "yyyy-MM-dd") });
+                    OpenConsignList(result.message);
+                }
+                else {
+                    GlobalTools.submitForm($("#ProxyerForm"), { submiturl: rootPath + 'Sys_consign/SaveForm.do', success: saveFormSuccess });
+                }
+            }
+        }
+    });
+
+}
+function saveFormSuccess(formData) {
+    GlobalTools.tip("保存成功");
+    $('#dgProxyer').datagrid('reload');
+    $('#DlgEditProxyer').dialog('close');
+}
+
+var ConsignData = new Array();
+var divConsignList;
+function OpenConsignList(title) {
+    if ($("#divConsignForm").get(0)) {
+        $("#divConsignForm").remove();
+    }
+    divConsignList = $("<div id=\"divConsignForm\" class=\"easyui-window\" title=\"委托代理信息\"></div>");
+    var gridNewList = "<table id=\"dgConsignList\" title=\"" + title + "\" class=\"easyui-datagrid\" data-options=\"data:ConsignData,nowrap:false,fit: true,fitColumns: true,rownumbers: true,onLoadError: gridLoadError\"><thead><tr><th data-options=\"field:'consignername'\" width=\"40\">委托人</th><th data-options=\"field:'proxyername'\" width=\"40\">代理人</th><th data-options=\"field:'consignstarttime'\" width=\"50\">开始时间</th><th data-options=\"field:'consignendtime'\" width=\"50\">结束时间</th></tr></thead></table>";
+    divConsignList.append(gridNewList);
+    divConsignList.window({
+        modal: true,
+        minimizable: false,
+        maximizable: false,
+        closed: true,
+        iconCls: 'icon-save',
+        width: 350,
+        height: 400
+    });
+    $("#dgConsignList").datagrid();
+    divConsignList.window('open');
+}
+
+//打开关联账号新增页面
+function addUserToGroup() {
+    var addUserId = $("input[name='sys_user.id']").val();
+    var addUserIdName = $("input[name='sys_user.chinaname']").val();
+    if(addUserId==""||addUserIdName==""){
+        GlobalTools.tip("请选择人员");
+        return;
+    }
+    OrganizationTools.user_Init({ rootPath: rootPath, deptid: "", title: "选择人员",forGroupUser:true,userid:addUserId,onOKClick: selectUserOKForGroupUser, onCancelClick: cancelSelectUserForGroupUser });
+    $('#DlgEditUserGroup').dialog('open');
+    $('#DlgEditUserGroup').form('clear');
+    $("#userGroupForm").form("validate");
+    GlobalTools.ajax({
+        url: rootPath + 'Sys_user/GetCurrentUserInfo.do',
+        success: function (data) {
+            $("#userGroupForm #creatUserId").val(data.id);
+            $("#userGroupForm #creatUserIdName").val(data.chinaname);
+        }
+    });
+    $("#userGroupForm #addUserId").val(addUserId);
+    $("#userGroupForm #addUserIdName").val(addUserIdName);
+
+}
+//打开可用关联账号选择树
+function groupUserNameClick(){
+    var sourceElement = this;
+    $(sourceElement).combobox("hidePanel");
+    OrganizationTools.user_ShowSelectDialog({ sourceElement: sourceElement, sigleSelect: !$(sourceElement).combobox("options").multiple });
+}
+//关闭关联账号添加页面
+function DlgEditUserGrouplosed() {
+    $('#DlgEditUserGroup').dialog('close');
+}
+//保存关联账号
+function saveUserGroupData(){
+    if (!$("#userGroupForm").form("validate")) { return; }
+    GlobalTools.submitForm($("#userGroupForm"), { submiturl: rootPath + 'Sys_user_group/SaveForm.do', success: saveUserGroupFormSuccess });
+}
+function saveUserGroupFormSuccess(formData){
+    GlobalTools.tip("保存成功");
+    DlgEditUserGrouplosed();
+    $("#userGroup").datagrid("reload");
+}
+
+
+//选择人员后回调函数
+function selectUserOKForGroupUser(treeNodes, sourceElement) {
+    var text = "", ids = "";
+    $.each(treeNodes, function (index, item) {
+        if (ids != '') {
+            text += ',';
+            ids += ',';
+        }
+        text += item.text;
+        ids += item.id.toString().ReplaceAll("user_", "");
+    });
+    $(sourceElement).combobox("setText", text);
+    $("#userGroupForm :hidden[name='" + $(sourceElement).attr("setvaluectlname") + "']").val(ids);
+    $("#userGroupForm :hidden[name='" + $(sourceElement).attr("comboname") + "']").val(text);
+}
+function cancelSelectUserForGroupUser(sourceElement) {
+    $(sourceElement).combobox("setValue", "");
+    $("#userGroupForm #groupUserIds").val("");
+    $("#userGroupForm #groupUserNames").combobox("setText", "");
+}
+
+function removeUserFromGroup() {
+    var groupId = "";
+    var dataChecked = $("#userGroup").datagrid("getChecked");
+    if (dataChecked == null || dataChecked.length == 0) {
+        GlobalTools.tip("请选择数据项");
+        return "";
+    }
+    var selectInfo = new Array();
+    for (var index in dataChecked) {
+        selectInfo.push(dataChecked[index].id);
+        groupId = dataChecked[index].groupid;
+    }
+    var ids =  selectInfo.join(",");
+    if (ids == "") {
+        return;
+    }
+    $.messager.confirm('确认提示', '确定删除?', function (r) {
+        if (r) {
+            GlobalTools.ajax({
+                url: rootPath + "Sys_user_group/DestroyGroupUserIds.do",
+                data: { ids: ids,groupId:groupId},
+                success: function (data) {
+                    GlobalTools.tip("删除成功");
+                    $('#userGroup').datagrid('reload');
+                }
+            });
+        }
+    });
+}
+function onLoadDeptData(row,data){
+    if(data.rows) {
+        for (var index = 0, len = data.rows.length; index < len; index++) {
+            data.rows[index]._parentId=data.rows[index].parentid;
+        }
+    }
+}
+
+</script>
+</head>
+<body class="easyui-layout" data-options="fit:true">
+<div style="width: 170px;" data-options="region:'west',split:false">
+    <table id="organizationTreeGrid" class="easyui-treegrid" data-options="title:'组织机构列表',
+			            url: rootPath + 'Sys_dept/LoadPageList.do',
+                        rownumbers: true,
+                        fit: true,
+                        fitColumns: true,
+			            idField: 'id',
+			            treeField: 'chinaname',
+                        onClickRow:clickRow,
+						border:false,
+						onLoadSuccess:onLoadDeptData">
+        <thead>
+        <tr>
+            <th data-options="field:'chinaname'" halign="center" width="170px">
+                单位名称
+            </th>
+        </tr>
+        </thead>
+    </table>
+</div>
+<div id="userList" class="easyui-panel" title="人员列表" data-options="region:'center'">
+    <table id="personsDataGrid" class="easyui-datagrid" data-options="
+                idField: 'id',
+                rownumbers: true,
+                fit: true,
+                fitColumns: true,
+                onClickRow: loadPersonForm,
+                singleSelect: false,
+                pagination: true,
+                pageSize: 20,
+                border: false,
+                toolbar:'#userInfoTooBar',
+                onLoadSuccess: onLoadUserSuccess">
+        <thead>
+        <tr>
+            <th data-options="field:'ck',checkbox:true">
+            </th>
+            <th data-options="field:'chinaname',align:'center',halign:'center'" width="150">
+                姓名
+            </th>
+            <th data-options="field:'loginname',align:'center',halign:'center'" width="150">
+                登录名
+            </th>
+            <th data-options="field:'sortindex',align:'center',halign:'center'" width="150">
+                部门内序号
+            </th>
+            <th data-options="field:'delstatus',align:'center',halign:'center',formatter: formatterCell" width="50">
+                状态
+            </th>
+        </tr>
+        </thead>
+    </table>
+</div>
+<div id="userBaseInfo" class="easyui-panel" style="width: 450px; height: auto" data-options="region:'east'">
+<div id="tt" class="easyui-tabs" style="height: 666px" data-options="fit:true">
+    <div title="人员基本信息" data-options="href: 'User_info_op.htm'"></div>
+    <div title="办公用语" data-options="href: 'User_officediction.htm'"></div>
+    <div title="代理人设置" data-options="href: 'User_consign.htm'"></div>
+    <div title="关联账号设置" data-options="href: 'User_group.htm'"></div>
+<!--<div title="人员权限">
+    <div class="easyui-layout" data-options="fit:true">
+        <div data-options="region:'center',split:false,title:'菜单权限'">
+            <table id="menuList" class="easyui-treegrid" data-options="
+                            singleSelect: false,
+                            fit: true,
+                            fitColumns: true,
+                            selectOnCheck:true,
+                            checkOnSelect:true,
+                            rownumbers: true,
+                            idField: 'id',
+				              treeField: 'name',
+                            toolbar:'#menuListToolBar',
+                            onDblClickRow:loadMenuOperation,
+                            onLoadSuccess:loadSuccess,
+                            onLoadError: gridLoadError">
+                <thead>
+                <tr>
+                    <th data-options="field:'ck',checkbox:true">
+                    </th>
+                    <th data-options="field:'name',halign:'center'" width="150">
+                        导航名称
+                    </th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+        <div data-options="region:'east',title:'操作权限',split:false" style="width: 300px;">
+            <table id="menuOperationList" class="easyui-datagrid" data-options="
+                            singleSelect: false,
+                            fit: true,
+                            fitColumns: true,
+                            rownumbers: true,
+                            idField: 'id',
+                            toolbar:'#menuOperationToolBar',
+                            onCheck:menuOperationChecked,
+                            onUncheck:menuOperationUnChecked,
+                            onLoadSuccess:menuOperationLoadSuccess,
+                            onLoadError: gridLoadError">
+                <thead>
+                <tr>
+                    <th data-options="field:'ck',checkbox:true">
+                    </th>
+                    <th data-options="field:'chinaname',halign:'center'" width="150">
+                        操作名称
+                    </th>
+                    <th data-options="field:'operationrange',halign:'center',
+		                                editor:{
+		                                    type:'combobox',
+		                                    options:{
+		                                        valueField:'id',
+										        textField:'value',
+										        data:menuOperations,
+										        required:true
+		                                    }
+		                                },formatter:formatterOperationrangeCell" width="150">
+                        操作范围
+                    </th>
+                </tr>
+                </thead>
+            </table>
+            <input type="hidden" id="Hid_CurrentMenuID" name="Hid_CurrentMenuID" />
+        </div>
+    </div>
+</div>-->
+</div>
+</div>
+<div id="toolPerson">
+    <a href="javascript:onclick=deleteForm();" id="cancel" class="icon-delete" title="删除">
+    </a>
+</div>
+<div id="userInfoTooBar" class="datagrid-toolbar">
+    <div>
+        关键字:
+        <input class="easyui-searchbox" data-options="prompt:'姓名或登陆名',searcher:doSearch"
+               style="width: 240px" />
+    </div>
+    <div>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-add'"
+           onclick="addUserInfo()">新增</a> <a href="javascript:void(0)" class="easyui-linkbutton"
+                                             data-options="plain:true,iconCls:'icon-pause'" onclick="deleteUser()">禁用</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-ok'"
+           onclick="unDeleteUser()">启用</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-ok'"
+           onclick="openALlUsersIndexSetDialog()">设置用户序号</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-reload'"
+           onclick="resetSelectPassWord()">批量修改密码</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-reload'"
+           onclick="resetAllPassWord()">重置所有用户密码</a>
+    </div>
+</div>
+<div id="userIndexTooBar" class="datagrid-toolbar">
+    <table style="width:100%">
+        <tr>
+            <td width="50%">
+                <a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveUserIndex();"
+                   data-options="plain:true,iconCls:'icon-save'">保存</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" onclick="editorUserIndex();"
+                   data-options="plain:true,iconCls:'icon-edit'">编辑</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" onclick="cancelEditorUserIndex();"
+                   data-options="plain:true,iconCls:'icon-undo'">取消</a>
+            </td>
+            <td width="50%" align="right">
+                <input class="easyui-searchbox" data-options="prompt:'姓名或登陆名',searcher:doSearchForUserIndex"
+                       style="width: 200px" />
+            </td>
+        </tr>
+    </table>
+</div>
+<div id="menuListToolBar" class="datagrid-toolbar">
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveUserMenuPerm();"
+       data-options="plain:true,iconCls:'icon-save'">保存</a>
+</div>
+<div id="menuOperationToolBar" class="datagrid-toolbar">
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveMenuOperationPerm();"
+       data-options="plain:true,iconCls:'icon-save'">保存</a>
+</div>
+<div id="userIndexDialog" class="easyui-dialog" title="设置用户序号" style="width:500px;height:400px;"
+      data-options="resizable:true,modal:true,closed:true">
+    <table id="userIndexDataGrid" class="easyui-datagrid" data-options="
+                idField: 'id',
+                rownumbers: true,
+                fit: true,
+                fitColumns: true,
+                pagination: true,
+                pageSize: 20,
+                border: false,
+                toolbar:'#userIndexTooBar',
+                onDblClickCell:dblClickUserIndexRow,
+                onLoadError: gridLoadError">
+        <thead>
+            <tr>
+               <th data-options="field:'chinaname',align:'center',halign:'center'" width="100">
+                    用户姓名
+                </th>
+                <th data-options="field:'loginname',align:'center',halign:'center'" width="100">
+                    登录名
+                </th>
+                <th data-options="field:'userindex',align:'center',halign:'center',editor:{type:'numberbox'}" width="60">
+                    序号
+                </th>
+            </tr>
+        </thead>
+    </table>
+</div>
+</body>
+</html>

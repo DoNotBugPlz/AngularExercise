@@ -1,0 +1,315 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>物理表列表</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="../../ScriptSource/EasyUI/Skins/default/easyui.css" rel="stylesheet"
+        type="text/css" />
+    <link href="../../ScriptSource/EasyUI/Skins/icon.css" rel="stylesheet" type="text/css" />
+    <script src="../../ScriptSource/JQuery/jquery.min.js" type="text/javascript"></script>
+    <script src="../../ScriptSource/JQuery/jquery.form.js" type="text/javascript"></script>
+    <script src="../../ScriptSource/EasyUI/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../../ScriptSource/JavaScript/GlobalTools.js" type="text/javascript"></script>
+
+    <script language="javascript" type="text/javascript">
+        var rootPath = "../../../";
+        var tablename;
+        var categoryListData; //所有的字典项集合（sys_cateogry中的）
+        var autoNOCatgoryData; //编号规则字典项值
+        var validataCategoryData; //数据校验规则字典项值
+        var datetimeCategoryData; //时间格式字典项值
+        //加载一些所需要的数据
+        $(function () {
+            $.get(rootPath + "Sys_category/LoadAllCategory.do",setCategoryData);
+            $.get( rootPath + "Sys_categoryvalue/GetCategoryValues.do?constname=MYDATE_FMTTYPES",setDatetimeCategoryData);
+            $.get( rootPath + "Sys_categoryvalue/GetCategoryValues.do?constname=FIELD_VALIDATOR",setValidataCategoryData);
+        });
+        function setCategoryData(result) {
+            categoryListData = result.data;
+        }
+        function setValidataCategoryData(data) {
+            validataCategoryData = data;
+        }
+        function setDatetimeCategoryData(data) {
+            datetimeCategoryData = data;
+        }
+        //同步表结构
+        function syncTablesStruct() {
+            $("#syncTS").linkbutton("disable");
+            GlobalTools.ajax({
+                async:false,
+                loading: '正在同步数据中...',
+                url: rootPath + "Sys_tablesremark/SyncTableStructBase.do",
+                success: function () {
+                    $("#tablesTree").treegrid("reload");
+                },
+                error: ajaxRequestError
+            });
+            $("#syncTS").linkbutton("enable");
+        }
+        //单击列表行，加载表单
+        function clickRow(row) {
+            var $tmpTab= $('#divTab');
+            var tab = $tmpTab.tabs('getTab', 0);
+            if (tab) {
+                if (tab[0].id == row.id) {
+                    return;
+                }
+            }
+            $tmpTab.tabs('select', 0);
+            switch (row.showtype) {
+                case "tableinfo":
+                    tablename = row.id;
+                    $tmpTab.tabs('update', {
+                        tab: $tmpTab.tabs('getTab', "表信息维护"),
+                        options: {
+                            id: row.id,
+                            title: "表信息维护",
+                            href: rootPath + "platform/SystemManager/TablesStruck/TablesRemarkInfoEditPage.htm?tablename=" + tablename,
+                            onLoad: loadTableBasicInfoForm
+                        }
+                    });
+
+                    $tmpTab.tabs('update', {
+                        tab: $tmpTab.tabs('getTab', "列信息维护"),
+                        options: {
+                            id: row.id + "_cols",
+                            title: "列信息维护",
+                            href: rootPath + "platform/SystemManager/TablesStruck/ColsRemarkInfoEditPage.htm"
+                        }
+                    });
+                    $tmpTab.tabs('update', {
+                        tab: $tmpTab.tabs('getTab', "获取基础文件"),
+                        options: {
+                            id: row.id + "_tableCommonFiles",
+                            title: "获取基础文件",
+                            content: '<iframe id="frameTemplateDesign" name="frameTemplateDesign" scrolling="auto" frameborder="0"  src="' + rootPath + 'platform/SystemManager/TablesStruck/TableCommonFiles.htm?tablename=' + tablename + '"  style="width:100%;height:100%;"></iframe>'
+                        }
+                    });
+                    break;
+            }
+
+            // 调用 'refresh' 方法更新选项卡面板的内容
+             tab.panel('refresh');
+        }
+
+        //加载表基本信息表单数据
+        function loadTableBasicInfoForm() {
+            GlobalTools.loadForm($("#tableBasicInfoform"), { url: rootPath + 'Sys_tablesremark/LoadForm.do?tablename=' + tablename, isNormalModel: false },selectTableType);
+        }
+        //保存表基本信息
+        function saveTableInfoForm() {
+            GlobalTools.submitForm($("#tableBasicInfoform"), {
+                success: function (data) {
+                    $("#tablesTree").treegrid("reload");
+                    GlobalTools.tip("保存成功！");
+                },
+                error: function (message) {
+                    GlobalTools.tip("保存失败！");
+                }
+            });
+        }
+
+        function selectTableType(){
+        	var type=$("#tabletype").combobox("getValue");
+        	var maintablenamevalue=$("#maintablename").combobox("getValue");
+        	var maintablecolvalue=$("#maintablecol").combobox("getValue");
+
+        	if(type==3){//表类型是表单工作表
+        		$("#maintablename").combobox({'required':true});
+        		$("#maintablecol").combobox({'required':true});
+        		$("#maintablename").combobox("enable");
+        		$("#maintablecol").combobox("enable");
+        		$("#maintablename").combobox('setValue',maintablenamevalue);
+        		$("#maintablecol").combobox('setValue',maintablecolvalue);
+        	}else{
+        		$("#maintablename").combobox({'required':false});
+        		$("#maintablecol").combobox({'required':false});
+        		$("#maintablename").combobox("disable");
+        		$("#maintablecol").combobox("disable");
+        	}
+            $("#tableBasicInfoform").form("validate");
+        }
+        //格式化单元格 显示“是”、“否”
+        function formatterCell(value, row, index) {
+            return (value == 1 ? "是" : "否");
+        }
+
+        //编辑列表行
+        var editIndex = undefined;
+        function endEditing() {
+            if (editIndex == undefined) { return true }
+            if ($('#colsListGrid').datagrid('validateRow', editIndex)) {
+                var ed = $('#colsListGrid').datagrid('getEditor', { index: editIndex, field: 'alias' });
+                $('#colsListGrid').datagrid('endEdit', editIndex);
+                editIndex = undefined;
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        //单击列表行
+        function onClickColsListRow(index, rowData) {
+            if (editIndex != index) {
+                if (endEditing()) {
+                    removeEditor();
+                    switch (rowData.coltype) {
+                        case "varchar":
+                            addCategoryidEditor();
+                            addMultilinesEditor();
+                            addMultiselectedEditor();
+                            break;
+                        case "datetime":
+                        case "date":
+                            addFmttypetimeEditor();
+                            break;
+                        case "int":
+                        case "float":
+                            addCategoryidEditor();
+                            break;
+                        case "text":
+                            addMultilinesEditor();
+                            break;
+                    }
+
+                    $('#colsListGrid').datagrid('selectRow', index).datagrid('beginEdit', index);
+                    editIndex = index;
+                } else {
+                    $('#colsListGrid').datagrid('selectRow', editIndex);
+                }
+            }
+        }
+        //删除 colsListGrid 中的四个字段的editor
+        function removeEditor() {
+            $("#colsListGrid").datagrid('removeEditor', 'categoryid');
+            $("#colsListGrid").datagrid('removeEditor', 'multiselected');
+            $("#colsListGrid").datagrid('removeEditor', 'multilines');
+            $("#colsListGrid").datagrid('removeEditor', 'fmttypetime');
+        }
+
+        //colsListGrid 中字段添加editor
+        function addCategoryidEditor() {
+            $("#colsListGrid").datagrid('addEditor', { field: 'categoryid', editor: {
+                type: 'combobox',
+                options: {
+                    valueField: 'id',
+                    textField: 'chinaname',
+                    data: categoryListData
+                }
+            }
+            });
+        }
+        function addMultilinesEditor() {
+            $("#colsListGrid").datagrid('addEditor', { field: 'multilines', editor: { type: 'checkbox', options: { on: 1, off: 0}} });
+        }
+        function addMultiselectedEditor() {
+            $("#colsListGrid").datagrid('addEditor', { field: 'multiselected', editor: { type: 'checkbox', options: { on: 1, off: 0}} });
+        }
+        function addFmttypetimeEditor() {
+            $("#colsListGrid").datagrid('addEditor', { field: 'fmttypetime', editor: {
+                type: 'combobox',
+                options: {
+                    valueField: 'id',
+                    textField: 'chinaname',
+                    data: datetimeCategoryData
+                }
+            }
+            });
+        }
+
+        //保存列表
+        function saveColsInfo() {
+            //取消编辑状态，将其纳入更新行的集合中
+            if (!(editIndex == undefined)) {
+                $('#colsListGrid').datagrid('endEdit', editIndex);
+                editIndex = undefined;
+            }
+            //获取更改过的记录集合
+            var changesData = $('#colsListGrid').datagrid("getChanges", "updated");
+            if (!changesData || changesData.length == 0) return;
+            GlobalTools.ajax({
+                dataType: "json",
+                url: rootPath + "Sys_colsremark/SaveForm.do",
+                data: { changeDatas: JSON2.stringify(changesData) },
+                success: function (data, msg) {
+                    $('#colsListGrid').datagrid('reload');
+                    $('#colsListGrid').datagrid('acceptChanges');
+                }
+            });
+        }
+        //格式 列维护信息中的字典项选项
+        function formatCategoryId(value, row) {
+            if (value == null || value.length == 0) {
+                return;
+            }
+            for (var index = 0; index < categoryListData.length; index++) {
+                if (categoryListData[index].id == value) {
+                    return categoryListData[index].chinaname;
+                }
+            }
+        }
+        //格式 列维护信息中的日期格式选项
+        function formatFmttypetime(value, row) {
+            if (value == null || value.length == 0 || value == 0) {
+                return "";
+            }
+            for (var index = 0; index < datetimeCategoryData.length; index++) {
+                if (datetimeCategoryData[index].id == value) {
+                    return datetimeCategoryData[index].chinaname;
+                }
+            }
+        }
+        //格式 列维护信息中的数据验证选项
+        function formatValiddata(value, row) {
+            if (value == null || value.length == 0) {
+                return;
+            }
+            for (var index = 0; index < validataCategoryData.length; index++) {
+                if (validataCategoryData[index].id == value) {
+                    return validataCategoryData[index].chinaname;
+                }
+            }
+        }
+
+    </script>
+</head>
+<body class="easyui-layout" data-options="fit:true">
+    <div data-options="region:'west',split:false" style="width: 300px;">
+        <table id="tablesTree" class="easyui-treegrid" title="物理表列表" data-options="
+                        url: rootPath + 'Sys_tablesremark/LoadPageList.do',
+                        rownumbers: true,
+                        fit: true,
+                        fitColumns: true,
+                        border:false,
+			            idField: 'id',
+			            treeField: 'chinaname',
+                        toolbar:'#treeTool',
+                        onClickRow:clickRow
+                        ">
+            <thead>
+                <tr>
+                    <th data-options="field:'chinaname'" halign="center" width="268px">
+                        物理表名称
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div data-options="region:'center',split:false,border:false">
+        <div id="divTab" class="easyui-tabs" data-options="region:'center',fit:true,title:'信息编辑',height:668">
+            <div title="表信息维护">
+            </div>
+            <div title="列信息维护">
+            </div>
+            <div title="获取基础文件">
+            </div>
+        </div>
+        <div id="treeTool" class="datagrid-toolbar">
+            <div>
+                <a href="javascript:void(0)" class="easyui-linkbutton" onclick="syncTablesStruct()" id="syncTS"
+                    data-options="plain:true,iconCls:'icon-add'">同步表结构</a>
+            </div>
+        </div>
+</body>
+</html>

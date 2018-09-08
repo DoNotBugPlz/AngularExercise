@@ -1,0 +1,88 @@
+<!--<div class="wrapper">
+    <div id="login_div" style="position: absolute;width: 300px;height: 300px;left: 50%;top:50%;margin: -150px 0px 0px -150px;">
+        <input type="text" name="login_code" ng-model="login.login_code"/><br>
+        <input type="password" name="login_password" ng-model="login.login_password"/><br>
+        <input type="button" value="登录" id="login_bn" ng-click="login.loginSystem()"/>
+    </div>
+</div>-->
+
+
+<!--<div class="logo_box">-->
+<!--<h3>某某公司欢迎你</h3>-->
+<!--<form action="#" name="f" method="post">-->
+<!--<div class="input_outer">-->
+<!--<span class="u_user"></span>-->
+<!--<input name="login_code" type="text" ng-model="login.login_code" class="text"-->
+<!--placeholder="请输入用户名">-->
+<!--&lt;!&ndash;<input name="logname" class="text" onFocus=" if(this.value=='输入用户名登录') this.value=''" onBlur="if(this.value=='') this.value='输入用户名登录'" value="输入用户名登录" style="color: #FFFFFF !important" type="text">&ndash;&gt;-->
+<!--</div>-->
+<!--<div class="input_outer">-->
+<!--<span class="us_uer"></span>-->
+<!--<input name="password" type="password" ng-model="login.password" class="text"-->
+<!--placeholder="请输入密码" >-->
+<!--&lt;!&ndash;<label class="l-login login_password" style="color: rgb(255, 255, 255);display: block;">输入密码</label>&ndash;&gt;-->
+<!--&lt;!&ndash;<input name="logpass" class="text" style="color: #FFFFFF !important; position:absolute; z-index:100;" onFocus="$('.login_password').hide()" onBlur="if(this.value=='') $('.login_password').show()" value="" type="password">&ndash;&gt;-->
+<!--</div>-->
+<!--<div class="mb2"><a class="act-but submit"  ng-click="login.loginSystem()" style="color: #FFFFFF;cursor: pointer">登录</a></div>-->
+<!--&lt;!&ndash;	<input name="savesid" value="0" id="check-box" class="checkbox" type="checkbox"><span>记住用户名</span>&ndash;&gt;-->
+<!--</form>-->
+<!--&lt;!&ndash;<a href="#" class="login-fgetpwd" style="color: #FFFFFF">忘记密码？</a>-->
+
+
+<!--<div class="sas">-->
+<!--<a href="#">还没注册账号！</a>-->
+<!--</div>-->
+<!--&ndash;&gt;-->
+<!--</div>-->
+
+<!DOCTYPE html>
+<html lang="en">
+<!--<head>-->
+<!--<meta charset="UTF-8">-->
+<!--<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">-->
+<!--<title>江苏省价格监控平台</title>-->
+<!--&lt;!&ndash;<link rel="stylesheet" href="../styles/css/green/style_green.css">&ndash;&gt;-->
+<!--</head>-->
+<body>
+<div class="container_green ">
+    <div class="bgT">
+        <img src="../styles/images/green/login_tit.png" class="login_tit" alt="">
+    </div>
+    <div class="bottom_login1">
+        <div class="login_box">
+            <div class="login_b">
+                <div class=" login_line1">
+                    <div class="pull_left">
+                        <input type="text" class="login_ipt ipt_ico1" ng-model="login.login_code" placeholder="请输入用户名">
+                        <input type="password" class="login_ipt ipt_ico2" ng-model="login.password" placeholder="请输入密码">
+                    </div>
+                    <!--<img src="../styles/images/green/confirmation.png" class="confirmation" alt="">-->
+                    <div class="pull_left" id="sliderUnlock" ng-slider-unlock="login.sliderUnlock"></div>
+                    <!--<ng-slider-unlock slider="login.sliderUnlock"></ng-slider-unlock>-->
+                    <a class="confirm_btn cursor_pointer" ng-if="login.sliderUnlock" ng-click="login.loginSystem()">登 录</a>
+                    <a class="confirm_btn cursor_pointer disabled" ng-if="!login.sliderUnlock">登 录</a>
+                </div>
+                <div class="checkBox_b width100">
+                    <input type="checkbox" class="checkBox" id="check1">
+                    <label for="check1" class="checkbox_txt">保存用户名</label>
+                </div>
+
+                <a href="javascript:;" class="password_back">找回密码</a>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="bottom_login2">
+            <div class="login_last_txt">技术支持：南京擎天科技有限公司</div>
+        </div>
+
+    </div>
+</div>
+<!--<script src="../js/jquery-1.9.1.min.js"></script>-->
+<!--<script src="../js/placeholder.js"></script>-->
+<!--<script>-->
+<!--$(function(){-->
+<!--$(".login_ipt").placeholder();-->
+<!--})-->
+<!--</script>-->
+</body>
+</html>

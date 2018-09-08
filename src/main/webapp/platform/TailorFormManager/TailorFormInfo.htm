@@ -1,0 +1,77 @@
+﻿<div class="easyui-panel" fit="true" border="true">
+    <form id="tailorForm" method="post" action="../../Sys_def_tailorform/SaveForm.do">
+    <div class="datagrid-toolbar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveTailorForm();"
+            data-options="plain:true,iconCls:'icon-save'">保存</a>
+    </div>
+    <table style="width: 100%;">
+        <tr height="30">
+            <td align="right" width="15%">
+                物理表名称：
+            </td>
+            <td>
+                <input type="hidden" id="tailorformid" name="sys_def_tailorform.id" />
+                <input class="easyui-validatebox" type="text" id="tablename" readonly name="sys_def_tailorform.tablename"
+                    style="width: 200px; border-bottom: 1; border-top: 0; border-left: 0; border-right: 0;" />
+            </td>
+        </tr>
+        <tr height="30">
+            <td align="right">
+                电子表单名称：
+            </td>
+            <td>
+                <input class="easyui-validatebox" type="text" id="chinaname" name="sys_def_tailorform.chinaname"
+                    data-options="required:true,validType:'remote[{url:rootPath+\'Sys_def_tailorform/ValidChinaName.do\',data:{chinaname:$(\'#chinaname\').val(),tailorformid:$(\'#tailorformid\').val()}}]'" style="width: 445px" />
+            </td>
+        </tr>
+        <tr height="30">
+            <td align="right">
+                电子表单路径：
+            </td>
+            <td>
+                <input class="easyui-validatebox" type="text" id="path" name="sys_def_tailorform.path"
+                    data-options="required:true" style="width: 445px" />
+            </td>
+        </tr>
+        <tr height="30">
+            <td align="right">
+                表单打印路径：
+            </td>
+            <td>
+                <input class="easyui-validatebox" type="text" id="printpath" name="sys_def_tailorform.printpath" style="width: 445px" />
+            </td>
+        </tr>
+        <tr height="30">
+            <td align="right">
+                适用单位：
+            </td>
+            <td>
+                <input type="hidden" name="sys_def_tailorform.unitid" id="tailorFormUnitid" />
+                <input class="easyui-combobox" type="text" id="unitname" name="sys_def_tailorform.unitname"
+                    data-options="required:true,multiple:true,onShowPanel:showDeptTreeGrid" style="width: 365px;height:50px" />
+            </td>
+        </tr>
+        <tr height="30">
+            <td align="right">
+                代办标题：
+            </td>
+            <td>
+                <input class="easyui-validatebox" type="text" id="tasktitleprefix" name="sys_def_tailorform.tasktitleprefix" style="width: 445px" title="填写如：关于 {tablename:colname}的 {tablename:colname} 决定；注意事项：1、{tablename:colname}表示取当前表中的某个字段 ；2、符号“{ : }”这三个是英文符号；3、以{tablename:colname}表示一个，可填写多个；4、表名和列名必须同时存在" />
+            </td>
+        </tr>
+        <!--<tr height="30">
+            <td align="right" width="15%">
+                待办标题字段：
+            </td>
+            <td>
+                <input class="easyui-combobox" name="sys_def_tailorform.tasktitlecolumn" style="width: 200px;"
+                        data-options="
+                            url:rootPath + 'Sys_colsremark/LoadColsByTableName.do?tablename='+currentTableName,
+                            valueField:'colname',
+                            textField:'alias',
+                            panelHeight:'auto'" />
+            </td>
+        </tr>-->
+    </table>
+    </form>
+</div>

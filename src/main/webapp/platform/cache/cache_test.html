@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../ScriptSource/JQuery/jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var rootPath = "../../";
+
+        function write2() {
+            var key = $("#write_key").val();
+            var content = $("#write_content").val();
+            var time = $("#write_time").val();
+            $.ajax({
+                url: rootPath + "Cache",
+                type: "post",
+                data:{key:key,content:content,time:time},
+                success:success
+            });
+        }
+
+        function read() {
+            var key = $("#read_key").val();
+            if(!key){
+                alert("请指定一个缓存key！");
+                return;
+            }
+            $.ajax({
+                url: rootPath + "Cache/"+key,
+                type: "get",
+                success:success
+            });
+        }
+
+        function evict() {
+            var key = $("#evict_key").val();
+            $.ajax({
+                url: rootPath + "Cache/"+key,
+                type: "delete",
+                success:success
+            });
+        }
+
+        function success(data){
+            $("#responseVal").val(JSON.stringify(data));
+        }
+    </script>
+</head>
+<body>
+<div>
+    <input type="button" onclick="read()" value="读取"/>
+    <input id="read_key" type="text" width="100px" value="zs"/>
+    <span>【文本框依次表示：缓存键】</span>
+</div>
+<hr>
+<div>
+    <input type="button" onclick="evict()" value="淘汰"/>
+    <input id="evict_key" type="text" width="100px" value="zs"/>
+    <span>【文本框依次表示：缓存键】</span>
+</div>
+<hr>
+<div>
+    <input type="button" onclick="write2()" value="写入"/>
+    <input id="write_key" type="text" width="100px" value="zs" />
+    <input id="write_content" type="text" width="100px" value="55661d"/>
+    <input id="write_time" type="text" width="100px" value="20"/>
+    <span>【三个文本框依次表示：缓存键，缓存值，缓存时间(单位：秒)】</span>
+</div>
+<hr>
+<div>
+    <div>实时响应内容：</div>
+    <textarea id="responseVal" style="width: 100%"></textarea>
+</div>
+
+</body>
+</html>

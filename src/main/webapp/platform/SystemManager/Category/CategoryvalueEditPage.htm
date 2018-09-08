@@ -1,0 +1,55 @@
+﻿<div class="easyui-panel" fit="true" border="false">
+    <!--padding:5px;border:1px solid #ddd;  -->
+    <div class="toolbar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveCategoryvalueForm()"
+            data-options="plain:true,iconCls:'icon-save'">保存</a>
+    </div>
+    <div>
+        <form id="form" method="post" action="../../../Sys_categoryvalue/SaveForm.do">
+        <table style="padding-left: 20px;">
+            <colgroup>
+                <col width="20%" align="left" />
+                <col align="left" />
+            </colgroup>
+            <tr>
+                <td>
+                    编码:
+                </td>
+                <td>
+                    <input class="easyui-validatebox" type="text" name="sys_categoryvalue.refid" id="refid"
+                        data-options="required:true" onblur="checkRefid()" style="width: 300px" />
+                </td>
+            </tr>
+            <tr id="trAppendAfter">
+                <td id="tdShowName">
+                    中文名:
+                </td>
+                <td>
+                    <input class="easyui-validatebox" type="text" id="sys_categoryvalue.chinaname" name="sys_categoryvalue.chinaname"
+                        style="width: 300px" data-options="required:true"> </input>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    排序号:
+                </td>
+                <td>
+                    <input class="easyui-validatebox" type="text" id="sys_categoryvalue.sortindex" name="sys_categoryvalue.sortindex"
+                        style="width: 300px"></input>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    备注:
+                </td>
+                <td>
+                    <textarea name="sys_categoryvalue.remark" style="width: 400px; height: 40px;"></textarea>
+                </td>
+            </tr>
+        </table>
+        <input type="hidden" name="sys_categoryvalue.id" id="categoryValueId" />
+        <input type="hidden" name="sys_categoryvalue.parentid" id="parentid" />
+        <input type="hidden" name="sys_categoryvalue.categoryid" id="categoryid" />
+        </form>
+    </div>
+</div>

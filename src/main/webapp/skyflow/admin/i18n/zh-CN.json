@@ -1,0 +1,1039 @@
+{
+    "GENERAL": {
+        "YES": "Yes",
+        "NO": "No",
+        "ACTION": {
+            "LOGOUT": "退出",
+            "DISMISS-ALERT": "点击删除此信息",
+            "RETURN-TO-LIST": "返回列表",
+            "SHOW-RESULTS": "显示 {{size}} 条结果",
+            "REFRESH-LIST": "刷新列表",
+            "SORT-BY": "按{{sort}}排序",
+            "CLEAR-FILTERS": "清除过滤器",
+            "CANCEL-AND-CLOSE": "取消并关闭",
+            "CANCEL": "取消",
+            "NEXT": "下一个",
+            "PREVIOUS": "前一个",
+            "CLOSE": "关闭",
+            "SHOWLICENSE": "许可信息"
+        },
+        "TITLE": {
+            "MAIN": "Activiti Administrator",
+            "ACTIONS": "操作",
+            "FILTERS": "过滤器"
+        },
+        "MENU": {
+            "PROCESS-ENGINE": "流程引擎",
+            "FORM-ENGINE": "Form Engine",
+            "CONTENT-ENGINE": "Content Engine",
+            "DMN-ENGINE": "DMN Engine",
+            "DEPLOYMENTS": "流程部署",
+            "DEFINITIONS": "流程定义",
+            "INSTANCES": "流程实例",
+            "TASKS": "任务",
+            "JOBS": "作业",
+            "EVENT-SUBSCRIPTIONS": "事件订阅",
+            "CONFIGURATION": "配置",
+            "CONFIGURATION-ENGINE": "引擎",
+            "DECISION-TABLES": "决策表",
+            "CONTENT-ITEMS": "Content items"
+        },
+        "RESULT-SIZES": {
+            "10": "10",
+            "25": "25",
+            "50": "50",
+            "100": "100",
+            "100000000": "all"
+        }
+    },
+    "PROCESS-DEFINITION": {
+        "ID": "ID:",
+        "NAME": "名称:",
+        "VERSION": "版本:",
+        "DESCRIPTION": "描述:",
+        "KEY": "Key:",
+        "CATEGORY": "分类:",
+        "SUSPENDED": "挂起:",
+        "DEPLOYMENT": "部署:",
+        "TENANT": "租户:",
+        "START-FORM-DEFINED": "已定义起始表单:",
+        "GRAPHICAL-NOTATION-DEFINED": "已定义流程表示:",
+        "PROCESS-INSTANCES-SIZE": "有{{total}}个正在运行中的流程实例",
+        "PROCESS-INSTANCES-SHOWING": ",显示最近启动的 {{size}} 条流程实例",
+        "PROCESS-INSTANCES-EMPTY": "没有正在运行的流程实例",
+        "JOBS-SIZE": "有 {{total}} 个正在运行的作业",
+        "JOBS-EMPTY": "没有正在运行的作业",
+        "DECISION-TABLES-SIZE": "有 {{total}} 个决策表 ",
+        "DECISION-TABLES-EMPTY": "没有决策表 ",
+        "FORM-DEFINITIONS-SIZE": "有 {{total}} 个内置表单",
+        "FORM-DEFINITIONS-EMPTY": "没有内置表单",
+        "TITLE": {
+            "PROCESS-INSTANCES": "流程实例",
+            "JOBS": "作业",
+            "DECISION-TABLES": "决策表",
+            "FORMS": "内置表单"
+        },
+        "ACTION": {
+            "EDIT-CATEGORY": "编辑分类",
+            "SHOW-ALL-JOBS": "显示所有作业",
+            "SHOW-ALL-PROCESSES": "显示所有流程实例",
+            "SHOW-DIAGRAM": "流程图展示"
+        },
+        "POPUP": {
+            "EDIT-CATEGORY": {
+                "TITLE": "编辑流程定义分类",
+                "MESSAGE": "流程定义的初始分类来源于BPMN 2.0 XML中targetNameSpace属性,但可在部署后修改",
+                "CATEGORY": "分类",
+                "CATEGORY-PLACEHOLDER": "输入分类",
+                "CONFIRM": "更新分类"
+            },
+            "SHOW-PROCESS-MODEL": {
+                "TITLE": "流程图"
+            }
+        }
+    },
+    "PROCESS-DEFINITIONS": {
+        "LIST-MESSAGE": "显示 {{size}} 条结果,共 {{total}} 条匹配的流程定义",
+        "LIST-MESSAGE-EMPTY": "没有匹配的流程定义",
+        "FILTER": {
+            "NAME": "Name (区分大小写)",
+            "KEY": "Key (区分大小写)",
+            "DEPLOYMENT-ID": "部署 ID",
+            "TENANT-ID": "租户 ID",
+            "LATEST": "最新版本",
+            "LATEST-HELP": "只显示最新版本"
+        },
+        "TITLE": {
+            "MAIN": "流程定义"
+        },
+        "SORT": {
+            "ID": "ID",
+            "NAME": "名称",
+            "VERSION": "版本"
+        },
+        "HEADER": {
+            "ID": "ID",
+            "NAME": "名称",
+            "VERSION": "版本",
+            "KEY": "Key",
+            "TENANT": "租户"
+        },
+        "ACTIONS": {
+            "UPLOAD-FROM-MODELER": "从Flowable编辑器上传"
+        },
+        "POPUP": {
+            "UPLOAD-FROM-MODELER": {
+                "NAME": "用户名称",
+                "PASSWORD": "密码",
+                "ERROR": "We couldn't contact the Editor",
+                "UNAUTHORIZED": "Invalid credentials",
+                "UPLOAD-DESCRIPTION": "The process model will now be fetched and deployed to the currently active Flowable cluster. Select an appropriate name for deployment package."
+            }
+        }
+    },
+    "PROCESS-INSTANCE": {
+        "ID": "ID:",
+        "NAME": "名称:",
+        "DESCRIPTION": "描述:",
+        "BUSINESS-KEY": "业务主键:",
+        "TENANT-ID": "租户:",
+        "STATUS": "状态:",
+        "STATUS-ACTIVE": "Active",
+        "STATUS-COMPLETED": "Completed",
+        "ACTIVITY-ID-STARTED": "已启动的活动ID :",
+        "ACTIVITY-ID-ENDED": "已结束的活动ID:",
+        "DELETE-REASON": "删除原因:",
+        "STARTED-BY": "启动:",
+        "END-TIME": "结束时间:",
+        "DURATION": "周期:",
+        "SUPER-PROCESS-INSTANCE-ID": "父流程实例ID:",
+        "TASKS-SIZE": "此流程实例有 {{total}} 个任务",
+        "TASKS-EMPTY": "此流程实例没有任务",
+        "VARIABLES-SIZE": "此流程实例有 {{total}} 个流程变量",
+        "VARIABLES-EMPTY": "此流程实例没有流程变量",
+        "JOBS-SIZE": "此流程实例有 {{total}} 个作业",
+        "JOBS-EMPTY": "此流程实例没有作业",
+        "SUBPROCESSES-SIZE": "此流程实例有 {{total}} 个子流程",
+        "SUBPROCESSES-EMPTY": "此流程实例没有子流程",
+        "DECISION-TABLES-SIZE": "此流程实例有 {{total}} 个决策表",
+        "DECISION-TABLES-EMPTY": "此流程实例没有决策表",
+        "FORM-INSTANCES-SIZE": "此流程实例有 {{total}} 个内置表单",
+        "FORM-INSTANCES-EMPTY": "此流程实例没有内置表单",
+        "TITLE": {
+            "TASKS": "任务",
+            "VARIABLES": "变量",
+            "JOBS": "作业",
+            "SUBPROCESSES": "子流程",
+            "DECISION-TABLES": "决策表",
+            "FORM-INSTANCES": "内置表单"
+        },
+        "ACTION": {
+            "DELETE": "删除流程实例",
+            "TERMINATE": "停止流程实例",
+            "SHOW-ALL-TASKS": "显示所有任务",
+            "SHOW-ALL-JOBS": "显示所有作业",
+            "SHOW-ALL-SUBPROCESSES": "显示所有子流程",
+            "SHOW-DIAGRAM": "显示流程图",
+            "TITLE-VARIABLES": "流程变量操作",
+            "DELETE-VARIABLE": "删除流程变量",
+            "UPDATE-VALUE": "更新流程变量",
+            "ADD-VARIABLE": "新增流程变量"
+        },
+        "POPUP": {
+            "DELETE": {
+                "TITLE": "删除流程实例",
+                "MESSAGE-DELETE": "您确定要删除此流程实例吗",
+                "MESSAGE-TERMINATE": "您确定要停止此流程实例吗",
+                "DELETE-REASON": "删除原因",
+                "DELETE-REASON-HELP": "输入删除原因",
+                "CONFIRM-DELETE": "删除流程实例",
+                "CONFIRM-TERMINATE": "停止流程实例"
+            },
+            "SHOW-PROCESS-MODEL": {
+                "TITLE": "流程图"
+            },
+            "CREATE-VARIABLE": {
+                "TITLE": "新增流程变量",
+                "NAME": "流程变量名称",
+                "TYPE": "Activiti变量类型",
+                "VALUE": "变量值",
+                "CREATE": "新增"
+            },
+            "UPDATE-VARIABLE": {
+                "TITLE": "修改流程变量 '{{name}}'",
+                "NAME": "变量名称",
+                "VALUE": "值",
+                "CHECKED": "true",
+                "UNCHECKED": "false",
+                "DATE-HELP": "ISO-8601 格式化 (例如 : 2016-01-28T23:00:00Z)",
+                "ACTION-UPDATE": "更新"
+            },
+            "DELETE-VARIABLE": {
+                "TITLE": "删除流程变量 '{{name}}",
+                "MESSAGE": "您确定要删除此流程变量",
+                "DELETE": "删除"
+            }
+        }
+    },
+    "PROCESS-INSTANCES": {
+        "TITLE": "流程实例",
+        "LIST-MESSAGE": "显示 {{size}} 条结果,共有 {{total}} 条匹配的流程实例",
+        "LIST-MESSAGE-EMPTY": "没有匹配的流程实例",
+        "FILTER": {
+            "NAME": "名称",
+            "PROCESS-DEFINITION": "流程定义",
+            "ALL-PROCESS-DEFINITIONS": "所有流程定义",
+            "BUSINESS-KEY": "业务主键",
+            "SUPER-PROCESS-INSTANCE-ID": "父流程实例ID",
+            "STARTED-BEFORE": "指定日期前开始",
+            "STARTED-AFTER": "指定日期后开始",
+            "ENDED-BEFORE": "指定日期前结束",
+            "ENDED-AFTER": "指定日期后结束",
+            "VARIABLE": "变量",
+            "VARIABLE-NAME": "变量名称",
+            "VARIABLE-VALUE": "变量值",
+            "VARIABLE-BOOLEAN-VALUE": "Boolean value: {{value}}",
+            "TENANT-ID": "租户标识"
+        },
+        "SORT": {
+            "ID": "ID",
+            "START-TIME": "启动时间"
+        },
+        "HEADER": {
+            "ID": "ID",
+            "NAME": "名称",
+            "BUSINESS-KEY": "业务标识",
+            "PROCESS-DEFINITION": "流程定义",
+            "CREATE-TIME": "创建时间",
+            "END-TIME": "结束时间",
+            "STATUS": "状态"
+        }
+    },
+    "TASK": {
+        "ID": "ID:",
+        "NAME": "名称:",
+        "STATUS": "状态:",
+        "STATUS-COMPLETED": "Completed",
+        "STATUS-ACTIVE": "Active",
+        "DESCRIPTION": "描述:",
+        "TASK-DEFINITION-KEY": "流程定义key:",
+        "FORM-KEY": "内置表单key:",
+        "PRIORITY": "优先级:",
+        "DELEGATION-STATE": "委派状态:",
+        "CATEGORY": "分类:",
+        "TENANT-ID": "租户:",
+        "PARENT": "父任务:",
+        "ASSIGNEE": "办理人:",
+        "OWNER": "拥有人:",
+        "START-DATE": "开始日期:",
+        "DUE-DATE": "到期日:",
+        "END-DATE": "结束日期:",
+        "DELETE-REASON": "删除原因:",
+        "PROCESS-INSTANCE": "流程实例",
+        "PROCESS-DEFINITION": "流程定义",
+        "EXECUTION-ID": "执行ID:",
+        "SUBTASKS-MESSAGE": "此任务有 {{total}} 条子任务，显示 {{size}} 条",
+        "SUBTASKS-MESSAGE-EMPTY": "此任务没有子任务",
+        "VARIABLES-MESSAGE": "此任务有 {{size}} 个流程变量",
+        "VARIABLES-MESSAGE-EMPTY": "此任务没有流程变量",
+        "IDENTITY-LINKS-MESSAGE": "此任务有 {{size}} 个身份关联",
+        "IDENTITY-LINKS-MESSAGE-EMPTY": "此任务没有身份关联",
+        "ACTION": {
+            "EDIT": "编辑任务",
+            "ASSIGN-CLAIM": "指派/接手任务",
+            "DELEGATE": "委派任务",
+            "RESOLVE": "解决任务",
+            "COMPLETE": "办结任务",
+            "DELETE": "删除任务",
+            "SHOW-ALL-SUBTASKS": "显示所有子任务",
+            "SHOW-SUBMITTED-FORM": "显示所有内置表单"
+        },
+        "TITLE": {
+            "SUBTASKS": "子任务",
+            "IDENTITY-LINKS": "身份关联",
+            "VARIABLES": "流程变量"
+        },
+        "POPUP": {
+            "ASSIGN": {
+                "TITLE": "指派任务",
+                "MESSAGE": "您确定要指派此任务",
+                "NEW-ASSIGNEE": "新的办理人",
+                "NEW-ASSIGNEE-HELP": "如果您不想为任何人指派此任务请将此处留白",
+                "CONFIRM": "指派任务"
+            },
+            "COMPLETE": {
+                "TITLE": "完成任务",
+                "MESSAGE": "您确定要办结此任务",
+                "CONFIRM": "办结任务"
+            },
+            "DELEGATE": {
+                "TITLE": "委派任务",
+                "MESSAGE": "您确定要委派该任务吗",
+                "CONFIRM": "委派任务",
+                "DELEGATE-TO": "委派给用户"
+            },
+            "RESOLVE": {
+                "TITLE": "解决任务",
+                "MESSAGE": "您确定要解决该任务吗",
+                "CONFIRM": "解决任务"
+            },
+            "DELETE": {
+                "TITLE": "删除任务",
+                "MESSAGE": "您确定要删除该任务吗",
+                "CONFIRM": "删除任务"
+            },
+            "EDIT": {
+                "TITLE": "编辑任务",
+                "CONFIRM": "更新任务",
+                "NAME": "名称",
+                "DESCRIPTION": "描述",
+                "PRIORITY": "优先级",
+                "CATEGORY": "分类",
+                "ASSIGNEE": "办理人",
+                "OWNER": "拥有人",
+                "DUE-DATE": "到期日"
+            }
+        }
+    },
+    "TASKS": {
+        "TITLE": "任务",
+        "LIST-MESSAGE": "显示 {{size}} 条结果,共 {{total}} 条匹配的任务",
+        "LIST-MESSAGE-EMPTY": "没有匹配的任务",
+        "FILTER": {
+            "NAME": "名称(区分大小写)",
+            "ASSIGNEE": "办理人(区分大小写)",
+            "STATUS": "状态",
+            "STATUS-ANY": "任意状态",
+            "STATUS-ACTIVE": "Active tasks",
+            "STATUS-COMPLETE": "Completed tasks",
+            "PROCESS-INSTANCE-ID": "流程实例ID",
+            "TENANT-ID": "租户标识",
+            "OWNER": "拥有人(区分大小写)",
+            "PARENT-TASK-ID": "父任务ID",
+            "CREATED-BEFORE": "指定日期前创建",
+            "CREATED-AFTER": "指定日期后创建",
+            "ENDED-BEFORE": "指定日期前结束",
+            "ENDED-AFTER": "指定日期后结束",
+            "DUE-BEFORE": "指定日期前到期",
+            "DUE-AFTER": "指定日期后到期",
+            "TASK-VARIABLE": "Task local variable",
+            "PROCESS-VARIABLE": "流程变量",
+            "VARIABLE-NAME": "变量名称",
+            "VARIABLE-VALUE": "变量值",
+            "VARIABLE-BOOLEAN-VALUE": "Boolean value: {{value}}"
+        },
+        "SORT": {
+            "NAME": "名称",
+            "DUE-DATE": "到期日",
+            "START-TIME": "开始时间",
+            "END-TIME": "结束时间",
+            "PRIORITY": "优先级"
+        },
+        "HEADER": {
+            "ID": "ID",
+            "NAME": "名称",
+            "ASSIGNEE": "办理人",
+            "OWNER": "拥有人",
+            "CREATE-TIME": "创建时间",
+            "END-TIME": "结束时间",
+            "PRIORITY": "优先级"
+        }
+    },
+    "DEPLOYMENTS": {
+        "TITLE": "部署",
+        "LIST-MESSAGE": "显示 {{size}} 条结果,共 {{total}} 条匹配的部署",
+        "LIST-MESSAGE-EMPTY": "没有匹配的部署",
+        "FILTER": {
+            "NAME": "名称(区分大小写)",
+            "TENANTID": "租户标识(区分大小写)"
+        },
+        "SORT": {
+            "ID": "ID",
+            "NAME": "名称"
+        },
+        "HEADER": {
+            "ID": "ID",
+            "NAME": "名称",
+            "DEPLOY-TIME": "部署时间",
+            "CATEGORY": "分类",
+            "TENANT": "租户"
+        },
+        "ACTION": {
+            "UPLOAD": "上传流程文件或包",
+            "DELETE": "删除部署"
+        },
+        "POPUP": {
+            "UPLOAD": {
+                "DESCRIPTION": "选择后缀名为.bpmn, .bpmn20.xml的xml文件或后缀名为.zip,.bar的包含流程部署包的文件",
+                "DROPZONE": "或在此处拖入文件",
+                "NO-DROP": "您的浏览器不支持拖放文件",
+                "CANCEL-UPLOAD": "取消上传",
+                "ERROR": "无法上传此文件"
+            },
+            "DELETE": {
+            	"CONFIRM-MESSAGE": "删除部署'{{name}}'?"
+            	}
+        }
+    },
+    "DEPLOYMENT": {
+        "ID": "ID:",
+        "NAME": "名称:",
+        "TIME": "部署时间:",
+        "CATEGORY": "分类:",
+        "TENANTID": "租户标识:",
+        "DEFINITIONS-MESSAGE": "这个部署共有 {{total}} 条流程定义,显示 {{size}} 条",
+        "DEFINITIONS-MESSAGE-EMPTY": "此部署没有流程定义",
+        "TITLE": {
+            "DEFINITIONS": "流程定义",
+            "RESOURCES": "资源"
+        },
+        "ACTION": {
+            "SHOW-ALL-DEFINITIONS": "显示所有流程定义"
+        }
+    },
+    "JOB": {
+        "TITLE": {
+            "MAIN": "作业 {{id}}",
+            "EXCEPTION": "异常"
+        },
+        "ACTIONS": {
+            "EXECUTE": "执行作业",
+            "MOVE": "移动作业",
+            "DELETE": "删除作业"
+        },
+        "POPUP": {
+            "DELETE-JOB": {
+                "TITLE": "删除作业'{{id}}'",
+                "MESSAGE": "您确定要删除此作业{{id}}?",
+                "CONFIRM": "删除作业"
+            }
+        },
+        "ID": "ID:",
+        "EXECUTION-ID": "执行ID:",
+        "PROCESS-INSTANCE": "流程实例:",
+        "PROCESS-DEFINITION": "流程定义:",
+        "DUEDATE": "到期日:",
+        "RETRIES-LEFT": "剩余重试次数:",
+        "TENANT-ID": "租户:"
+    },
+    "JOBS": {
+        "TITLE": "作业",
+        "LIST-MESSAGE": "显示 {{size}} 条结果,共 {{total}} 条匹配的作业",
+        "LIST-MESSAGE-EMPTY": "没有匹配的作业",
+        "FILTER": {
+        	"JOBTYPE": {
+        		"LABEL": "作业类型",
+        		"EXECUTABLE-JOB": "执行作业",
+        		"TIMER-JOB": "定时器作业",
+        		"SUSPENDED-JOB": "挂起作业",
+        		"DEADLETTER-JOB": "死信作业"
+        	},
+            "PROCESS-DEFINITION": "流程定义",
+            "ALL-PROCESS-DEFINITIONS": "所有流程定义",
+            "PROCESS-INSTANCE-ID": "流程实例ID",
+            "TENANT-ID": "租户标识",
+            "DUE-BEFORE": "指定日期前到期",
+            "DUE-AFTER": "指定日期后到期",
+            "EXCEPTION": "异常",
+            "EXCEPTION-HELP": "只显示异常作业"
+        },
+        "SORT": {
+            "ID": "作业ID",
+            "DUE-DATE": "到期日",
+            "PROCESS-INSTANCE-ID": "流程实例ID"
+        },
+        "HEADER": {
+            "ID": "ID",
+            "DUE-DATE": "到期日",
+            "PROCESS-DEFINITION": "流程定义",
+            "RETRIES": "重试次数",
+            "EXCEPTION": "异常"
+        }
+    },
+    "EVENT-SUBSCRIPTION": {
+        "TITLE": {
+            "MAIN": "事件订阅{{id}}"
+        },
+        "ACTIONS": {
+            "TRIGGER": "触发事件"
+        },
+        "ID": "ID:",
+        "ACTIVITY-ID": "活动ID:",
+        "EXECUTION-ID": "执行ID:",
+        "PROCESS-INSTANCE": "流程实例:",
+        "PROCESS-DEFINITION": "流程定义:",
+        "CREATE-DATE": "创建时间:",
+        "EVENT-TYPE": "事件类型:",
+        "EVENT-NAME": "事件名称:",
+        "TENANT-ID": "租户:"
+    },
+    "EVENT-SUBSCRIPTIONS": {
+    	"TITLE": "事件订阅",
+        "LIST-MESSAGE": "显示 {{size}} 条结果,共 {{total}} 条匹配的事件订阅",
+        "LIST-MESSAGE-EMPTY": "没有匹配的事件订阅",
+    	"FILTER": {
+            "PROCESS-DEFINITION": "流程定义",
+            "ALL-PROCESS-DEFINITIONS": "所有流程定义",
+            "PROCESS-INSTANCE-ID": "流程实例ID",
+            "TENANT-ID": "租户标识",
+            "CREATED-BEFORE": "指定日期前创建",
+            "CREATED-AFTER": "指定日期后创建"
+        },
+        "SORT": {
+            "ID": "事件订阅ID",
+            "CREATE-DATE": "创建时间",
+            "PROCESS-INSTANCE-ID": "流程实例ID"
+        },
+    	"HEADER": {
+            "ID": "ID",
+            "CREATE-DATE": "创建时间",
+            "PROCESS-DEFINITION": "流程定义",
+            "EVENT-TYPE": "事件类型",
+            "EVENT-NAME": "事件名称"
+        }
+    },
+    "LOGIN": {
+        "TITLE": "登录",
+        "USERNAME": "用户名",
+        "USERNAME-PLACEHOLDER": "输入用户名",
+        "PASSWORD": "密码",
+        "PASSWORD-PLACEHOLDER": "输入密码",
+        "ACTION": {
+            "CONFIRM": "登录"
+        }
+    },
+    "USER": {
+        "POPUP": {
+            "CHANGE-PASSWORD": {
+                "TITLE": "修改用户名为'{{login}}'的密码",
+                "OLD-PASSWORD": "旧密码",
+                "NEW-PASSWORD": "新密码",
+                "CONFIRM": "修改密码"
+            },
+            "DELETE": {
+                "TITLE": "删除用户名为{{login}}的用户",
+                "MESSAGE": "您确定要删除 '{{login}}'此用户吗?",
+                "CONFIRM": "删除用户"
+            },
+            "EDIT": {
+                "TITLE": "编辑用户名为{{login}}的用户信息",
+                "LOGIN": "用户名",
+                "EMAIL": "Email",
+                "FIRSTNAME": "名字",
+                "LASTNAME": "姓",
+                "CONFIRM": "更新用户"
+            },
+            "NEW": {
+                "TITLE": "新建用户",
+                "LOGIN": "用户名",
+                "EMAIL": "Email",
+                "FIRSTNAME": "名字",
+                "LASTNAME": "姓",
+                "PASSWORD": "密码",
+                "ADMIN": "管理员权限",
+                "CONFIRM": "创建用户"
+            }
+        }
+    },
+    "USERS": {
+        "TITLE": "用户",
+        "ACTION": {
+            "EDIT": "编辑用户",
+            "NEW": "创建新用户",
+            "DELETE": "删除用户",
+            "CHANGE-PASSWORD": "修改密码"
+        },
+        "HEADER": {
+            "LOGIN": "登录",
+            "FIRSTNAME": "姓",
+            "LASTNAME": "名字",
+            "EMAIL": "Email",
+            "CLUSTER_USER": "Cluster user"
+        }
+    },
+    "LICENSE": {
+        "POPUP": {
+            "TITLE": "License information",
+            "HOLDER": "Holder",
+            "SUBJECT": "Subject",
+            "PRODUCTKEY": "Product type",
+            "GOODAFTERDATE": "License valid after",
+            "GOODBEFOREDATE": "License valid until",
+            "NUMBER_OF_PROCESSES": "Number of active processes",
+            "NUMBER_OF_ADMINS": "Number of administrator users",
+            "MULTI_TENANT": "Multi tenant",
+            "DEFAULT_TENANT": "Default tenant"
+        }
+    },
+    "CLUSTER": {
+        "NAME": "Name:",
+        "USER": "User:",
+        "MASTER-MANDATORY": "Master configuration mandatory:",
+        "METRICS-SEND-INTERVAL": "Metric send interval:",
+        "ENDPOINT-HELP": "The endpoint configuration (each cluster has only one) needs to point to a Flowable REST installation. This endpoint will then be used to retrieve and manage the data used in the other sections (for example deployments, process definitions, and so on) of this application.",
+        "ENDPOINT-NAME": "Name:",
+        "ENDPOINT-DESCRIPTION": "Description:",
+        "ENDPOINT-ADDRESS": "Server address:",
+        "ENDPOINT-PORT": "Server port:",
+        "ENDPOINT-CONTEXT-ROOT": "Context root:",
+        "ENDPOINT-REST-ROOT": "REST root:",
+        "ENDPOINT-USERNAME": "Username:",
+        "PROCESS-ENGINE-HELP": "This section allows you to define a 'master configuration' for the cluster. All instances in the cluster will use this configuration when they boot up (if the cluster config jar is on the classpath or if the corresponding properties are set). If not set, the instances will use their local configuration files.",
+        "NO-MASTER-DEFINED": "No master configuration defined",
+        "ACTION": {
+            "SHOW-PASSWORD": "Show password",
+            "EDIT-CLUSTER-CONFIG": "Edit cluster configuration",
+            "CREATE-CLUSTER-CONFIG": "Create new cluster",
+            "DELETE-CLUSTER-CONFIG": "Delete cluster configuration",
+            "GENERATE-JAR": "Generate cluster config jar",
+            "EDIT-ENDPOINT": "Edit REST endpoint",
+            "CHECK-ENDPOINT": "Check REST endpoint",
+            "SELECT-MASTER": "Select master configuration",
+            "ADD-CONFIGURATION": "Add master configuration",
+            "EDIT-CONFIGURATION": "Edit master configuration",
+            "DELETE-CONFIGURATION": "Delete master configuration"
+        },
+        "TITLE": {
+            "PROCESS-ENDPOINT": "Process API Endpoint configuration",
+            "DMN-ENDPOINT": "DMN API Endpoint configuration",
+            "FORM-ENDPOINT": "Form API Endpoint configuration",
+            "CONTENT-ENDPOINT": "Content API Endpoint configuration"
+        },
+        "POPUP": {
+            "EDIT-ENDPOINT": {
+                "ENDPOINT-NAME": "Name",
+                "ENDPOINT-DESCRIPTION": "Description",
+                "ENDPOINT-ADDRESS": "Server address",
+                "ENDPOINT-PORT": "Server port",
+                "ENDPOINT-CONTEXT-ROOT": "Context root",
+                "ENDPOINT-REST-ROOT": "REST root",
+                "ENDPOINT-USERNAME": "Username",
+                "ENDPOINT-PASSWORD": "Password",
+                "ENDPOINT-PASSWORD-HELP": "Leave blank to keep current password",
+                "ENDPOINT-URL-PREVIEW": "URL preview",
+                "ACTION-CONFIRM": "Save endpoint configuration",
+                "ERROR-401": "Error: invalid credentials",
+                "ERROR-403": "Error: invalid credentials or URL",
+                "ERROR-404": "Error: URL not found",
+                "ERROR-500": "Error: server error. Check server logs."
+            }
+        }
+    },
+    "APP-DEPLOYMENTS": {
+        "TITLE": "App Deployments",
+        "LIST-MESSAGE": "Showing {{size}} results, from a total of {{total}} matching app deployments.",
+        "LIST-MESSAGE-EMPTY": "No matching app deployments.",
+        "FILTER": {
+            "NAME": "Name",
+            "TENANTID": "Tenant identifier",
+            "LATEST": "Latest version",
+            "LATEST-HELP": "Only show latest versions"
+        },
+        "SORT": {
+            "ID": "ID",
+            "NAME": "Name"
+        },
+        "HEADER": {
+            "ID": "ID",
+            "APP-DEFINITION-ID": "App ID",
+            "DEPLOYMENT-ID": "Process Deployment ID",
+            "DMN-DEPLOYMENT-ID": "DMN Deployment ID",
+            "NAME": "Name",
+            "DEPLOY-TIME": "Deploy time",
+            "DEPLOYED-BY": "Deployed by",
+            "TENANT": "Tenant ID"
+        },
+        "ACTION": {
+            "UPLOAD": "Upload and publish an app"
+        },
+        "POPUP": {
+            "UPLOAD": {
+                "DESCRIPTION": "Select a .zip app definition to deploy.",
+                "WARNING": "Uploading a process is only possible to an Flowable UI instance.",
+                "DROPZONE": "Or drop a file here",
+                "NO-DROP": "File drop is not supported by your browser",
+                "CANCEL-UPLOAD": "Cancel upload",
+                "ERROR": "Could not upload this file"
+            }
+        }
+    },
+    "VARIABLES": {
+        "HEADER": {
+            "NAME": "Name",
+            "TYPE": "Type",
+            "VALUE": "Value"
+        }
+    },
+    "IDENTITY-LINKS": {
+        "HEADER": {
+            "GROUP-ID": "Group ID",
+            "TYPE": "Type",
+            "USER-ID": "User ID"
+        }
+    },
+    "ALERT": {
+        "GENERAL": {
+            "HTTP-ERROR": "服务器异常",
+            "AUTHENTICATION-ERROR": "您的登录凭证无效"
+        },
+        "ENGINE": {
+            "ENDPOINT-UPDATED": "Endpoint '{{name}}' updated.",
+            "ENDPOINT-INVALID": "Endpoint configuration for '{{name}}' is invalid.",
+            "ENDPOINT-VALID": "Endpoint valid, Engine at endpoint: {{name}} - {{version}}"
+        },
+        "JOB": {
+            "DELETED": "作业 '{{id}}' 删除成功",
+            "MOVED": "作业 '{{id}}' 移动成功",
+            "EXECUTED": "作业 '{{id}}' 已成功执行"
+        },
+        "EVENT-SUBSCRIPTION": {
+        	"TRIGGERED": "事件 '{{id}}' 触发成功"
+        },
+        "PROCESS-INSTANCE": {
+            "DELETED": "流程实例 '{{id}}' 删除成功",
+            "TERMINATED": "流程实例 '{{id}}' 已成功停止"
+        },
+        "TASK": {
+            "DELETED": "任务 '{{id}}' 删除成功",
+            "COMPLETED": "任务 '{{id}}' 已成功办结",
+            "DELEGATED": "任务 '{{id}}' 已委派给 {{user}}.",
+            "RESOLVED": "任务 '{{id}}' 已成功解决",
+            "ASSIGNED": "任务 '{{id}}' 已被指派给 {{user}}.",
+            "UNASSIGNED": "任务 '{{id}}' 没有指派办理人",
+            "UPDATED": "任务 '{{id}}' 更新成功"
+        },
+        "USER": {
+            "DELETED": "User '{{login}}' deleted successfully.",
+            "UPDATED": "User '{{login}}' updated successfully.",
+            "CREATED": "User '{{login}}' created.",
+            "PASSWORD-CHANGED": "Password for '{{login}}' is changed successfully."
+        },
+        "PROCESS-DEFINITION": {
+            "CATEGORY-UPDATED": "流程定义分类更新"
+        },
+        "DEPLOYMENT": {
+        	"DELETED-DEPLOYMENT": "删除流程部署 '{{name}}'",
+        	"DELETE-ERROR": "无法删除流程部署. {{exception || ''}}",
+        	"DEPLOYMENT-SUCCESS": "部署成功"
+        },
+        "APP-DEPLOYMENT": {
+        	"DELETED-APP": "Deleted app '{{appDefinition.name}}'",
+        	"DELETE-ERROR": "Could not delete app. {{message || ''}}"
+        }
+    },
+    "DECISION-TABLE-DEPLOYMENTS": {
+        "TITLE": "Decision Table Deployments",
+        "LIST-MESSAGE": "Showing {{size}} results, from a total of {{total}} matching deployments.",
+        "LIST-MESSAGE-EMPTY": "No matching deployments.",
+        "FILTER": {
+            "NAME": "Name (case sensitive)",
+            "TENANTID": "Tenant identifier (case sensitive)"
+        },
+        "SORT": {
+            "ID": "ID",
+            "NAME": "Name"
+        },
+        "HEADER": {
+            "ID": "ID",
+            "NAME": "Name",
+            "DEPLOY-TIME": "Deploy time",
+            "CATEGORY": "Category",
+            "TENANT": "Tenant"
+        },
+        "ACTION": {
+            "DELETE": "Delete deployment"
+        }
+    },
+    "DECISION-TABLE-DEPLOYMENT": {
+        "ID": "ID:",
+        "NAME": "Name:",
+        "TIME": "Deployment time:",
+        "CATEGORY": "Category:",
+        "TENANTID": "Tenant identifier:",
+        "DECISION-TABLES-MESSAGE": "This deployment has {{total}} decision tables, showing {{size}}.",
+        "DECISION-TABLES-MESSAGE-EMPTY": "This deployment has no decision tables.",
+        "PARENT-DEPLOYMENT-ID": "Parent deployment ID",
+        "TITLE": {
+            "DECISION-TABLES": "Decision Tables",
+            "RESOURCES": "Resources"
+        },
+        "ACTION": {
+            "SHOW-ALL-DEFINITIONS": "Show all decision tables"
+        }
+    },
+    "DECISION-TABLES": {
+        "TITLE": "Decision tables",
+        "LIST-MESSAGE": "Showing {{size}} results, from a total of {{total}} matching decision tables.",
+        "LIST-MESSAGE-EMPTY": "No matching decision tables.",
+        "FILTER": {
+            "NAME": "Name",
+            "KEY": "Key",
+            "TENANTID": "Tenant identifier"
+        },
+        "SORT": {
+            "ID": "ID",
+            "NAME": "Name"
+        },
+        "HEADER": {
+            "ID": "ID",
+            "NAME": "Name",
+            "VERSION": "Version",
+            "KEY": "Key",
+            "DEPLOY-TIME": "Deploy time",
+            "TENANT-ID": "Tenant ID"
+        }
+    },
+    "DECISION-TABLE": {
+        "ID": "ID:",
+        "NAME": "Name:",
+        "VERSION": "Version:",
+        "KEY": "Key:",
+        "DEPLOYMENT-ID": "Deployment ID:",
+        "PARENT-DEPLOYMENT-ID": "Parent deployment ID",
+        "RESOURCE-NAME": "Resource name:",
+        "DESCRIPTION": "Description:",
+        "TENANT": "Tenant:",
+        "TITLE": {
+            "DECISION-AUDITS": "Decision audits"
+        },
+        "DECISION-AUDITS-MESSAGE": "This decision table has {{total}} audits, showing {{size}}.",
+        "DECISION-AUDITS-MESSAGE-EMPTY": "This decision table has no audits",
+        "ACTION": {
+            "EDIT-CATEGORY": "Edit category",
+            "SHOW-ALL-JOBS": "Show all jobs",
+            "SHOW-ALL-PROCESSES": "Show all processes",
+            "SHOW-DIAGRAM": "Show process diagram",
+            "SHOW-DECISION-TABLE": "Show decision table"
+        },
+        "POPUP": {
+            "TITLE": "Decision Table: ",
+            "KEY": "Key: ",
+            "HIT-POLICY": "Hit Policy: ",
+            "HIT-POLICIES": {
+                "FIRST": "First (Single pass)",
+                "ANY": "Any (Single pass)"
+            }
+        }
+    },
+    "FORM-DEFINITIONS": {
+    	"TITLE": "Form definitions",
+        "LIST-MESSAGE": "Showing {{size}} results, from a total of {{total}} matching forms.",
+        "LIST-MESSAGE-EMPTY": "No matching form definitions.",
+        "HEADER": {
+            "ID": "ID",
+            "NAME": "Name",
+            "DEPLOYMENTID": "Deployment ID",
+            "TENANTID": "Tenant ID",
+            "KEY": "Key",
+            "VERSION": "Version"
+        },
+        "FILTER": {
+            "NAME": "Name",
+            "APPID": "App deployment ID",
+            "TENANTID": "Tenant identifier"
+        },
+        "SORT": {
+            "ID": "ID",
+            "NAME": "Name"
+        }
+    },
+    "FORM-DEFINITION": {
+        "ID": "ID:",
+        "NAME": "Name:",
+        "PARENT-DEPLOYMENT-ID": "Parent Deployment ID:",
+        "DEPLOYMENT-ID": "Deployment ID:",
+        "DESCRIPTION": "Description:",
+        "TENANT": "Tenant:",
+        "MESSAGE-EMPTY": "(None)",
+        "TITLE": {
+            "FORM-INSTANCES": "Form instances"
+        },
+        "FORM-INSTANCES-MESSAGE": "This definition has {{total}} form instances, showing {{size}}.",
+        "FORM-INSTANCES-MESSAGE-EMPTY": "This definition has no form instances",
+        "ACTION": {
+            "EDIT-CATEGORY": "Edit category",
+            "SHOW-ALL-JOBS": "Show all jobs",
+            "SHOW-ALL-PROCESSES": "Show all processes",
+            "SHOW-DIAGRAM": "Show process diagram",
+            "SHOW-FORM": "Show form"
+        },
+        "POPUP": {
+            "TITLE": "Form: "
+        },
+        "FIELD-PREVIEW" : {
+        	"DISPLAY-REF": "Display value",
+        	"SELECT-FIELD": "(No field selected)",
+        	"FIELD-VALUE": "Show value of field \"{{name}}\"",
+        	"UNKNOWN-TYPE": "Unknown field type {{type}}",
+        	"TEXT-VALUE": "Text",
+        	"MULTI-TEXT-VALUE": "Multi-line text",
+        	"NUMBER-VALUE": "123",
+        	"DATE-VALUE": "Date",
+        	"DROPDOWN-VALUE": "Select ...",
+        	"UPLOAD-VALUE": "Upload or import content...",
+        	"RADIOS-OPTION1": "Option 1",
+        	"SELECT-PERSON": "Select a person",
+        	"SELECT-GROUP": "Select a group"
+        	}
+    },
+    "FORM-DEPLOYMENTS": {
+        "TITLE": "Form Deployments",
+        "LIST-MESSAGE": "Showing {{size}} results, from a total of {{total}} matching form deployments.",
+        "LIST-MESSAGE-EMPTY": "No matching form deployments.",
+        "FILTER": {
+            "NAME": "Name (case sensitive)",
+            "TENANTID": "Tenant identifier (case sensitive)"
+        },
+        "SORT": {
+            "ID": "ID",
+            "NAME": "Name"
+        },
+        "HEADER": {
+            "ID": "ID",
+            "NAME": "Name",
+            "DEPLOY-TIME": "Deploy time",
+            "CATEGORY": "Category",
+            "TENANT": "Tenant"
+        },
+        "ACTION": {
+            "DELETE": "Delete deployment"
+        }
+    },
+    "FORM-DEPLOYMENT": {
+        "ID": "ID:",
+        "NAME": "Name:",
+        "TIME": "Deployment time:",
+        "CATEGORY": "Category:",
+        "TENANTID": "Tenant identifier:",
+        "PARENT-DEPLOYMENT-ID": "Parent Deployment ID",
+        "DEFINITIONS-MESSAGE": "This deployment has {{total}} form definitions, showing {{size}}.",
+        "DEFINITIONS-MESSAGE-EMPTY": "This deployment has no form definitions.",
+        "TITLE": {
+            "FORM-DEFINITIONS": "Form Definitions",
+            "RESOURCES": "Resources"
+        },
+        "ACTION": {
+            "SHOW-ALL-DEFINITIONS": "Show all form definitions"
+        }
+    },
+    "FORM-INSTANCES": {
+        "TITLE": "Form instances",
+        "LIST-MESSAGE": "Showing {{size}} results, from a total of {{total}} matching form instances.",
+        "LIST-MESSAGE-EMPTY": "No matching form instances.",
+        "HEADER": {
+            "ID": "ID",
+            "PROCESS-INSTANCE-ID": "Process Instance ID",
+            "TASK-ID": "Task ID",
+            "SUBMITTED-ON": "Submitted Date",
+            "SUBMITTED-BY": "Submitted By",
+            "TENANT-ID": "Tenant ID"
+        },
+        "FILTER": {
+            "NAME": "Name",
+            "TENANTID": "Tenant identifier"
+        },
+        "SORT": {
+            "SUBMITTED-DATE": "Submitted On"
+        }
+    },
+    "FORM-INSTANCE": {
+        "HEADER": {
+            "ID": "ID",
+            "TASK-ID": "Task ID",
+            "PROCESS-ID": "Process Instance ID",
+            "SUBMITTED": "Submitted on",
+            "SUBMITTED-BY": "Submitted by",
+            "FORM-DEFINITION-ID": "Form Definition ID"
+        },
+        "FORM-FIELD-VALUES-MESSAGE": "This instance has {{total}} form field values, showing {{size}}",
+        "FORM-FIELD-VALUES-MESSAGE-EMPTY": "This instance has no form field values",
+        "ACTION": {
+            "SHOW-FORM-INSTANCE": "Show form instance"
+        },
+        "TITLE": {
+            "FORM-FIELD-VALUES": "Form field values"
+        },
+        "FORM-FIELD-VALUES": {
+            "ID": "Form field ID",
+            "NAME": "Form field name",
+            "TYPE": "Form field type",
+            "VALUE": "Form field value"
+        }
+    },
+    "CONTENT-ITEMS": {
+        "TITLE": "Content items",
+        "LIST-MESSAGE": "Showing {{size}} results, from a total of {{total}} matching content items.",
+        "LIST-MESSAGE-EMPTY": "No matching content items.",
+        "HEADER": {
+            "ID": "ID",
+            "NAME": "Name",
+            "PROCESS-INSTANCE-ID": "Process Instance ID",
+            "TASK-ID": "Task ID",
+            "LAST-MODIFIED-ON": "Last Modified Date",
+            "LAST-MODIFIED-BY": "Last Modified By",
+            "TENANT-ID": "Tenant ID"
+        },
+        "FILTER": {
+            "NAME": "Name",
+            "TENANTID": "Tenant identifier"
+        },
+        "SORT": {
+            "CREATED": "Created On"
+        }
+    },
+    "CONTENT-ITEM": {
+        "HEADER": {
+            "ID": "ID",
+            "TASK-ID": "Task ID",
+            "PROCESS-INSTANCE-ID": "Process Instance ID",
+            "CREATED-ON": "Created on",
+            "CREATED-BY": "Created by",
+            "LAST-MODIFIED-ON": "Last Modified Date",
+            "LAST-MODIFIED-BY": "Last Modified By",
+            "CONTENT-STORE-ID": "Content store ID"
+        },
+        "ACTION": {
+            "SHOW-CONTENT-ITEM": "Show content item"
+        }
+    }
+}

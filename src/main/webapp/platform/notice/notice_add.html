@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>通知登记</title>
+    <link href="../ScriptSource/EasyUI/Skins/default/easyui.css" rel="stylesheet" type="text/css"/>
+    <link href="../ScriptSource/EasyUI/Skins/icon.css" rel="stylesheet" type="text/css"/>
+
+    <script src="../ScriptSource/JQuery/jquery.min.js" type="text/javascript"></script>
+    <script src="../ScriptSource/JQuery/jquery.form.js" type="text/javascript"></script>
+    <script src="../ScriptSource/EasyUI/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../ScriptSource/JavaScript/GlobalTools.js" type="text/javascript"></script>
+    <script src="notice_add.js" type="text/javascript"></script>
+</head>
+<body class="easyui-layout" data-options="fit:true">
+<div>
+    <div class="toolbar">
+        <a id="saveNotice" href="javascript:void(0)" class="easyui-linkbutton"
+           data-options="plain:true,iconCls:'icon-save'">保存</a>
+        <a id="addNotice" href="javascript:void(0)" class="easyui-linkbutton"
+           data-options="plain:true,iconCls:'icon-add'">新增</a>
+    </div>
+    <div style="padding: 10px 0 10px 10px">
+        <form id="noticeForm" method="post">
+            <input type="hidden" id="noticeid" name="notice.id"/>
+            <table>
+                <colgroup>
+                    <col width="80px;" style="text-align: right;"/>
+                    <col/>
+                    <col width="80px;" style="text-align: center;"/>
+                    <col/>
+                </colgroup>
+                <tr>
+                    <td>
+                        标&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;题:
+                    </td>
+                    <td colspan="3">
+                        <input class="easyui-validatebox" type="text" name="notice.title" data-options="required:true,validType:'length[1,5]',missingMessage:'请输入通知的标题'" id="txtTitle" style="width: 520px;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        登&nbsp;&nbsp;记&nbsp;&nbsp;人:
+                    </td>
+                    <td>
+                        <input type="hidden" name="notice.adder" id="hidRegerid"/>
+                        <input style="width: 180px" type="text" name="notice.reger_name" readonly="readonly" id="txtRegername"/>
+                    </td>
+                    <td>
+                        所在处室:
+                    </td>
+                    <td>
+                        <input type="hidden" name="notice.adder_deptid" id="hidRegerdeptid"/>
+                        <input type="text" style="width: 200px" name="notice.deptname" readonly="readonly" id="txtRegerdeptname"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        登记时间:
+                    </td>
+                    <td>
+                        <input type="text" name="notice.add_time" style="width: 180px" readonly="readonly"
+                               id="txtRegdatetime"/>
+                    </td>
+                    <td>
+                        公开发布:
+                    </td>
+                    <td>
+                        <input type="checkbox" name="notice.is_public" id="chkIspublic"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        接&nbsp;&nbsp;收&nbsp;&nbsp;人:
+                    </td>
+                    <td colspan="3">
+                        <input type="hidden" name="notice.receiver_ids" id="hidReceiverids"/>
+                        <textarea id="txtReceiverNames" style="height: 80px; width: 520px" name="notice.receiver_names"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        内&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;容:
+                    </td>
+                    <td colspan="3">
+                        <textarea id="txtContent" style="height: 140px; width: 520px" name="notice.content"></textarea>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<div id="divSelectUser" class="easyui-dialog" title="接收人员选择" data-options="iconCls: 'icon-save',animate: true,buttons: '#dlg-buttons'" style="width: 400px; height: 500px; padding: 10px;">
+    <ul id="userSelectTree"></ul>
+</div>
+<div id="dlg-buttons">
+    <a id="checkedUsersOk" href="javascript:void(0)" class="easyui-linkbutton">确定</a>
+    <a id="checkedUsersCancel" href="javascript:void(0)" class="easyui-linkbutton">取消</a>
+</div>
+</body>
+</html>

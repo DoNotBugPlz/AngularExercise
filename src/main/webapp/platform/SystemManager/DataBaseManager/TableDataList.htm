@@ -1,0 +1,42 @@
+﻿<div class="easyui-panel" fit="true" border="true">
+    <div class="easyui-layout" data-options="fit:true">
+        <div data-options="region:'north',split:false,border:false" style="height: 180px">
+            <table style="width: 100%;" border="0">
+                <tr>
+                    <td width="15%" align="center">
+                        设置数据表展示列：
+                    </td>
+                    <td width="85%" align="left">
+                        <input class="easyui-combobox" name="colListConfig" style="width: 700px;" id="colListConfig"
+                            data-options=" 
+                                url:rootPath + 'Sys_colsremark/LoadConvertedCategoryColsByTableName.do?tablename='+currentTableName,
+                                multiple:true,
+                                valueField:'colname',
+                                textField:'alias',
+                                panelHeight:'auto',
+                                onHidePanel:creatDataGrid" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        设置筛选条件：
+                    </td>
+                    <td align="left">
+                        <div id="p" class="easyui-panel" style="width: 700px; height: 145px;" href="../../Tools/AdvancedSearchConfig.htm">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div data-options="region:'center'">
+            <table id="dgDataList">
+            </table>
+        </div>
+    </div>
+</div>
+<div id="subTailorFormListToolBar" class="datagrid-toolbar">
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="deleteDatas();" data-options="plain:true,iconCls:'icon-pause'">
+        禁用</a> <a href="javascript:void(0)" class="easyui-linkbutton" onclick="unDeleteDatas();"
+            data-options="plain:true,iconCls:'icon-ok'">启用</a> <a href="javascript:void(0)" class="easyui-linkbutton"
+                onclick="destroyDatas();" data-options="plain:true,iconCls:'icon-delete'">彻底销毁</a>
+</div>

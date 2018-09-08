@@ -1,0 +1,161 @@
+<div class="page_a_zzy">
+
+    <ul class="page_tit_zzy2">
+        <li ng-class="{true:'active',false:''}[vm.moduleIndex==1]" ng-click="vm.moduleClick(1)">
+            <a href="javascript:;" class="ng-binding">数据关联</a>
+        </li>
+        <li ng-class="{true:'active',false:''}[vm.moduleIndex==2]" ng-click="vm.moduleClick(2)"  >
+            <a href="javascript:;" class="ng-binding">品种关联</a>
+        </li>
+        <li ng-class="{true:'active',false:''}[vm.moduleIndex == 3]" ng-click="vm.moduleClick(3)"  >
+            <a href="javascript:;" class="ng-binding">省市商品关联</a>
+        </li>
+    </ul>
+    <div class="table_tip_zzy ng-scope" style="top: 12px"><!--操作按钮-->
+        <div class="table_tip_btn_zzy">
+            <a ng-click="vm.addGoodsLinkDetail()" style="width: 90px">添加关联</a>
+
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="select_b_zzy ng-scope" ng-if="vm.goodsfamilyid != 2">
+        <div class="leftSel_table_zzy " style="height: 40px;">
+            <table border="0" cellspacing="0" cellpadding="0">
+                <tbody>
+                <tr>
+                    <td width="10%" class="txt">商品名称：</td>
+                    <td width="20%">
+                        <input type="text" class="sel_ipt_zzy ng-pristine ng-valid" ng-model="vm.searchParams.name">
+                    </td>
+                    <td width="10%" class="txt">规格等级：</td>
+                    <td width="20%">
+                        <input type="text" class="sel_ipt_zzy ng-pristine n
+                        g-valid" style="" ng-model="vm.searchParams.spec">
+                    </td>
+                    <td width="10%" class="txt">计量单位：</td>
+                    <td width="20%">
+                        <input type="text" class="sel_ipt_zzy ng-pristine ng-valid" style=""  ng-model="vm.searchParams.measurement_unit">
+                    </td>
+                    <td class="left">
+                        <a class="sel_btn_zzy cursor_pointer" ng-click="vm.searchList()">查询</a>
+                        <a class="reSet_btn_zzy cursor_pointer" ng-click="vm.resetSearch()">重置</a>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="select_b_zzy ng-scope" ng-if="vm.goodsfamilyid == 2">
+        <div class="leftSel_table_zzy " style="height: 80px;">
+            <table border="0" cellspacing="0" cellpadding="0">
+                <tbody>
+                <tr>
+                    <td width="10%" class="txt">商品名称：</td>
+                    <td width="20%">
+                        <input type="text" class="sel_ipt_zzy ng-pristine ng-valid" ng-model="vm.searchParams.name">
+                    </td>
+                    <td width="10%" class="txt">规格等级：</td>
+                    <td width="20%">
+                        <input type="text" class="sel_ipt_zzy ng-pristine ng-valid" style="" ng-model="vm.searchParams.spec">
+                    </td>
+                    <td width="10%" class="txt">计量单位：</td>
+                    <td width="20%">
+                        <input type="text" class="sel_ipt_zzy ng-pristine ng-valid" style=""  ng-model="vm.searchParams.measurement_unit">
+                    </td>
+                    <td class="left">
+                        <a class="sel_btn_zzy cursor_pointer" ng-click="vm.searchList()">查询</a>
+                        <a class="reSet_btn_zzy cursor_pointer" ng-click="vm.resetSearch()">重置</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="10%" class="txt">剂型：</td>
+                    <td width="20%">
+                        <input type="text" class="sel_ipt_zzy ng-pristine ng-valid" ng-model="vm.searchParams.dosage">
+                    </td>
+                    <td class="left"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="table_box_zzy ">
+        <div class="" >
+
+            <div class="table_box_zzy top1_zzy" ng-class="{'true':'isdrug','false':'nodrug'}[vm.goodsfamilyid == 2]" >
+                <div class="table_head_zzy marginB2">
+                    <table >
+                        <tr >
+                            <td  width="5%">序号</td>
+                            <td  width="15%">商品编码</td>
+                            <td  width="10%">商品名称</td>
+                            <td  width="10%">规格等级</td>
+                            <td  width="10%">计量单位</td>
+                            <td  width="10%">状态</td>
+                            <td  width="20%">历史品种启用时间</td>
+                            <td  width="20%">操作</td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="query_nothing" class="nothing nothingTop"
+                     ng-show="!!!vm.goodsLinkList||vm.goodsLinkList.length==0">
+                    <span></span>暂无数据
+                </div>
+                <div class="table_main_zzy" m-custom-scrollbar >
+                    <table id="query-list-panel" cellpadding="0" cellspacing="0" style="table-layout: fixed"
+                           ng-hide="!!!vm.goodsLinkList||vm.goodsLinkList.length==0">
+                        <tbody ng-model="vm.goodsList" >
+                        <tr ng-repeat="n in vm.goodsLinkList track by $index"  ng-class-even="'bgcolor'"
+                            ng-class="{'false':'','true':'selected'}[n.selected]">
+                            <td width="5%" colspan="2" style="border-left:  1px solid #c6c6c6;">{{n.index}}</td>
+                            <td width="15%" ><table class="goodsLink-noborder"><tr><td>{{n.goods_code}}</td></tr><tr><td>{{n.goods_code}}</td></tr></table></td>
+                            <td width="10%" ><table class="goodsLink-noborder"><tr><td>{{n.name}}</td></tr><tr><td>{{n.nameRight}}</td></tr></table></td>
+                            <td width="10%" ><table class="goodsLink-noborder"><tr><td>{{n.spec}}</td></tr><tr><td>{{n.specRight}}</td></tr></table></td>
+                            <td width="10%" ><table class="goodsLink-noborder"><tr><td>{{n.measurement_unit}}</td></tr><tr><td>{{n.measurement_unitRight}}</td></tr></table></td>
+                            <td width="10%" >
+                                <table class="goodsLink-noborder">
+                                    <tr>
+                                        <td>
+                                            <span ng-class="{'true':'color_green','false':'color_normal'}[n.delstatus=='0']">
+                                                <span ng-if="n.delstatus=='0'">已启用</span>
+                                                <span ng-if="n.delstatus=='1'">已停用</span>
+                                            </span>
+                                            <i  ng-class="{'true':'start_zzy','false':'forbidden_zzy'}[n.delstatus=='0']"></i>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span ng-class="{'true':'color_green','false':'color_normal'}[n.delstatusRight=='0']">
+                                                <span ng-if="n.delstatusRight=='0'">已启用</span>
+                                                <span ng-if="n.delstatusRight=='1'">已停用</span>
+                                            </span>
+                                            <i ng-class="{'true':'start_zzy','false':'forbidden_zzy'}[n.delstatusRight=='0']"></i>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td width="20%" >
+                                    {{n.start_time}}
+                            </td>
+                            <td width="20%">
+
+                                <a href="javascript:;" class="table_main1_a" ng-if="n.delstatus ==0" ng-click="vm.cancleGoodsLink(n.id,1)">取消关联</a>
+                                <a href="javascript:;" class="table_main1_a" ng-if="n.delstatus ==1" ng-click="vm.cancleGoodsLink(n.id,0)">重新关联</a>
+                                &nbsp;&nbsp;
+                                <a href="javascript:;" class="table_main1_a" ng-click="vm.editGoods(n)">编辑</a>
+
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-tfoot">
+                    <div class="table_page">
+                        <div ng-turn-page="vm.goodsLinkListPage" turn-page-fn="vm.loadGoodsLinkList"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

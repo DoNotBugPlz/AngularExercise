@@ -1,0 +1,20 @@
+﻿<table id="buttonsSortList" class="easyui-datagrid" data-options="
+                            fit: true,
+                            fitColumns: true,
+                            rownumbers: true,
+                            idField: 'id',
+                            toolbar:[{text:'保存',iconCls:'icon-save',handler:function(){saveButtonsSort();}},{text:'编辑',iconCls:'icon-edit',handler:function(){editorButtonsSort();}},{text:'取消',iconCls:'icon-undo',handler:function(){cancelEditorButtonsSort();}}],
+                            onDblClickCell:dblClickButtonsSort,
+                            onLoadError: gridLoadError">
+    <thead>
+        <tr>
+            <th data-options="field:'chinaname',align:'center',halign:'center'"
+                width="50">
+                按钮名称
+            </th>
+            <th data-options="field:'sortindex',align:'center',editor:{type:'numberbox'}" width="60">
+                排序号
+            </th>
+        </tr>
+    </thead>
+</table>

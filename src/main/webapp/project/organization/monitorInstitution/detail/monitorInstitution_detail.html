@@ -1,0 +1,242 @@
+<!--修改监测机构-->
+<div class="popWhite" ng-show="vm.showType=='monitor'">
+    <div class="css-content" ng-form="monitor_form" m-custom-scrollbar>
+        <table cellpadding="0" cellspacing="0">
+            <tbody>
+            <tr>
+                <td class="name name-height">机构名称</td>
+                <td class="value">
+                    <input required maxlength="50" type="text" ng-model="vm.deptInfo.chinaname" name="chinaname"
+                           ng-class="{true:'warn',false:''}[monitor_form.chinaname.$error.required]"/>
+                </td>
+                <td class="name name-height">性质</td>
+                <td class="value">
+                    <div class="chosen_div">
+                        <select ng-model="vm.deptInfo.dept_properties" name="dept_properties" required
+                                class="sel_sel_zzy"
+                                ng-class="{true:'warn',false:''}[monitor_form.dept_properties.$error.required]"
+                                ng-chosen
+                                ng-chosen-data="vm.deptProperty"
+                                ng-options="n.id as n.chinaname for n in vm.deptProperty">
+                        </select>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="name name-height">邮编</td>
+                <td class="value">
+                    <input required maxlength="6" type="text"
+                           ng-model="vm.deptInfo.zip_code" name="zip_code"
+                           ng-pattern="/^[1-9][0-9]{5}$/"
+                           ng-class="{true:'warn',false:''}[monitor_form.zip_code.$invalid]"/>
+                </td>
+                <td class="name name-height">地址</td>
+                <td class="value">
+                    <input required maxlength="50" type="text"
+                           ng-model="vm.deptInfo.address" name="address"
+                           ng-class="{true:'warn',false:''}[monitor_form.address.$error.required]"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="name name-height">区域</td>
+                <td class="value">
+                    <input type="text" readonly ng-model="vm.deptInfo.area_name" name="area" required
+                           ng-class="{true:'warn',false:''}[monitor_form.area.$error.required]"/>
+                    <i class="selectOp " ng-click="vm.selectAreaInfo()"></i>
+                </td>
+                <td class="name name-height">编制人数</td>
+                <td class="value">
+                    <input required maxlength="10" type="text"
+                           ng-model="vm.deptInfo.person_num" name="person_num"
+                           ng-pattern="/^(([1-9]{1}\d*)|([0]{1}))$/"
+                           ng-class="{true:'warn',false:''}[monitor_form.person_num.$invalid]"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="name name-height">社会信用代码</td>
+                <td class="value">
+                    <input maxlength="50" type="text"
+                           ng-model="vm.deptInfo.credit_code" name="credit_code"/>
+                </td>
+                <td class="name name-height">负责人</td>
+                <td class="value">
+                    <input required maxlength="50" type="text"
+                           ng-model="vm.deptInfo.leader_name" name="leader_name"
+                           ng-class="{true:'warn',false:''}[monitor_form.leader_id.$error.required]"/>
+                    <i class="selectOp " ng-click="vm.selectUserInfo()"></i>
+                </td>
+            </tr>
+            <tr>
+                <td class="name name-height">传真</td>
+                <td class="value">
+                    <input required maxlength="13" type="text"
+                           ng-model="vm.deptInfo.fax" name="fax"
+                           ng-pattern="/^((0[0-9]{2}-\d{8})|(0[0-9]{3}-\d{7})|(0[0-9]{3}-\d{8}))$/"
+                           ng-class="{true:'warn',false:''}[monitor_form.fax.$invalid]"/>
+                </td>
+                <td class="name name-height">移动预警电话</td>
+                <td class="value">
+                    <input required maxlength="11" type="text" ng-model="vm.deptInfo.warning_mobile"
+                           name="warning_mobile"
+                           ng-pattern="/^(1[3|4|5|7|8|9]\d{9})$/"
+                           ng-class="{true:'warn',false:''}[monitor_form.warning_mobile.$invalid]"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="name name-height">固定预警电话</td>
+                <td class="value">
+                    <input required maxlength="13" type="text" ng-model="vm.deptInfo.warning_telephone"
+                           name="warning_telephone"
+                           ng-pattern="/^((0[0-9]{2}-\d{8})|(0[0-9]{3}-\d{7})|(0[0-9]{3}-\d{8}))$/"
+                           ng-class="{true:'warn',false:''}[monitor_form.warning_telephone.$error.required]"/>
+                </td>
+                <td class="name name-height">是否启用</td>
+                <td class="value">
+                    <div class="chosen_div">
+                        <select ng-model="vm.deptInfo.delstatus" name="delstatus" required class="sel_sel_zzy"
+                                ng-class="{true:'warn',false:''}[monitor_form.delstatus.$error.required]" ng-chosen
+                                ng-chosen-data="vm.deptStatus"
+                                ng-options="n.id as n.chinaname for n in vm.deptStatus">
+                            <!--<option ng-chosen-option></option>-->
+                        </select>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="name name-height">是否独办公</td>
+                <td class="value">
+                    <div class="chosen_div">
+                        <select ng-model="vm.deptInfo.is_independent_office"
+                                name="is_independent_office" required
+                                ng-class="{true:'warn',false:''}[monitor_form.is_independent_office.$error.required]"
+                                class="sel_sel_zzy" ng-chosen ng-chosen-data="vm.yesnoCatagory"
+                                ng-options="n.id as n.chinaname for n in vm.yesnoCatagory">
+                            <!--<option ng-chosen-option></option>-->
+                        </select>
+                    </div>
+                </td>
+                <td class="name name-height" ng-if="vm.deptInfo.is_independent_office != 0"></td>
+                <td class="value" ng-if="vm.deptInfo.is_independent_office != 0">
+                </td>
+                <td class="name name-height" ng-if="vm.deptInfo.is_independent_office == 0">合署办公单位</td>
+                <td class="value" ng-if="vm.deptInfo.is_independent_office == 0">
+                    <input required maxlength="50" type="text" name="union_dept_name"
+                           ng-class="{true:'warn',false:''}[monitor_form.union_dept_name.$error.required]"
+                           ng-model="vm.deptInfo.union_dept_name"/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <div class="fileListDiv"
+                         attach-file-list
+                         attach-file-list-init-options="vm.fileInitOptions"
+                         attach-file-list-load-options="vm.fileLoadOptions"
+                    ></div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="popBottom">
+        <span class="btn2" ng-click="vm.saveDeptInfo('monitor')">保存</span>
+    </div>
+</div>
+
+<!-- 部门 -->
+<div class="popWhite" ng-show="vm.showType=='dept'">
+    <div class="css-content" ng-form="dept_form">
+        <table cellpadding="0" cellspacing="0">
+            <tbody>
+            <tr>
+                <td class="name name-height">部门名称</td>
+                <td class="value">
+                    <input required maxlength="50" type="text" ng-model="vm.deptInfo.chinaname"
+                           name="chinaname"
+                           ng-class="{true:'warn',false:''}[dept_form.chinaname.$error.required]"/>
+                </td>
+                <td class="name name-height">性质</td>
+                <td class="value">
+                    <div class="chosen_div">
+                        <select ng-model="vm.deptInfo.dept_properties" name="dept_properties" required
+                                class="sel_sel_zzy"
+                                ng-class="{true:'warn',false:''}[dept_form.dept_properties.$error.required]"
+                                ng-chosen
+                                ng-chosen-data="vm.deptProperty"
+                                ng-options="n.id as n.chinaname for n in vm.deptProperty">
+                        </select>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="name name-height">区域</td>
+                <td class="value">
+                    <input type="text" readonly ng-model="vm.deptInfo.area_name" name="area" required
+                           ng-class="{true:'warn',false:''}[monitor_form.area.$error.required]"/>
+                    <i class="selectOp " ng-click="vm.selectAreaInfo()"></i>
+                </td>
+                <td class="name name-height">部门负责人</td>
+                <td class="value">
+                    <input required maxlength="50" type="text"
+                           ng-model="vm.deptInfo.leader_name" name="leader_name"
+                           ng-class="{true:'warn',false:''}[monitor_form.leader_id.$error.required]"/>
+                    <i class="selectOp " ng-click="vm.selectUserInfo()"></i>
+                </td>
+            </tr>
+            <tr>
+                <td class="name name-height">所属单位</td>
+                <td class="value">
+                    <input required maxlength="50" readonly type="text" name="parent"
+                           ng-class="{true:'warn',false:''}[dept_form.sortindex.$error.required]"
+                           ng-model="vm.deptInfo.parent_name"/>
+                </td>
+                <td class="name name-height">是否启用</td>
+                <td class="value">
+                    <div class="chosen_div">
+                        <select ng-model="vm.deptInfo.delstatus" name="delstatus" required class="sel_sel_zzy"
+                                ng-class="{true:'warn',false:''}[monitor_form.delstatus.$error.required]" ng-chosen
+                                ng-chosen-data="vm.deptStatus"
+                                ng-options="n.id as n.chinaname for n in vm.deptStatus">
+                        </select>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="popBottom">
+        <span class="btn2" ng-click="vm.saveDeptInfo('dept')">保存</span>
+    </div>
+</div>
+
+<!-- 添加监测机构 -->
+<div class="popWhite" ng-show="vm.showType=='addMonitor'">
+    <div class="css-content" ng-form="addMonitor_form">
+        <table cellpadding="0" cellspacing="0">
+            <tbody>
+            <tr>
+                <td class="name name-height">机构名称</td>
+                <td class="value">
+                    <input required maxlength="50" type="text" ng-model="vm.deptInfo.chinaname" name="chinaname"
+                           ng-class="{true:'warn',false:''}[addMonitor_form.chinaname.$error.required]"/>
+                </td>
+                <td class="name name-height">区域</td>
+                <td class="value">
+                    <input type="text" readonly ng-model="vm.deptInfo.area_name" name="area"
+                           ng-class="{true:'warn',false:''}[addMonitor_form.area.$error.required]"/>
+                    <i class="selectOp " ng-click="vm.selectAreaInfo()"></i>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="popBottom">
+        <span class="btn2" ng-click="vm.saveDeptInfo('addMonitor')">保存</span>
+    </div>
+</div>
+
+<!-- 暂无数据 -->
+<div class="popWhite" ng-show="vm.showType=='noDate'">
+    <div class="css-content nothing nothingTop">
+        <span></span>暂无数据
+    </div>
+</div>

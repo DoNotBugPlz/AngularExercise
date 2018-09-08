@@ -1,0 +1,69 @@
+<div>
+    <td width="10%" class="txt">报告单位：</td>
+    <input type="button" value="数据导入" ng-click="vm.dataImport()">
+    <span class="table_title">城市居民食品零售价格监测</span>
+</div>
+
+<div class="select_b_zzy " style="top: 25px;">
+    <div class="leftSel_table_zzy over_hide" >
+        <table border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="10.6%" class="txt">报送单位：</td>
+                <td width="10.6%" class="txt left">南京市价格监测中心</td>
+
+                <td width="10.6%" class="txt">报送负责人：</td>
+                <td width="10.6%" class="txt left">张云建</td>
+
+                <td width="10.6%" class="txt">联系电话：</td>
+                <td width="10.6%" class="txt left">1823454356</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="table_box_zzy top1_zzy" style="top: 138px;">
+    <div class="table_head_zzy marginB2">
+        <table>
+            <tr>
+                <td width="20%">商品名称</td>
+                <td width="15%">规格等级</td>
+                <td width="10%">计量单位</td>
+                <td width="10%">零售价</td>
+                <td width="15%">采价点</td>
+                <td width="15%">备注</td>
+                <td width="15%">附件</td>
+            </tr>
+        </table>
+    </div>
+    <div class="table_main_zzy" m-custom-scrollbar >
+        <table>
+            <tr ng-repeat="n in vm.signList track by $index" ng-class-even="'bgcolor'"
+                ng-class="{'false':'','true':'selected'}[n.selected]">
+                <td width="20%" ng-style="n.style">&nbsp;&nbsp;{{n.chinaname}}</td>
+                <td width="15%">{{n.site_name}}</td>
+                <td width="10%" >{{n.col_datetime}}</td>
+                <td width="10%" >
+                    {{n.actual_sign_nums}}
+                </td>
+                <td width="15%">{{n.col_datetime}}</td>
+                <td width="15%">{{n.remark}}</td>
+                <td width="15%">
+                    <u style="cursor: pointer">南京.jpg</u>
+                    <a href="javascript:;" class="table_main1_a" ng-if="n.is_pub ==1" ng-click="">上传</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<style>
+    .table_title{
+        text-align: center;
+        margin-left: 30%;
+        font-size: 18px;
+        font-weight: 600;
+    }
+    .leftSel_table_zzy table td.left{
+        text-align: left;
+    }
+</style>

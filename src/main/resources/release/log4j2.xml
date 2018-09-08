@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="5">
+    <Appenders>
+        <Console name="stdout" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+        <File name="MyFile" fileName="c:/log/app.log">
+            <PatternLayout>
+                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+            </PatternLayout>
+        </File>
+
+        <Async name="async_MyFile">
+            <AppenderRef ref="MyFile"/>
+        </Async>
+    </Appenders>
+
+    <Loggers>
+        <!--日志输出最低级别 由低到高依次为 TRACE < DEBUG < INFO < WARN < ERROR < FATAL-->
+        <!--additivity="false" 表示取消日志的相加性,否则logger会打印一遍日志，root又打一遍，导致重复日志输出-->
+        <Logger name="org.hibernate" level="info" additivity="true"/>
+        <Logger name="org.hibernate.SQL" level="info" additivity="true"/>
+        <Logger name="org.springframework.transaction" level="info" additivity="true"/>
+        <Logger name="druid.sql" level="info" additivity="true"/>
+        <Logger name="druid.sql.DataSource" level="info" additivity="true"/>
+        <Logger name="druid.sql.Connection" level="info" additivity="true"/>
+        <Logger name="druid.sql.Statement" level="info" additivity="true"/>
+        <Logger name="druid.sql.ResultSet" level="info" additivity="true"/>
+        <Logger name="com.atomikos" level="info" additivity="true"/>
+        <Root level="info">
+            <AppenderRef ref="stdout"/>
+            <AppenderRef ref="async_MyFile"/>
+        </Root>
+    </Loggers>
+</Configuration>

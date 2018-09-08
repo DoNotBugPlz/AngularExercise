@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <!--<service name="公文交换" url="http://172.16.5.100/sky.GovService/Gov.asmx?wsdl"/>
+    <service name="燃气查询" url="http://172.16.5.102/sky.GovService/Gov2.asmx?wsdl"/>-->
+</config>
+

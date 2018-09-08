@@ -1,0 +1,224 @@
+/*项目使用css重写*/
+.hp_container {
+    min-height: inherit;
+    min-width: inherit;
+}
+
+.rightSel_zzy {
+    width: inherit;
+}
+
+.contf {
+    position: absolute;
+    top: 55px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+}
+
+.contfWithnoChildMenu {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+}
+
+.leftSide_menu > ul {
+    height: auto;
+}
+
+.ngdialog.ngdialog-theme-default .ngdialog-content {
+    background: #fff;
+    padding: 15px;
+}
+
+.table_main_zzy {
+    position: absolute;
+    bottom: 41px;
+    top: 42px;
+    left: 0px;
+    right: 0px;
+}
+
+.arrow_btn_show {
+    margin: 0 0 0 10px;
+    float: left;
+}
+
+.arrow_btn_hide {
+    margin: 0 auto 2px;
+    float: none;
+}
+
+.swiper_btn_show {
+    width: auto;
+    float: right;
+    margin: 0;
+    padding: 0 30px 0 14px;
+    background: url('../images/green/icon_arrow_swiper.png') 52px center no-repeat;
+}
+
+.swiper_btn_hide {
+    width: 24px;
+    float: none;
+    margin: 0 auto;
+    padding: 0;
+    background: url('../images/green/icon_arrow.png') center center no-repeat;
+}
+
+.table_tip_zzy {
+    position: absolute;
+    top: -42px;
+    right: 0px;
+}
+
+.table_main1_a {
+    cursor: pointer;
+}
+
+.ipt_ico1 {
+    background: #fff url('../images/green/ipt_ico1.png') no-repeat left center;
+    padding: 4px 55px !important;
+}
+
+.cursor_pointer {
+    cursor: pointer;
+}
+
+.width100 {
+    width: 100px;
+}
+
+.checkbox_txt {
+    float: right;
+}
+
+.pull_left {
+    float: left;
+}
+
+.confirm_btn {
+    margin-right: 35px;
+}
+
+.disabled {
+    color: #56637a;
+    border-color: #b7b8ba;
+    background-color: rgb(235, 235, 228);
+}
+
+.deptSelectBox {
+    font-size: 14px;
+    color: #7e848c;
+    text-align: right;
+    width: 85%;
+    display: inline;
+    padding-right: 80px;
+}
+
+/*程序开发时遇到需要调试的CSS可以使用本CSS进行调试 切勿更改原CSS文件谢谢*/
+
+.content-left {
+    position: absolute;
+    top: 83px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-left: 5px;
+    background: #fff;
+}
+
+/* 防止文字超出单元格 begin*/
+.table_word_space {
+    table-layout: fixed;
+}
+
+.word_space {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+}
+
+/* 防止文字超出单元格 end*/
+
+.img_top {
+    margin-top: 10px;
+}
+
+.div_img {
+    text-align: center;
+    background-color: gainsboro;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.chosen_div {
+    width: 99%;
+    height: 32px;
+    border: 1px solid #bababa;
+}
+
+.popup_button {
+    display: block;
+}
+
+.rightSide_area {
+    right: 10px
+}
+
+.sel_sel_zzy {
+    color: inherit;
+    padding: 0px;
+}
+
+.over_hide2 {
+    overflow: inherit;
+}
+
+.leftSel_table_zzy .chosen_div {
+    border: 1px solid #d5dae0;;
+}
+
+.leftSel_table_zzy .left {
+    white-space: nowrap;
+}
+
+.leftSide_btn {
+    text-align: right;
+}
+
+.leftMenuBox {
+    height: 90%;
+    overflow: auto;
+}
+
+/* table中、上方的操作按钮宽度适应 begin*/
+/* table上方操作的 4 个字按钮 */
+.table_tip_btn_zzy .font44 {
+    width: 80px;
+}
+
+/* table中的操作 4 个字按钮 */
+.pad_zzy .font44 {
+    width: 80px;
+}
+
+/* table上方操作的 6 个字按钮 */
+.table_tip_btn_zzy .font46 {
+    width: 120px;
+}
+
+/* table中的操作 6 个字按钮 */
+.pad_zzy .font46 {
+    width: 120px;
+}
+
+/* table中、上方的操作按钮宽度适应 end*/
+
+.popColor_0 span {
+    background-color: #f79a4a;
+}

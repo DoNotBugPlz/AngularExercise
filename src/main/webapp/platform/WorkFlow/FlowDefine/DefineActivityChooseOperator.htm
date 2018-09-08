@@ -1,0 +1,134 @@
+﻿<div class="easyui-panel" fit="true" border="false">
+    <!--padding:5px;border:1px solid #ddd;  -->
+    <div class="datagrid-toolbar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="savedefActivityChooseOperatorform()"
+            data-options="plain:true,iconCls:'icon-save'">保存</a>
+    </div>
+    <div>
+        <form id="defActivityChooseOperatorform" method="post" action="../../../Sys_def_actorcondition/SaveForm.do">
+        <table style="padding-left: 20px;">
+            <!-- <colgroup>
+                <col width="70px" align="left" />
+                <col align="left" />
+                <col width="60px" align="left" />
+                <col align="left" />
+            </colgroup> -->
+            <tr>
+                <td style="width: 160px">
+                    参与人默认配置(优先 级高):
+                </td>
+                <td>
+                    <input class="easyui-combobox" name="sys_def_actorcondition.defaultconfig" id="defaultconfig"
+                        data-options="url:rootPath+'Sys_categoryvalue/GetCategoryValues.do?constname=PROCESSJOINER',
+					valueField:'id',
+					textField:'chinaname',
+					onChange:changeOperatorStatus,
+					value:'',
+					panelHeight:'auto'" style="width: 200px" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 160px">
+                    参照前一岗位:
+                </td>
+                <td>
+                    <input class="easyui-combobox" name="sys_def_actorcondition.referprevactivity" id="referprevactivity"
+                        data-options="url:rootPath+'Sys_categoryvalue/GetCategoryValues.do?constname=REFER_PRV',
+					valueField:'id',
+					textField:'chinaname',
+					onChange:changeOperatorStatus,
+					value:'',
+					panelHeight:'auto'" style="width: 200px" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 160px">
+                    部门层级:
+                </td>
+                <td>
+                    <input class="easyui-combobox" name="sys_def_actorcondition.referprevactivitydeptlevel" id="referprevactivitydeptlevel"
+                        data-options="url:rootPath+'Sys_categoryvalue/GetCategoryValues.do?constname=DEPTLEVEL',
+					valueField:'id',
+					textField:'chinaname',
+					value:'',
+					panelHeight:'auto'" style="width: 200px" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    步骤办理部门(优先级低):
+                </td>
+                <td>
+                    <input class="easyui-combobox" type="text" id="unitchinaname" name="sys_def_actorcondition.pointunitnames"
+                        data-options="onShowPanel:showPointUnitTreeGrid,onChange:changePointunit" style="width: 200px" />
+                    <input type="hidden" id="pointunit" name="sys_def_actorcondition.pointunit" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    人员具有角色:
+                </td>
+                <td>
+                    <input class="easyui-combobox" name="sys_def_actorcondition.actorroles" id="actorroles"
+                        data-options="
+                    					url:rootPath+'Sys_roles/LoadAllRoles.do',
+                    					valueField:'id',
+                    					textField:'chinaname',
+										editable:false,
+                                        multiple:true,
+					                    onChange:changeOperatorStatus,
+                    					panelHeight:'auto'
+                    					" style="width: 200px" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    使用其他节点的接手人:
+                </td>
+                <td>
+                    <input class="easyui-combobox" name="sys_def_actorcondition.useactivityids" id="useactivityids"
+                        data-options="
+                    					url:rootPath+'Sys_def_activity/LoadCanSelectActivitys.do?activityid='+whichNode.props.id.value+'&processid='+processid,
+                    					valueField:'id',
+                    					textField:'chinaname',
+										editable:false,
+                                        multiple:true,
+					                    onChange:changeOperatorStatus,
+                    					panelHeight:'auto'
+                    					" style="width: 200px" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    是否多选:
+                </td>
+                <td colspan="3">
+                    <input class="easyui-combobox" id="multiselect" name="sys_def_actorcondition.multiselect" data-options="
+                    					data:[{'value':'1','text':'是'},{'value':'0','text':'否'}],
+                    					valueField:'value',
+                    					textField:'text',
+                    					value:'',
+                    					editable:false,
+                    					panelHeight:'auto'
+                    					" style="width: 200px" />
+            </tr>
+            <tr>
+                <td style="width: 160px">
+                    自定义选人:
+                </td>
+                <td>
+                    <input class="easyui-combobox" name="sys_def_actorcondition.custom_config" id="customConfig"
+                           data-options="url:rootPath+'Sys_categoryvalue/GetCategoryValues.do?constname=WF_CUSTOM_CONFIG',
+					valueField:'id',
+					textField:'chinaname',
+					onChange:changeCustomConfig,
+					value:'',
+					panelHeight:'auto'" style="width: 200px" />
+                </td>
+            </tr>
+        </table>
+        <input type="hidden" name="sys_def_actorcondition.activitydefineid" id="activitydefineid" />
+        <input type="hidden" name="sys_def_actorcondition.id" id="Sys_def_actorconditionid" />
+        </form>
+    </div>
+</div>

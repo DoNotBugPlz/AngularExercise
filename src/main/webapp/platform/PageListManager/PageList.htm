@@ -1,0 +1,70 @@
+﻿<div class="easyui-panel" fit="true" border="false">
+    <div class="easyui-layout" data-options="fit:true">
+        <div data-options="region:'north',split:false,border:false" style="height: 40px">
+            <table style="height: 100%;" border="0">
+                <tr>
+                    <td width="10%" align="right">
+                        关键字:
+                    </td>
+                    <td width="40%">
+                        <input class="easyui-validatebox" type="text" id="keyname" name="keyname" style="width: 95%" />
+                    </td>
+                    <td width="10%" align="right">
+                        所属单位:
+                    </td>
+                    <td width="30%">
+                        <input type="hidden" name="searchUnitid" id="searchUnitid" />
+                        <input class="easyui-combobox" type="text" id="searchUnitName" name="searchUnitName"
+                            data-options="onShowPanel:showDeptTreeGrid" style="width: 250px" />
+                    </td>
+                    <td width="10%">
+                        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="searchPageList()"
+                            data-options="iconCls:'icon-search'">搜索</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div data-options="region:'center'">
+            <table id="dgPageList" class="easyui-datagrid" data-options="
+            	url: rootPath + 'Sys_pagelist/LoadPageList.do?tablename=' + currentTableName,
+                fit: true,
+                border:false,
+                loadMsg: '数据加载中……',
+                fitColumns: true,
+                rownumbers: true,
+                pageSize: 20,
+                pagination: true,
+                idField: 'id',
+                toolbar: '#PageListToolBar',
+                onDblClickRow:tailorFormDblClickRow,
+                onLoadError: gridLoadError">
+                <thead>
+                    <tr>
+                        <th data-options="field:'ck',checkbox:true">
+                        </th>
+                        <th data-options="field:'unitid_text',halign:'center'" width="40">
+                            单位名称
+                        </th>
+                        <th data-options="field:'constname',halign:'center'" width="20">
+                            列表标识
+                        </th>
+                        <th data-options="field:'listname',halign:'center'" width="80">
+                            列表标题名称
+                        </th>
+                        <th data-options="field:'delstatus',align:'center',formatter: formatterCell" width="10">
+                            状态
+                        </th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+<div id="PageListToolBar" class="datagrid-toolbar">
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="creatPageList()"
+        data-options="plain:true,iconCls:'icon-add'">新增</a> <a href="javascript:void(0)"
+            class="easyui-linkbutton" onclick="editPageList()" data-options="plain:true,iconCls:'icon-edit'">
+            编辑</a> <a href="javascript:void(0)" class="easyui-linkbutton" onclick="deletePageList();"
+                data-options="plain:true,iconCls:'icon-pause'">禁用</a> <a href="javascript:void(0)" class="easyui-linkbutton"
+                    onclick="undeletePageList();" data-options="plain:true,iconCls:'icon-ok'">启用</a>
+</div>

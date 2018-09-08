@@ -1,0 +1,70 @@
+﻿<div class="easyui-panel" fit="true" border="true">
+    <div class="easyui-layout" data-options="fit:true">
+        <div data-options="region:'north',split:false,border:false" style="height: 40px">
+            <table style="height: 100%;" border="0">
+                <tr>
+                    <td width="10%" align="right">
+                        关键字:
+                    </td>
+                    <td width="40%">
+                        <input class="easyui-validatebox" type="text" id="keyname" name="keyname" style="width: 95%" />
+                    </td>
+                    <td width="10%" align="right">
+                        所属单位:
+                    </td>
+                    <td width="30%">
+                        <input type="hidden" name="searchUnitid" id="searchUnitid" />
+                        <input class="easyui-combobox" type="text" id="searchUnitName" name="searchUnitName"
+                            data-options="onShowPanel:showDeptTreeGrid" style="width: 250px" />
+                    </td>
+                    <td width="10%">
+                        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="searchTailorFormList()"
+                            data-options="iconCls:'icon-search'">搜索</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div data-options="region:'center'">
+            <table id="dgTailorForm" class="easyui-datagrid" data-options="
+            	url: rootPath+'Sys_def_tailorform/LoadPageList.do?tablename=' + currentTableName,
+                fit: true,
+                loadMsg: '数据加载中……',
+                fitColumns: true,
+                rownumbers: true,
+                border:false,
+                pageSize: 20,
+                pagination: true,
+                idField: 'id',
+                toolbar: '#gridToolBar',
+                onDblClickRow:tailorFormDblClickRow,
+                onLoadError: gridLoadError">
+                <thead>
+                    <tr>
+                        <th data-options="field:'ck',checkbox:true">
+                        </th>
+                        <th data-options="field:'unitname',halign:'center'" width="50">
+                            单位名称
+                        </th>
+                        <th data-options="field:'chinaname',halign:'center'" width="50">
+                            表单名称
+                        </th>
+                        <th data-options="field:'path',halign:'center'" width="100">
+                            表单路径
+                        </th>
+                        <th data-options="field:'delstatus',align:'center',formatter: formatterCell" width="10">
+                            状态
+                        </th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+<div id="gridToolBar" class="datagrid-toolbar">
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="creatTailorForm()"
+        data-options="plain:true,iconCls:'icon-add'">新增</a> <a href="javascript:void(0)"
+            class="easyui-linkbutton" onclick="editTailorForm()" data-options="plain:true,iconCls:'icon-edit'">
+            编辑</a> <a href="javascript:void(0)" class="easyui-linkbutton" onclick="deleteTailorForm();"
+                data-options="plain:true,iconCls:'icon-pause'">禁用</a> <a href="javascript:void(0)" class="easyui-linkbutton"
+                    onclick="unDeleteTailorForm();" data-options="plain:true,iconCls:'icon-ok'">启用</a>
+</div>

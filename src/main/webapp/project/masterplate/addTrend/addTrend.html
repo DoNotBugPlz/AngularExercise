@@ -1,0 +1,39 @@
+<div class="popWhite">
+    <div class="css-content" m-custom-scrollbar ng-form="trend_form">
+        <table cellpadding="0" cellspacing="0">
+            <tbody>
+            <tr>
+                <td class="name name-height" style="width: 10%">走势类型</td>
+                <td class="value">
+                    <input ng-class="{true:'warn',false:''}[trend_form.name.$error.required]" required
+                           maxlength="25"
+                           type="text" ng-model="vm.name" name="name"
+                           placeholder="请输入走势类型"
+                           ng-readonly="vm.is_edit"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="name name-height" style="width: 10%">走势</td>
+                <td class="value">
+                    <span class="btn2" ng-click="vm.addTrendInput()">添加</span>
+                </td>
+            </tr>
+            <tr ng-repeat="n in vm.childrenList track by $index">
+                <td class="value">
+                    <input ng-class="{true:'warn',false:''}[trend_form.name.$error.required]" required
+                           maxlength="25"
+                           type="text" ng-model="n.name" name="name"
+                           placeholder=""
+                           ng-readonly="vm.is_view"/>
+                </td>
+                <td class="value">
+                    <span class="btn2" ng-click="vm.delTrendInput(n)">X</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="popBottom">
+        <span class="btn2" ng-click="vm.saveTrend()">保存</span>
+    </div>
+</div>

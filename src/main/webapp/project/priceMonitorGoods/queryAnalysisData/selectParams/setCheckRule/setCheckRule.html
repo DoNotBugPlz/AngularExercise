@@ -1,0 +1,86 @@
+<div class="select_b_zzy "  style="top: 45px">
+    <div class="leftSel_table_zzy" ng-class="{true:'up',false:'over_hide2'}[vm.advSearch]">
+        <table border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="15%" class="txt">商品基准库：</td>
+                <td width="30%">
+                    <div class="chosen_div">
+                        <select ng-model="vm.searchParams.goodsFamilyId" class="sel_sel_zzy"
+                                ng-chosen
+                                ng-chosen-data="vm.goods_family"
+                                ng-options="n.id as n.chinaname for n in vm.goods_family">
+                            <option ng-chosen-option></option>
+                        </select>
+                    </div>
+                </td>
+                <td width="15%" class="txt">商品名称：</td>
+                <td width="30%" >
+                    <input type="text" class="sel_ipt_zzy" placeholder="请输入关键字" ng-model="vm.searchParams.name" name="name"/>
+                </td>
+
+                <td class="left">
+                    <a href="javascript:;" class="sel_btn_zzy " ng-click="vm.search()">查询</a>
+                    <a href="javascript:;" class="reSet_btn_zzy" ng-click="vm.cancelOp()">重置</a>
+                </td>
+
+            </tr>
+
+        </table>
+
+    </div>
+</div>
+<div class="table_box_zzy " style="top: 83px">
+    <div class="table_box_zzy top1_zzy" style="top: 40px;bottom: 300px;">
+        <div class="table_head_zzy marginB2">
+            <table >
+                <tr >
+                    <td width="5%" ng-click="vm.selectAll()">
+                        <a href="javascript:;" class="ipt_check"  ng-model="vm.allSelected" ng-class="{true:'checked',false:''}[vm.allSelected]"></a>
+                    </td>
+                    <td  width="20%">商品编码</td>
+                    <td  width="20%">商品名称</td>
+                    <td  width="20%">规格等级</td>
+                    <td  width="20%">计量单位</td>
+                    <td  width="15%">状态</td>
+                </tr>
+            </table>
+        </div>
+        <div id="query_nothing" class="nothing nothingTop"
+             ng-show="!!!vm.goodsList||vm.goodsList.length==0">
+            <span></span>暂无数据
+        </div>
+        <div class="table_main_zzy" m-custom-scrollbar >
+            <table id="query-list-panel" cellpadding="0" cellspacing="0" style="table-layout: fixed"
+                   ng-hide="!!!vm.goodsList||vm.goodsList.length==0">
+                <tbody ng-model="vm.goodsList" >
+                <tr ng-repeat="n in vm.goodsList track by $index" ng-class-even="'bgcolor'"
+                    ng-class="{'false':'','true':'selected'}[n.selected]">
+                    <td width="5%" ng-click="vm.selectItem(n)">
+                        <a href="javascript:;" class="ipt_check"  ng-model="n.selected" ng-class="{true:'checked',false:''}[n.selected]"></a>
+                    </td>
+                    <td width="20%" colspan="2" style="border-left:  1px solid #c6c6c6;">{{n.goods_code}}</td>
+                    <td width="20%" >{{n.name}}</td>
+                    <td width="20%" >{{n.spec}}</td>
+                    <td width="20%" >{{n.measurement_unit}}</td>
+                    <td width="15%" >
+                                <span ng-class="{'true':'color_green','false':'color_normal'}[n.delstatus=='0']">
+                                    <span ng-if="n.delstatus=='0'">已启用</span>
+                                    <span ng-if="n.delstatus=='1'">已停用</span>
+                                </span>
+                        <i  ng-class="{'true':'start_zzy','false':'forbidden_zzy'}[n.delstatus=='0']"></i>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="table-tfoot" >
+            <div class="table_page">
+                <div ng-turn-page="vm.goodsListPage" turn-page-fn="vm.loadGoodsListForMonitor"></div>
+            </div>
+        </div>
+    </div>
+    <div style="border: 1px solid black;width: 100%;height: 300px; padding: 6px;position: absolute;bottom: 0px;">
+        <a href="javascript:;" ng-repeat="n in vm.choosedGoods track by $index" class="table_main1_a" style="width: 200px" ng-click="vm.reduceMyself(n)">{{n.name}}</a>
+
+    </div>
+</div>

@@ -1,0 +1,199 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>角色管理页面</title>
+    <link href="../ScriptSource/EasyUI/Skins/default/easyui.css" rel="stylesheet" type="text/css"/>
+    <link href="../ScriptSource/EasyUI/Skins/icon.css" rel="stylesheet" type="text/css"/>
+    <script src="../ScriptSource/JQuery/jquery.min.js" type="text/javascript"></script>
+    <script src="../ScriptSource/EasyUI/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../ScriptSource/JQuery/jquery.form.js" type="text/javascript"></script>
+    <script src="../ScriptSource/JavaScript/GlobalTools.js" type="text/javascript"></script>
+    <script src="RoleManagerController.js" type="text/javascript"></script>
+</head>
+<body class="easyui-layout">
+<div data-options="region:'west',split:false,title:'角色管理'" style="padding: 0px; width:450px;">
+    <table id="roleGrid" class="easyui-datagrid" style="height: auto; width: auto;"
+           data-options="
+                      url:rootPath + 'Sys_roles/LoadPageList.do',
+				        toolbar: '#gridToolBar',
+				        border:false,
+                      fit: true,
+                      fitColumns: true,
+                      rownumbers: true,
+                      singleSelect:true,
+                      pageSize: 20,
+                      pagination: true,
+			           idField: 'id',
+                      onRowContextMenu:onContextMenu,
+                      onClickRow:clickRoles,
+                      onDblClickCell:dblClickCell,
+                      onLoadError: gridLoadError">
+        <thead>
+        <tr>
+            <th data-options="field:'chinaname',halign:'center', editor:{type:'validatebox',options:{required:true}}"
+                width="100">
+                角色
+            </th>
+            <th data-options="field:'constname',halign:'center', editor:{type:'validatebox',options:{required:true}}"
+                width="100">
+                标识
+            </th>
+            <th data-options="field:'sortindex',align:'center',editor:{type:'numberbox'}" width="60">
+                序号
+            </th>
+            <th data-options="field:'delstatus',align:'center',formatter: formatterCell,
+                            editor:{type:'checkbox',options:{on:1,off:0}}" width="50">
+                状态
+            </th>
+        </tr>
+        </thead>
+    </table>
+</div>
+
+<div id="userBaseInfo" class="easyui-panel" style="height: auto" data-options="region:'center'">
+    <!--<div id="tt" class="easyui-tabs" data-options="border:false,fit:true" >-->
+       <!-- <div title="角色权限">-->
+            <div class="easyui-layout" data-options="fit:true">
+                <div data-options="region:'west',split:false,title:'角色分配'" style="padding: 0px; width:450px;">
+                    <table id="canUseRoleGrid" class="easyui-datagrid" style="height: auto;"
+                           data-options="
+                      toolbar:'#canUseRolesListToolBar',
+				        border:false,
+                      fit: true,
+                      fitColumns: true,
+                      rownumbers: true,
+                      selectOnCheck:true,
+                            checkOnSelect:true,
+                      singleSelect:false,
+			           idField: 'id',
+			           onLoadSuccess:loadCanUseRolesSuccess,
+                      onLoadError: gridLoadError">
+                        <thead>
+                        <tr>
+                            <th data-options="field:'ck',halign:'center',checkbox:true"></th>
+                            <th data-options="field:'chinaname',halign:'center', editor:{type:'validatebox',options:{required:true}}"
+                                width="60">
+                                角色
+                            </th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div data-options="region:'center',split:false,title:'菜单权限'">
+                    <table id="menuList" class="easyui-treegrid" data-options="
+                            singleSelect: false,
+                            border:false,
+                            fit: true,
+                            fitColumns: true,
+                            selectOnCheck:true,
+                            checkOnSelect:true,
+                            rownumbers: true,
+                            idField: 'id',
+				              treeField: 'name',
+                            toolbar:'#menuListToolBar',
+                            onDblClickRow:loadMenuOperation,
+                            onLoadSuccess:loadSuccess,
+                            onLoadError: gridLoadError">
+                        <thead>
+                        <tr>
+                            <th data-options="field:'ck',checkbox:true">
+                            </th>
+                            <th data-options="field:'name',halign:'center'" width="150">
+                                导航名称
+                            </th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div data-options="region:'east',title:'操作权限',split:false" style="width: 300px;">
+                    <table id="menuOperationList" class="easyui-datagrid" data-options="
+                            singleSelect: false,
+                            border:false,
+                            fit: true,
+                            fitColumns: true,
+                            rownumbers: true,
+                            idField: 'id',
+                            toolbar:'#menuOperationToolBar',
+                            onCheck:menuOperationChecked,
+                            onUncheck:menuOperationUnChecked,
+                            onLoadSuccess:menuOperationLoadSuccess,
+                            onLoadError: gridLoadError">
+                        <thead>
+                        <tr>
+                            <th data-options="field:'ck',checkbox:true">
+                            </th>
+                            <th data-options="field:'chinaname',halign:'center'" width="150">
+                                操作名称
+                            </th>
+                            <!--<th data-options="field:'operationrange',halign:'center',
+		                                editor:{
+		                                    type:'combobox',
+		                                    options:{
+		                                        valueField:'id',
+										        textField:'value',
+										        data:menuOperations,
+										        required:true
+		                                    }
+		                                },formatter:formatterOperationrangeCell" width="150">
+                                操作范围
+                            </th>-->
+                        </tr>
+                        </thead>
+                    </table>
+                    <input type="hidden" id="Hid_CurrentMenuID" name="Hid_CurrentMenuID" />
+                </div>
+            </div>
+        <!--</div>-->
+    <!--</div>-->
+</div>
+
+<!--角色列表工具栏-->
+<div id="gridToolBar" class="datagrid-toolbar">
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveRoleData();"
+       data-options="plain:true,iconCls:'icon-save'">保存</a> <a href="javascript:void(0)"
+                                                               class="easyui-linkbutton" onclick="creatNewRole();"
+                                                               data-options="plain:true,iconCls:'icon-add'">
+    新增</a> <a href="javascript:void(0)" class="easyui-linkbutton" onclick="editorRole();"
+              data-options="plain:true,iconCls:'icon-edit'">编辑</a> <a href="javascript:void(0)"
+                                                                      class="easyui-linkbutton"
+                                                                      onclick="cancelEditor();"
+                                                                      data-options="plain:true,iconCls:'icon-undo'">
+    取消</a> <a href="javascript:void(0)" class="easyui-linkbutton" onclick="deleteRole();"
+              data-options="plain:true,iconCls:'icon-pause'">禁用</a> <a href="javascript:void(0)"
+                                                                       class="easyui-linkbutton"
+                                                                       onclick="unDeleteRole();"
+                                                                       data-options="plain:true,iconCls:'icon-ok'">启用</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="destroyRole();"
+       data-options="plain:true,iconCls:'icon-delete'">
+        销毁</a>
+</div>
+<!--【可使用的角色列表】工具栏-->
+<div id="canUseRolesListToolBar" class="datagrid-toolbar">
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveCanUseRole();"
+       data-options="plain:true,iconCls:'icon-save'">保存</a>
+</div>
+<!--【菜单权限】工具栏-->
+<div id="menuListToolBar" class="datagrid-toolbar">
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveRoleMenuPerm();"
+       data-options="plain:true,iconCls:'icon-save'">保存</a>
+</div>
+<!--【操作权限】工具栏-->
+<div id="menuOperationToolBar" class="datagrid-toolbar">
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveMenuOperationPerm();"
+       data-options="plain:true,iconCls:'icon-save'">保存</a>
+</div>
+<!--右键菜单-->
+<div id="contextMenuToolBar" class="easyui-menu" style="width: 120px;">
+    <div data-options="iconCls:'icon-add'" onclick="creatNewRole()">
+        新增
+    </div>
+    <div data-options="iconCls:'icon-edit'" onclick="editorRole()">
+        编辑
+    </div>
+    <div data-options="iconCls:'icon-delete'" onclick="destroyRole()">
+        彻底销毁
+    </div>
+</div>
+</body>
+</html>

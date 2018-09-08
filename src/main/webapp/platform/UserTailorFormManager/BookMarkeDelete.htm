@@ -1,0 +1,35 @@
+﻿<div class="easyui-panel" fit="true" border="false">
+    <div class="easyui-layout" data-options="fit:true">
+        <div data-options="region:'center',border:false">
+            <table id="dgDeleteBookMark" class="easyui-datagrid" data-options="
+            	url: rootPath+'Sys_templatebookmarks/LoadPageList.do?templateid=' + currentTemplateid,
+                fit: true,
+                loadMsg: '数据加载中……',
+                fitColumns: true,
+                rownumbers: true,
+                idField: 'id',
+                toolbar: '#deletetemplateToolBar',
+                onLoadError: gridLoadError">
+                <thead>
+                    <tr>
+                        <th data-options="field:'ck',checkbox:true">
+                        </th>
+                        <th data-options="field:'chinaname',halign:'center'" width="80">
+                            书签名称
+                        </th>
+                        <th data-options="field:'constname',halign:'center'" width="80">
+                            书签标识
+                        </th>
+                        <th data-options="field:'colname',align:'center'" width="80">
+                            书签字段
+                        </th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+<div id="deletetemplateToolBar" class="datagrid-toolbar">
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="deleteBookMark()"
+        data-options="plain:true,iconCls:'icon-pause'">删除</a>
+</div>

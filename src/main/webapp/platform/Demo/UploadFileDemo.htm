@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>上传附件控件例子</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="../ScriptSource/EasyUI/Skins/default/easyui.css" rel="stylesheet" type="text/css" />
+    <link href="../ScriptSource/EasyUI/Skins/icon.css" rel="stylesheet" type="text/css" />
+    <script src="../ScriptSource/JQuery/jquery.min.js" type="text/javascript"></script>
+    <script src="../ScriptSource/JQuery/jquery.form.js" type="text/javascript"></script>
+    <script src="../ScriptSource/EasyUI/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../ScriptSource/JavaScript/GlobalTools.js" type="text/javascript"></script>
+    <!--注意：以下脚本引用，仅当上传控件采取引入方式是才需要，其他都不需要引用-->
+    <script src="../ScriptSource/SWFUpload/Comm/SWFUpload.js" type="text/javascript"></script>
+    <script src="../ScriptSource/SWFUpload/Comm/SWFUpload.Queue.js" type="text/javascript"></script>
+    <script src="../ScriptSource/SWFUpload/Comm/SWFUpload.Speed.js" type="text/javascript"></script>
+    <script src="../ScriptSource/SWFUpload/Comm/UploaderHandler.js" type="text/javascript"></script>
+    <script src="../ScriptSource/JavaScript/EncodeData/SkyEnCode.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var rootPath = "../../";
+        //初始化页面控件参数，当使用Iframe引用时才需要配置此方法
+        function InitUploadFileConfig() {
+            var UploadFileConfig = {};
+            UploadFileConfig.rootPath = "../../../";
+            UploadFileConfig.setPostParams = setPostParams;
+            UploadFileConfig.upload_url = "Sys_attachfile/UploadFile.do";
+           // UploadFileConfig.saveFileData_url = "";
+
+            //UploadFileConfig.saveServerData = mySaveFileData; //改写数据保存方法，比如想实现先上传附件在保存数据
+            UploadFileConfig.uploadSuccess = uploadSuccess;
+            return UploadFileConfig;
+        }
+
+        //弹出窗口式附件管理
+        function fileListManager() {
+            //弹出窗口方法，参数：(窗口标题，url，窗口样式控制)
+            GlobalTools.openWindow("附件上传",  "../ScriptSource/SWFUpload/UploadFileIframe.htm");
+        }
+
+        //内嵌式使用附件管理
+        function loadComplete() {
+            var UploadFileConfig = {};
+            UploadFileConfig.rootPath = "../../";
+            UploadFileConfig.setPostParams = setPostParams;
+            UploadFileConfig.uploadSuccess = uploadSuccess;
+            UploadFileConfig.store_path = "AttachFolder\\temp";
+            //UploadFileConfig.use_FileStorePathRule = true;
+            UploadFileConfig.upload_url = "Sys_attachfile/UploadFileToBlob.do";
+            UploadFileConfig.saveServerData = function(file, fileData){};//先上传附件再保存数据
+            UploadFileTools.init(UploadFileConfig);
+        }
+
+        //设置提交参数
+        function setPostParams() {
+            return { tablename: 'sys_booktemplate',
+            		 colname: "uploadfile",
+            		 recordid: 39};
+        }
+        //自定义保存函数
+        function mySaveFileData(file, fileData) {
+            GlobalTools.ajax({
+                url: "?/?.do",
+                type: "post",
+                data: { filestorefullpath: fileData.filestorefullpath },
+                success: function (data, message) {
+
+                },
+                error: function (message) {
+
+                }
+            });
+        }
+        //数据保存成功后回调函数
+        function uploadSuccess(data, message) {
+            //alert("我是成功后事件，我的ID：" + data.id);
+        }
+
+        function loadSuccess(node, data) {
+            $(data).each(function (index, _data) {
+                if (this.state == 'closed') {
+                    $('#deptTree').treegrid('expandAll');
+                }
+            });
+        }
+        function expanded(row) {
+            var childrenNodes = $('#deptTree').treegrid('getChildren', row.id);
+            var parentNode = $('#deptTree').treegrid('getParent', row.id);
+            if (childrenNodes.length == 0) {
+                $('#deptTree').treegrid('remove', row.id);
+
+                removeEmptyNode(parentNode);
+            }
+        }
+
+        function removeEmptyNode(node) {
+            if (!node) return;
+            try {
+                var childrenNodes = $('#deptTree').treegrid('getChildren', node.id);
+                var parentNode = $('#deptTree').treegrid('getParent', node.id);
+
+                if (childrenNodes.length == 0) {
+                    $('#deptTree').treegrid('remove', node.id);
+                    removeEmptyNode(parentNode);
+                }
+            }
+            catch (se) { }
+        }
+    </script>
+</head>
+<body class="easyui-layout" data-options="fit:true">
+    <div data-options="region:'west',split:false" style="width: 350px;">
+        <!--<ul id="tt" class="easyui-tree" data-options="
+                url: rootPath + 'Sys_dept/LoadDeptUserTree.do?deptids=2,4&roles=1,92,93',
+                animate:true">
+        </ul>-->
+    </div>
+    <div data-options="region:'center',split:false,border:false">
+        <div id="gridToolBar" class="datagrid-toolbar">
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-add'"
+                onclick="fileListManager()">弹出窗口方式</a>
+        </div>
+        <div class="easyui-panel" style="height: 400px; width: 800px" title="内部引用方式" data-options="href:'../ScriptSource/SWFUpload/UploadFilePanel.htm',onLoad:loadComplete ">
+        </div>
+    </div>
+</body>
+</html>

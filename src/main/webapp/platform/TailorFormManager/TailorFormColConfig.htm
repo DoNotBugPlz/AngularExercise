@@ -1,0 +1,79 @@
+﻿<div class="easyui-panel" fit="true" border="false">
+    <table class="easyui-datagrid" id="tailorFormColListGrid" data-options="
+                        url:rootPath+'Sys_def_tailorformcol/LoadPageList.do?tailorformid=' + currentTailorFormid + '&tablename='+currentTableName,
+                        loadMsg:'列表数据加载中......',
+                        singleSelect: true,
+                        fit: true,
+                        fitColumns: true,
+                        border:false,
+                        rownumbers:true,
+                        toolbar:'#formColToolBar',
+                        onClickRow:tailorFormColClickRow,
+                        onLoadError: gridLoadError">
+        <thead data-options="frozen:true">
+            <tr>
+             <th data-options="field:'tablename',width:100,halign:'center'">
+                    表名
+                </th>
+                <th data-options="field:'colname',width:100,halign:'center'">
+                    字段名
+                </th>
+                <th data-options="field:'alias',width:150,halign:'center'">
+                    字段描述
+                </th>
+            </tr>
+        </thead>
+        <thead>
+            <tr>
+                <th data-options="field:'formuserule',width:100,halign:'center',
+                            formatter:formatterUseRuleCell,
+                            editor:{
+                                type:'combobox',
+                                options:{
+								    required:true,
+								    data:ruleDatas,
+								    valueField:'id',
+								    textField:'text'
+                                }
+                            }">
+                    使用规则
+                </th>
+                <th data-options="field:'chinaname',width:150,align:'center',
+                            editor:{
+                                type:'validatebox',
+                                options:{required:true}
+                            }">
+                    表单显示名称
+                </th>
+                <th data-options="field:'sourcecol',width:100,align:'center',
+                            formatter:formatterHidCell,
+                            editor:{
+                                type:'combobox',
+                                options:{
+								    data:formColDatas,
+								    valueField:'colname',
+								    textField:'alias'
+                                }
+                            }">
+                    绑定隐藏域
+                </th>
+                <th data-options="field:'coltypealias',width:100,halign:'center'">
+                    类型描述
+                </th>
+            </tr>
+        </thead>
+    </table>
+    <div id="formColToolBar" class="datagrid-toolbar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveTailorFormCols()"
+            data-options="plain:true,iconCls:'icon-save'">保存</a><a href="javascript:void(0)"
+                class="easyui-linkbutton" onclick="addMindCol()" data-options="plain:true,iconCls:'icon-add'">
+                添加意见</a><a href="javascript:void(0)"
+                class="easyui-linkbutton" onclick="addSubTable()" data-options="plain:true,iconCls:'icon-add'">
+                添加子表</a> <a href="javascript:void(0)" class="easyui-linkbutton" onclick="cancelEditMindCol()"
+                    data-options="plain:true,iconCls:'icon-undo'">取消</a>
+    </div>
+    
+    <div id="InsertSubTable" class="easyui-window" title="添加子表" data-options="modal:true,closed:true,iconCls:'icon-save'"
+        style="width: 500px; height: 350px;">
+    </div>
+</div>

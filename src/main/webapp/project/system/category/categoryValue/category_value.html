@@ -1,0 +1,60 @@
+<div class="dom-left" style="right: 0;border: none;margin-right: 0">
+    <div class="div-tool">
+        <span ><span style="font-weight: bold">{{categoryValue.categoryName}}</span> - 子项列表</span>
+        <ul>
+            <li ng-click="categoryValue.addOrUpdateCategoryValue(0)">
+                <span >新增</span>
+            </li>
+            <li ng-click="categoryValue.deleteCategoryValues()">
+                <span >禁用</span>
+            </li>
+            <li ng-click="categoryValue.undeleteCategoryValues()">
+                <span >启用</span>
+            </li>
+        </ul>
+    </div>
+    <div class="content-left" style="top: 41px;overflow-y: hidden;padding-left: 0">
+        <div class="query-list" style="top: 0;">
+            <div class="table-thead" style="border-left: 0;border-right: 0">
+                <table cellpadding="0" cellspacing="0"  style="table-layout: fixed">
+                    <thead>
+                    <tr>
+                        <th width="5%">
+                            <input type="checkbox" ng-model="categoryValue.allSelected" ng-click="categoryValue.selectAll()"/>
+                        </th>
+                        <th width="7%">序号</th>
+                        <th width="40%">字典名称</th>
+                        <th width="25%">字典编码</th>
+                        <th width="15%">是否禁用</th>
+                        <th width="10%">操作</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+            <div id="query_nothing" class="nothing nothingTop"
+                 ng-show="!!!categoryValue.categoryValueList||categoryValue.categoryValueList.length==0">
+                <span></span>暂无数据
+            </div>
+            <div class="table-tbody" m-custom-scrollbar style="border-left: 0;border-right: 0;bottom: 0;border-bottom: 0">
+                <table id="query-list-panel" cellpadding="0" cellspacing="0" style="table-layout: fixed"
+                       ng-hide="!!!categoryValue.categoryValueList||categoryValue.categoryValueList.length==0">
+                    <tbody>
+                    <tr ng-repeat="n in categoryValue.categoryValueList track by $index" ng-class-even="'bgcolor'"
+                        ng-class="{'false':'','true':'selected'}[n.selected]">
+                        <td width="5%" ng-click="categoryValue.selectItem(n)">
+                            <input type="checkbox"  ng-model="n.selected" ng-click="$event.stopPropagation();"/>
+                        </td>
+                        <td  width="7%">{{ $index + 1 }}</td>
+                        <td width="40%" style="text-align: left">&nbsp;&nbsp;{{n.chinaname}}</td>
+                        <td width="25%">{{n.constname}}</td>
+                        <td width="15%" ng-style="{color:(n.delstatus===1)?'red':''}">{{n.delText}}</td>
+                        <td width="10%">
+                            <span class="modify" ng-click="categoryValue.addOrUpdateCategoryValue(1,n.id)" style="color: royalblue;cursor: pointer;">[编辑]</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

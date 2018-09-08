@@ -1,0 +1,34 @@
+﻿<div class="toolbar">
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="insertBookMark()"
+        data-options="plain:true,iconCls:'icon-add'">插入</a>
+</div>
+<div class="easyui-panel" fit="true" border="false" style="padding-top:10px; padding-left:10px;">
+    <div class="easyui-layout" data-options="fit:true">
+        <table>
+            <colgroup>
+                <col style="width: 120px;" />
+                <col style="width: 220px;" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <td>
+                        书签名称:
+                    </td>
+                    <td colspan="3">
+                        <input class=" easyui-validatebox" type="text" name="notice.title" data-options="required:true,missingMessage:'请输入书签名称'"
+                            id="txtName" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        书签标识:
+                    </td>
+                    <td colspan="3">
+                        <input class=" easyui-validatebox" type="text" name="notice.title" data-options="required:true,missingMessage:'请输入书签标识'"
+                            id="txtConstname" />
+                    </td>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>

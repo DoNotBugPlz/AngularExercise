@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="google" content="notranslate">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>PDF阅读</title>
+    <script src="../pdf.js"></script>
+    <script src="../pdf.worker.js"></script>
+    <script src="../jquery.min.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        body {
+            height: 100%;
+            width: 100%;
+            background-color: #404040;
+            background-image: url(../images/texture.png);
+        }
+        .viewerTool{
+            position: relative;
+            height: 32px;
+            background-color: #474747;
+            background-image: url(../images/texture.png), linear-gradient(hsla(0,0%,32%,.99), hsla(0,0%,27%,.95));
+        }
+        .toolbarButtonPanel{
+            position: relative;
+            float: right;
+            margin: 3px 2px 4px 0;
+            display: inline-block;
+        }
+        .toolbarButton{
+            background: none;
+            width: 32px;
+            height: 25px;
+            padding: 2px 6px 0;
+            border: 1px solid transparent;
+            border-radius: 2px;
+            color: hsla(0,0%,100%,.8);
+            font-size: 12px;
+            line-height: 14px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            cursor: default;
+            font: message-box;
+            outline: none;
+            -webkit-transition-property: background-color, border-color, box-shadow;
+            -webkit-transition-duration: 150ms;
+            -webkit-transition-timing-function: ease;
+            transition-property: background-color, border-color, box-shadow;
+            transition-duration: 150ms;
+            transition-timing-function: ease;
+        }
+        .toolbarButton:hover{
+            background-color: hsla(0,0%,0%,.12);
+            background-image: linear-gradient(hsla(0,0%,100%,.05), hsla(0,0%,100%,0));
+            background-clip: padding-box;
+            border: 1px solid hsla(0,0%,0%,.35);
+            border-color: hsla(0,0%,0%,.32) hsla(0,0%,0%,.38) hsla(0,0%,0%,.42);
+            box-shadow: 0 1px 0 hsla(0,0%,100%,.05) inset,
+            0 0 1px hsla(0,0%,100%,.15) inset,
+            0 1px 0 hsla(0,0%,100%,.05);
+        }
+        .toolbarButton.zoomOut::before {
+            content: url(../images/toolbarButton-zoomOut.png);
+        }
+        .toolbarButton.zoomIn::before {
+            content: url(../images/toolbarButton-zoomIn.png);
+        }
+        .toolbarButtonSeparator {
+            padding: 8px 0;
+            width: 1px;
+            background-color: hsla(0,0%,0%,.5);
+            z-index: 99;
+            box-shadow: 0 0 0 1px hsla(0,0%,100%,.08);
+            display: inline-block;
+        }
+        .viewerPanel{
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+            position: absolute;
+            top: 32px;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            outline: none;
+        }
+        .pdfViewer {
+            position: absolute;
+            top:0px;
+            bottom: 0px;
+            left:10%;
+            right: 10%;
+        }
+        .pdfViewer .page{
+            margin:10px auto;
+        }
+    </style>
+    <script type="text/javascript">
+        function getUrlParams(key) {
+            return (window.location.search.match(new RegExp("(?:^\\?|&)" + key + "=(.*?)(?=&|$)")) || ['', null])[1];
+        }
+        $(function () {
+            var title = decodeURIComponent(getUrlParams("title") || "PDF在线阅读");
+            var file_path = decodeURIComponent(getUrlParams("file_path")|| "test201801041446.pdf");
+            showPdf(file_path);
+        });
+        function showPage(url,pageNum) {
+            PDFJS.getDocument(url).then(function (pdf) {
+                pdf.getPage(pageNum).then(function (page) {
+                    var scale = 1.0;
+                    var viewport = page.getViewport(scale);
+                    var canvas = document.getElementById('page-id-'+pageNum);
+                    var context = canvas.getContext('2d');
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+                    var renderContext = {
+                        canvasContext : context,
+                        viewport : viewport
+                    };
+                    page.render(renderContext);
+                });
+            });
+        }
+        function showPdf(file_path) {
+            PDFJS.getDocument(file_path).then(function (pdf) {
+                //默认加载前五页
+                for(var index = 1;index < pdf.numPages && index < 5;index++){
+                    $('.pdfViewer').append('<div class="page"><canvas id="page-id-'+index+'"></canvas></div>');
+                    showPage(file_path,index);
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="viewerTool">
+        <div class="toolbarButtonPanel">
+            <button class="toolbarButton zoomOut"></button>
+            <div class="toolbarButtonSeparator"></div>
+            <button class="toolbarButton zoomIn"></button>
+        </div>
+    </div>
+    <div class="viewerPanel">
+        <div class="pdfViewer"></div>
+    </div>
+</body>
+</html>

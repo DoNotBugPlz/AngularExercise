@@ -1,0 +1,104 @@
+<!--商品基准库-->
+<div class="popWhite"   >
+    <div class="css-content" m-custom-scrollbar  ng-form="goodsDetail_form">
+        <table cellpadding="0" cellspacing="0">
+            <tbody>
+            <tr>
+                <td  class="name name-height">商品名称</td>
+                <td  class="value">
+                    <input ng-class="{true:'warn',false:''}[goodsDetail_form.name.$error.required]"
+                           required maxlength="50" type="text" ng-model="vm.goodsDetail.name"  name="name"  />
+                </td>
+                <td  class="name name-height">商品种类</td>
+                <td  class="value" >
+                    <input required maxlength="50" name="goods_type_name" type="text" readonly ng-model="vm.goods_type_name"/>
+                </td>
+            </tr>
+            <tr>
+                <td  class="name name-height">规格等级</td>
+                <td  class="value">
+                    <input required maxlength="50" name="spec" required
+                           ng-class="{true:'warn',false:''}[goodsDetail_form.spec.$error.required]"
+                           type="text" ng-model="vm.goodsDetail.spec"/>
+                </td>
+                <td  class="name name-height">计量单位</td>
+                <td  class="value" >
+                    <input required maxlength="50" name="measurement_unit" required
+                           ng-class="{true:'warn',false:''}[goodsDetail_form.measurement_unit.$error.required]"
+                           type="text" ng-model="vm.goodsDetail.measurement_unit"/>
+                </td>
+            </tr>
+            <tr>
+                <td  class="name name-height">商品编码</td>
+                <td  class="value">
+                    <input required maxlength="50" name="goods_code" required
+                           ng-class="{true:'warn',false:''}[goodsDetail_form.goods_code.$error.required]"
+                           type="text" ng-model="vm.goodsDetail.goods_code"/>
+                </td>
+
+
+
+            </tr>
+            </tbody>
+        </table>
+        <table>
+            <tbody>
+            <tr>
+                <td  class="name name-height">商品别名</td>
+                <td class="value" >
+                    <input type="text"  ng-model="vm.goodsDetail.alias" name="alias"/>
+                </td>
+                <td  class="name name-height">产地</td>
+                <td class="value" >
+                    <input type="text"   ng-model="vm.goodsDetail.origin_place" name="origin_place"/>
+                </td>
+            </tr>
+            <tr>
+                <td  class="name name-height">生产企业</td>
+                <td class="value" >
+                    <input type="text"   ng-model="vm.goodsDetail.origin_company" name="origin_company"/>
+                </td>
+                <td  class="name name-height">商品品牌</td>
+                <td class="value" >
+                    <input type="text"   ng-model="vm.goodsDetail.brand" name="brand"/>
+                </td>
+            </tr>
+            <tr>
+                <td  class="name name-height">条形码</td>
+                <td class="value" >
+                    <input type="text"  ng-model="vm.bar_code" name="bar_code" maxlength="8"/>
+                </td>
+                <td  class="name name-height">状态</td>
+                <td class="value" >
+                    <select  ng-model="vm.goodsDetail.delstatus" class="sel_sel_zzy">
+                        <option selected value="0">启用</option>
+                        <option value="1">停用</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td  class="name name-height">备注</td>
+                <td class="value" colspan="3">
+                    <textarea class="remarks" ng-model="vm.goodsDetail.remark" name="remark"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td  class="name name-height">商品图片</td>
+                <td class="value" colspan="3">
+                    <div class="fileListDiv"
+                         attach-file-list
+                         attach-file-list-init-options="vm.fileInitOptions"
+                         attach-file-list-load-options="vm.fileLoadOptions"
+                    ></div>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+    <div class="popBottom">
+        <span class="btn2" ng-click="vm.cancelOp()" ng-if="vm.htmlType=='view'" >关闭</span>
+        <span class="btn2" ng-click="vm.saveInfo()" ng-if="vm.htmlType=='edit' || vm.htmlType=='add'">保存</span>
+        <span class="btn1" ng-click="vm.cancelOp()" ng-if="vm.htmlType=='edit' || vm.htmlType=='add'">取消</span>
+    </div>
+</div>

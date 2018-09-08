@@ -1,0 +1,54 @@
+<!--
+<div class="content-right" style="top: 0px;padding: inherit;" >
+
+    <div style="font-size: 14px;line-height: 30px">所属类别：{{vm.beloneCategory}}</div>
+    <div class="table_box_zzy top1_zzy" style="top: 30px;">
+        <div class="table_head_zzy marginB2">
+            <table style="border: 0px">
+                <tr style="border: 0px">
+                    <td style="border-top: 0px;" width="20%">国家编码</td>
+                    <td style="border-top: 0px;border-left: 0px" width="20%">系统编码</td>
+                    <td style="border-top: 0px;border-left: 0px" width="10%">商品名称</td>
+                    <td style="border-top: 0px;border-left: 0px" width="10%">规格等级</td>
+                    <td style="border-top: 0px;border-left: 0px" width="10%">计量单位</td>
+                    <td style="border-top: 0px;border-left: 0px" width="10%">状态</td>
+                    <td style="border-top: 0px;border-left: 0px;border-right: 0px" width="20%">操作</td>
+                </tr>
+            </table>
+        </div>
+        <div id="query_nothing" class="nothing nothingTop"
+             ng-show="!!!vm.goodsList||vm.goodsList.length==0">
+            <span></span>暂无数据
+        </div>
+        <div class="table-tbody" m-custom-scrollbar >
+            <table id="query-list-panel" cellpadding="0" cellspacing="0" style="table-layout: fixed"
+                   ng-hide="!!!vm.goodsList||vm.goodsList.length==0">
+                <tbody ng-model="vm.goodsList" >
+                <tr ng-repeat="n in vm.goodsList track by $index" ng-class-even="'bgcolor'"
+                    ng-class="{'false':'','true':'selected'}[n.selected]">
+                    <td width="20%" style="border-left:  1px solid #c6c6c6;">{{n.goods_code}}</td>
+                    <td width="20%" >{{n.id}}</td>
+                    <td width="10%" >{{n.name}}</td>
+                    <td width="10%" >{{n.spec}}</td>
+                    <td width="10%" >{{n.measurement_unit}}</td>
+                    <td width="10%" >{{n.status_text}}</td>
+                    <td width="20%">
+                        <span class="modify" ng-click="vm.viewGoods(n)">[详情]</span>
+                        &nbsp;&nbsp;
+                        <span class="delRole" ng-click="vm.editGoods(n)">[编辑]</span>
+                        &nbsp;&nbsp;
+                        <span class="delRole" ng-if="n.delstatus==1" ng-click="vm.changeStatue(n.id,0)">[启用]</span>
+                        <span class="delRole" ng-if="n.delstatus==0" ng-click="vm.changeStatue(n.id,1)">[停用]</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="table-tfoot">
+            <div class="table_page">
+                <div ng-turn-page="vm.goodsListPage" turn-page-fn="vm.loadGoodsList"></div>
+            </div>
+        </div>
+    </div>
+</div>-->
+111dfdsf

@@ -1,0 +1,27 @@
+<div class="dom-left">
+    <div class="div-tool">
+        <span >部门管理</span>
+        <ul id="op">
+            <li>
+                <span ng-click="">同步编码</span>
+            </li>
+            <li ng-click="dept.addNewdept()"   >
+                <span >新增</span>
+            </li>
+        </ul>
+    </div>
+    <div class="content-left" style="top: 45px;">
+        <ul ztree id="treeDemo" class="ztree" z-params="dept.zParams"></ul>
+    </div>
+</div>
+<div>
+    <div class="dom-right">
+        <div class="div-tool">
+            <span id="content-title">部门信息</span>
+        </div>
+        <div class="content-right"  ui-view="details">
+
+        </div>
+    </div>
+</div>
+

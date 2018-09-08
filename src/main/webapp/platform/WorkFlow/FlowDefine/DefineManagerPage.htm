@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>流程绘制页面</title>
+    <link href="../../ScriptSource/EasyUI/Skins/default/easyui.css" rel="stylesheet"
+        type="text/css" />
+    <link href="../../ScriptSource/EasyUI/Skins/icon.css" rel="stylesheet" type="text/css" />
+    <link href="../../ScriptSource/WorkFlow/lib/myflow.css" rel="stylesheet" type="text/css" />
+    <script src="../../ScriptSource/JQuery/jquery.min.js" type="text/javascript"></script>
+    <script src="../../ScriptSource/JavaScript/GlobalTools.js" type="text/javascript"></script>
+    <script src="../../ScriptSource/EasyUI/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../../ScriptSource/JQuery/jquery.form.js" type="text/javascript"></script>
+    <script src="../../ScriptSource/WorkFlow/lib/raphael-min.js" type="text/javascript"></script>
+    <script src="../../ScriptSource/WorkFlow/definemyflow.js" type="text/javascript"></script>
+    <script src="../../ScriptSource/WorkFlow/myflow.jpdl4.js" type="text/javascript"></script>
+    <script src="../../ScriptSource/JavaScript/OrganizationTools.js" type="text/javascript"></script>
+    <script src="DefineManagerPage.js" type="text/javascript"></script>
+    <script src="DefineTransConditionList.js" type="text/javascript"></script>
+    <style type="text/css">
+        #divMyflow
+        {
+            margin: 0;
+            pading: 0;
+            text-align: left;
+            font-family: Arial, sans-serif, Helvetica, Tahoma;
+            font-size: 12px;
+            line-height: 1.5;
+            color: black;
+            background-image: url(../../ScriptSource/WorkFlow/img/bg.png);
+        }
+        
+        .node
+        {
+            width: 70px;
+            text-align: center;
+            vertical-align: middle;
+            border: 1px solid #fff;
+        }
+        
+        .mover
+        {
+            border: 1px solid #ddd;
+            background-color: #ddd;
+        }
+        
+        .selected
+        {
+            background-color: #ddd;
+        }
+        
+        .state
+        {
+        }
+        
+        #myflow_props table
+        {
+        }
+        
+        #myflow_props th
+        {
+            letter-spacing: 2px;
+            text-align: left;
+            padding: 6px;
+            background: #ddd;
+        }
+        
+        #myflow_props td
+        {
+            background: #fff;
+            padding: 6px;
+        }
+        
+        #pointer
+        {
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        #path
+        {
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        #task
+        {
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        #state
+        {
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+    </style>
+</head>
+-->
+<body class="easyui-layout">
+    <div data-options="region:'center'" id="divMyflow">
+        <div id="myflow_tools" class="flow-widget-content" style="position: absolute; top: 10;
+            left: 10; background-color: #fff; width: 70px; cursor: default; padding: 3px;">
+            <div id="myflow_tools_handle" style="text-align: center;" class="flow-widget-header">
+                工具集</div>
+            <div id="myflow_info" class="node">
+                <img src="../../ScriptSource/WorkFlow/img/16/info.png" />流程信息</div>
+            <div>
+                <hr />
+            </div>
+            <div class="node" id="myflow_save">
+                <img src="../../ScriptSource/WorkFlow/img/save.gif" />&nbsp;&nbsp;保存图</div>
+            <div>
+                <hr />
+            </div>
+            <div class="node selectable" id="pointer">
+                <img src="../../ScriptSource/WorkFlow/img/select16.gif" />&nbsp;&nbsp;选择</div>
+            <div class="node selectable" id="path">
+                <img src="../../ScriptSource/WorkFlow/img/16/flow_sequence.png" />&nbsp;&nbsp;转换</div>
+            <div>
+                <hr />
+            </div>
+            <div class="node state" id="task" type="task">
+                <img src="../../ScriptSource/WorkFlow/img/16/task_empty.png" />&nbsp;&nbsp;任务</div>
+            <div class="node state" id="fork" type="fork">
+                <img src="../../ScriptSource/WorkFlow/img/16/gateway_exclusive.png" />&nbsp;&nbsp;分支</div>
+            <div class="node state" id="join" type="join">
+                <img src="../../ScriptSource/WorkFlow/img/16/gateway_parallel.png" />&nbsp;&nbsp;合并</div>
+            <div class="node state" id="countersign" type="countersign">
+                <img src="../../ScriptSource/WorkFlow/img/16/task_countersign.png" />&nbsp;&nbsp;会签</div>
+            <div class="node state" id="subprocess" type="subprocess">
+                <img src="../../ScriptSource/WorkFlow/img/16/task_subprocess.png" />子流程</div>
+            <div class="node state" id="scan" type="scan">
+                <img src="../../ScriptSource/WorkFlow/img/16/task_scan.png" />传阅</div>
+        </div>
+        <div id="myflow">
+        </div>
+    </div>
+    <div id='editPanel' data-options="region:'east',title:'配置信息'" style="padding: 0px;
+        width: 520px;">
+    </div>
+</body>
+</html>

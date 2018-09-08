@@ -1,0 +1,61 @@
+<div class="select_b_zzy " style="top: 10%;">
+    <div class="leftSel_table_zzy " ng-class="{true:'up',false:'over_hide2'}[vm.advSearch]">
+        <table border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="20%" class="txt">监测报表：</td>
+                <td width="30%">
+                    <span class="btn2" ng-click="vm.choseTable()">选择</span>
+                </td>
+
+            </tr>
+            <tr>
+                <td width="20%" class="txt">品种名称：</td>
+                <td width="30%">
+                    <input style="width: 200px;" type="text" class="sel_ipt_zzy" placeholder="请输入品种名称关键词"
+                           ng-model="vm.searchParams.keyword"/>
+                </td>
+                <td class="left">
+                    <a href="javascript:;" class="sel_btn_zzy " ng-click="vm.loadGoodsList()">查询</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="table_box_zzy top1_zzy" style="top:30%">
+    <div class="table_head_zzy marginB2">
+        <table>
+            <tr>
+                <td width="5%" ng-click="vm.selectAll()">
+                    <a href="javascript:;" class="ipt_check" ng-model="vm.allSelected"
+                       ng-class="{true:'checked',false:''}[vm.allSelected]"></a>
+                </td>
+                <td width="30%">品种名称</td>
+                <td width="25%">规格等级</td>
+                <td width="20%">计量单位</td>
+                <td width="20%">价格形式</td>
+            </tr>
+        </table>
+    </div>
+    <div id="query_nothing" class="nothing nothingTop"
+         ng-show="!!!vm.masterplateList||vm.masterplateList.length==0">
+        <span></span>暂无数据
+    </div>
+    <div class="table_main_zzy" m-custom-scrollbar>
+        <table class="table_word_space" ng-hide="!!!vm.materialList||vm.materialList.length==0">
+            <tr ng-repeat="n in vm.materialList track by $index" ng-class-even="'bgcolor'"
+                ng-class="{'false':'','true':'selected'}[n.selected]">
+                <td width="5%" ng-click="vm.selectItem(n)">
+                    <a href="javascript:;" class="ipt_check" ng-model="n.selected"
+                       ng-class="{true:'checked',false:''}[n.selected]"></a>
+                </td>
+                <td width="30%" class="word_space" style="text-align: left">&nbsp;&nbsp;{{n.material_name}}</td>
+                <td width="25%">{{n.write_user_name}}</td>
+                <td width="20%">{{n.write_time}}</td>
+                <td width="20%">{{n.clattachtype_text}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="popBottom">
+        <a class="table_main1_a" ng-show="!vm.operate_flag" ng-click="vm.saveGoodsList()">保存</a>
+    </div>
+</div>

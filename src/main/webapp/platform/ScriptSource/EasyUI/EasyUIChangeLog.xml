@@ -1,0 +1,399 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<EasyUIChange>
+  <Log>
+    <Moder>徐冬阳</Moder>
+    <ModTime>2016-11-29</ModTime>
+    <Reason>
+      <![CDATA[将“row._parentId” 修改为 “row.parentid” sql不支持'_']]>
+    </Reason>
+    <RowNumberBeg>全部替换</RowNumberBeg>
+    <RowNumberEnd>全部替换</RowNumberEnd>
+    <OldCode>
+      <![CDATA[row._parentId]]>
+    </OldCode>
+    <NewCode>
+      <![CDATA[row.parentid]]>
+    </NewCode>
+  </Log>
+
+  <Log>
+    <Moder>黄朋</Moder>
+    <ModTime>2013-06-25</ModTime>
+    <Reason>
+      <![CDATA[解决关闭Tab时不能完全释放内存]]>
+    </Reason>
+    <RowNumberBeg>4070</RowNumberBeg>
+    <RowNumberEnd>4080</RowNumberEnd>
+    <OldCode>
+      <![CDATA[
+      tab.panel("options").tab.remove();
+      tab.panel("destroy");]]>
+    </OldCode>
+    <NewCode>
+      <![CDATA[
+        tab.panel("options").tab.remove();
+        var frame=$("iframe",tab);
+        if(frame.length>0){
+            frame[0].contentWindow.document.write("");
+            frame[0].contentWindow.close();
+            frame.remove();
+            if($.browser.msie){
+                CollectGarbage();
+            }
+        }
+        tab.panel("destroy");]]>
+    </NewCode>
+  </Log>
+  <Log>
+    <Moder>黄朋</Moder>
+    <ModTime>2013-07-24</ModTime>
+    <Reason>
+      <![CDATA[解决使用第三方控件时，Dialog总是在第三方控件底层]]>
+    </Reason>
+    <RowNumberBeg>3022</RowNumberBeg>
+    <RowNumberEnd>4080</RowNumberEnd>
+    <OldCode>
+      <![CDATA[
+      _22f.shadow = $("<div class=\"window-shadow\"></div>").insertAfter(_22f.window);]]>
+    </OldCode>
+    <NewCode>
+      <![CDATA[
+        _22f.shadow = $("<div class=\"window-shadow\"><iframe frameborder=0 src='javascript:false' style=\"position:absolute;visibility:inherit;top:0px;left:0px;width:100%;height:100%;z-index:-1; filter='progid:DXImageTransform.Microsoft.Alpha(style=0,opacity=0)';\"</iframe></div>").insertAfter(_22f.window);]]>
+    </NewCode>
+  </Log>
+  <Log>
+    <Moder>黄朋</Moder>
+    <ModTime>2013-08-09</ModTime>
+    <Reason>
+      <![CDATA[添加替换时间日期中文过滤]]>
+    </Reason>
+    <RowNumberBeg>11793</RowNumberBeg>
+    <RowNumberEnd>11793</RowNumberEnd>
+    <OldCode>
+      <![CDATA[]]>
+    </OldCode>
+    <NewCode>
+      <![CDATA[
+        s = (s + "").ReplaceAll("-", "/").ReplaceAll("年", "/").ReplaceAll("月", "/").ReplaceAll("日", " ").ReplaceAll("时", ":").ReplaceAll("分", ":").ReplaceAll("秒", "");]]>
+    </NewCode>
+  </Log>
+  <Log>
+    <Moder>徐冬阳</Moder>
+    <ModTime>2013-09-17</ModTime>
+    <Reason>
+      <![CDATA[修改多选时 选一个项，显示的内容最前多加了符合“,”]]>
+    </Reason>
+    <RowNumberBeg>10772</RowNumberBeg>
+    <RowNumberEnd>10780</RowNumberEnd>
+    <OldCode>
+      <![CDATA[ function _7f2(_7f3, text) {
+  var _7f4 = $.data(_7f3, "combo");
+  var _7f5 = _7f4.combo.find("input.combo-text");
+  if (_7f5.val() != text) {
+  _7f5.val(text);
+  $(_7f3).combo("validate");
+  _7f4.previousValue = text;
+  }
+  };]]>
+    </OldCode>
+    <NewCode>
+      <![CDATA[
+        function _7f2(_7f3, text) {
+    
+        if(text&&text.indexOf(',')==0) {
+            if(text.length>1)
+                text=text.substr(1);
+        }
+
+        var _7f4 = $.data(_7f3, "combo");
+        var _7f5 = _7f4.combo.find("input.combo-text");
+        if (_7f5.val() != text) {
+            _7f5.val(text);
+            $(_7f3).combo("validate");
+            _7f4.previousValue = text;
+        }
+    };]]>
+    </NewCode>
+  </Log>
+  <Log>
+    <Moder>徐冬阳</Moder>
+    <ModTime>2013-09-17</ModTime>
+    <Reason>
+      <![CDATA[修改多选时，清除所有选择项后，无法提交空数据]]>
+    </Reason>
+    <RowNumberBeg>10789</RowNumberBeg>
+    <RowNumberEnd>10823</RowNumberEnd>
+    <OldCode>
+      <![CDATA[  function _7fa(_7fb, _7fc) {
+        var opts = $.data(_7fb, "combo").options;
+        var _7fd = _7f6(_7fb);
+        var _7fe = $.data(_7fb, "combo").combo;
+        _7fe.find("input.combo-value").remove();
+        var name = $(_7fb).attr("comboName");
+        for (var i = 0; i < _7fc.length; i++) {
+            var _7ff = $("<input type=\"hidden\" class=\"combo-value\">").appendTo(_7fe);
+            if (name) {
+                _7ff.attr("name", name);
+            }
+            _7ff.val(_7fc[i]);
+        }
+        var tmp = [];
+        for (var i = 0; i < _7fd.length; i++) {
+            tmp[i] = _7fd[i];
+        }
+        var aa = [];
+        for (var i = 0; i < _7fc.length; i++) {
+            for (var j = 0; j < tmp.length; j++) {
+                if (_7fc[i] == tmp[j]) {
+                    aa.push(_7fc[i]);
+                    tmp.splice(j, 1);
+                    break;
+                }
+            }
+        }
+        if (aa.length != _7fc.length || _7fc.length != _7fd.length) {
+            if (opts.multiple) {
+                opts.onChange.call(_7fb, _7fc, _7fd);
+            } else {
+                opts.onChange.call(_7fb, _7fc[0], _7fd[0]);
+            }
+        }
+    };]]>
+    </OldCode>
+    <NewCode>
+      <![CDATA[
+        function _7fa(_7fb, _7fc) {
+        var opts = $.data(_7fb, "combo").options;
+        var _7fd = _7f6(_7fb);
+        var _7fe = $.data(_7fb, "combo").combo;
+        _7fe.find("input.combo-value").remove();
+        var name = $(_7fb).attr("comboName");
+        var _7fcTemp=[];
+        if(opts.multiple){
+            if(_7fc.length==0){
+                $("<input type=\"hidden\" class=\"combo-value\" name=\""+name+"\" value=\"\">").appendTo(_7fe);
+            }
+            for (var i = 0; i < _7fc.length; i++) {
+                if(_7fc[i]){
+                    var _7ff = $("<input type=\"hidden\" class=\"combo-value\">").appendTo(_7fe);
+                    if (name) {
+                        _7ff.attr("name", name);
+                    }
+                    _7ff.val(_7fc[i]);
+                    _7fcTemp.push(_7fc[i]);
+                }
+            }
+        }
+        else{
+            for (var i = 0; i < _7fc.length; i++) {
+                var _7ff = $("<input type=\"hidden\" class=\"combo-value\">").appendTo(_7fe);
+                if (name) {
+                    _7ff.attr("name", name);
+                }
+                _7ff.val(_7fc[i]);
+                _7fcTemp.push(_7fc[i]);
+            }
+        }
+        var tmp = [];
+        for (var i = 0; i < _7fd.length; i++) {
+            tmp[i] = _7fd[i];
+        }
+        var aa = [];
+        for (var i = 0; i < _7fcTemp.length; i++) {
+            for (var j = 0; j < tmp.length; j++) {
+                if (_7fcTemp[i] == tmp[j]) {
+                    aa.push(_7fcTemp[i]);
+                    tmp.splice(j, 1);
+                    break;
+                }
+            }
+        }
+        if (aa.length != _7fcTemp.length || _7fcTemp.length != _7fd.length) {
+            if (opts.multiple) {
+                opts.onChange.call(_7fb, _7fcTemp, _7fd);
+            } else {
+                opts.onChange.call(_7fb, _7fcTemp[0], _7fd[0]);
+            }
+        }
+    };]]>
+    </NewCode>
+  </Log>
+  <Log>
+    <Moder>徐冬阳</Moder>
+    <ModTime>2013-09-17</ModTime>
+    <Reason>
+      <![CDATA[过滤多选的空值]]>
+    </Reason>
+    <RowNumberBeg>10786</RowNumberBeg>
+    <RowNumberEnd>10793</RowNumberEnd>
+    <OldCode>
+      <![CDATA[function _7f6(_7f7) {
+        var _7f8 = [];
+        var _7f9 = $.data(_7f7, "combo").combo;
+        _7f9.find("input.combo-value").each(function () {
+            _7f8.push($(this).val());
+        });
+        return _7f8;
+    };]]>
+    </OldCode>
+    <NewCode>
+      <![CDATA[
+        function _7f6(_7f7) {
+        var _7f8 = [];
+        var _7f9 = $.data(_7f7, "combo").combo;
+        var opts = $.data(_7f7, "combo").options;
+        var inputArray = _7f9.find("input.combo-value");
+        if(opts.multiple)//多选
+        {
+             inputArray.each(function () {
+                    if($(this).val())
+                        _7f8.push($(this).val());
+                });
+        }
+        else
+        {
+            inputArray.each(function () {
+                  _7f8.push($(this).val());
+            });
+        }
+        return _7f8;
+    };]]>
+    </NewCode>
+  </Log>
+  <Log>
+    <Moder>徐冬阳</Moder>
+    <ModTime>2013-11-1</ModTime>
+    <Reason>
+      <![CDATA[iframe跨域关闭报错]]>
+    </Reason>
+    <RowNumberBeg>4203</RowNumberBeg>
+    <RowNumberEnd>4209</RowNumberEnd>
+    <OldCode>
+      <![CDATA[
+                frame[0].contentWindow.document.write("");
+                frame[0].contentWindow.close();
+                frame.remove();
+            if ($.browser.msie) {
+                CollectGarbage();
+            } ]]>
+    </OldCode>
+    <NewCode>
+      <![CDATA[
+        try{
+                frame[0].contentWindow.document.write("");
+                frame[0].contentWindow.close();
+                frame.remove();
+            }
+            catch(e){
+                try{
+                    frame[0].src="";
+                 }
+                 catch(e){}
+            }
+            finally{
+                frame.remove();
+            }
+            if ($.browser.msie) {
+                CollectGarbage();
+            } ]]>
+    </NewCode>
+  </Log>
+  <Log>
+    <Moder>徐冬阳</Moder>
+    <ModTime>2013-12-3</ModTime>
+    <Reason>
+      单（多）选 不符合项 不需要显示
+    </Reason>
+    <RowNumberBeg>10799</RowNumberBeg>
+    <RowNumberEnd>10834</RowNumberEnd>
+    <OldCode>
+      <![CDATA[
+                ]]>
+    </OldCode>
+    <NewCode>
+      <![CDATA[
+         var comboxCtr=$.data(_7f3, "combobox");
+        if(comboxCtr){ 
+            var selectItem=comboxCtr.data;
+            if(selectItem && selectItem.length>0)
+            {
+                if(!_7f4.options.multiple ) {//单选
+                    var flagExist=false;
+                    for(var temp in selectItem) {
+                        if(selectItem[temp][_7f4.options.textField] == text){
+                        flagExist=true;
+                        break;
+                        }
+                    }
+                    if(!flagExist) {
+                        _7f4.combo.find("input.combo-text").val("");
+                        _7f4.previousValue = "";
+                        return;
+                    }
+                 }
+                 else{//多选
+                    var showText="";
+                    if(text){
+                        for(var temp in selectItem) {
+                            if((","+text+",").indexOf(","+selectItem[temp][_7f4.options.textField]+",") >= 0){
+                                if(showText)
+                                    showText += ",";
+                                showText += selectItem[temp][_7f4.options.textField];
+                            }
+                        }
+                            _7f4.combo.find("input.combo-text").val(showText);
+                            _7f4.previousValue = showText;
+                            return;
+                    }
+                 }
+             }
+        } ]]>
+    </NewCode>
+  </Log>
+  <Log>
+    <Moder>徐冬阳</Moder>
+    <ModTime>2013-12-3</ModTime>
+    <Reason>
+      下拉框 左右方向键 bug
+    </Reason>
+    <RowNumberBeg>11459</RowNumberBeg>
+    <RowNumberEnd>11459</RowNumberEnd>
+    <OldCode>
+      <![CDATA[ }, enter: function () {]]>
+    </OldCode>
+    <NewCode>
+      <![CDATA[ }, left: function (){}, right: function (){}, enter: function () {]]>
+    </NewCode>
+  </Log>
+  <Log>
+    <Moder>徐冬阳</Moder>
+    <ModTime>2014-2-18</ModTime>
+    <Reason>
+      <![CDATA[弹出窗口始终全部处于可视区域]]>
+    </Reason>
+    <RowNumberBeg>3134</RowNumberBeg>
+    <RowNumberEnd>993</RowNumberEnd>
+    <OldCode>
+      <![CDATA[]]>
+    </OldCode>
+    <NewCode>
+      <![CDATA[ if(e.data.left<0)
+                {
+                    e.data.left=0;
+                }
+            else if(e.data.left+$(e.data.target).outerWidth()>$(window).width())
+            {
+                e.data.left=$(window).width()-$(e.data.target).outerWidth();
+            }
+            var heightOfWindow=$(window).height();
+            if(e.data.top<0)
+            {
+                e.data.top=0;
+            }
+            else if(e.data.top+$(e.data.target).outerHeight()>heightOfWindow)
+            {
+                e.data.top=heightOfWindow-$(e.data.target).outerHeight();
+            }]]>
+    </NewCode>
+  </Log>
+</EasyUIChange>

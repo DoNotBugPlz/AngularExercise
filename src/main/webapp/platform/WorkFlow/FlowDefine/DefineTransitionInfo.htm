@@ -1,0 +1,52 @@
+﻿<div class="easyui-panel" fit="true" border="false">
+    <!--padding:5px;border:1px solid #ddd;  -->
+    <div class="datagrid-toolbar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="savedefTransitionform()"
+            data-options="plain:true,iconCls:'icon-save'">保存</a>
+    </div>
+    <div>
+        <form id="defTransitionform" method="post" action="../../../Sys_def_transition/SaveForm.do">
+        <table style="padding-left: 20px;">
+            <colgroup>
+                <col width="80px" align="left" />
+                <col align="left" />
+            </colgroup>
+            <tr>
+                <td>
+                    流向名称:
+                </td>
+                <td>
+                    <input class="easyui-validatebox" type="text" name="sys_def_transition.chinaname"
+                        id="defTransitionchinaname" data-options="required:true" style="width: 300px" />
+                </td>
+            </tr>
+             <tr>
+                <td>
+                    流向特殊名称:
+                </td>
+                <td>
+                    <input class="easyui-validatebox" type="text" name="sys_def_transition.specialname"
+                        id="defTransitionspecialname"  style="width: 300px" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    人员具有角色:
+                </td>
+                <td>
+                    <input class="easyui-combobox" name="sys_def_transition.actorroles" id="actorroles"
+                           data-options="
+                    					url:rootPath+'Sys_roles/LoadAllRoles.do',
+                    					valueField:'id',
+                    					textField:'chinaname',
+										editable:false,
+                                        multiple:true,
+                    					panelHeight:'auto'
+                    					" style="width: 300px;" />
+                </td>
+            </tr>
+        </table>
+        <input type="hidden" name="sys_def_transition.id" id="deftransitionid" />
+        </form>
+    </div>
+</div>

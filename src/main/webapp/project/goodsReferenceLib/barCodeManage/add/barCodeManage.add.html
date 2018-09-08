@@ -1,0 +1,71 @@
+<div class="popWhite">
+    <div class="css-content" m-custom-scrollbar ng-form="barCodeManage_form">
+        <table cellpadding="0" cellspacing="0">
+            <tbody>
+            <tr>
+                <td style="border: 1px solid;">
+                    <input type="text" ng-model="vm.barCodeManage.goods_code" name="goods_code" placeholder=""
+                           readonly="true" style="width: 180px;text-align: center;border: 0px;"/>
+                </td>
+                <td style="border: 1px solid;">
+                    <input type="text" ng-model="vm.barCodeManage.name" name="name"
+                           readonly="true" style="width: 180px;text-align: center;border: 0px;"/></td>
+                <td style="border: 1px solid;">
+                    <input type="text" ng-model="vm.barCodeManage.spec" name="spec"
+                           readonly="true" style="width: 180px;text-align: center;border: 0px;"/></td>
+                <td style="border: 1px solid;">
+                    <input type="text" ng-model="vm.barCodeManage.measurement_unit" name="measurement_unit"
+                           readonly="true" style="width: 180px;text-align: center;border: 0px;"/></td>
+            </tr>
+            <tr>
+                <td class="name name-height" style="width: 10%">新增条形码</td>
+                <td class="value" colspan="3">
+                    <input maxlength="8" type="text" ng-model="vm.barCodeManage.bar_code_new"
+                           name="bar_code_new" ng-keyup="vm.checkNumber(vm.barCodeManage,'bar_code_new')"
+                           placeholder="请输入条形码"/>
+                </td>
+            </tr>
+            <tr ng-show="vm.currBarCode.bar_code">
+                <td class="name name-height" style="width: 10%">当前条形码</td>
+                <td class="value">
+                    <div img-src-div img-src-params="vm.currBarCode.bar_code" class="div_img"
+                         img-src-begin="../Cf_goods_bar_code/loadImg.do?code="></div>
+                </td>
+                <td>
+                    （添加时间：{{vm.currBarCode.uploaded_time}}）
+                </td>
+                <td class="value">
+                    条码状态：
+                    <select ng-model="vm.currBarCode.delstatus" name="delstatus"
+                            ng-class="{true:'warn',false:''}[barCodeManage_form.delstatus_new.$error.required]"
+                            ng-options="n.id as n.text for n in vm.category_delstatus"
+                            ng-disabled="vm.is_view">
+                    </select>
+                </td>
+            </tr>
+            <tr ng-repeat="n in vm.hisBarCodeList" ng-show="vm.currBarCode.bar_code">
+                <td class="name name-height" style="width: 10%">历史条形码</td>
+                <td class="value">
+                    <div img-src-div img-src-params="n.bar_code"
+                         class="div_img"
+                         img-src-begin="../Cf_goods_bar_code/loadImg.do?code="></div>
+                </td>
+                <td>
+                    （添加时间：{{n.uploaded_time}}）
+                </td>
+                <td class="value">
+                    条码状态：
+                    <select ng-model="vm.hisBarCodeList[$index].delstatus"
+                            ng-options="n.id as n.text for n in vm.category_delstatus"
+                            ng-disabled="vm.is_view">
+                    </select>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="popBottom">
+        <span class="btn2" ng-click="vm.saveBarCodeManage()">保存</span>
+        <span class="btn1" ng-click="vm.cancelOp()">取消</span>
+    </div>
+</div>

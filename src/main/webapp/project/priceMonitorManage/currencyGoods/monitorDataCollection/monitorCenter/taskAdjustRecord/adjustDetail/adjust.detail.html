@@ -1,0 +1,138 @@
+<div class="popWhite"  >
+    <div class="css-content" m-custom-scrollbar  ng-form="index_form">
+        <div>
+            <input type="button" style="cursor: pointer"ng-class="{'true':'type_checked','false':'type_input'}[vm.check_type_a]"  ng-click="vm.changType(1)" value="调整监测点">
+            <input type="button" style="margin-left: -5px;cursor: pointer" ng-class="{'true':'type_checked','false':'type_input'}[vm.check_type_b]"  ng-click="vm.changType(2)" value="调整监品种">
+        </div>
+        <div ng-if="vm.check_type_a">
+            <div class="monitor_viv" m-custom-scrollbar>
+                <div class="monitor_input">
+                    <span>浦口区苏果超市</span>
+                </div>
+                <div class="monitor_input">
+                    <span>浦口区大润发超市</span>
+                </div>
+                <div class="monitor_input">
+                    <span>浦口区雨山路菜市场</span>
+                </div>
+
+                <div class="monitor_input">
+                    <span>浦口区苏果超市</span>
+                </div>
+                <div class="monitor_input">
+                    <span>浦口区大润发超市</span>
+                </div>
+                <div class="monitor_input">
+                    <span>浦口区雨山路菜市场</span>
+                </div>
+
+                <div class="monitor_input">
+                    <span>浦口区苏果超市</span>
+                </div>
+                <div class="monitor_input">
+                    <span>浦口区大润发超市</span>
+                </div>
+                <div class="monitor_input">
+                    <span>浦口区雨山路菜市场</span>
+                </div>
+
+                <div class="monitor_input">
+                    <span>浦口区苏果超市</span>
+                </div>
+                <div class="monitor_input">
+                    <span>浦口区大润发超市</span>
+                </div>
+                <div class="monitor_input">
+                    <span>浦口区雨山路菜市场</span>
+                </div>
+            </div>
+
+            <div class="table_box_zzy extends">
+                <div class="table_head_zzy marginB2">
+                    <table>
+                        <tr>
+                            <td width="20%">监测表</td>
+                            <td width="60%">上报品种</td>
+                            <td width="15%">操作</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="table_main_zzy" m-custom-scrollbar >
+                    <table>
+                        <tr ng-repeat="n in vm.signList track by $index" ng-class-even="'bgcolor'"
+                            ng-class="{'false':'','true':'selected'}[n.selected]">
+                            <td width="20%" ng-if="$index==0" style="text-align: left" rowspan="2">&nbsp;&nbsp;{{n.chinaname}}</td>
+                            <td width="20%" style="text-align: left">&nbsp;&nbsp;{{n.site_name}}</td>
+                            <td width="20%">{{n.col_datetime}}</td>
+                            <td width="20%" >{{n.col_datetime}}</td>
+                            <td width="15%" ng-if="$index==0" rowspan="2">
+                                <a href="javascript:;" class="table_main1_a" ng-click="vm.openIndex(1)">调整</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div ng-if="vm.check_type_b" style="margin-top: 20px;">
+            <div class="table_box_zzy extends"  style="height: 390px">
+                <div class="table_head_zzy marginB2">
+                    <table>
+                        <tr>
+                            <td width="25%">商品名称</td>
+                            <td width="20%">规格等级</td>
+                            <td width="15%">计量单位</td>
+                            <td width="25%">监测点</td>
+                            <td width="15%">操作</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="table_main_zzy" m-custom-scrollbar >
+                    <table>
+                        <tr ng-repeat="n in vm.goodList track by $index" ng-class-even="'bgcolor'"
+                            ng-class="{'false':'','true':'selected'}[n.selected]">
+                            <td width="25%" ng-style="n.style">&nbsp;&nbsp;{{n.chinaname}}</td>
+                            <td width="20%" style="text-align: left">&nbsp;&nbsp;{{n.site_name}}</td>
+                            <td width="15%">{{n.col_datetime}}</td>
+                            <td width="25%" style="text-align: left">{{n.actual_sign_nums}}</td>
+                            <td width="15%" ng>
+                                <a href="javascript:;" class="table_main1_a" ng-if="n.is_pub==1" ng-click="vm.openIndex(2)">调整</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="popBottom">
+        <a class="table_main1_a" style="width: auto" ng-show="vm.cf_index.index_nature ==3 && !vm.operate_flag" ng-click="vm.addOption()">新增选项</a>
+        <a class="table_main1_a" ng-show="!vm.operate_flag" ng-click="vm.saveOrUpdateIndex()" >保存</a>
+        <a class="table_main1_a" ng-click="vm.cancelDialog()">取消</a>
+    </div>
+</div>
+
+<style>
+    .monitor_viv{
+        height:100px;
+        background-color: aliceblue;margin-top: 20px;margin-bottom: 20px;
+    }
+    .monitor_input{
+        cursor: pointer;
+        margin: 10px 55px 10px;
+        line-height: 26px;
+        float: left;
+        box-sizing: border-box;
+    }
+    .extends{
+        top: 0px;
+        height: 265px;
+        position: relative;
+        margin-right: 10px;
+    }
+    .type_input{
+        background-color: darkturquoise;
+    }
+    .type_checked{
+        background-color: white;
+    }
+</style>

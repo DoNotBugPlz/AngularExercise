@@ -1,0 +1,362 @@
+<div class="hp_container">
+    <!--头部-->
+    <div class="hp_container_topBar">
+        <div class="topBar_left">
+            <img src="../styles/images/green/title_topBar.png" class="plat_title">
+            <span class="plat_city">江苏省</span>
+        </div>
+
+        <div class="topBar_right">
+            <a class="func_icon" href="javascript:;" ng-click="vm.quit()">
+                <span>
+                    <span class="func_icon_imgBox icon_exit"></span>
+                    <span class="func_icon_txt">退出</span>
+                </span>
+            </a>
+            <a class="func_icon" href="javascript:;">
+                <span>
+                    <span class="func_icon_imgBox icon_setting"></span>
+                    <span class="func_icon_txt">设置</span>
+                </span>
+            </a>
+            <a class="func_icon ulShow" href="javascript:;">
+                <span>
+                    <span class="func_icon_imgBox icon_sch"><p>9</p></span>
+                    <span class="func_icon_txt">待办</span>
+                </span>
+            </a>
+
+            <span class="desc_id padding">
+                <span class="id_name">{{vm.user.deptName}}，{{vm.user.chinaname}}</span>
+            </span>
+
+            <div class="func_ullist">
+                <p class="ullist_title">待办任务</p>
+                <ul>
+                    <li>
+                        <span class="ullist_tag">【数据审验】</span>
+                        <a href="javascript:;">城市居民食品零售价格监测（0616）</a>
+                        <span class="ullist_time">06-26</span>
+                    </li>
+                    <li>
+                        <span class="ullist_tag">【数据审验】</span>
+                        <a href="javascript:;">城市居民食品零售价格监测（0616）</a>
+                        <span class="ullist_time">06-26</span>
+                    </li>
+                    <li>
+                        <span class="ullist_tag">【数据审验】</span>
+                        <a href="javascript:;">城市居民食品零售价格监测（0616）</a>
+                        <span class="ullist_time">06-26</span>
+                    </li>
+                    <li>
+                        <span class="ullist_tag">【数据审验】</span>
+                        <a href="javascript:;">城市居民食品零售价格监测（0616）</a>
+                        <span class="ullist_time">06-26</span>
+                    </li>
+                    <li>
+                        <span class="ullist_tag">【数据审验】</span>
+                        <a href="javascript:;">城市居民食品零售价格监测（0616）</a>
+                        <span class="ullist_time">06-26</span>
+                    </li>
+                </ul>
+                <a class="ullist_more" href="javascript:;">&lt;查看更多&gt;</a>
+            </div>
+
+            <div class="btn_enter">
+                <p>系统入口</p>
+                <ul>
+                    <li><a href="javascript:;">一体化工作平台</a></li>
+                    <li><a href="javascript:;">移动应急工作平台</a></li>
+                    <li><a href="javascript:;">预警信息发布平台</a></li>
+                    <li><a href="javascript:;">预警控制中心</a></li>
+                    <li><a href="javascript:;">大数据中心</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="clear"></div>
+    </div>
+    <!--内容区-->
+    <div class="hp_container_content" jquery-animation="vm.contentSlideOptions">
+        <!--左侧菜单-->
+        <div class="leftSide_menu" jquery-animation="vm.leftSideMenuOptions">
+            <div class="leftMenuBox" jquery-animation="vm.leftSideMenuUlOptions" m-custom-scrollbar>
+                <ul>
+                    <li><p>办公主页</p></li>
+                    <li ng-repeat="menu in vm.menus" ng-click="vm.getAndSetSecMenus(menu)"
+                        ng-class="{true:'active',false:''}[menu.id == vm.activeMenuInf.firstMenu.id]">
+                        <p ng-class="{true:'arrow_slider',false:''}[menu.isparent]">{{menu.name}}</p>
+                        <ul class="second_list" jquery-slide="menu.childrenShow">
+                            <li ng-repeat="children in menu.children"
+                                ng-click="vm.getAndSetThhirdMenus(children,$event)"
+                                ng-class="{true:'active',false:''}[vm.activeMenuInf.secondMenu.id ==children.id]">
+                                {{children.name}}
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="rightMenuBox" jquery-animation="vm.menuIconOptions">
+                <div class="menu_icon">
+                    <a class=" active" href="javascript:;"><img src="../styles/images/green/menu01.png" alt=""></a>
+                    <a class="" href="javascript:;"><img src="../styles/images/green/menu02.png" alt=""></a>
+                    <a class="" href="javascript:;"><img src="../styles/images/green/menu03.png" alt=""></a>
+                    <a class="" href="javascript:;"><img src="../styles/images/green/menu04.png" alt=""></a>
+                    <a class="" href="javascript:;"><img src="../styles/images/green/menu05.png" alt=""></a>
+                    <a class="" href="javascript:;"><img src="../styles/images/green/menu06.png" alt=""></a>
+                    <a class="" href="javascript:;"><img src="../styles/images/green/menu07.png" alt=""></a>
+                    <a class="" href="javascript:;"><img src="../styles/images/green/menu08.png" alt=""></a>
+                </div>
+            </div>
+
+
+            <div class="leftSide_btn">
+                <!--<a class="arrow_btn btn_up" href="javascript:;"-->
+                <!--ng-class="{true:'arrow_btn_show',false:'arrow_btn_hide'}[vm.leftSlideFlag]"></a>-->
+                <!--<a class="arrow_btn btn_down" href="javascript:;"-->
+                <!--ng-class="{true:'arrow_btn_show',false:'arrow_btn_hide'}[vm.leftSlideFlag]"-->
+                <!--&gt;</a>-->
+                <a class="swiper_btn" href="javascript:;" ng-click="vm.leftSlideMenu()"
+                   ng-class="{true:'swiper_btn_show',false:'swiper_btn_hide'}[vm.leftSlideFlag]"
+                >{{vm.leftSlideOpName}}</a>
+            </div>
+        </div>
+
+        <!--右侧内容-->
+        <div class="rightSide_area" jquery-animation="vm.contentRightSideOptions">
+            <div ng-show="false">
+                <!--上层区域-->
+                <div class="rightSide_top_02">
+                    <div class="rightSide_box_l">
+                        <div class="rightSide_boxL_title">
+                            <div class="title_tag02">待办任务</div>
+                            <span class="title_number02">11</span>
+
+                            <a class="icon_setMore" href="javascript:;"></a>
+                        </div>
+
+                        <div class="rightSide_box_content02">
+                            <ul class="content_list01">
+                                <li class="list01_color01">
+                                    <p class="content_list01_border borderColor1"></p>
+                                    <span class="content_list01_content">
+                                    <div class="content_list01_tag tagColor01">数据审验 <span>06-26</span></div>
+                                    <a class="content_list01_link" href="javascript:;">城市居民食品零售价格监测（0616）报送数据待审验</a>
+                                </span>
+                                </li>
+                                <li class="list01_color02">
+                                    <p class="content_list01_border borderColor2"></p>
+                                    <span class="content_list01_content">
+                                    <div class="content_list01_tag tagColor02">数据审验 <span>06-26</span></div>
+                                    <a class="content_list01_link" href="javascript:;">城市居民食品零售价格监测（0616）报送数据待审验</a>
+                                </span>
+                                </li>
+                                <li class="list01_color01">
+                                    <p class="content_list01_border borderColor1"></p>
+                                    <span class="content_list01_content">
+                                    <div class="content_list01_tag tagColor01">数据审验 <span>06-26</span></div>
+                                    <a class="content_list01_link" href="javascript:;">城市居民食品零售价格监测（0616）报送数据待审验</a>
+                                </span>
+                                </li>
+                                <li class="list01_color01">
+                                    <p class="content_list01_border borderColor1"></p>
+                                    <span class="content_list01_content">
+                                    <div class="content_list01_tag tagColor01">数据审验 <span>06-26</span></div>
+                                    <a class="content_list01_link" href="javascript:;">城市居民食品零售价格监测（0616）报送数据待审验</a>
+                                </span>
+                                </li>
+                                <li class="list01_color03">
+                                    <p class="content_list01_border borderColor3"></p>
+                                    <span class="content_list01_content">
+                                    <div class="content_list01_tag tagColor03">数据审验 <span>06-26</span></div>
+                                    <a class="content_list01_link" href="javascript:;">城市居民食品零售价格监测（0616）报送数据待审验</a>
+                                </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="rightSide_box_r">
+                        <div class="rightSide_boxL_title">
+                            <div class="title_tag02">重点关注商品价格行情</div>
+
+                            <a class="title_icon icon_setting3" href="javascript:;"></a>
+                            <select class="title_select selectStyle2 colorReset">
+                                <option value="1">零售价</option>
+                            </select>
+                            <select class="title_select selectStyle3 colorReset">
+                                <option value="1">鲜羊肉（新鲜去骨）</option>
+                            </select>
+                        </div>
+
+                        <div class="rightSide_box_content02"><img src="../styles/images/green/sheet_c.png" alt=""
+                                                                  style="width: 100%;height: 100%;display: block;">
+                        </div>
+                    </div>
+                </div>
+
+                <!--下层区域-->
+                <div class="rightSide_bottom_02">
+                    <div class="rightSide_box_l">
+                        <div class="rightSide_boxL_title left-12">
+                            <div class="titleTabs">
+                                <a class="title_tab active" href="javascript:;">
+                                    <div class="title_tag02">通知公告</div>
+                                    <span class="title_number02">6</span>
+                                </a>
+                                <a class="title_tab" href="javascript:;">
+                                    <div class="title_tag02">规章制度</div>
+                                </a>
+                                <a class="title_tab" href="javascript:;">
+                                    <div class="title_tag02">学习培训</div>
+                                </a>
+                            </div>
+
+                            <a class="icon_setMore" href="javascript:;"></a>
+                        </div>
+
+                        <div class="rightSide_box_content02">
+                            <ul class="content_list02">
+                                <li>
+                                    <div class="list02_text">
+                                        <a href="javascript:;">全省价格监测分析会议通知</a>
+                                        <span>06-15</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="list02_text">
+                                        <a href="javascript:;">全省价格监测分析会议通知</a>
+                                        <span>06-15</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="list02_text">
+                                        <a href="javascript:;">全省价格监测分析会议通知</a>
+                                        <span>06-15</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="list02_text">
+                                        <a href="javascript:;">全省价格监测分析会议通知</a>
+                                        <span>06-15</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="list02_text">
+                                        <a href="javascript:;">全省价格监测分析会议通知</a>
+                                        <span>06-15</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="list02_text">
+                                        <a href="javascript:;">全省价格监测分析会议通知</a>
+                                        <span>06-15</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="list02_text">
+                                        <a href="javascript:;">全省价格监测分析会议通知</a>
+                                        <span>06-15</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="rightSide_box_r">
+                        <div class="rightSide_boxL_mainTit">
+                            <div class="title_tag02 height40">重点关注监察任务跟踪</div>
+                        </div>
+                        <div class="rightSide_boxL_subTit">
+                            <ul class="subTit_tabs">
+                                <li class="active">监测机构</li>
+                                <li>监测点</li>
+                            </ul>
+
+                            <a class="title_icon icon_setting3 marginReset" href="javascript:;"></a>
+                            <select class="title_select selectStyle1 colorReset" style="margin: 0 0 0 10px;">
+                                <option value="1">城市居民食品零售价格监测（0616）</option>
+                            </select>
+                        </div>
+
+                        <div class="rightSide_box_content02 bgSheet" style="top: 70px;"></div>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="true">
+                <div class="nav_line_zzy">
+                    <a href="javascript:;" class="nav_a_zzy">{{vm.activeMenuInf.firstMenu.name}}</a> &gt;
+                    <a href="javascript:;" class="nav_a_zzy">{{vm.activeMenuInf.secondMenu.name}}</a> &gt;
+                    <span class="nav_span_zzy">{{vm.activeMenuInf.thirdMenu.name}}</span>
+                </div>
+                <div class="page_a_zzy">
+                    <!--<ul ng-class="{true:'page_tit_zzy2',false:''}[!vm.noChildMenu]" ng-show="!vm.noChildMenu">-->
+                    <ul class="page_tit_zzy2">
+                        <li ng-class="{true:'active',false:''}[menu.id == vm.activeMenuInf.thirdMenu.id]"
+                            ng-click="vm.menuClick(menu,$event)"
+                            ng-repeat="menu in vm.thirdMenus">
+                            <a href="javascript:;">{{menu.name}}</a>
+                        </li>
+                    </ul>
+                    <!-- <div  ui-view="panel"  ng-class="{true:'contfWithnoChildMenu',false:'contf'}[vm.noChildMenu]">
+
+                     </div>-->
+                    <div ui-view="panel" class="contf">
+
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <!--弹出菜单-->
+    <div class="hp_popupBox" jquery-animation="vm.rightSlideOptions">
+        <ul>
+            <li ng-repeat="n in vm.shortcutMenuList track by $index"
+                class="popColor_{{($index+1)%8}}" ng-click="vm.turnMenu(n)">
+                <a href="javascript:;">
+                    <span>
+                        <div style="text-align: center; padding-top: 8px;" img-src-div img-src-begin="../" img-src-params="n.menuicon">
+                            <!--<img img-src-begin="../{{n.menuicon}}" alt="">-->
+                         </div>
+                    </span>
+                    <p>{{n.name}}</p>
+                </a>
+            </li>
+
+            <li class="popAdd" ng-click="vm.shortcutMenuAdd()">
+                <a href="javascript:;">
+                    <span></span>
+                    <p>添加</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!--弹出按钮-->
+    <a class="popup_button" href="javascript:;" ng-click="vm.rightSlideMenu()" ng-show="!vm.rightSlideFlag">
+        <span class="popup_img"></span>
+        <span class="popup_text">收起</span>
+    </a>
+    <!--消息-->
+    <div class="rightSide_button">
+        <a class="newMessage" href="javascript:;"
+           ng-click="vm.rightSlideMenu()" ng-show="vm.rightSlideFlag">
+            <span>
+                <div class="menus_icon"></div>
+                <p class="newMessage_text">快捷菜单</p>
+            </span>
+        </a>
+
+        <a class="newMessage" href="javascript:;">
+            <span>
+                <div class="newMessage_icon"><p>13</p></div>
+                <p class="newMessage_text">消息</p>
+            </span>
+        </a>
+    </div>
+</div>

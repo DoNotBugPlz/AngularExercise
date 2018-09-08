@@ -1,0 +1,121 @@
+<div class="dom-left">
+    <div class="div-tool">
+        <span >流程列表</span>
+    </div>
+    <div class="content-left" style="top: 45px;">
+        <div class="table_box_zzy top1_zzy" style="top: 0px;">
+            <div class="table_head_zzy marginB2">
+                <table >
+                    <tr>
+                        <td width="10%">
+                            <input type="checkbox" ng-model="allSelected" class="ipt_check" ng-click="vm.selectAll(vm.fauList)"/>
+                        </td>
+                        <td width="40%">流程名称</td>
+                        <td width="50%">流程关键字</td>
+                    </tr>
+                </table>
+            </div>
+            <div id="" class="nothing nothingTop"
+                 ng-show="!!!vm.flowInfoList||vm.flowInfoList.length==0">
+                <span></span>暂无数据
+            </div>
+            <div class="table_main_zzy" m-custom-scrollbar >
+                <table  ng-hide="!!!vm.flowInfoList||vm.flowInfoList.length==0">
+                    <tr ng-repeat="n in vm.flowInfoList track by $index" ng-class-even="'bgcolor'"
+                        ng-class="{'false':'','true':'selected'}[n.selected]">
+                        <td width="10%" ng-click="vm.selectItem(n)">
+                            <input type="checkbox"  ng-model="n.selected" ng-click="$event.stopPropagation();"/>
+                        </td>
+                        <td width="40%" style="text-align: center" ng-click="vm.ckFlowInfo(n)">{{n.name}}</td>
+                        <td width="50%" style="text-align: center" ng-click="vm.ckFlowInfo(n)">{{n.key}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="dom-right">
+    <div class="div-tool" style="top: 45px;">
+        <span id="content-title">流程步骤列表</span>
+    </div>
+    <div class="content-right">
+        <div class="table_box_zzy top1_zzy" style="top: 5px;">
+            <div class="table_head_zzy marginB2">
+                <table >
+                    <tr>
+                        <td width="5%">
+                            <input type="checkbox" ng-model="allSelected" class="ipt_check" ng-click="vm.selectAll(vm.fauList)"/>
+                        </td>
+                        <td width="40%">流程步骤名称</td>
+                        <td width="40%">流程步骤关键字</td>
+                        <td width="15%">操作</td>
+                    </tr>
+                </table>
+            </div>
+            <div id="query_nothing" class="nothing nothingTop"
+                 ng-show="!!!vm.flowStepInfoList||vm.flowStepInfoList.length==0">
+                <span></span>暂无数据
+            </div>
+            <div class="table_main_zzy" m-custom-scrollbar >
+                <table  ng-hide="!!!vm.flowStepInfoList||vm.flowStepInfoList.length==0">
+                    <tr ng-repeat="n in vm.flowStepInfoList track by $index" ng-class-even="'bgcolor'"
+                        ng-class="{'false':'','true':'selected'}[n.selected]">
+                        <td width="5%" ng-click="vm.selectItem(n)">
+                            <input type="checkbox"  ng-model="n.selected" ng-click="$event.stopPropagation();"/>
+                        </td>
+                        <td width="40%" style="text-align: center">{{n.name}}</td>
+                        <td width="40%" style="text-align: center">{{n.id}}</td>
+                        <td width="15%">
+                            <a href="javascript:;" class="table_main1_a" ng-click="vm.edtInfo(n)">编辑</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<!--
+<div class="dom-left">
+    <div class="div-tool">
+        <span >流程列表</span>
+    </div>
+    <div class="content-left" style="top: 45px;">
+        <div class="table_box_zzy top1_zzy" style="top: 0px;">
+            <div class="table_head_zzy marginB2">
+                <table >
+                    <tr>
+                        &lt;!&ndash;<td width="5%">
+                            <input type="checkbox" ng-model="allSelected" class="ipt_check" ng-click="vm.selectAll(vm.flowInfoList)"/>
+                        </td>&ndash;&gt;
+                        <td width="20%">流程名称</td>
+                        <td width="10%">流程关键字</td>
+                    </tr>
+                </table>
+            </div>
+            <div id="" class="nothing nothingTop"
+                 ng-show="!!!vm.flowInfoList||vm.flowInfoList.length==0">
+                <span></span>暂无数据
+            </div>
+            <div class="table_main_zzy" m-custom-scrollbar >
+                <table  ng-hide="!!!vm.flowInfoList||vm.flowInfoList.length==0">
+                    <tr ng-repeat="n in vm.flowInfoList track by $index" ng-class-even="'bgcolor'"
+                        ng-class="{'false':'','true':'selected'}[n.selected]">
+                        &lt;!&ndash;<td width="5%" ng-click="vm.selectItem(n)">
+                            <input type="checkbox"  ng-model="n.selected" ng-click="$event.stopPropagation();"/>
+                        </td>&ndash;&gt;
+                        <td width="20%" style="text-align: center">{{n.name}}</td>
+                        <td width="10%" style="text-align: center">{{n.key}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>-->

@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>物理表列表</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="../ScriptSource/EasyUI/Skins/default/easyui.css" rel="stylesheet" type="text/css" />
+    <link href="../ScriptSource/EasyUI/Skins/icon.css" rel="stylesheet" type="text/css" />
+    <script src="../ScriptSource/JQuery/jquery.min.js" type="text/javascript"></script>
+    <script src="../ScriptSource/JQuery/jquery.form.js" type="text/javascript"></script>
+    <script src="../ScriptSource/EasyUI/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../ScriptSource/JavaScript/GlobalTools.js" type="text/javascript"></script>
+    <script src="../ScriptSource/JavaScript/OrganizationTools.js" type="text/javascript"></script>
+    <script src="SubTailorFormManager.js" type="text/javascript"></script>
+</head>
+<body class="easyui-layout" data-options="fit:true">
+    <div data-options="region:'west',split:false,border:false" style="width: 270px;">
+        <table id="tablesTree" class="easyui-treegrid" title="表单目录" data-options="
+                        url: rootPath + 'Sys_tablesremark/LoadPageList.do',
+                        showHeader:false,
+                        rownumbers: true,
+                        fit: true,
+                        fitColumns: true,
+			            idField: 'id',
+			            treeField: 'chinaname',
+                        onClickRow:clickTablesRow">
+            <thead>
+                <tr>
+                    <th data-options="field:'chinaname'" width="268px">
+                        物理表名称
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div data-options="region:'center',split:false,border:false">
+        <div id="divTab" class="easyui-tabs" data-options="border:false,fit:true,height:668">
+            <div title="子表列表" id="subTailorFormList" data-options="href: rootPath + 'platform/SubTailorFormManager/SubTailorFormList.htm'">
+            </div>
+        </div>
+    </div>
+</body>
+</html>

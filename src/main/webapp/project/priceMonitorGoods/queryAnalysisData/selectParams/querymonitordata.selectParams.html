@@ -1,0 +1,195 @@
+<div class="table_tip_zzy" style="top :60px;margin-right: 15px">
+    <div class="table_tip_btn_zzy ">
+        <a href="javascript:;" ng-click="sp.save()">保存</a>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="select_b_zzy " style="top :85px;">
+    <div class="leftSel_table_zzy over_hide" style="height: 80px;">
+        <table border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="10%" class="txt">监 &nbsp;测&nbsp; 表：</td>
+                <td width="20%"><input type="text" class="sel_ipt_zzy" placeholder="请选择监测表"
+                                       ng-model="sp.searchParams.task.name"
+                ><i class="selectOp" ng-click="sp.selectTask()"></i>
+                </td>
+                <td width="10%" class="txt">监&nbsp;测&nbsp;品&nbsp;种：</td>
+                <td width="20%"><input type="text" class="sel_ipt_zzy" placeholder="请输入监测品种"
+                                       ng-model="sp.searchParams.goods_name"
+                ></td>
+                <td width="10%" class="txt">监&nbsp;测&nbsp;指&nbsp;标：</td>
+                <td width="20%"><input type="text" class="sel_ipt_zzy" placeholder="请输入监测指标"
+                                       ng-model="sp.searchParams.index_name"
+                ></td>
+                <td class="left">
+                    <a href="javascript:;" class="sel_btn_zzy " ng-click="sp.search()">查询</a>
+                    <a href="javascript:;" class="reSet_btn_zzy" ng-click="sp.reset()">重置</a>
+                </td>
+
+            </tr>
+            <tr>
+                <td width="10%" class="txt">报&nbsp;告&nbsp;单&nbsp;位：</td>
+                <td width="20%"><input type="text" class="sel_ipt_zzy" placeholder="请输入报告单位"
+                                       ng-model="sp.searchParams.site_name"
+                >
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="table_box_zzy top1_zzy" style="top:170px;margin: 30px 15px 15px 15px; ">
+    <table style="width: 100%;height: 100%;">
+        <tr style="height: 80%;">
+            <td width="33%" style="border: 1px">
+                <div class="table_box_zzy " style="   top: -145px;right: 66%;">
+                    <div class="table_box_zzy top1_zzy" style="bottom: 35%;">
+                        <div class="table_head_zzy marginB2">
+                            <table>
+                                <tr>
+                                    <td width="5%" ng-click="sp.selectAllGoods()">
+                                        <a href="javascript:;" class="ipt_check" ng-model="sp.allGoodsSelected"
+                                           ng-class="{true:'checked',false:''}[sp.allGoodsSelected]"></a>
+                                    </td>
+                                    <td width="20%">商品编码</td>
+                                    <td width="25%">商品名称</td>
+                                    <td width="25%">规格等级</td>
+                                    <td width="25%">计量单位</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="nothing nothingTop"
+                             ng-show="!!!sp.task_goodsShowList||sp.task_goodsShowList.length==0">
+                            <span></span>暂无数据
+                        </div>
+                        <div class="table_main_zzy" m-custom-scrollbar>
+                            <table cellpadding="0" cellspacing="0" style="table-layout: fixed" class="table_word_space"
+                                   ng-hide="!!!sp.task_goodsShowList||sp.task_goodsShowList.length==0"
+                                   m-custom-scrollbar>
+                                <tbody ng-model="vm.goodsList">
+                                <tr ng-repeat="n in sp.task_goodsShowList track by $index" ng-class-even="'bgcolor'"
+                                    ng-class="{'false':'','true':'selected'}[n.selected]">
+                                    <td width="5%" ng-click="sp.selectGoods(n)">
+                                        <a href="javascript:;" class="ipt_check" ng-model="n.selected"
+                                           ng-class="{true:'checked',false:''}[n.selected]"></a>
+                                    </td>
+                                    <td width="20%" class="word_space" colspan="2"
+                                        style="border-left:1px solid #c6c6c6;">
+                                        {{n.goods_code}}
+                                    </td>
+                                    <td width="25%" class="word_space">{{n.name}}</td>
+                                    <td width="25%" class="word_space">{{n.spec}}</td>
+                                    <td width="25%" class="word_space">{{n.measurement_unit}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="table-tfoot">
+                            <div class="table_page">
+                                <div ng-turn-page="vm.goodsListPage"
+                                     turn-page-fn="vm.loadGoodsListForMonitor"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td width="33%">
+                <div class="table_box_zzy " style="    margin-left: 15px;top: -145px;left: 33%;right: 33%;">
+                    <div class="table_box_zzy top1_zzy" style="bottom: 35%;">
+                        <div class="table_head_zzy marginB2">
+                            <table>
+                                <tr>
+                                    <td width="5%" ng-click="sp.selectAllIndex()">
+                                        <a href="javascript:;" class="ipt_check" ng-model="sp.allIndexSelected"
+                                           ng-class="{true:'checked',false:''}[sp.allIndexSelected]"></a>
+                                    </td>
+                                    <td width="95%" class="word_space">指标名称</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="nothing nothingTop"
+                             ng-show="!!!sp.task_indexShowList||sp.task_indexShowList.length==0">
+                            <span></span>暂无数据
+                        </div>
+                        <div class="table_main_zzy" m-custom-scrollbar>
+                            <table cellpadding="0" cellspacing="0" style="table-layout: fixed" class="table_word_space"
+                                   ng-hide="!!!sp.task_indexShowList||sp.task_indexShowList.length==0"
+                                   m-custom-scrollbar
+                            >
+                                <tbody ng-model="vm.goodsList">
+                                <tr ng-repeat="n in sp.task_indexShowList track by $index" ng-class-even="'bgcolor'"
+                                    ng-class="{'false':'','true':'selected'}[n.selected]">
+                                    <td width="5%" ng-click="vm.selectIndex(n)">
+                                        <a href="javascript:;" class="ipt_check" ng-model="n.selected"
+                                           ng-class="{true:'checked',false:''}[n.selected]"></a>
+                                    </td>
+                                    <td width="95%" style="border-left:  1px solid #c6c6c6;" class="word_space">
+                                        {{n.name}}
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="table-tfoot">
+                            <div class="table_page">
+                                <div ng-turn-page="vm.goodsListPage"
+                                     turn-page-fn="vm.loadGoodsListForMonitor"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </td>
+            <td width="33%">
+                <div class="table_box_zzy " style="    margin-left: 15px;top: -145px;left: 66%;">
+                    <div class="table_box_zzy top1_zzy" style="bottom: 35%;">
+                        <div class="table_head_zzy marginB2">
+                            <table>
+                                <tr>
+                                    <td width="5%" ng-click="sp.selectAllSite()">
+                                        <a href="javascript:;" class="ipt_check" ng-model="sp.allSiteSelected"
+                                           ng-class="{true:'checked',false:''}[sp.allSiteSelected]"></a>
+                                    </td>
+                                    <td width="35%">监测点名称</td>
+                                    <td width="30%">地区</td>
+                                    <td width="30%">报告单位名称</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="nothing nothingTop"
+                             ng-show="!!!sp.task_m_siteShowList||sp.task_m_siteShowList.length==0">
+                            <span></span>暂无数据
+                        </div>
+                        <div class="table_main_zzy" m-custom-scrollbar>
+                            <table cellpadding="0" cellspacing="0" style="table-layout: fixed" class="table_word_space"
+                                   ng-hide="!!!sp.task_m_siteShowList||sp.task_m_siteShowList.length==0">
+                                <tbody ng-model="vm.goodsList">
+                                <tr ng-repeat="n in sp.task_m_siteShowList track by $index" ng-class-even="'bgcolor'"
+                                    ng-class="{'false':'','true':'selected'}[n.selected]">
+                                    <td width="5%" ng-click="vm.selectItem(n)">
+                                        <a href="javascript:;" class="ipt_check" ng-model="n.selected"
+                                           ng-class="{true:'checked',false:''}[n.selected]"></a>
+                                    </td>
+                                    <td width="35%" class="word_space" style="border-left:  1px solid #c6c6c6;">
+                                        {{n.name}}
+                                    </td>
+                                    <td width="30%" class="word_space">{{n.unit_name}}</td>
+                                    <td width="30%" class="word_space">{{n.area_name}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="table-tfoot">
+                            <div class="table_page">
+                                <div ng-turn-page="vm.goodsListPage"
+                                     turn-page-fn="vm.loadGoodsListForMonitor"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+

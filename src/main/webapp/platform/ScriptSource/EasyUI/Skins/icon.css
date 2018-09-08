@@ -1,0 +1,177 @@
+﻿.icon-archives{
+	background:url('icons/archives.gif') no-repeat center center;
+}
+.icon-attibutes{
+	background:url('icons/attibutes.gif') no-repeat center center;
+}
+.icon-back{
+	background:url('icons/back.gif') no-repeat center center;
+}
+.icon-blank{
+	background:url('icons/blank.gif') no-repeat center center;
+}
+.icon-cancel{
+	background:url('icons/cancel.png') no-repeat center center;
+}
+.icon-config{
+	background:url('icons/config.gif') no-repeat center center;
+}
+.icon-customers{
+	background:url('icons/customers.gif') no-repeat center center;
+}
+.icon-next{
+	background:url('icons/next.gif') no-repeat center center;
+}
+.icon-prev{
+	background:url('icons/prev.gif') no-repeat center center;
+}
+.icon-subprocess{
+	background:url('icons/subprocess.gif') no-repeat center center;
+}
+.icon-traceflow{
+	background:url('icons/traceflow.gif') no-repeat center center;
+}
+.icon-traceactivity{
+	background:url('icons/application_view_list.png') no-repeat center center;
+}
+.icon-scan{
+	background:url('icons/scan.gif') no-repeat center center;
+}
+.icon-scanend{
+	background:url('icons/scanend.gif') no-repeat center center;
+}
+
+.icon-bluebook{
+	background:url('icons/bluebook.gif') no-repeat center center;
+}
+.icon-cut{
+	background:url('icons/cut.png') no-repeat center center;
+}
+.icon-database{
+	background:url('icons/database.gif') no-repeat center center;
+}
+.icon-end{
+	background:url('icons/lock.gif') no-repeat center center;
+}
+.icon-add{
+	background:url('icons/edit_add.png') no-repeat center center;
+}
+.icon-remove{
+	background:url('icons/edit_remove.png') no-repeat center center;
+}
+.icon-save{
+	background:url('icons/filesave.png') no-repeat center center;
+}
+.icon-help{
+	background:url('icons/help.png') no-repeat center center;
+}
+
+.icon-mini-add{
+	background:url('icons/mini_add.png') no-repeat center center;
+}
+.icon-mini-edit{
+	background:url('icons/mini_edit.png') no-repeat center center;
+}
+.icon-mini-refresh{
+	background:url('icons/mini_refresh.png') no-repeat center center;
+}
+.icon-pause{
+	background:url('icons/pause.gif') no-repeat center center;
+}
+.icon-delete{
+	background:url('icons/no.png') no-repeat center center;
+}
+.icon-ok{
+	background:url('icons/ok.png') no-repeat center center;
+}
+.icon-edit{
+	background:url('icons/pencil.png') no-repeat center center;
+}
+.icon-print{
+	background:url('icons/print.png') no-repeat center center;
+}
+.icon-redo{
+	background:url('icons/redo.png') no-repeat center center;
+}
+.icon-undo{
+	background:url('icons/undo.png') no-repeat center center;
+}
+.icon-reload{
+	background:url('icons/reload.png') no-repeat center center;
+}
+.icon-recall{
+	background:url('icons/recall.png') no-repeat center center;
+}
+.icon-recallforce{
+	background:url('icons/recallforce.png') no-repeat center center;
+}
+.icon-reissue{
+	background:url('icons/reissue.png') no-repeat center center;
+}
+.icon-search{
+	background:url('icons/search.png') no-repeat center center;
+}
+.icon-tip{
+	background:url('icons/tip.png') no-repeat center center;
+}
+.icon-sum{
+	background:url('icons/sum.png') no-repeat center center;
+}
+.icon-view{
+	background:url('icons/view.png') no-repeat center center;
+}
+.icon-preview{
+	background:url('icons/preview.png') no-repeat center center;
+}
+.icon-up{
+	background:url('icons/up.png') no-repeat center center;
+}
+.icon-down{
+	background:url('icons/down.png') no-repeat center center;
+}
+.icon-sort{
+	background:url('icons/sort.png') no-repeat center center;
+}
+.icon-suspend{
+	background:url('icons/suspend.gif') no-repeat center center;
+}
+.icon-activate{
+	background:url('icons/activate.gif') no-repeat center center;
+}
+
+
+
+
+
+
+/*
+	自定义样式，工具条样式
+
+*/
+
+.toolbar
+{    
+    background:#CEDFEF  url('toolBarimage/panel-toolbar.gif') repeat-x; 
+    height:28px; 
+    border:1px solid #9CBAE7;  
+    border-top:1px solid #EFF7F7;
+}
+.l-toolbar-fixed
+{    
+    background:#CEDFEF  url('toolBarimage/panel-toolbar.gif') repeat-x; 
+    height:28px; 
+    border:1px solid #9CBAE7;  
+    border-top:1px solid #EFF7F7;
+    overflow: hidden;
+    margin-top: 0px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index:100;
+}
+/*黄朋新增样式，用于导航图标选择对话框中的图标列表样式*/
+.iconlist{ width:400px;padding:10px;}
+.iconlist li{ border:1px solid #FFFFFF; float:left; display:block; padding:2px; cursor:pointer; }
+.iconlist li.over{border:1px solid #516B9F;}
+/*黄朋新增样式，用于导航图标选择对话框中的图标列表样式*/

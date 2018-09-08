@@ -1,0 +1,48 @@
+﻿*{font-size:12px; font-family:Tahoma,Verdana,微软雅黑,新宋体}
+body{background:#D2E0F2; }
+a{ color:Black; text-decoration:none;}
+a:hover{ color:Red; text-decoration:underline;}
+.footer{text-align:center;color:#15428B; margin:0px; padding:0px;line-height:23px; font-weight:bold;}
+.head a{color:White;text-decoration:underline;}
+
+#treeLeftMenu.ztree *{font-size: 12px;}
+#treeLeftMenu{margin: 0;padding: 0;border: 0;}
+#treeLeftMenu.ztree li ul li{margin: 3px 0px;}
+#treeLeftMenu.ztree li a{width: 99%;padding: 0;height:25px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
+#treeLeftMenu.ztree li ul{ margin:0; padding:0}
+#treeLeftMenu.ztree li {line-height:30px;}
+		
+#treeLeftMenu.ztree li a:hover {text-decoration:none; color: #416AA3;background: url("leftTreeBG.png") ;}
+#treeLeftMenu.ztree li a.curSelectedNode {
+	background-color: #E0ECFF;
+    border: 1px solid #99BBE8;}
+#treeLeftMenu.ztree li span {line-height:26px;}
+#treeLeftMenu.ztree li span.button {margin-top: 6px;}
+.ztree li span.button.switch {width: 16px;height: 16px;}
+		
+.ztree li span.button {
+    background-image:url("left_menuForOutLook.png"); 
+    *background-image:url("left_menuForOutLook.png");  
+}
+.ztree li span.button.switch.level0 {width: 20px; height:20px}
+.ztree li span.button.switch.level1 {width: 20px; height:20px}
+.ztree li span.button.noline_open {background-position: 0 -4px;}
+.ztree li span.button.noline_close {background-position: -18px -4px;}
+.ztree li span.button.noline_open.level0 {background-position: 0 -4px;}
+.ztree li span.button.noline_close.level0 {background-position: -18px -4px;} 
+
+/*一级菜单按钮样式*/
+.firstMenu a:hover{
+    background: url('navBG-hover.png') no-repeat; 
+    color: white;
+    width:6%; 
+}
+.firstMenu a{
+    line-height:23px;
+    width:6%;
+    height: 23px;
+    margin-top:3px;
+    margin-right:5px;
+    vertical-align:middle;
+    text-align: center;
+}

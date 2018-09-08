@@ -1,0 +1,58 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                             http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--需要分别实现SkyflowAttachfileService、SkyflowOpinionService、SkyflowOrganisationService接口，
+    并在此声明实现类的全限定包名,可以参考skyflow-ui-embedded项目com.skytech.flow.inject.xxx的实现-->
+    <bean id="skyflowAttachfileService" class="com.skytech.flow.inject.AttachfileServiceImpl" />
+    <bean id="skyflowOpinionService" class="com.skytech.flow.inject.OpinionServiceImpl" />
+    <bean id="skyflowOrganisationService" class="com.skytech.flow.inject.OrganisationServiceImpl" />
+
+    <bean id="flow_dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="url" value="jdbc:postgresql://32.1.0.33:5432/postgres?currentSchema=jsswjj_ythpt"/>
+        <property name="driverClass" value="org.postgresql.Driver"/>
+        <property name="username" value="jsswjj"/>
+        <property name="password" value="jsswjj"/>
+    </bean>
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="flow_dataSource"/>
+    </bean>
+    <bean id="processEngineConfiguration" class="org.flowable.spring.SpringProcessEngineConfiguration">
+        <property name="dataSource" ref="flow_dataSource"/>
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="databaseSchemaUpdate" value="true"/>
+        <property name="asyncExecutorActivate" value="true"/>
+        <!--<property name="deploymentResources"
+                  value="classpath*:/processes/**/*.bpmn20.xml" />-->
+        <property name="deploymentMode" value="single-resource"/>
+        <!-- 中文乱码问题 -->
+        <property name="activityFontName" value="宋体"/>
+        <property name="labelFontName" value="宋体"/>
+        <!--注册自定义表单类型-->
+        <property name="customFormTypes" >
+            <list>
+                <bean class="com.skytech.skyflow.form.type.OpinionFormType"/>
+                <bean class="com.skytech.skyflow.form.type.FileFormType"/>
+                <bean class="com.skytech.skyflow.form.type.AutoCompleteFormType"/>
+            </list>
+        </property>
+        <property name="customMybatisMappers" >
+            <set>
+                <value>com.skytech.skyflow.customsqlmapper.SkyflowAttachfileMapper</value>
+                <value>com.skytech.skyflow.attachment.dao.BusinessAttachmentRelMapper</value>
+            </set>
+        </property>
+    </bean>
+    <bean id="processEngine" class="org.flowable.spring.ProcessEngineFactoryBean">
+        <property name="processEngineConfiguration" ref="processEngineConfiguration"/>
+    </bean>
+    <bean id="processEngineFormService" factory-bean="processEngine" factory-method="getFormService"/>
+    <bean id="repositoryService" factory-bean="processEngine" factory-method="getRepositoryService"/>
+    <bean id="runtimeService" factory-bean="processEngine" factory-method="getRuntimeService"/>
+    <bean id="taskService" factory-bean="processEngine" factory-method="getTaskService"/>
+    <bean id="historyService" factory-bean="processEngine" factory-method="getHistoryService"/>
+    <bean id="managementService" factory-bean="processEngine" factory-method="getManagementService"/>
+    <bean id="identityService" factory-bean="processEngine" factory-method="getIdentityService"/>
+    <bean id="restResponseFactory" class="org.flowable.rest.service.api.RestResponseFactory"/>
+    <bean id="contentTypeResolver" class="org.flowable.rest.application.DefaultContentTypeResolver"/>
+</beans>

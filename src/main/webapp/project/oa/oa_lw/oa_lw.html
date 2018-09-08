@@ -1,0 +1,76 @@
+<!--操作按钮-->
+<div class="table_tip_zzy">
+    <div class="table_tip_btn_zzy">
+        <a href="javascript:;" ng-click="vm.addInfo()">新增</a>
+        <a href="javascript:;" ng-click="vm.delInfo()">删除</a>
+    </div>
+    <div class="clear"></div>
+</div>
+
+<!--检索条件-->
+<div class="select_b_zzy">
+    <div class="leftSel_table_zzy " ng-class="{true:'up',false:'over_hide2'}[vm.advSearch]">
+        <table border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="10%" class="txt">关键词：</td>
+                <td width="20%">
+                    <input type="text" class="sel_ipt_zzy"  placeholder="请输入关键字" ng-model="vm.searchParams.zh"/>
+                </td>
+                <td class="left">
+                    <a href="javascript:;" class="sel_btn_zzy ">查询</a>
+                    <a href="javascript:;" class="reSet_btn_zzy">重置</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<!-- 列表项-->
+<div class="table_box_zzy top1_zzy" style="top: 62px;">
+    <div class="table_head_zzy marginB2">
+        <table >
+            <tr>
+                <td width="5%">
+                    <input type="checkbox" ng-model="allSelected" class="ipt_check" ng-click="vm.selectAll(vm.fwList)"/>
+                </td>
+                <td width="5%">序号</td>
+                <td width="30%">标题</td>
+                <td width="10%">文号</td>
+                <td width="10%">承办单位</td>
+                <td width="10%">收文时间</td>
+                <td width="10%">办结时间</td>
+                <td width="15%">操作</td>
+            </tr>
+        </table>
+    </div>
+    <div id="query_nothing" class="nothing nothingTop"
+         ng-show="!!!vm.lwList||vm.lwList.length==0">
+        <span></span>暂无数据
+    </div>
+    <div class="table_main_zzy" m-custom-scrollbar >
+        <table  ng-hide="!!!vm.lwList||vm.fwList.length==0">
+            <tr ng-repeat="n in vm.lwList track by $index" ng-class-even="'bgcolor'"
+                ng-class="{'false':'','true':'selected'}[n.selected]">
+                <td width="5%" ng-click="vm.selectItem(n)">
+                    <input type="checkbox"  ng-model="n.selected" ng-click="$event.stopPropagation();"/>
+                </td>
+                <td  width="5%">{{ $index + 1+ (vm.currentPageInf.pageNumber-1)*vm.currentPageInf.pageSize }}</td>
+                <td width="30%" style="text-align: left">{{n.title}}</td>
+                <td width="10%" style="text-align: center">{{n.wh}}</td>
+                <td width="10%" style="text-align: center">{{n.send_dept}}</td>
+                <td width="10%" style="text-align: center">{{n.receive_date}}</td>
+                <td width="10%" style="text-align: center"></td>
+                <td width="15%">
+                    <a href="javascript:;" class="table_main1_a" ng-click="vm.edtInfo(n)">修改</a>
+                    &nbsp;&nbsp;
+                    <a href="javascript:;" class="table_main1_a" ng-click="vm.delInfoByid(n.id)">删除</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="table-tfoot">
+        <div class="table_page">
+            <div ng-turn-page="vm.whListPage" turn-page-fn="vm.whList"></div>
+        </div>
+    </div>
+</div>

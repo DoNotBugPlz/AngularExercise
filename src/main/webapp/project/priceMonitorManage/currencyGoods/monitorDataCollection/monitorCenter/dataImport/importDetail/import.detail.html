@@ -1,0 +1,134 @@
+<div class="popWhite">
+    <div class="css-content">
+        <div style="line-height: 35px">
+            <input type="button" style="cursor: pointer" ng-click="vm.changType(1)" value="更换导入文件"
+                   ng-class="{'true':'type_checked','false':'type_input'}[vm.check_type_a]">
+        </div>
+
+        <div class="table_box_zzy" style="left: 14px;right: 14px;top: 70px;">
+            <div class="table_head_zzy marginB2">
+                <table>
+                    <tr>
+                        <td width="20%">商品</td>
+                        <td width="25%">区域</td>
+                        <td width="20%">规格</td>
+                        <td width="15%">单位</td>
+                        <td width="15%">价格</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="table_main_zzy" style="bottom: 200px" m-custom-scrollbar >
+                <table>
+                    <tr ng-repeat="n in vm.signList track by $index" ng-class-even="'bgcolor'"
+                        ng-class="{'false':'','true':'selected'}[n.selected]">
+                        <td width="20%" style="text-align: left">&nbsp;&nbsp;{{n.chinaname}}</td>
+                        <td width="25%">{{n.col_datetime}}</td>
+                        <td width="20%">{{n.actual_sign_nums}}</td>
+                        <td width="15%">{{n.is_pub_text}}</td>
+                        <td width="15%">{{n.is_pub_text}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="select_b_zzy lie_div" style="width: 96%;">
+            <div class="leftSel_table_zzy over_hide2"  style="height: 160px">
+                <table cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td width="20%" class="txt" style="text-align: left">导入文件列表中：</td>
+                    </tr>
+                    <tr>
+                        <td width="20%" class="txt lie_num" style="text-align: center;border-right: 10px solid #dcdcdc;">第一列</td>
+                        <td width="20%" class="txt lie_num" style="text-align: center;border-right: 10px solid #dcdcdc;">第二列</td>
+                        <td width="20%" class="txt lie_num" style="text-align: center;border-right: 10px solid #dcdcdc;">第三列</td>
+                        <td width="20%" class="txt lie_num" style="text-align: center;border-right: 10px solid #dcdcdc;">第四列</td>
+                        <td width="20%" class="txt lie_num" style="text-align: center;">第五列</td>
+                    </tr>
+                    <tr>
+                        <td class="txt" style="text-align: left">对应填报任务列表：</td>
+                    </tr>
+                    <tr class="under_tr">
+                        <td width="20%" style="padding: 0px 5px 0px 5px;">
+                            <div class="chosen_div" >
+                                <select class="sel_sel_zzy" ng-model="vm.searchParams.delstatus"
+                                        ng-chosen
+                                        ng-chosen-data="vm.delstatus"
+                                        ng-options="n.id as n.chinaname for n in vm.delstatus" >
+                                    <option ng-chosen-option></option>
+                                </select>
+                            </div>
+                        </td>
+                        <td width="20%" style="padding: 0px 5px 0px 5px;">
+                            <div class="chosen_div" >
+                                <select class="sel_sel_zzy" ng-model="vm.searchParams.delstatus"
+                                        ng-chosen
+                                        ng-chosen-data="vm.delstatus"
+                                        ng-options="n.id as n.chinaname for n in vm.delstatus" >
+                                    <option ng-chosen-option></option>
+                                </select>
+                            </div>
+                        </td>
+
+                        <td width="20%" style="padding: 0px 5px 0px 5px;">
+                            <div class="chosen_div" >
+                                <select class="sel_sel_zzy" ng-model="vm.searchParams.delstatus"
+                                        ng-chosen
+                                        ng-chosen-data="vm.delstatus"
+                                        ng-options="n.id as n.chinaname for n in vm.delstatus" >
+                                    <option ng-chosen-option></option>
+                                </select>
+                            </div>
+                        </td>
+                        <td width="20%" style="padding: 0px 5px 0px 5px;">
+                            <div class="chosen_div" >
+                                <select class="sel_sel_zzy" ng-model="vm.searchParams.delstatus"
+                                        ng-chosen
+                                        ng-chosen-data="vm.delstatus"
+                                        ng-options="n.id as n.chinaname for n in vm.delstatus" >
+                                    <option ng-chosen-option></option>
+                                </select>
+                            </div>
+                        </td>
+                        <td width="20%" style="padding: 0px 5px 0px 5px;">
+                            <div class="chosen_div" >
+                                <select class="sel_sel_zzy" ng-model="vm.searchParams.delstatus"
+                                        ng-chosen
+                                        ng-chosen-data="vm.delstatus"
+                                        ng-options="n.id as n.chinaname for n in vm.delstatus" >
+                                    <option ng-chosen-option></option>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="popBottom">
+        <a class="table_main1_a" style="width: auto" ng-show="vm.cf_index.index_nature ==3 && !vm.operate_flag" ng-click="vm.addOption()">新增选项</a>
+        <a class="table_main1_a" ng-show="!vm.operate_flag" ng-click="vm.saveOrUpdateIndex()" >保存</a>
+        <a class="table_main1_a" ng-click="vm.cancelDialog()">取消</a>
+    </div>
+</div>
+
+<style>
+    .leftSel_table_zzy table td {
+        border: 0px solid #dcdcdc;
+    }
+    .leftSel_table_zzy table td.left {
+        padding: 0 0 0 50px;
+    }
+    .lie_div{
+        bottom: 0px;
+        margin: 0px 16px 20px 0px;
+        position: absolute;
+    }
+    .lie_num{
+        background-color: lightskyblue;
+    }
+    .under_tr td{
+        padding: 0px 5px 0px 5px;!important;
+    }
+</style>

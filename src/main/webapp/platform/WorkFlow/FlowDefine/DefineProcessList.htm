@@ -1,0 +1,164 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="../../ScriptSource/EasyUI/Skins/default/easyui.css" rel="stylesheet"
+        type="text/css" />
+    <link href="../../ScriptSource/EasyUI/Skins/icon.css" rel="stylesheet" type="text/css" />
+    <script src="../../ScriptSource/JQuery/jquery.min.js" type="text/javascript"></script>
+    <script src="../../ScriptSource/EasyUI/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../../ScriptSource/JavaScript/GlobalTools.js" type="text/javascript"></script>
+    <script language="javascript" type="text/javascript">
+        var rootPath = "../../../";
+        var currentUnitid;
+        var parmUnitid;
+        //动态构造一个treegrid，加载属于当前部门的人员
+        function clickRow(row) {
+            $('#keyname').val("");
+            parmUnitid = row.id;
+            $('#defProcessList').treegrid('load', {
+                "unitid":parmUnitid
+            });
+        }
+        function searchList() {
+            $('#defProcessList').treegrid('load', {
+                "unitid": parmUnitid,
+                keyname: $('#keyname').val()
+            });
+        }
+
+        //格式化是否禁用单元格
+        function formatterCell(value, rowData, index) {
+            return "V" + rowData.version;
+        }
+        //编辑导航
+        function dblClickRow(rowData) {
+            if (rowData) {
+                top.addTab(rowData.chinaname + "[V" + rowData.version + "]", "../WorkFlow/FlowDefine/DefineManagerPage.htm?currentunitid=" + currentUnitid + "&processid=" + rowData.id + "&constname=" + rowData.constname);
+            }
+        }
+        function beforeExpand(rowData) {
+            $('#defProcessList').treegrid('options').url = rootPath+'Sys_def_process/LoadPageList.do?constname=' + escape(rowData.constname);
+            return true;
+        }
+        $(function () {
+            currentUnitid = top.CurrentUserObj.unitid;
+            GlobalTools.ajax({
+                dataType: "json",
+                url: rootPath + "Sys_dept/LoadForm.do?id=" + currentUnitid,
+                loading: '流程列表加载中……',
+                success: function (deptData) {
+                    parmUnitid = currentUnitid;
+                    $("#defProcessList").treegrid('options').url = rootPath + 'Sys_def_process/LoadPageList.do';
+                    $('#defProcessList').treegrid('load', {
+                        "unitid": parmUnitid
+                    });
+                    $("#defProcessList").treegrid("getPager").pagination({
+                        displayMsg: ""
+                    });
+                }
+            });
+        });
+
+        /**
+         * 指定版本的流程定义反向发布到流程模型中
+         */
+        function inversionReleaseToModel(){
+            var selectedData = $('#defProcessList').datagrid('getSelected');
+            if (!selectedData || selectedData.length == 0) return;
+            GlobalTools.ajax({
+                url: rootPath + 'Sys_mdl_process/InversionReleaseToModel.do',
+                loading: '流程模型发布中……',
+                data: { id: selectedData.id },
+                success: function (data,msg) {
+                    GlobalTools.tip(msg);
+                    $("#defProcessList").datagrid('reload');
+                }
+            });
+        }
+    </script>
+</head>
+<body class="easyui-layout" data-options="fit:true">
+    <div style="width: 250px;" data-options="region:'west',split:false">
+        <table id="organizationTreeGrid" class="easyui-treegrid" data-options="title:'组织机构列表',
+			            url:rootPath+'Sys_dept/LoadPageListWithUnitid.do',
+			            rownumbers: true,
+                        fit: true,
+                        fitColumns: true,
+						idField: 'id',
+						treeField: 'chinaname',
+						border:false,
+						onClickRow:clickRow
+			            ">
+            <thead>
+                <tr>
+                    <th data-options="field:'chinaname'" halign="center" width="264px">
+                        单位名称
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div style="width: 250px;" data-options="region:'center',split:false,title:'流程发布列表'">
+        <div class="easyui-layout" data-options="fit:true,border:false">
+            <div data-options="region:'north',split:false,border:false" style="height: 50px">
+                <table style="height: 100%;" border="0">
+                    <tr>
+                        <td width="10%" align="right">
+                            关键字:
+                        </td>
+                        <td>
+                            <input class="easyui-validatebox" type="text" id="keyname" name="keyname" style="width: 95%" />
+                        </td>
+                        <td width="10%" style="white-space: nowrap">
+                            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="searchList()" data-options="iconCls:'icon-search'">
+                                搜索</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div data-options="region:'center'">
+                <table id="defProcessList" class="easyui-treegrid" data-options="
+                border:false,
+                singleSelect: true,
+                fit: true,
+                loadMsg: '数据加载中……',
+                fitColumns: true,
+                rownumbers: true,
+                pageSize: 20,
+                pagination: true,
+                idField: 'id',
+                treeField: 'constname',
+                onBeforeExpand:beforeExpand,
+                onDblClickRow:dblClickRow,
+                toolbar: '#gridToolBar',
+                onLoadError: gridLoadError">
+                    <thead>
+                        <tr>
+                            <th data-options="field:'constname',halign:'center'" width="80">
+                                流程标识
+                            </th>
+                            <th data-options="field:'chinaname',halign:'center'" width="50">
+                                流程名称
+                            </th>
+                            <th data-options="field:'unitname',halign:'center'" width="80">
+                                所属单位
+                            </th>
+                            <th data-options="field:'createtime',halign:'center'" width="100">
+                                创建时间
+                            </th>
+                            <th data-options="field:'version',formatter: formatterCell" width="50" align="center">
+                                流程版本号
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div id="gridToolBar" class="datagrid-toolbar">
+                <a href="javascript:void(0)" class="easyui-linkbutton" onclick="inversionReleaseToModel()"
+                   data-options="plain:true,iconCls:'icon-view'">反向发布</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

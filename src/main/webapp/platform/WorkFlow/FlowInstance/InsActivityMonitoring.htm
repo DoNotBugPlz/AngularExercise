@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Full Layout - jQuery EasyUI Demo</title>
+    <link href="../../ScriptSource/EasyUI/Skins/default/easyui.css" rel="stylesheet" type="text/css" />
+    <link href="../../ScriptSource/EasyUI/Skins/icon.css" rel="stylesheet" type="text/css" />
+    <script src="../../ScriptSource/JQuery/jquery.min.js" type="text/javascript"></script>
+    <script src="../../ScriptSource/EasyUI/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../../ScriptSource/JavaScript/GlobalTools.js" type="text/javascript"></script>
+    <script language=javascript type="text/javascript">
+    	var rootPath="../../../";
+        //格式化状态
+        function formatterStatusCell(value, row, index) {
+            if(row.delstatus=='8'){
+                return row.modername+"撤销";
+            }else {
+                switch (value) {
+                    case "running":
+                        return "正在执行";
+                        break;
+                    case "complete":
+                        return "已办结";
+                        break;
+                    case "pause":
+                        return "暂停、挂起";
+                        break;
+                    case "stop":
+                        return "终止";
+                        break;
+                    case "waitundertake":
+                        return "待接手";
+                        break;
+                    case "waitsubprocess":
+                        return "等待子流程办结";
+                        break;
+                    case "hassentsubprocess":
+                        return "已发送子流程";
+                        break;
+                    case "waitcountersign":
+                        return "主持人等其他会签人办结";
+                    case "waitcustomprocess":
+                        return "等待自定义流程办结";
+                        break;
+                    case "hassentcustomprocess":
+                        return "已发送自定义流程";
+                        break;
+                }
+            }
+        }
+        //格式化状态
+        function formatterChinanameCell(value, row, index) {
+            switch (value) {
+                case "fork":
+                    return "并行活动";
+                default:
+                    return value;
+            }
+
+        }
+    </script>
+</head>
+<body class="easyui-layout" data-options="fit:true">
+    <div data-options="region:'center',border:true,title:'步骤监控'" style="padding-bottom: 0px">
+        <table id="dgProcessMonitoring" class="easyui-datagrid" data-options="
+            	url: rootPath+'Sys_ins_process/ProcessMonitoring.do?insactivityid=' + Request('insactivityid')+'&insprocessid='+Request('insprocessid'),
+                singleSelect: true,
+                border:false,
+                fit: true,
+                fitColumns: true,
+                rownumbers: true,
+                idField: 'id',
+				treeField: 'chinaname'">
+            <thead>
+                <tr>
+                    <th data-options="field:'chinaname',halign:'center',formatter: formatterChinanameCell" width="50">
+                        任务名称
+                    </th>
+                    <th data-options="field:'sendername',align:'center'" width="30">
+                        发送人
+                    </th>
+                    <th data-options="field:'sendtime',align:'center'" width="50">
+                        发送时间
+                    </th>
+                    <th data-options="field:'allowreceivernames',align:'center'" width="40">
+                       待接手人
+                    </th>
+                    <th data-options="field:'receivername',align:'center'" width="30">
+                        接手人
+                    </th>
+                    <th data-options="field:'receivetime',align:'center'" width="50">
+                        接手时间
+                    </th>
+                    <th data-options="field:'factfinishtime',align:'center'" width="50" >
+                        完成时间
+                    </th>
+                    <th data-options="field:'status',align:'center',formatter: formatterStatusCell" width="25">
+                        办理状态
+                    </th>
+                    <th data-options="field:'mind',halign:'center'" width="150">
+                        办理意见
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</body>
+</html>

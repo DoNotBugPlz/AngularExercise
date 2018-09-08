@@ -1,0 +1,19 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>跳转到404</title>
+    <script type="application/javascript">
+        // 获取项目url（含端口）var serverUrl = window.location.host;
+        var serverUrl = window.location.host;
+        // 获取项目名称
+        var serverProPath = window.location.pathname;
+        var serverProName = serverProPath.split("/")[1];
+        // 拼接项目访问地址
+        var projectUrl = "http://" + serverUrl + "/" + serverProName;
+        window.location.href = projectUrl + "/platform/exceptions/404/404.html";
+    </script>
+</head>
+<body>
+</body>
+</html>
